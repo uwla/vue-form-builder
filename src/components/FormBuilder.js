@@ -11,7 +11,7 @@ export default {
     computed: {
         formFields () {
             return this.fields.map(field => {
-                field = {...this.defaultClasses, ...this.getFieldObject(field)}
+                field = {class: "form-control", ...this.getFieldObject(field)}
                 field = this.assignMissingFieldAttributes(field)
 
                 return {...field};
@@ -30,15 +30,7 @@ export default {
             fieldTypes: [
                 'text', 'number', 'date', 'datetime-local', 'month', 'file', 'color', 'password', 'radio', 'range', 'url', 'email', 'checkbox', 'range', 'tel', 'time', 'week'
             ],
-            defaultClasses: {
-                class: "form-control",
-                parentClass: "form-group",
-            }
         };
-    },
-
-    mounted() {
-        console.log(this.formFields)
     },
 
     methods: {
@@ -158,6 +150,11 @@ export default {
 
         isSelectOptions (prop) {
             return prop.startsWith("options:")
+        },
+
+        toTitleCase(string) {
+            return string.charAt(0).toUpperCase() +
+                string.slice(1).replace(/[-_]/g, " ").replace(/([a-z])([A-Z])/g, "$1 $2")
         }
     },
 

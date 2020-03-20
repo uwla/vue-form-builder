@@ -1,12 +1,15 @@
 
 <template>
     <form @submit.prevent="$emit('submit')">
-        <!-- <form-field v-for="(field, index) in formFields" :key="index"
-            :parameters="field" @update="updateForm" :form="form">
-        </form-field> -->
+        <div class="form-group" v-for="(field, i) in formFields" :key="i">
+
+            <label :for="(field.id || field.name)">
+                {{ field.label || toTitleCase(field.name)  }}
+            </label>
+            <form-field v-bind="{field}"></form-field>
+        </div>
 
         <slot></slot>
-
     </form>
 </template>
 
