@@ -1,11 +1,16 @@
-import FormField from './FormField.vue';
+import FormFieldInput from './form_fields/FormFieldInput.vue'
+import FormFieldTextarea from './form_fields/FormFieldTextarea.vue'
+import FormFieldCheckbox from './form_fields/FormFieldCheckbox.vue'
+import FormFieldRadio from './form_fields/FormFieldRadio.vue'
+import FormFieldSelect from './form_fields/FormFieldSelect.vue'
 //import FormButtons from './FormButtons.vue';
 
 export default {
     name: "FormBuilder",
 
     components: {
-        FormField, //FormButtons
+        FormFieldInput, FormFieldSelect, FormFieldTextarea,
+        FormFieldRadio, FormFieldCheckbox
     },
 
     computed: {
@@ -25,7 +30,7 @@ export default {
                 'autofocus', 'multiple', 'disabled', 'hidden', 'required', 'readonly'
             ],
             elements: [
-                'input', 'textarea', 'select'
+                'input', 'textarea', 'select',
             ],
             fieldTypes: [
                 'text', 'number', 'date', 'datetime-local', 'month', 'file', 'color', 'password', 'radio', 'range', 'url', 'email', 'checkbox', 'range', 'tel', 'time', 'week'
@@ -41,20 +46,22 @@ export default {
 
         assignMissingFieldAttributes (field) {
             // only an input field has the type attribute
-            if (field.type)
-                field.element = "input"
+            if (field.type) field.element = "input"
 
-            // only a select field has options
-            if (field.options)
-                field.element = "select"
+            // only select, checkbox, and radio fields have options. Default is select
+            if (field.options) field.element = "select"
 
             // assign a value if some
-            if (this.form[field.name])
-                field.value = this.form[field.name]
+            if (this.form[field.name]) field.value = this.form[field.name]
 
             // assign error
-            if (this.form.errors.hasOwnProperty(field.name))
-                field.class += " is-invalid";
+            if (this.form.errors.hasOwnProperty(field.name)) field.class += " is-invalid";
+
+            // set the field's component
+            if (field.options && ["checkbox", "radio"].includes(field.type))
+                field.component = "FormField" + this.capitalize(field.type)
+            else
+                field.component = "FormField" + this.capitalize(field.element)
 
             return field
         },
@@ -155,6 +162,10 @@ export default {
         toTitleCase(string) {
             return string.charAt(0).toUpperCase() +
                 string.slice(1).replace(/[-_]/g, " ").replace(/([a-z])([A-Z])/g, "$1 $2")
+        },
+
+        capitalize(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1)
         }
     },
 

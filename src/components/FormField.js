@@ -2,35 +2,28 @@ export default {
     name: "FormField",
 
     computed: {
-        element() {
-            return this.field.element
+        css_id() {
+            return this.field.id || this.field.name
         },
 
-        options() {
-            return this.field.options
-        },
-
-        attributes() {
+        html_attributes() {
             let attributes = {...this.field}
 
             attributes.options = undefined
             attributes.element = undefined
+            attributes.component = undefined
 
             if (attributes.type && attributes.type == 'file')
                 attributes.value = undefined;
 
-            attributes.id = attributes.id || attributes.name
+            attributes.id = this.css_id
 
             return attributes;
         },
-    },
 
-    methods: {
-        update(e) {
-            this.$emit('update', e.target.value, e.target.name);
-        },
-
-
+        options() {
+            return this.field.options
+        }
     },
 
     props: {
@@ -38,6 +31,5 @@ export default {
             type: Object,
             required: true
         },
-        //form: Object
     },
 };

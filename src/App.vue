@@ -17,11 +17,13 @@ export default {
                 'name:name|text',
                 'name:email|label:Email address|email|autocomplete:email',
                 'name:password|password|autocomplete:new-password',
-                'name:number_of_exercises|number|step:4|min:2000|max:2020',
-                {name: "country", options:
-                    ['Brazil', 'EUA', 'Itália', 'Japão', 'China', 'Rússia']
+                'name:age|number|min:18|max:100',
+                'name:hair_color|color',
+                {name: "country", type: "checkbox", options:
+                    ['Brazil', 'EUA', 'Itália', 'Japão', 'China', 'Rússia', 'França', 'Alemanha']
                         .reduce((paises, pais, i) => ({...paises, ...{[i]: pais}}), {})
-                }
+                },
+                'name:info|label:Personal info|textarea|rows:5|cols:15'
             ],
             form: {
                 errors: {}

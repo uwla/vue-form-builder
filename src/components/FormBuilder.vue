@@ -6,7 +6,8 @@
             <label :for="(field.id || field.name)">
                 {{ field.label || toTitleCase(field.name)  }}
             </label>
-            <form-field v-bind="{field}"></form-field>
+            
+            <component :is="field.component" :field="field"></component>
         </div>
 
         <slot></slot>
