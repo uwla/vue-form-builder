@@ -19,11 +19,12 @@ export default {
                 'name:password|password|autocomplete:new-password',
                 'name:age|number|min:18|max:100',
                 'name:hair_color|color',
-                {name: "country", type: "checkbox", options:
+                {name: "country", type: "radio", options:
                     ['Brazil', 'EUA', 'Itália', 'Japão', 'China', 'Rússia', 'França', 'Alemanha']
                         .reduce((paises, pais, i) => ({...paises, ...{[i]: pais}}), {})
                 },
-                'name:info|label:Personal info|textarea|rows:5|cols:15'
+                'name:info|label:Personal info|textarea|rows:5|cols:15',
+                'name:id|number|value:43|hidden'
             ],
             form: {
                 errors: {}

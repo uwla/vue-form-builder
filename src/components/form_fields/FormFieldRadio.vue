@@ -1,5 +1,5 @@
 <script>
-import FormFieldCheckbox from './FormFieldCheckbox'
+import FormFieldCheckbox from './FormFieldCheckbox.vue'
 
 export default {
     ...FormFieldCheckbox,

@@ -1,23 +1,16 @@
-import FormFieldInput from './form_fields/FormFieldInput.vue'
-import FormFieldTextarea from './form_fields/FormFieldTextarea.vue'
-import FormFieldCheckbox from './form_fields/FormFieldCheckbox.vue'
-import FormFieldRadio from './form_fields/FormFieldRadio.vue'
-import FormFieldSelect from './form_fields/FormFieldSelect.vue'
+import FormField from './FormField.vue'
 //import FormButtons from './FormButtons.vue';
 
 export default {
     name: "FormBuilder",
 
-    components: {
-        FormFieldInput, FormFieldSelect, FormFieldTextarea,
-        FormFieldRadio, FormFieldCheckbox
-    },
+    components: {FormField},
 
     computed: {
         formFields () {
             return this.fields.map(field => {
                 field = {class: "form-control", ...this.getFieldObject(field)}
-                field = this.assignMissingFieldAttributes(field)
+                field = this.assignFormAttributes(field)
 
                 return {...field};
             });
@@ -44,24 +37,14 @@ export default {
             this.$emit('update');
         },
 
-        assignMissingFieldAttributes (field) {
-            // only an input field has the type attribute
-            if (field.type) field.element = "input"
-
-            // only select, checkbox, and radio fields have options. Default is select
-            if (field.options) field.element = "select"
-
+        assignFormAttributes (field) {
             // assign a value if some
-            if (this.form[field.name]) field.value = this.form[field.name]
+            if (this.form[field.name])
+                field.value = this.form[field.name]
 
             // assign error
-            if (this.form.errors.hasOwnProperty(field.name)) field.class += " is-invalid";
-
-            // set the field's component
-            if (field.options && ["checkbox", "radio"].includes(field.type))
-                field.component = "FormField" + this.capitalize(field.type)
-            else
-                field.component = "FormField" + this.capitalize(field.element)
+            if (this.form.errors.hasOwnProperty(field.name))
+                field.class += " is-invalid";
 
             return field
         },
@@ -158,15 +141,6 @@ export default {
         isSelectOptions (prop) {
             return prop.startsWith("options:")
         },
-
-        toTitleCase(string) {
-            return string.charAt(0).toUpperCase() +
-                string.slice(1).replace(/[-_]/g, " ").replace(/([a-z])([A-Z])/g, "$1 $2")
-        },
-
-        capitalize(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1)
-        }
     },
 
     props: {

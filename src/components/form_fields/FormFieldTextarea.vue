@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import FormField from '../FormField'
+import FormField from './FormFieldElement'
 export default {
     name: "FormFieldTextarea",
     mixins: [FormField]
