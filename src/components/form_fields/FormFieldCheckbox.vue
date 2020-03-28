@@ -1,7 +1,7 @@
 <template>
     <ul>
         <li v-for="(text, value) in options" :key="value">
-            <input v-bind="html_attributes" :id="(css_id + value)">
+            <input v-bind="{...html_attributes, id: css_id + value, value}" @input="$emit('input')">
 
             <label :for="(css_id + value)">
                 {{ text }}

@@ -1,27 +1,46 @@
 {
-  "name": "vue-form-builder",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit"
-  },
-  "dependencies": {
-    "bootstrap": "^4.4.1",
-    "core-js": "^3.6.4",
-    "vue": "^2.6.11"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.2.0",
-    "@vue/cli-plugin-router": "~4.2.0",
-    "@vue/cli-plugin-unit-mocha": "~4.2.0",
-    "@vue/cli-plugin-vuex": "~4.2.0",
-    "@vue/cli-service": "~4.2.0",
-    "@vue/test-utils": "1.0.0-beta.31",
-    "chai": "^4.1.2",
-    "node-sass": "^4.12.0",
-    "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
-  }
+    "name": "@andresouzaabreu/vue-form-builder",
+    "version": "0.1.0",
+    "private": false,
+    "author": "André Souza Abreu",
+    "description": "A Vue plug-in that automatically generates bootstrap forms.",
+    "repository": "https://github.com/AndreSouzaAbreu/vue-form-builder",
+    "bugs": "https://github.com/AndreSouzaAbreu/vue-form-builder/issues",
+    "license": "MIT",
+    "main": "dist/FormBuilder.umd.js",
+    "unpkg": "dist/FormBuilder.umd.min.js",
+    "keywords": [
+        "vue",
+        "form",
+        "generator",
+        "bootstrap"
+    ],
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "build:npm": "vue-cli-service build --target lib --name FormBuilder src/components/FormBuilder.vue"
+    },
+    "dependencies": {
+        "bootstrap": "^4.4.1",
+        "core-js": "^3.6.4",
+        "vue": "^2.6.11"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "~4.2.0",
+        "@vue/cli-plugin-router": "~4.2.0",
+        "@vue/cli-plugin-unit-mocha": "~4.2.0",
+        "@vue/cli-plugin-vuex": "~4.2.0",
+        "@vue/cli-service": "~4.2.0",
+        "@vue/test-utils": "1.0.0-beta.31",
+        "chai": "^4.1.2",
+        "node-sass": "^4.12.0",
+        "sass-loader": "^8.0.2",
+        "vue-template-compiler": "^2.6.11"
+    },
+    "files": [
+        "dist/*",
+        "src/*",
+        "*.json",
+        "*.js"
+    ]
 }

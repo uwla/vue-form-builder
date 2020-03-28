@@ -1,5 +1,5 @@
 <template>
-    <input v-bind="html_attributes">
+    <input v-bind="html_attributes" @input="$emit('input')">
 </template>
 
 <script>

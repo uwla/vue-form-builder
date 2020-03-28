@@ -1,16 +1,26 @@
-import FormField from './FormField.vue'
-//import FormButtons from './FormButtons.vue';
+
+import FormButtons from './FormButtons.vue'
+import FormGroup from './FormGroup.vue'
+import FormLabel from './FormLabel.vue'
+
+import FormFieldInput from './form_fields/FormFieldInput.vue'
+import FormFieldTextarea from './form_fields/FormFieldTextarea.vue'
+import FormFieldCheckbox from './form_fields/FormFieldCheckbox.vue'
+import FormFieldRadio from './form_fields/FormFieldRadio.vue'
+import FormFieldSelect from './form_fields/FormFieldSelect.vue'
 
 export default {
     name: "FormBuilder",
 
-    components: {FormField},
+    components: {
+        FormButtons, FormGroup, FormLabel, FormFieldInput, FormFieldSelect, FormFieldTextarea, FormFieldRadio, FormFieldCheckbox
+    },
 
     computed: {
         formFields () {
             return this.fields.map(field => {
                 field = {class: "form-control", ...this.getFieldObject(field)}
-                field = this.assignFormAttributes(field)
+                field = this.assignFieldDefaults(field)
 
                 return {...field};
             });
@@ -32,19 +42,45 @@ export default {
     },
 
     methods: {
-        updateForm (value, fieldName) {
-            this.form[fieldName] = value;
-            this.$emit('update');
+
+        updateFormField (field) {
+            let value = window.event.target.value;
+
+            if (Array.isArray(this.form[field.name])) {
+                console.log(value)
+
+                let index = this.form[field.name].indexOf(value)
+
+                if (index === -1)
+                    this.form[field.name].push(value);
+                else
+                    this.form[field.name].splice(index, 1)
+
+                return
+            }
+
+            this.form[field.name] = value;
         },
 
-        assignFormAttributes (field) {
-            // assign a value if some
+        assignFieldDefaults (field) {
+
+            // field element
+            if (!field.element) {
+                if (field.type)
+                    field.element = "input"
+                else if (field.options)
+                    field.element = "select"
+            }
+
+            // field component
+            if (field.options && ["checkbox", "radio"].includes(field.type))
+                field.component = "FormField" + capitalize(field.type)
+            else
+                field.component = "FormField" + capitalize(field.element)
+
+            // field value
             if (this.form[field.name])
                 field.value = this.form[field.name]
-
-            // assign error
-            if (this.form.errors.hasOwnProperty(field.name))
-                field.class += " is-invalid";
 
             return field
         },
@@ -149,5 +185,19 @@ export default {
             required: true
         },
         form: Object,
+
+        enableButtons: {
+            type: Boolean,
+            default: true,
+        },
+
+        formButtons: {
+            type: Object,
+            default: () => ({})
+        }
     },
 };
+
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+}

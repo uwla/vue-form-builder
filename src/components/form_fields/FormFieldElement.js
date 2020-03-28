@@ -6,6 +6,7 @@ export default {
 
         html_attributes() {
             let attributes = {}
+
             for (let key in this.field) {
                 if (["options", "elements", "components"].includes(key))
                     continue
@@ -13,6 +14,7 @@ export default {
                     continue
                 attributes[key] = this.field[key]
             }
+
             attributes.id = this.css_id
             return attributes;
         },
