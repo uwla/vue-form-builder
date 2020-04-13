@@ -8,7 +8,7 @@ export default {
             let attributes = {}
 
             for (let key in this.field) {
-                if (["options", "elements", "components"].includes(key))
+                if (["options", "element", "component", "label"].includes(key))
                     continue
                 if (key == "value" && this.field.type == "file")
                     continue

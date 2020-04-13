@@ -44,27 +44,26 @@ export default {
     methods: {
 
         updateFormField (field) {
-            let value = window.event.target.value;
+            let target = window.event.target, value = target.value;
 
-            if (Array.isArray(this.form[field.name])) {
-                console.log(value)
+            if (Array.isArray(this.form[field.name]))
+                this.updateFieldOptions(field, value)
+            else if (field.type === "file")
+                this.form[field.name] = target.files[0]
+            else
+                this.form[field.name] = value
+        },
 
-                let index = this.form[field.name].indexOf(value)
+        updateFieldOptions(field, value) {
+            let index = this.form[field.name].indexOf(value)
 
-                if (index === -1)
-                    this.form[field.name].push(value);
-                else
-                    this.form[field.name].splice(index, 1)
-
-                return
-            }
-
-            this.form[field.name] = value;
+            if (index === -1)
+                this.form[field.name].push(value);
+            else
+                this.form[field.name].splice(index, 1)
         },
 
         assignFieldDefaults (field) {
-
-            // field element
             if (!field.element) {
                 if (field.type)
                     field.element = "input"
@@ -72,13 +71,11 @@ export default {
                     field.element = "select"
             }
 
-            // field component
             if (field.options && ["checkbox", "radio"].includes(field.type))
                 field.component = "FormField" + capitalize(field.type)
             else
                 field.component = "FormField" + capitalize(field.element)
 
-            // field value
             if (this.form[field.name])
                 field.value = this.form[field.name]
 
@@ -88,16 +85,13 @@ export default {
         getFieldObject (field) {
             if (typeof field == "string")
                 field = this.parseStringToFieldObject(field)
-
             return field
         },
 
         parseStringToFieldObject (stringOptions) {
             let options = stringOptions.split("|")
 
-            return options.reduce((field, option) => {
-                return {...field, ...this.parseFieldOptionToObject(option)}
-            }, {});
+            return options.reduce((field, option) => ({...field, ...this.parseFieldOptionToObject(option)}), {});
         },
 
         parseFieldOptionToObject (fieldOption) {
@@ -140,12 +134,11 @@ export default {
             return {[key]: value}
         },
 
+        // options have the format 'options:OBJECT'
+        // where OBJECT is a JSON object
+        // so we remove the 'substring 'options:'
+        // to get the OBJECT as string
         getSelectOptionsObject (options) {
-            // options must be in the format 'options:OBJECT'
-            // where OBJECT is a object in JSON
-
-            // so we remove 'options:' from the prop,
-            // to get the OBJECT as string
             options = JSON.parse(options.slice(8))
             return {options}
         },
@@ -184,6 +177,7 @@ export default {
             type: Array,
             required: true
         },
+
         form: Object,
 
         enableButtons: {
