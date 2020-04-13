@@ -15,8 +15,7 @@
 <script src="./FormButtons.js"></script>
 
 <style lang="scss">
-
-.form-button-group {
+.form-button-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
