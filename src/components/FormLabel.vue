@@ -1,6 +1,5 @@
 <template>
-    <label :for="id" v-html="labelText"></label>
+    <label v-html="labelText" :for="id"></label>
 </template>
 
 <script src="./FormLabel.js"></script>
-

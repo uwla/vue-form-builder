@@ -2,7 +2,6 @@
 import FormButtons from './FormButtons.vue'
 import FormGroup from './FormGroup.vue'
 import FormLabel from './FormLabel.vue'
-
 import FormFieldInput from './form_fields/FormFieldInput.vue'
 import FormFieldTextarea from './form_fields/FormFieldTextarea.vue'
 import FormFieldCheckbox from './form_fields/FormFieldCheckbox.vue'
@@ -13,15 +12,24 @@ export default {
     name: "FormBuilder",
 
     components: {
-        FormButtons, FormGroup, FormLabel, FormFieldInput, FormFieldSelect, FormFieldTextarea, FormFieldRadio, FormFieldCheckbox
+        FormButtons,
+        FormFieldCheckbox,
+        FormFieldInput,
+        FormFieldRadio,
+        FormFieldSelect,
+        FormFieldTextarea,
+        FormGroup,
+        FormLabel,
     },
 
     computed: {
         formFields () {
             return this.fields.map(field => {
-                field = {class: "form-control", ...this.getFieldObject(field)}
+                field = {
+                    class: "form-control",
+                    ...this.getFieldObject(field)
+                }
                 field = this.assignFieldDefaults(field)
-
                 return {...field};
             });
         }
@@ -42,8 +50,13 @@ export default {
     },
 
     methods: {
-
-        updateFormField (field) {
+        /**
+         * Update the field value in the form object
+         *
+         * @param {object} field
+         * @return {void}
+         */
+        updateFormField(field) {
             let target = window.event.target, value = target.value;
 
             if (Array.isArray(this.form[field.name]))
@@ -54,6 +67,12 @@ export default {
                 this.form[field.name] = value
         },
 
+            /**
+         * Update the field options in the form object
+         *
+         * @param {object} field
+         * @return {void}
+         */
         updateFieldOptions(field, value) {
             let index = this.form[field.name].indexOf(value)
 
@@ -63,7 +82,13 @@ export default {
                 this.form[field.name].splice(index, 1)
         },
 
-        assignFieldDefaults (field) {
+        /**
+         * Assign default values to the field object
+         *
+         * @param {object} field
+         * @return {object}
+         */
+        assignFieldDefaults(field) {
             if (!field.element) {
                 if (field.type)
                     field.element = "input"
@@ -82,18 +107,38 @@ export default {
             return field
         },
 
-        getFieldObject (field) {
+        /**
+         * Get a field object from a field string or a field object.
+         *
+         * @param {object|string} field
+         * @return {object}
+         */
+        getFieldObject(field) {
             if (typeof field == "string")
                 field = this.parseStringToFieldObject(field)
             return field
         },
 
+        /**
+         * Assign default values to the field object
+         *
+         * @param {string} stringOptions
+         * @return {object}
+         */
         parseStringToFieldObject (stringOptions) {
             let options = stringOptions.split("|")
 
-            return options.reduce((field, option) => ({...field, ...this.parseFieldOptionToObject(option)}), {});
+            return options.reduce((field, option) => {
+                return {...field, ...this.parseFieldOptionToObject(option)}
+            }, {});
         },
 
+        /**
+         * Parse a field option string to a field option object
+         *
+         * @param {string} fieldOption
+         * @return {object}
+         */
         parseFieldOptionToObject (fieldOption) {
             let optionType = this.getOptionType(fieldOption)
 
@@ -109,6 +154,12 @@ export default {
                 return this.getSelectOptionsObject(fieldOption)
         },
 
+        /**
+         * Get the option type of a field option string
+         *
+         * @param {string} option
+         * @return {string}
+         */
         getOptionType (option) {
             if (this.isSelectOptions(option))
                 return "select_options"
@@ -123,50 +174,110 @@ export default {
             console.error("The field's prop were not passed in the right format.")
         },
 
-        getBooleanAttributeObject (attribute) {
+        /**
+         * Get an object of a html boolean attribute from an atribite string
+         *
+         * @param {string} attribute
+         * @return {object}
+         */
+        getBooleanAttributeObject(attribute) {
             return {[attribute]: true}
         },
 
-        getHtmlAttributeObject (attribute) {
+        /**
+         * Get an object of a html attribute from an atribite string
+         *
+         * @param {string} attribute
+         * @return {object}
+         */
+        getHtmlAttributeObject(attribute) {
             let key = attribute.split(":")[0],
                 value = attribute.split(":")[1]
-
             return {[key]: value}
         },
 
-        // options have the format 'options:OBJECT'
-        // where OBJECT is a JSON object
-        // so we remove the 'substring 'options:'
-        // to get the OBJECT as string
-        getSelectOptionsObject (options) {
+        /**
+         * Get an object of field options from a string that is a JSON object
+         *
+         * @param {string} options
+         * @return {object}
+         */
+        getSelectOptionsObject(options) {
+            // the options variable has the
+            // format 'options:OBJECT'
+            // where OBJECT is a JSON object
+            // so we remove the substring
+            // 'options:' to parse the object
             options = JSON.parse(options.slice(8))
             return {options}
         },
 
-        getElementTypeObject (element) {
+        /**
+         * Get the html element of a field
+         *
+         * @param {string} element
+         * @return {object}
+         */
+        getElementTypeObject(element) {
             return {element}
         },
 
-        getFieldTypeObject (type) {
+        /**
+         * Get the object of a html type attribute of an input field
+         *
+         * @param {string} type
+         * @return {object}
+         */
+        getFieldTypeObject(type) {
             return {type}
         },
 
-        isBooleanAttribute (prop) {
-            return this.booleanAttributes.includes(prop)
+        /**
+         * Return whether a field property repŕesents a boolean attribute
+         *
+         * @param {string} property
+         * @return {boolean}
+         */
+        isBooleanAttribute(property) {
+            return this.booleanAttributes.includes(property)
         },
 
-        isElementType (prop) {
-            return this.elements.includes(prop)
+        /**
+         * Return whether a field property represents the tag name of a html element
+         *
+         * @param {string} property
+         * @return {boolean}
+         */
+        isElementType (property) {
+            return this.elements.includes(property)
         },
 
-        isFieldType (prop) {
-            return this.fieldTypes.includes(prop)
+        /**
+         * Return whether a field property represents a html type attribute of an input element
+         *
+         * @param {string} property
+         * @return {boolean}
+         */
+        isFieldType(property) {
+            return this.fieldTypes.includes(property)
         },
 
-        isHtmlAttribute (prop) {
-            return prop.includes(":")
+        /**
+         * Return whether a field property represents an html attribute
+         *
+         * @param {string} property
+         * @return {boolean}
+         */
+        isHtmlAttribute (property) {
+            return property.includes(":")
         },
 
+        /**
+         * Return whether a field property represents the options of a select field
+         *
+         * @param {string} property
+         * @return {boolean}
+         */
         isSelectOptions (prop) {
             return prop.startsWith("options:")
         },
@@ -192,6 +303,12 @@ export default {
     },
 };
 
-function capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1)
+/**
+ * Capitalize the given string
+ *
+ * @param {string} str
+ * @return {string}
+ */
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1)
 }

@@ -1,7 +1,9 @@
 <template>
-    <select v-bind="html_attributes" @input="$emit('input')">
-
-        <option v-for="(text, value) in options" :key="value" :value="value" >
+    <select @input="$emit('input')"
+            v-bind="htmlAttributes">
+        <option v-for="(text, value, index) in options"
+                :key="index"
+                :value="value">
             {{ text }}
         </option>
     </select>

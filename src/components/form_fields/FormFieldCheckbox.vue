@@ -1,8 +1,11 @@
 <template>
-    <ul>
+    <ul class="form-field-options-list">
         <li v-for="(text, value) in options" :key="value">
-            <input v-bind="{...html_attributes, id: css_id + value, value}" @input="$emit('input')">
-
+            <input  @input="$emit('input')"
+                    v-bind="{
+                        ...htmlAttributes,
+                        id: css_id + value,
+                        value}" />
             <label :for="(css_id + value)">
                 {{ text }}
             </label>

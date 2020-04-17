@@ -1,5 +1,5 @@
 <template>
-    <textarea v-bind="html_attributes" @input="$emit('input')"></textarea>
+    <textarea v-bind="htmlAttributes" @input="$emit('input')"></textarea>
 </template>
 
 <script>
