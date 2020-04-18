@@ -31,18 +31,19 @@ The best way to see if a package suits your needs is by viewing and editing a de
 ## Features
 
 - Automatically displays inline error messages from a Laravel server
-- Automatically generates form fields using bootstrap
+- Automatically generates form fields with bootstrap classes
 - Can create any form field (select, checkbox, range, date, textarea, password, etc)
 - Is highly customizable (pass any html attribute to a field; allows labels to render html)
+- [Custom aliases](#aliases)
 - [Smart guessing](#smart-guessing)
 
 ### Smart guessing
 
+Vue Form Builder allows us to ommit certain parameters. It will guess what we want based on what we provide. For example, if we pass `["name", "email", "password", "password_confirmation"]`, Vue Form Builder will create four input fields with the name, id, label, and type matching the given items.
+
 If we don't speficy a css id, a label text, Vue Form Builder will use the name attribute as a fallback for these values. Moreover, it converts name attributes (created_at, personalInfo, etc) to a more human-friendly format (Created at, Personal Info).
 
 Another example is that, if you specify the type attribute, you don't need to speficy the field's tagname (input, textarea, select) because only input elements have a type attribute. Vue Form Builder will automatically creates an input element if you specify the type attribute.
-
-These are just two examples of smart guessing that Vue Form Builder performs.
 
 ## Getting started
 
@@ -177,6 +178,81 @@ Vue Form Builds automatically appends form buttons at the bottom of the form. Yo
     </form-builder>
 </template>
 ```
+
+### aliases
+
+You can use aliases to reuse the same configuration accross multiple forms. Here is one example.
+
+```javascript
+fields: ["name", "email", "age", "photo", "password", "password_confirmation"]
+```
+
+This will generate the following HTML:
+
+```html
+<form>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="age">Age</label>
+        <input id="age" name="age" type="number" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="photo">Photo</label>
+        <input id="photo" name="photo" type="file" accept="image/*" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="password_confirmation">Password confirmation</label>
+        <input id="password_confirmation" name="password_confirmation" type="password" class="form-control"/>
+    </div>
+    <div class="form-group form-button-container">
+        <button type="reset" class="btn btn-danger">CANCEL</button>
+        <button type="submit" class="btn btn-success">SAVE</button>
+    </div>
+</form>
+```
+
+The following aliases are enable by default:
+
+```javascript
+{
+    name: "name:name|text",
+    fname: "name:fname|text",
+    lname: "name:lname|text",
+    username: "name:username|text",
+    email: "name:email|email",
+    email_confirmation: "name:email_confirmation|email",
+    password: "name:password|password",
+    password_confirmation: "name:password_confirmation|password",
+    age: "name:age|number",
+    birthday: "name:birthday|date",
+    photo: "name:photo|file|accept:image/*",
+    picture: "name:picture|file|accept:image/*",
+    profile_picture: "name:profile_picture|file|accept:image/*",
+}
+```
+
+We can override the aliases above or define our custom aliases as follow:
+
+```javascript
+window.formBuilderAliases = {
+    country: "name:country|text",
+    phone: "name:phone|number|label:Phone number|pattern:^[0-9]{4}-[0-9]{4}$"
+    /*... more aliases*/
+}
+```
+
+**Note**: Define your custom aliases before registering FormBuilder as Vue component.
 
 ### slots
 
