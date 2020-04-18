@@ -114,8 +114,8 @@ export default {
          * @return {object}
          */
         getFieldObject(field) {
-            if (typeof field == "string")
-                field = this.parseStringToFieldObject(field)
+            if (typeof field === "string")
+                return this.parseStringToFieldObject(field)
             return field
         },
 
@@ -160,7 +160,7 @@ export default {
          * @param {string} option
          * @return {string}
          */
-        getOptionType (option) {
+        getOptionType(option) {
             if (this.isSelectOptions(option))
                 return "select_options"
             if (this.isHtmlAttribute(option))
@@ -268,7 +268,7 @@ export default {
          * @param {string} property
          * @return {boolean}
          */
-        isHtmlAttribute (property) {
+        isHtmlAttribute(property) {
             return property.includes(":")
         },
 
@@ -278,7 +278,7 @@ export default {
          * @param {string} property
          * @return {boolean}
          */
-        isSelectOptions (prop) {
+        isSelectOptions(prop) {
             return prop.startsWith("options:")
         },
     },
@@ -289,7 +289,10 @@ export default {
             required: true
         },
 
-        form: Object,
+        form: {
+			type: Object,
+			default: () => {}
+		},
 
         enableButtons: {
             type: Boolean,
