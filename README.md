@@ -26,7 +26,7 @@ A Vue plugin that automatically generates beautiful forms using bootstrap and di
 
 The best way to see if a package suits your needs is by viewing and editing a demo project. Here are some codeplayground in which you can test Vue Form Builder.
 
-- [Demo01](https://codesandbox.io/s/vue-form-builder-demo01-i73n3?file=/src/main.js)
+- [Demo01](https://codesandbox.io/s/vue-form-builder-demo01-i73n3?file=/src/App.vue)
 
 ## Features
 
