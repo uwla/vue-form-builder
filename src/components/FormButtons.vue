@@ -1,21 +1,23 @@
 <template>
     <div v-bind="wrapperAttr">
-        <button v-bind="cancelButtonAttr">
-            {{ cancelButtonText }}
-        </button>
+		<div class="form-buttons">
+			<button v-bind="cancelButtonAttr">
+				{{ cancelButtonText }}
+			</button>
 
-        &nbsp;&nbsp;
+			&nbsp;&nbsp;
 
-        <button v-bind="submitButtonAttr">
-            {{ submitButtonText }}
-        </button>
+			<button v-bind="submitButtonAttr">
+				{{ submitButtonText }}
+			</button>
+		</div>
     </div>
 </template>
 
 <script src="./FormButtons.js"></script>
 
 <style lang="scss">
-.form-button-container {
+.form-buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

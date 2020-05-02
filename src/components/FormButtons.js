@@ -30,7 +30,7 @@ export default {
         wrapperAttr: {
             type: Object,
             default: () => ({
-                class: "form-group form-button-container"
+                class: "form-group"
             })
         }
     }
