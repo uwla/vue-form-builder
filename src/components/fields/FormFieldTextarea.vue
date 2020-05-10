@@ -1,9 +1,9 @@
 <template>
-    <textarea v-bind="htmlAttributes" @input="$emit('input')"></textarea>
+    <textarea v-bind="attributes" @input="$emit('input')"></textarea>
 </template>
 
 <script>
-import FormField from './FormFieldElement'
+import FormField from './FormField'
 export default {
     name: "FormFieldTextarea",
     mixins: [FormField],

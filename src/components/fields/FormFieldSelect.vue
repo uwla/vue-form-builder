@@ -1,6 +1,5 @@
 <template>
-    <select @input="$emit('input')"
-            v-bind="htmlAttributes">
+    <select v-bind="attributes" @input="$emit('input')">
         <option v-for="(text, value, index) in options"
                 :key="index"
                 :value="value">
@@ -10,7 +9,7 @@
 </template>
 
 <script>
-import FormField from './FormFieldElement'
+import FormField from './FormField'
 
 export default {
     name: "FormFieldSelect",

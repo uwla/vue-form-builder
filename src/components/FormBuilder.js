@@ -4,11 +4,11 @@ import FormGroup from './FormGroup.vue'
 import FormLabel from './FormLabel.vue'
 
 // fields
-import FormFieldInput from './form_fields/FormFieldInput.vue'
-import FormFieldTextarea from './form_fields/FormFieldTextarea.vue'
-import FormFieldCheckbox from './form_fields/FormFieldCheckbox.vue'
-import FormFieldRadio from './form_fields/FormFieldRadio.vue'
-import FormFieldSelect from './form_fields/FormFieldSelect.vue'
+import FormFieldInput from './fields/FormFieldInput.vue'
+import FormFieldTextarea from './fields/FormFieldTextarea.vue'
+import FormFieldCheckbox from './fields/FormFieldCheckbox.vue'
+import FormFieldRadio from './fields/FormFieldRadio.vue'
+import FormFieldSelect from './fields/FormFieldSelect.vue'
 import fieldParser from '../fieldParser'
 
 // errors
@@ -35,8 +35,10 @@ export default {
 		formFields() {
 			return this.fields.map(field => {
 				field = fieldParser.getFieldObject(field)
+
 				if (this.form[field.name])
 					field.value = this.form[field.name]
+
 				return field
 			});
 		},
@@ -74,6 +76,12 @@ export default {
 			else
 				this.form[field.name].splice(index, 1)
 		},
+
+		fieldHasError(field) {
+			if (typeof this.form.requestFieldHasError === "function")
+				return this.form.requestFieldHasError(field)
+			return false
+		}
 	},
 
 	props: {

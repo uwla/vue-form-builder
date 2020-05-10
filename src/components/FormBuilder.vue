@@ -15,7 +15,7 @@
 
 			<component :is="field.component"
 					   :field="field"
-	 				   :class="{'is-invalid': form.requestFieldHasError(field.name)}"
+	 				   :class="{'is-invalid': fieldHasError(field.name)}"
 					   @input="updateFormField(field)" />
 
 			<inline-error v-if="inlineErrors"

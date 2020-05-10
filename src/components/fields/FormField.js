@@ -1,10 +1,12 @@
+import {is_array, reduceArrayToObject} from '../../helpers'
+
 export default {
     computed: {
         css_id() {
             return this.field.id || this.field.name
         },
 
-        htmlAttributes() {
+        attributes() {
             let attributes = {id: this.css_id}
 
             for (let key in this.field) {
@@ -18,7 +20,10 @@ export default {
         },
 
         options() {
-            return this.field.options
+			let {options} = this.field
+			if (is_array(options))
+				return reduceArrayToObject(options)
+			return options
         }
     },
 

@@ -1,9 +1,9 @@
 <template>
-    <input v-bind="htmlAttributes" @input="$emit('input')">
+    <input v-bind="attributes" @input="$emit('input')">
 </template>
 
 <script>
-import FormField from './FormFieldElement'
+import FormField from './FormField'
 export default {
     name: "FormFieldInput",
     mixins: [FormField]
