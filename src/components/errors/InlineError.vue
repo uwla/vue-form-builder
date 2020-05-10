@@ -6,7 +6,7 @@
 	</div>
 </template>
 
-<script src="./InlineErrors.js"></script>
+<script src="./InlineError.js"></script>
 
 <style lang="css">
 .help-block.invalid-feedback span {
