@@ -8,9 +8,8 @@ export default {
             let attributes = {id: this.css_id}
 
             for (let key in this.field) {
-                if (this.isNonHtmlAttribute(key))
-                    continue
-                if (key === "value" && this.field.type === "file")
+				if 	(this.isNonHtmlAttribute(key) ||
+					(key === "value" && this.field.type === "file"))
                     continue
                 attributes[key] = this.field[key]
             }
@@ -31,7 +30,7 @@ export default {
 
     methods: {
         /**
-         * Return whether a field property is not a html attribute
+         *  Whether a field property is not a html attribute
          *
          * @param {string} property
          * @return {boolean}

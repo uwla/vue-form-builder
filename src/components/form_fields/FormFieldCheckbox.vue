@@ -5,6 +5,8 @@
                     v-bind="{
                         ...htmlAttributes,
                         id: css_id + value,
+						checked: Array.isArray(field.value) ?
+								field.value.includes(value) : (value == field.value),
                         value}" />
             <label :for="(css_id + value)">
                 {{ text }}
@@ -18,7 +20,7 @@ import FormField from './FormFieldElement'
 
 export default {
     name: "FormFieldCheckbox",
-    mixins: [FormField],
+	mixins: [FormField],
 }
 </script>
 

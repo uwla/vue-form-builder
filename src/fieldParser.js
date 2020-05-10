@@ -1,5 +1,5 @@
 import {capitalize} from './helpers'
-import aliases from './FieldAliases'
+import aliases from './fieldAliases'
 
 export default {
     get aliases() {
