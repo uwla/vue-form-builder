@@ -1,4 +1,4 @@
-import {is_array, reduceArrayToObject} from '../../helpers'
+import {isArray, reduceArrayToObject} from '../../helpers'
 
 export default {
     computed: {
@@ -21,7 +21,7 @@ export default {
 
         options() {
 			let {options} = this.field
-			if (is_array(options))
+			if (isArray(options))
 				return reduceArrayToObject(options)
 			return options
         }

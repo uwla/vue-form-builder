@@ -1,53 +1,72 @@
 /**
  * Capitalize the first letter and separate words by space
- *
- * @param {string}
- * @return {sting}
+ * @param {String}
+ * @returns {String}
  */
 export function toTitleCase(str) {
     return str.charAt(0).toUpperCase() +
-        str.slice(1).replace(/[-_]/g, " ").replace(/([a-z])([A-Z])/g, "$1 $2")
+        str.slice(1).replace(/[-_]/g, " ").replace(/([a-z])([A-Z])/g, "$1 $2");
 }
 
 /**
  * Capitalize the given string
- *
- * @param {string}
- * @return {string}
+ * @param {String}
+ * @returns {String}
  */
 export function capitalize(str) {
-	return str.charAt(0).toUpperCase() + str.slice(1)
+	return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 /**
- * Return whether a variable is an array
- *
- * @param {*} $variable
- * @return {Boolean}
+ * Indicates whether a variable is an array
+ * @param {*}
+ * @returns {Boolean}
  */
-export function is_array($var) {
-	return Array.isArray($var)
+export function isArray($var) {
+	return Array.isArray($var);
 }
 
 /**
- * Return whether a variable is an object
+ * Indicates whether a variable is a string
  *
- * @param {*} $variable
- * @return {Boolean}
+ * @param {*}
+ * @returns {Boolean}
  */
-export function is_object($var) {
-	return (typeof $var === "object") && !(is_array($var)) && $var !== null
+export function isString($var) {
+	return typeof $var === "string";
 }
 
 /**
- * Reduce array values to object with keys equal to values
- *
- * @param {Array} array
- * @return {Object}
+ * Indicates whether a string is not empty
+ * @param {*}
+ * @returns {Boolean}
+ */
+export function stringNotEmpty(str) {
+	return isString(str) && str !== "";
+}
+
+/**
+ * Indicates whether a variable is an object
+ * @param {*}
+ * @returns {Boolean}
+ */
+export function isObject($var) {
+	return (typeof $var === "object") && ! isArray($var) && $var !== null;
+}
+
+
+export function isFunction($var) {
+	return typeof $var === "function";
+}
+
+/**
+ * Cast array to object with object keys and values equal to array values
+ * @param {Array}
+ * @returns {Object}
  */
 export function reduceArrayToObject(array) {
-	return array.reduce((object, value) => {
-		object[value] = value
-		return object
-	}, {})
+	return array.reduce((accumulator, value) => {
+		accumulator[value] = value;
+		return accumulator;
+	}, {});
 }

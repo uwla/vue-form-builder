@@ -3,23 +3,23 @@
 	<form @submit.prevent="$emit('submit')">
 
 		<error-list v-if="errorList"
-					v-bind="{form}" />
+					v-bind="{ form }" />
 
 		<slot name="start"></slot>
 
-		<form-group v-for="(field, index) in formFields"
-					v-show="(!field.hidden)"
-					:key="index">
+		<form-group v-for="(field, i) in formFields"
+					v-show="(! field.hidden)"
+					:key="i">
 
 			<form-label :field="field" />
 
 			<component :is="field.component"
 					   :field="field"
 	 				   :class="{'is-invalid': fieldHasError(field.name)}"
-					   @input="updateFormField(field)" />
+					   @input="updateField(field)" />
 
 			<inline-error v-if="inlineErrors"
-						  v-bind="{form, field: field.name}" />
+						  v-bind="{ form, field: field.name}" />
 		</form-group>
 
 		<slot></slot>

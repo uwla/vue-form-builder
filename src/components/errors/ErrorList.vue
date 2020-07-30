@@ -11,7 +11,7 @@
 		</div>
 
 		<ul v-if="(errors.length > 0)">
-			<li v-for="(error, index) in errors" :key="index">
+			<li v-for="(error, i) in errors" :key="i">
 				{{ error }}
 			</li>
 		</ul>

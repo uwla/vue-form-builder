@@ -1,4 +1,4 @@
-import {toTitleCase} from '../helpers'
+import { toTitleCase } from '../helpers'
 
 export default {
     name: "FormLabel",

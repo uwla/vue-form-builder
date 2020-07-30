@@ -24,7 +24,7 @@ export default {
         maxErrors: {
             type: Number,
             default: 10,
-            validator: value => value >= 1
+            validator: value => value > 0
         }
     }
 };

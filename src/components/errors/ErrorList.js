@@ -2,23 +2,23 @@ export default {
 	name: "AlertErrorList",
 	computed: {
 		errors() {
-			return this.form.getRequestErrorsAsArray()
+			return this.form.getRequestErrorsAsArray();
 		},
 
 		errorMessage() {
-			return (this.message !== "") ? this.message : this.defaultErrorMessage
+			return (this.message !== "") ? this.message : this.defaultErrorMessage;
 		},
 
 		hasError() {
-			return this.form.requestHasError() && message === ""
+			return this.form.requestHasError() && message === "";
 		},
 
 		message() {
-			return this.form._errorMessage
+			return this.form._errorMessage;
 		},
 
 		shouldDisplayMessage() {
-			return this.message !== "" || ! this.hasError
+			return this.message !== "" || ! this.hasError;
 		},
 	},
 

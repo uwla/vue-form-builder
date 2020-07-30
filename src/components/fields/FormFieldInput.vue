@@ -10,7 +10,7 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 input[type="color"] {
     height: calc(2.25rem + 2px);
     border: 1px solid rgb(169, 169, 169);

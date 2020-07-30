@@ -31,4 +31,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped src="./FormFieldCheckbox.scss"></style>
+<style src="./FormFieldCheckbox.scss" lang="scss" scoped></style>
