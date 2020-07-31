@@ -2,12 +2,12 @@ import {isArray, reduceArrayToObject} from '../../helpers'
 
 export default {
     computed: {
-        css_id() {
+        cssId() {
             return this.field.id || this.field.name
         },
 
         attributes() {
-            let attributes = {id: this.css_id}
+            let attributes = {id: this.cssId}
 
             for (let key in this.field) {
 				if 	(this.isNonHtmlAttribute(key) || (key === "value" && this.field.type === "file"))

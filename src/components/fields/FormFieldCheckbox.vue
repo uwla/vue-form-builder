@@ -3,7 +3,7 @@
         <li v-for="(text, value, i) in options" :key="i">
             <input v-bind="getInputBindings(value)" @input="$emit('input')" />
 
-            <label :for="(css_id + '-' + value)">
+            <label :for="(cssId + '-' + value)">
                 {{ text }}
             </label>
         </li>
@@ -19,12 +19,12 @@ export default {
 	mixins: [FormField],
 	methods: {
 		getInputBindings(value) {
-			let {attributes, css_id, field: {value: fieldValue}} = this;
+			let {attributes, cssId, field: {value: fieldValue}} = this;
 
 			return {
 				...attributes,
 				value,
-				id: css_id + '-' + value,
+				id: cssId + '-' + value,
 				checked: isArray(fieldValue) ? fieldValue.includes(value) : (value == fieldValue),
 			}
 		}
