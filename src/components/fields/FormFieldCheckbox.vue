@@ -1,9 +1,9 @@
 <template>
     <ul class="form-field-options-list">
-        <li v-for="(text, value, index) in options" :key="index">
+        <li v-for="(text, value, i) in options" :key="i">
             <input v-bind="getInputBindings(value)" @input="$emit('input')" />
 
-            <label :for="(css_id + '_' + value)">
+            <label :for="(css_id + '-' + value)">
                 {{ text }}
             </label>
         </li>
@@ -12,6 +12,7 @@
 
 <script>
 import FormField from './FormField'
+import { isArray } from '../../helpers';
 
 export default {
     name: "FormFieldCheckbox",
@@ -22,9 +23,9 @@ export default {
 
 			return {
 				...attributes,
-				id: css_id + '-' + value,
-				checked: Array.isArray(fieldValue) ? fieldValue.includes(value) : (value == fieldValue),
 				value,
+				id: css_id + '-' + value,
+				checked: isArray(fieldValue) ? fieldValue.includes(value) : (value == fieldValue),
 			}
 		}
 	}

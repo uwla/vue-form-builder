@@ -1,8 +1,8 @@
 <template>
-    <select v-bind="attributes" @input="$emit('input')">
-        <option v-for="(text, value, index) in options"
-                :key="index"
-                :value="value">
+    <select v-bind="attributes" @input="$emit('input')" v-model="field.value">
+        <option
+			v-for="(text, value, i) in options" :key="i"
+			:value="value">
             {{ text }}
         </option>
     </select>
@@ -10,9 +10,12 @@
 
 <script>
 import FormField from './FormField'
+import { isArray } from '../../helpers';
 
 export default {
     name: "FormFieldSelect",
-    mixins: [FormField],
+	mixins: [FormField],
+	methods: {
+	}
 }
 </script>
