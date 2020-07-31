@@ -1,12 +1,16 @@
+import { isFunction } from "../../helpers";
+
 export default {
     name: "InlineErrors",
     computed: {
         hasError() {
-            return this.form.requestFieldHasError(this.field)
+			if (isFunction(this.form.requestFieldHasError))
+            	return this.form.requestFieldHasError(this.field)
         },
 
         errors() {
-			return this.form.getRequestFieldErrors(this.field).slice(0, this.maxErrors)
+			if (isFunction(this.form.getRequestFieldErrors))
+				return this.form.getRequestFieldErrors(this.field).slice(0, this.maxErrors)
         }
     },
 

@@ -10,8 +10,7 @@ export default {
             let attributes = {id: this.css_id}
 
             for (let key in this.field) {
-				if 	(this.isNonHtmlAttribute(key) ||
-					(key === "value" && this.field.type === "file"))
+				if 	(this.isNonHtmlAttribute(key) || (key === "value" && this.field.type === "file"))
                     continue
                 attributes[key] = this.field[key]
             }

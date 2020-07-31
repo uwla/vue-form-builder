@@ -1,8 +1,11 @@
+import { isFunction, isString } from "../../helpers";
+
 export default {
 	name: "AlertErrorList",
 	computed: {
 		errors() {
-			return this.form.getRequestErrorsAsArray();
+			if (isFunction(this.form.getRequestErrorsAsArray))
+				return this.form.getRequestErrorsAsArray();
 		},
 
 		errorMessage() {
@@ -10,11 +13,13 @@ export default {
 		},
 
 		hasError() {
-			return this.form.requestHasError() && message === "";
+			if (isFunction(this.form.requestHasError))
+				return this.form.requestHasError() && message === "";
 		},
 
 		message() {
-			return this.form._errorMessage;
+			if (isString(this.form._errorMessage))
+				return this.form._errorMessage;
 		},
 
 		shouldDisplayMessage() {
