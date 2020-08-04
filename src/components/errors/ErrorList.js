@@ -1,36 +1,38 @@
-import { isFunction, isString } from "../../helpers";
+import { isFunction, isString, stringNotEmpty } from "../../helpers";
 
 export default {
 	name: "AlertErrorList",
 	computed: {
 		errors() {
-			if (isFunction(this.form.getRequestErrorsAsArray))
-				return this.form.getRequestErrorsAsArray();
-		},
-
-		errorMessage() {
-			return (this.message !== "") ? this.message : this.defaultErrorMessage;
+			if (isFunction(this.form.getErrorsAsArray))
+				return this.form.getErrorsAsArray();
+			else
+				return []
 		},
 
 		hasError() {
-			if (isFunction(this.form.requestHasError))
-				return this.form.requestHasError() && message === "";
+			if (isFunction(this.form.hasError))
+				return this.form.hasError();
+			else
+				return false
 		},
 
-		message() {
-			if (isString(this.form._errorMessage))
-				return this.form._errorMessage;
+		errorMessage() {
+			if (isFunction(this.form.getErrorMessage))
+				return this.form.getErrorMessage();
+			else
+				return this.defaultErrorMessage
 		},
 
 		shouldDisplayMessage() {
-			return this.message !== "" || ! this.hasError;
+			return this.hasError && stringNotEmpty(this.errorMessage);
 		},
 	},
 
 	methods: {
 		dismiss() {
-			if (this.dismissible)
-				this.form.clearRequestErrors()
+			if (this.dismissible && isFunction(this.form.clearErrors))
+				this.form.clearErrors()
 		}
 	},
 

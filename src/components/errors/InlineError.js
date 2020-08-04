@@ -4,13 +4,17 @@ export default {
     name: "InlineErrors",
     computed: {
         hasError() {
-			if (isFunction(this.form.requestFieldHasError))
-            	return this.form.requestFieldHasError(this.field)
+			if (isFunction(this.form.fieldHasError))
+				return this.form.fieldHasError(this.field)
+			else
+				return false
         },
 
         errors() {
-			if (isFunction(this.form.getRequestFieldErrors))
-				return this.form.getRequestFieldErrors(this.field).slice(0, this.maxErrors)
+			if (isFunction(this.form.getFieldErrors))
+				return this.form.getFieldErrors(this.field).slice(0, this.maxErrors)
+			else
+				return []
         }
     },
 
@@ -19,12 +23,10 @@ export default {
             type: Object,
             required: true
         },
-
         field: {
             type: String,
             required: true
         },
-
         maxErrors: {
             type: Number,
             default: 10,

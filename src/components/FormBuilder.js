@@ -78,13 +78,13 @@ export default {
         },
 
         /**
-         * Whether the request has error for the given field
+         * Whether the given field has errors
          * @param {String} field
          * @return {Boolean}
          */
         fieldHasError(field) {
-            if (isFunction(this.form.requestFieldHasError))
-                return this.form.requestFieldHasError(field)
+            if (isFunction(this.form.fieldHasError))
+                return this.form.fieldHasError(field)
             return false
         }
     },
