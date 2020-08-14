@@ -1,4 +1,4 @@
-import {isArray, reduceArrayToObject} from '../../helpers'
+import { isArray, reduceArrayToObject, isObject } from '../../helpers'
 
 export default {
     computed: {
@@ -7,11 +7,17 @@ export default {
         },
 
         attributes() {
-            let attributes = {id: this.cssId}
+			const fieldType = this.field.type;
+			const attributes = {
+				id: this.cssId
+			};
 
             for (let key in this.field) {
-				if 	(this.isNonHtmlAttribute(key) || (key === "value" && this.field.type === "file"))
-                    continue
+				if 	(isNonHtmlAttribute(key) ||
+					(fieldType === "file" && key === "value")) {
+					continue
+				}
+
                 attributes[key] = this.field[key]
             }
 
@@ -19,29 +25,13 @@ export default {
         },
 
         options() {
-			let {options} = this.field
+			let { options } = this.field;
+
 			if (isArray(options))
 				return reduceArrayToObject(options)
-			return options
+			else if (isObject(options))
+				return options
         }
-    },
-
-    data() {
-        return {
-            nonHtmlAttributes: ["options", "element", "component", "label"]
-        }
-    },
-
-    methods: {
-        /**
-         *  Whether a field property is not a html attribute
-         *
-         * @param {string} property
-         * @return {boolean}
-         */
-        isNonHtmlAttribute(fieldKey) {
-            return this.nonHtmlAttributes.includes(fieldKey)
-        },
     },
 
     props: {
@@ -51,3 +41,8 @@ export default {
         },
     },
 };
+
+function isNonHtmlAttribute(fieldKey) {
+	const nonHtmlAttributes = ["options", "element", "component", "label"];
+	return nonHtmlAttributes.includes(fieldKey);
+}

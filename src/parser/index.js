@@ -1,30 +1,23 @@
-import { capitalize, isString, stringNotEmpty } from "./helpers";
-import FieldAliases from "./aliases";
+import { capitalize, isString, stringNotEmpty } from "../helpers";
+import FieldAliases from "../aliases";
 import AttributeTypes from './attributes'
+
+// ────────────────────────────────────────────────────────────────────────────────
 
 /**
  * Assign defaults to the field object
+ *
  * @param {Object}
  * @returns {void}
  */
 function assignFieldDefaults(field) {
-	assignFieldDefaultCssClass(field);
 	assignFieldDefaultHtmlElement(field);
 	assignFieldVueComponent(field);
 }
 
 /**
- * Assign the default css class to the given field
- * @param {Object}
- * @returns {void}
- */
-function assignFieldDefaultCssClass(field) {
-	if (!field.class)
-		field.class = "form-control";
-}
-
-/**
  * Assign the default html element to the given field
+ *
  * @param {Object}
  * @returns {void}
  */
@@ -42,6 +35,7 @@ function assignFieldDefaultHtmlElement(field) {
 
 /**
  * Assign the matching Vue component to the given field
+ *
  * @param {Object}
  * @returns {void}
  */
@@ -66,25 +60,38 @@ function getFieldAttributeClass(attribute) {
 }
 
 /**
- * Get the a field string from a field alias
+ * Get all field aliases
+ *
  * @param {String} alias
- * @returns {Array}
+ * @returns {Object}
+ */
+function getFieldAliases() {
+	return FieldAliases.getAliases();
+}
+
+/**
+ * Get the a field string from a field alias
+ *
+ * @param {String} alias
+ * @returns {String}
  */
 function getFieldStringFromAlias(alias) {
-	return FieldAliases.getAliases()[alias];
+	return getFieldAliases()[alias];
 }
 
 /**
  * Indicates whether a string is a field alias
+ *
  * @param {String}
  * @returns {Boolean}
  */
 function isFieldAlias(str) {
-	return FieldAliases.getAliases().hasOwnProperty(str);
+	return getFieldAliases().hasOwnProperty(str);
 }
 
 /**
  * Parse string to a field object
+ *
  * @param {String}
  * @return {Object}
  */
@@ -102,6 +109,7 @@ function parseStringToFieldObject(str) {
 
 /**
  * Parse a field attribute to a field option object
+ *
  * @param {String}
  * @return {Object}
  */
@@ -112,6 +120,7 @@ function parseStringAttributeToObject(attribute) {
 
 /**
  * Parse a string or object to a field object.
+ *
  * @param {Object|String}
  * @return {Object}
  */
@@ -126,6 +135,7 @@ function parseField(field) {
 
 /**
  * Parse the given fields to the proper format.
+ *
  * @param {Array}
  * @returns {Array}
  */
@@ -133,11 +143,6 @@ function parseFields(fields) {
 	return fields.map(parseField);
 }
 
-/**
- * Abstraction layer for the parser;
- */
-const FieldParser = {
-	parseFields,
-}
-
-export default FieldParser;
+export {
+	parseFields
+};

@@ -2,7 +2,7 @@
 import FormFieldCheckbox from './FormFieldCheckbox.vue'
 
 export default {
-    ...FormFieldCheckbox,
+    ... FormFieldCheckbox,
     name: "FormFieldRadio"
 }
 </script>

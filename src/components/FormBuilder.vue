@@ -7,9 +7,11 @@
 
 		<slot name="start"></slot>
 
-		<form-group v-for="(field, i) in formFields"
-					v-show="(! field.hidden)"
-					:key="i">
+		<form-group
+			v-for="(field, i) in formFields" :key="i"
+			v-show="(! field.hidden)"
+			:cssClass="fieldGroupClass"
+			>
 
 			<form-label :field="field" />
 
@@ -18,14 +20,16 @@
 	 				   :class="{'is-invalid': fieldHasError(field.name)}"
 					   @input="updateField(field)" />
 
-			<inline-error v-if="inlineErrors"
-						  v-bind="{ form, field: field.name}" />
+			<inline-error
+				v-if="inlineErrors"
+				v-bind="{ form, field: field.name}" />
 		</form-group>
 
 		<slot></slot>
 
-		<form-buttons v-if="enableButtons"
-					  v-bind="formButtons" />
+		<form-buttons
+			v-if="enableButtons"
+			v-bind="formButtons" />
 
 		<slot name="end"></slot>
 	</form>

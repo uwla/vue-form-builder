@@ -1,12 +1,12 @@
 import RequestErrorHandler from './RequestErrorHandler'
 import axios from 'axios'
 
-export default class Requester extends RequestErrorHandler {
+class Requester extends RequestErrorHandler {
 	/**
 	 * Create a new Requester instance.
 	 */
 	constructor() {
-		super()
+		super();
 
 		/**
 		 * Whether the request has finished
@@ -112,3 +112,5 @@ export default class Requester extends RequestErrorHandler {
 		})
 	}
 }
+
+export default Requester;

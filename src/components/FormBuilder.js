@@ -2,7 +2,7 @@
 // ─── LOAD DEPENDENCIES ──────────────────────────────────────────────────────────
 //
 
-import FieldParser from '../parser'
+import { parseFields } from '../parser'
 import { isArray, isFunction } from '../helpers'
 
 /**
@@ -16,11 +16,11 @@ const components = {};
 files.keys().forEach(key => {
     const componentName = key.split('/').pop().split('.')[0];
 
-	if (componentName === "FormBuilder")
-		return;
+    if (componentName === "FormBuilder")
+        return;
 
-	const component = files(key).default;
-	components[componentName] = component;
+    const component = files(key).default;
+    components[componentName] = component;
 });
 
 //
@@ -34,14 +34,19 @@ export default {
 
     computed: {
         formFields() {
-			const fields = FieldParser.parseFields(this.fields);
+            const fields = parseFields(this.fields);
 
-			fields.forEach(field => {
-				if (this.form[field.name])
-					field.value = this.form[field.name]
-			});
+            fields.forEach(field => {
+                // set default class
+                if (! field.class)
+                    field.class = this.fieldClass
 
-			return fields;
+                // set default values
+                if (this.form[field.name] !== undefined)
+                    field.value = this.form[field.name]
+            });
+
+            return fields;
         },
     },
 
@@ -52,8 +57,8 @@ export default {
          * @return {void}
          */
         updateField(field) {
-			const target = window.event.target,
-				   value = target.value;
+            const target = window.event.target,
+                   value = target.value;
 
             if (isArray(this.form[field.name]))
                 this.updateFieldOptions(field, value)
@@ -94,6 +99,14 @@ export default {
             type: Array,
             required: true
         },
+        fieldClass: {
+            type: String,
+            default: "form-control"
+        },
+        fieldGroupClass: {
+            type: String,
+            default: "form-group"
+        },
         form: {
             type: Object,
             default: () => ({})
@@ -114,5 +127,5 @@ export default {
             type: Boolean,
             default: false,
         }
-	},
+    },
 }

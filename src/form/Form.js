@@ -1,7 +1,7 @@
 import { deepCopy, deleteNullProps, isArray, isObject, isString } from '../helpers'
 import Requester from './Requester'
 
-export default class Form extends Requester {
+class Form extends Requester {
 	/**
 	 * Create a new form instance.
 	 *
@@ -235,7 +235,6 @@ export default class Form extends Requester {
 	}
 }
 
-
 /**
  * Attach https methods to the Form class, making it
  * more convenient to send requests. For example,
@@ -250,8 +249,10 @@ export default class Form extends Requester {
 let methods = ["delete", "get", "patch", "post", "put"]
 
 methods.forEach(method => {
-	Requester.prototype[method] = function (url, config) {
+	Form.prototype[method] = function (url, config) {
 		let data = this._data;
 		return this.sendRequest(method, url, data, config)
 	}
 })
+
+export default Form;
