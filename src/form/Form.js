@@ -238,7 +238,7 @@ class Form extends Requester {
 /**
  * Attach https methods to the Form class, making it
  * more convenient to send requests. For example,
- * instead of caliing form.sendRequest("post", url),
+ * instead of calling form.sendRequest("post", url),
  * we can call form.post(url)
  *
  * Since these methods use the same parameters, it is
