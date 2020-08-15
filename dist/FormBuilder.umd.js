@@ -1603,7 +1603,7 @@ module.exports = function isCancel(value) {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7a1f3ab0-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/fields/FormFieldCheckbox.vue?vue&type=template&id=5725aa02&scoped=true&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"40ca59de-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/fields/FormFieldCheckbox.vue?vue&type=template&id=5725aa02&scoped=true&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('ul',{staticClass:"form-field-options-list"},_vm._l((_vm.options),function(text,value,i){return _c('li',{key:i},[_c('input',_vm._b({on:{"input":function($event){return _vm.$emit('input')}}},'input',_vm.getInputBindings(value),false)),_c('label',{attrs:{"for":(_vm.cssId + '-' + value)}},[_vm._v(" "+_vm._s(text)+" ")])])}),0)}
 var staticRenderFns = []
 
@@ -2095,7 +2095,7 @@ module.exports = {};
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7a1f3ab0-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FormGroup.vue?vue&type=template&id=e396b49a&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"40ca59de-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FormGroup.vue?vue&type=template&id=e396b49a&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.cssClass},[_vm._t("default")],2)}
 var staticRenderFns = []
 
@@ -2656,7 +2656,7 @@ module.exports = function from(arrayLike /* , mapfn = undefined, thisArg = undef
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7a1f3ab0-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/fields/FormFieldInput.vue?vue&type=template&id=310a7b4e&scoped=true&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"40ca59de-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/fields/FormFieldInput.vue?vue&type=template&id=310a7b4e&scoped=true&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('input',_vm._b({on:{"input":function($event){return _vm.$emit('input')}}},'input',_vm.attributes,false))}
 var staticRenderFns = []
 
@@ -3146,21 +3146,20 @@ function registerAliases(aliases) {
 function getAliases() {
   var config = sessionStorage.getItem('FormBuilderConfig');
 
-  if (Object(_helpers__WEBPACK_IMPORTED_MODULE_1__[/* isString */ "g"])(config)) {
+  if (Object(_helpers__WEBPACK_IMPORTED_MODULE_1__[/* isString */ "f"])(config)) {
     config = JSON.parse(config);
-    if (Object(_helpers__WEBPACK_IMPORTED_MODULE_1__[/* isObject */ "f"])(config.aliases)) return config.aliases;
+    if (Object(_helpers__WEBPACK_IMPORTED_MODULE_1__[/* isObject */ "e"])(config.aliases)) return config.aliases;
   }
 
   return aliases;
 }
 
-var FieldAliases = {
+/* harmony default export */ __webpack_exports__["a"] = ({
   aliases: aliases,
   setAliases: setAliases,
   registerAliases: registerAliases,
   getAliases: getAliases
-};
-/* harmony default export */ __webpack_exports__["a"] = (FieldAliases);
+});
 
 /***/ }),
 
@@ -3194,51 +3193,6 @@ module.exports = getBuiltIn('Reflect', 'ownKeys') || function ownKeys(it) {
   var keys = getOwnPropertyNamesModule.f(anObject(it));
   var getOwnPropertySymbols = getOwnPropertySymbolsModule.f;
   return getOwnPropertySymbols ? keys.concat(getOwnPropertySymbols(it)) : keys;
-};
-
-
-/***/ }),
-
-/***/ "5899":
-/***/ (function(module, exports) {
-
-// a string of all valid unicode whitespaces
-// eslint-disable-next-line max-len
-module.exports = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
-
-
-/***/ }),
-
-/***/ "58a8":
-/***/ (function(module, exports, __webpack_require__) {
-
-var requireObjectCoercible = __webpack_require__("1d80");
-var whitespaces = __webpack_require__("5899");
-
-var whitespace = '[' + whitespaces + ']';
-var ltrim = RegExp('^' + whitespace + whitespace + '*');
-var rtrim = RegExp(whitespace + whitespace + '*$');
-
-// `String.prototype.{ trim, trimStart, trimEnd, trimLeft, trimRight }` methods implementation
-var createMethod = function (TYPE) {
-  return function ($this) {
-    var string = String(requireObjectCoercible($this));
-    if (TYPE & 1) string = string.replace(ltrim, '');
-    if (TYPE & 2) string = string.replace(rtrim, '');
-    return string;
-  };
-};
-
-module.exports = {
-  // `String.prototype.{ trimLeft, trimStart }` methods
-  // https://tc39.github.io/ecma262/#sec-string.prototype.trimstart
-  start: createMethod(1),
-  // `String.prototype.{ trimRight, trimEnd }` methods
-  // https://tc39.github.io/ecma262/#sec-string.prototype.trimend
-  end: createMethod(2),
-  // `String.prototype.trim` method
-  // https://tc39.github.io/ecma262/#sec-string.prototype.trim
-  trim: createMethod(3)
 };
 
 
@@ -3317,66 +3271,6 @@ module.exports = function (bitmap, value) {
     value: value
   };
 };
-
-
-/***/ }),
-
-/***/ "60da":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var DESCRIPTORS = __webpack_require__("83ab");
-var fails = __webpack_require__("d039");
-var objectKeys = __webpack_require__("df75");
-var getOwnPropertySymbolsModule = __webpack_require__("7418");
-var propertyIsEnumerableModule = __webpack_require__("d1e7");
-var toObject = __webpack_require__("7b0b");
-var IndexedObject = __webpack_require__("44ad");
-
-var nativeAssign = Object.assign;
-var defineProperty = Object.defineProperty;
-
-// `Object.assign` method
-// https://tc39.github.io/ecma262/#sec-object.assign
-module.exports = !nativeAssign || fails(function () {
-  // should have correct order of operations (Edge bug)
-  if (DESCRIPTORS && nativeAssign({ b: 1 }, nativeAssign(defineProperty({}, 'a', {
-    enumerable: true,
-    get: function () {
-      defineProperty(this, 'b', {
-        value: 3,
-        enumerable: false
-      });
-    }
-  }), { b: 2 })).b !== 1) return true;
-  // should work with symbols and should have deterministic property order (V8 bug)
-  var A = {};
-  var B = {};
-  // eslint-disable-next-line no-undef
-  var symbol = Symbol();
-  var alphabet = 'abcdefghijklmnopqrst';
-  A[symbol] = 7;
-  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
-  return nativeAssign({}, A)[symbol] != 7 || objectKeys(nativeAssign({}, B)).join('') != alphabet;
-}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
-  var T = toObject(target);
-  var argumentsLength = arguments.length;
-  var index = 1;
-  var getOwnPropertySymbols = getOwnPropertySymbolsModule.f;
-  var propertyIsEnumerable = propertyIsEnumerableModule.f;
-  while (argumentsLength > index) {
-    var S = IndexedObject(arguments[index++]);
-    var keys = getOwnPropertySymbols ? objectKeys(S).concat(getOwnPropertySymbols(S)) : objectKeys(S);
-    var length = keys.length;
-    var j = 0;
-    var key;
-    while (length > j) {
-      key = keys[j++];
-      if (!DESCRIPTORS || propertyIsEnumerable.call(S, key)) T[key] = S[key];
-    }
-  } return T;
-} : nativeAssign;
 
 
 /***/ }),
@@ -3517,12 +3411,12 @@ module.exports = {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7a1f3ab0-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FormBuilder.vue?vue&type=template&id=b7b55556&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.$emit('submit')}}},[(_vm.errorList)?_c('error-list',_vm._b({},'error-list',{ form: _vm.form },false)):_vm._e(),_vm._t("start"),_vm._l((_vm.formFields),function(field,i){return _c('form-group',{directives:[{name:"show",rawName:"v-show",value:((! field.hidden)),expression:"(! field.hidden)"}],key:i,attrs:{"cssClass":_vm.fieldGroupClass}},[_c('form-label',{attrs:{"field":field}}),_c(field.component,{tag:"component",class:{'is-invalid': _vm.fieldHasError(field.name)},attrs:{"field":field},on:{"input":function($event){return _vm.updateField(field)}}}),(_vm.inlineErrors)?_c('inline-error',_vm._b({},'inline-error',{ form: _vm.form, field: field.name},false)):_vm._e()],1)}),_vm._t("default"),(_vm.enableButtons)?_c('form-buttons',_vm._b({},'form-buttons',_vm.formButtons,false)):_vm._e(),_vm._t("end")],2)}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"40ca59de-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FormBuilder.vue?vue&type=template&id=77c7405e&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.$emit('submit')}}},[(_vm.showErrorList)?_c('error-list',_vm._b({},'error-list',{ model: _vm.model },false)):_vm._e(),_vm._t("start"),_vm._l((_vm.formFields),function(field,i){return _c('form-group',{directives:[{name:"show",rawName:"v-show",value:((! field.hidden)),expression:"(! field.hidden)"}],key:i,attrs:{"cssClass":_vm.fieldGroupClass}},[_c('form-label',{attrs:{"field":field}}),_c(field.component,{tag:"component",class:{ 'is-invalid': _vm.fieldHasError(field.name) },attrs:{"field":field},on:{"input":function($event){return _vm.updateField(field)}}}),(_vm.showInlineErrors)?_c('inline-error',_vm._b({},'inline-error',{ model: _vm.model, field: field.name},false)):_vm._e()],1)}),_vm._t("default"),(_vm.showButtons)?_c('form-buttons',_vm._b({},'form-buttons',_vm.formButtons,false)):_vm._e(),_vm._t("end")],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/FormBuilder.vue?vue&type=template&id=b7b55556&
+// CONCATENATED MODULE: ./src/components/FormBuilder.vue?vue&type=template&id=77c7405e&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.for-each.js
 var es_array_for_each = __webpack_require__("4160");
@@ -3617,7 +3511,7 @@ function assignFieldDefaults(field) {
 
 
 function assignFieldDefaultHtmlElement(field) {
-  if (Object(helpers["i" /* stringNotEmpty */])(field.element)) return;
+  if (Object(helpers["h" /* stringNotEmpty */])(field.element)) return;
   if (field.type) field.element = "input";else if (field.options) field.element = "select";else field.element = "textarea";
 }
 /**
@@ -3724,7 +3618,7 @@ function parseStringAttributeToObject(attribute) {
 
 
 function parseField(field) {
-  if (Object(helpers["g" /* isString */])(field)) field = parseStringToFieldObject(field);
+  if (Object(helpers["f" /* isString */])(field)) field = parseStringToFieldObject(field);
   assignFieldDefaults(field);
   return Object(objectSpread2["a" /* default */])({}, field);
 }
@@ -3768,9 +3662,11 @@ var FormBuildervue_type_script_lang_js_files = __webpack_require__("6ae9");
 var components = {};
 FormBuildervue_type_script_lang_js_files.keys().forEach(function (key) {
   var componentName = key.split('/').pop().split('.')[0];
-  if (componentName === "FormBuilder") return;
-  var component = FormBuildervue_type_script_lang_js_files(key).default;
-  components[componentName] = component;
+
+  if (componentName !== "FormBuilder") {
+    var component = FormBuildervue_type_script_lang_js_files(key).default;
+    components[componentName] = component;
+  }
 }); //
 // ─── FORM BUILDER ───────────────────────────────────────────────────────────────
 //
@@ -3782,12 +3678,11 @@ FormBuildervue_type_script_lang_js_files.keys().forEach(function (key) {
     formFields: function formFields() {
       var _this = this;
 
-      var fields = parseFields(this.fields);
-      fields.forEach(function (field) {
-        // set default class
-        if (!field.class) field.class = _this.fieldClass; // set default values
+      var fields = parseFields(this.model.fields()); // set field value and css class
 
-        if (_this.form[field.name] !== undefined) field.value = _this.form[field.name];
+      fields.forEach(function (field) {
+        if (!field.class) field.class = _this.fieldClass;
+        if (_this.model[field.name] !== undefined) field.value = _this.model[field.name];
       });
       return fields;
     }
@@ -3801,7 +3696,7 @@ FormBuildervue_type_script_lang_js_files.keys().forEach(function (key) {
     updateField: function updateField(field) {
       var target = window.event.target,
           value = target.value;
-      if (Object(helpers["d" /* isArray */])(this.form[field.name])) this.updateFieldOptions(field, value);else if (field.type === "file") this.form[field.name] = target.files[0];else this.form[field.name] = value;
+      if (Object(helpers["d" /* isArray */])(this.form[field.name])) this.updateFieldOptions(field, value);else if (field.type === "file") this.model[field.name] = target.files[0];else this.model[field.name] = value;
     },
 
     /**
@@ -3810,8 +3705,8 @@ FormBuildervue_type_script_lang_js_files.keys().forEach(function (key) {
      * @return {void}
      */
     updateFieldOptions: function updateFieldOptions(field, value) {
-      var index = this.form[field.name].indexOf(value);
-      if (index === -1) this.form[field.name].push(value);else this.form[field.name].splice(index, 1);
+      var index = this.model[field.name].indexOf(value);
+      if (index === -1) this.model[field.name].push(value);else this.model[field.name].splice(index, 1);
     },
 
     /**
@@ -3820,15 +3715,10 @@ FormBuildervue_type_script_lang_js_files.keys().forEach(function (key) {
      * @return {Boolean}
      */
     fieldHasError: function fieldHasError(field) {
-      if (Object(helpers["e" /* isFunction */])(this.form.fieldHasError)) return this.form.fieldHasError(field);
-      return false;
+      return this.model.fieldHasError(field);
     }
   },
   props: {
-    fields: {
-      type: Array,
-      required: true
-    },
     fieldClass: {
       type: String,
       default: "form-control"
@@ -3837,15 +3727,9 @@ FormBuildervue_type_script_lang_js_files.keys().forEach(function (key) {
       type: String,
       default: "form-group"
     },
-    form: {
+    model: {
       type: Object,
-      default: function _default() {
-        return {};
-      }
-    },
-    enableButtons: {
-      type: Boolean,
-      default: true
+      required: true
     },
     formButtons: {
       type: Object,
@@ -3853,11 +3737,15 @@ FormBuildervue_type_script_lang_js_files.keys().forEach(function (key) {
         return {};
       }
     },
-    inlineErrors: {
+    showButtons: {
       type: Boolean,
       default: true
     },
-    errorList: {
+    showInlineErrors: {
+      type: Boolean,
+      default: true
+    },
+    showErrorList: {
       type: Boolean,
       default: false
     }
@@ -4027,30 +3915,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "7156":
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__("861d");
-var setPrototypeOf = __webpack_require__("d2bb");
-
-// makes subclassing work correct for wrapped built-ins
-module.exports = function ($this, dummy, Wrapper) {
-  var NewTarget, NewTargetPrototype;
-  if (
-    // it can work only with native `setPrototypeOf`
-    setPrototypeOf &&
-    // we haven't completely correct pre-ES6 way for getting `new.target`, so use this
-    typeof (NewTarget = dummy.constructor) == 'function' &&
-    NewTarget !== Wrapper &&
-    isObject(NewTargetPrototype = NewTarget.prototype) &&
-    NewTargetPrototype !== Wrapper.prototype
-  ) setPrototypeOf($this, NewTargetPrototype);
-  return $this;
-};
-
-
-/***/ }),
-
 /***/ "7187":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4058,7 +3922,7 @@ module.exports = function ($this, dummy, Wrapper) {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7a1f3ab0-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/fields/FormFieldSelect.vue?vue&type=template&id=10b67f1b&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"40ca59de-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/fields/FormFieldSelect.vue?vue&type=template&id=10b67f1b&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('select',_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.field.value),expression:"field.value"}],on:{"input":function($event){return _vm.$emit('input')},"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.$set(_vm.field, "value", $event.target.multiple ? $$selectedVal : $$selectedVal[0])}}},'select',_vm.attributes,false),_vm._l((_vm.options),function(text,value,i){return _c('option',{key:i,domProps:{"value":value}},[_vm._v(" "+_vm._s(text)+" ")])}),0)}
 var staticRenderFns = []
 
@@ -4167,51 +4031,32 @@ module.exports = [
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7a1f3ab0-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/errors/InlineError.vue?vue&type=template&id=a8489a3c&scoped=true&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"40ca59de-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/errors/InlineError.vue?vue&type=template&id=a8489a3c&scoped=true&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.hasError)?_c('div',{staticClass:"help-block invalid-feedback"},_vm._l((_vm.errors),function(error,i){return _c('span',{key:i},[_vm._v(" "+_vm._s(error)+" ")])}),0):_vm._e()}
 var staticRenderFns = []
 
 
 // CONCATENATED MODULE: ./src/components/errors/InlineError.vue?vue&type=template&id=a8489a3c&scoped=true&
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
-var es_array_slice = __webpack_require__("fb6a");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
-var es_number_constructor = __webpack_require__("a9e3");
-
-// EXTERNAL MODULE: ./src/helpers.js + 4 modules
-var helpers = __webpack_require__("d7c2");
-
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./src/components/errors/InlineError.js?vue&type=script&lang=js&
-
-
-
 /* harmony default export */ var InlineErrorvue_type_script_lang_js_ = ({
   name: "InlineErrors",
   computed: {
     hasError: function hasError() {
-      if (Object(helpers["e" /* isFunction */])(this.form.fieldHasError)) return this.form.fieldHasError(this.field);else return false;
+      return this.model.fieldHasError(this.field);
     },
     errors: function errors() {
-      if (Object(helpers["e" /* isFunction */])(this.form.getFieldErrors)) return this.form.getFieldErrors(this.field).slice(0, this.maxErrors);else return [];
+      return this.model.getFieldErrors(this.field);
     }
   },
   props: {
-    form: {
+    model: {
       type: Object,
       required: true
     },
     field: {
       type: String,
       required: true
-    },
-    maxErrors: {
-      type: Number,
-      default: 10,
-      validator: function validator(value) {
-        return value > 0;
-      }
     }
   }
 });
@@ -4552,7 +4397,7 @@ module.exports = typeof WeakMap === 'function' && /native code/.test(inspectSour
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7a1f3ab0-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/fields/FormFieldTextarea.vue?vue&type=template&id=5eec3ec0&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"40ca59de-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/fields/FormFieldTextarea.vue?vue&type=template&id=5eec3ec0&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('textarea',_vm._b({on:{"input":function($event){return _vm.$emit('input')}}},'textarea',_vm.attributes,false))}
 var staticRenderFns = []
 
@@ -4957,6 +4802,761 @@ var NATIVE = isForced.NATIVE = 'N';
 var POLYFILL = isForced.POLYFILL = 'P';
 
 module.exports = isForced;
+
+
+/***/ }),
+
+/***/ "96cf":
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var runtime = (function (exports) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  function define(obj, key, value) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+    return obj[key];
+  }
+  try {
+    // IE 8 has a broken Object.defineProperty that only works on DOM objects.
+    define({}, "");
+  } catch (err) {
+    define = function(obj, key, value) {
+      return obj[key] = value;
+    };
+  }
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  exports.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunction.displayName = define(
+    GeneratorFunctionPrototype,
+    toStringTagSymbol,
+    "GeneratorFunction"
+  );
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      define(prototype, method, function(arg) {
+        return this._invoke(method, arg);
+      });
+    });
+  }
+
+  exports.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  exports.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      define(genFun, toStringTagSymbol, "GeneratorFunction");
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  exports.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator, PromiseImpl) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return PromiseImpl.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return PromiseImpl.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration.
+          result.value = unwrapped;
+          resolve(result);
+        }, function(error) {
+          // If a rejected Promise was yielded, throw the rejection back
+          // into the async generator function so it can be handled there.
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new PromiseImpl(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  exports.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  exports.async = function(innerFn, outerFn, self, tryLocsList, PromiseImpl) {
+    if (PromiseImpl === void 0) PromiseImpl = Promise;
+
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList),
+      PromiseImpl
+    );
+
+    return exports.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        // Note: ["return"] must be used for ES3 parsing compatibility.
+        if (delegate.iterator["return"]) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  define(Gp, toStringTagSymbol, "Generator");
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  exports.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  exports.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+
+  // Regardless of whether this script is executing as a CommonJS module
+  // or not, return the runtime object so that we can declare the variable
+  // regeneratorRuntime in the outer scope, which allows this module to be
+  // injected easily by `bin/regenerator --include-runtime script.js`.
+  return exports;
+
+}(
+  // If this script is executing as a CommonJS module, use module.exports
+  // as the regeneratorRuntime namespace. Otherwise create a new empty
+  // object. Either way, the resulting object will be used to initialize
+  // the regeneratorRuntime variable at the top of this file.
+   true ? module.exports : undefined
+));
+
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  // This module should not be running in strict mode, so the above
+  // assignment should always work unless something is misconfigured. Just
+  // in case runtime.js accidentally runs in strict mode, we can escape
+  // strict mode using a global Function call. This could conceivably fail
+  // if a Content Security Policy forbids using Function, but in that case
+  // the proper solution is to fix the accidental strict mode problem. If
+  // you've misconfigured your bundler to force strict mode and applied a
+  // CSP to forbid Function, and you're not willing to fix either of those
+  // problems, please detail your unique predicament in a GitHub issue.
+  Function("r", "regeneratorRuntime = r")(runtime);
+}
 
 
 /***/ }),
@@ -5784,92 +6384,6 @@ if (!IS_PURE && typeof NativePromise == 'function' && !NativePromise.prototype['
 
 /***/ }),
 
-/***/ "a9e3":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var DESCRIPTORS = __webpack_require__("83ab");
-var global = __webpack_require__("da84");
-var isForced = __webpack_require__("94ca");
-var redefine = __webpack_require__("6eeb");
-var has = __webpack_require__("5135");
-var classof = __webpack_require__("c6b6");
-var inheritIfRequired = __webpack_require__("7156");
-var toPrimitive = __webpack_require__("c04e");
-var fails = __webpack_require__("d039");
-var create = __webpack_require__("7c73");
-var getOwnPropertyNames = __webpack_require__("241c").f;
-var getOwnPropertyDescriptor = __webpack_require__("06cf").f;
-var defineProperty = __webpack_require__("9bf2").f;
-var trim = __webpack_require__("58a8").trim;
-
-var NUMBER = 'Number';
-var NativeNumber = global[NUMBER];
-var NumberPrototype = NativeNumber.prototype;
-
-// Opera ~12 has broken Object#toString
-var BROKEN_CLASSOF = classof(create(NumberPrototype)) == NUMBER;
-
-// `ToNumber` abstract operation
-// https://tc39.github.io/ecma262/#sec-tonumber
-var toNumber = function (argument) {
-  var it = toPrimitive(argument, false);
-  var first, third, radix, maxCode, digits, length, index, code;
-  if (typeof it == 'string' && it.length > 2) {
-    it = trim(it);
-    first = it.charCodeAt(0);
-    if (first === 43 || first === 45) {
-      third = it.charCodeAt(2);
-      if (third === 88 || third === 120) return NaN; // Number('+0x1') should be NaN, old V8 fix
-    } else if (first === 48) {
-      switch (it.charCodeAt(1)) {
-        case 66: case 98: radix = 2; maxCode = 49; break; // fast equal of /^0b[01]+$/i
-        case 79: case 111: radix = 8; maxCode = 55; break; // fast equal of /^0o[0-7]+$/i
-        default: return +it;
-      }
-      digits = it.slice(2);
-      length = digits.length;
-      for (index = 0; index < length; index++) {
-        code = digits.charCodeAt(index);
-        // parseInt parses a string to a first unavailable symbol
-        // but ToNumber should return NaN if a string contains unavailable symbols
-        if (code < 48 || code > maxCode) return NaN;
-      } return parseInt(digits, radix);
-    }
-  } return +it;
-};
-
-// `Number` constructor
-// https://tc39.github.io/ecma262/#sec-number-constructor
-if (isForced(NUMBER, !NativeNumber(' 0o1') || !NativeNumber('0b1') || NativeNumber('+0x1'))) {
-  var NumberWrapper = function Number(value) {
-    var it = arguments.length < 1 ? 0 : value;
-    var dummy = this;
-    return dummy instanceof NumberWrapper
-      // check on 1..constructor(foo) case
-      && (BROKEN_CLASSOF ? fails(function () { NumberPrototype.valueOf.call(dummy); }) : classof(dummy) != NUMBER)
-        ? inheritIfRequired(new NativeNumber(toNumber(it)), dummy, NumberWrapper) : toNumber(it);
-  };
-  for (var keys = DESCRIPTORS ? getOwnPropertyNames(NativeNumber) : (
-    // ES3:
-    'MAX_VALUE,MIN_VALUE,NaN,NEGATIVE_INFINITY,POSITIVE_INFINITY,' +
-    // ES2015 (in case, if modules with ES2015 Number statics required before):
-    'EPSILON,isFinite,isInteger,isNaN,isSafeInteger,MAX_SAFE_INTEGER,' +
-    'MIN_SAFE_INTEGER,parseFloat,parseInt,isInteger'
-  ).split(','), j = 0, key; keys.length > j; j++) {
-    if (has(NativeNumber, key = keys[j]) && !has(NumberWrapper, key)) {
-      defineProperty(NumberWrapper, key, getOwnPropertyDescriptor(NativeNumber, key));
-    }
-  }
-  NumberWrapper.prototype = NumberPrototype;
-  NumberPrototype.constructor = NumberWrapper;
-  redefine(global, NUMBER, NumberWrapper);
-}
-
-
-/***/ }),
-
 /***/ "ab13":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6604,7 +7118,7 @@ function _createForOfIteratorHelper(o, allowArrayLike) {
     },
     options: function options() {
       var options = this.field.options;
-      if (Object(_helpers__WEBPACK_IMPORTED_MODULE_2__[/* isArray */ "d"])(options)) return Object(_helpers__WEBPACK_IMPORTED_MODULE_2__[/* reduceArrayToObject */ "h"])(options);else if (Object(_helpers__WEBPACK_IMPORTED_MODULE_2__[/* isObject */ "f"])(options)) return options;
+      if (Object(_helpers__WEBPACK_IMPORTED_MODULE_2__[/* isArray */ "d"])(options)) return Object(_helpers__WEBPACK_IMPORTED_MODULE_2__[/* reduceArrayToObject */ "g"])(options);else if (Object(_helpers__WEBPACK_IMPORTED_MODULE_2__[/* isObject */ "e"])(options)) return options;
     }
   },
   props: {
@@ -7325,21 +7839,6 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ "cca6":
-/***/ (function(module, exports, __webpack_require__) {
-
-var $ = __webpack_require__("23e7");
-var assign = __webpack_require__("60da");
-
-// `Object.assign` method
-// https://tc39.github.io/ecma262/#sec-object.assign
-$({ target: 'Object', stat: true, forced: Object.assign !== assign }, {
-  assign: assign
-});
-
-
-/***/ }),
-
 /***/ "cdf9":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7444,7 +7943,7 @@ module.exports.default = axios;
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7a1f3ab0-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/errors/ErrorList.vue?vue&type=template&id=15826cc8&scoped=true&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"40ca59de-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/errors/ErrorList.vue?vue&type=template&id=15826cc8&scoped=true&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.hasError),expression:"hasError"}],staticClass:"alert alert-danger alert-dismissible",attrs:{"role":"alert"}},[(_vm.dismissible)?_c('button',{staticClass:"close",attrs:{"type":"button","aria-label":"Close"},on:{"click":function($event){return _vm.dismiss()}}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v(" × ")])]):_vm._e(),(_vm.shouldDisplayMessage)?_c('div',[_vm._v(" "+_vm._s(_vm.errorMessage)+" ")]):_vm._e(),((_vm.errors.length > 0))?_c('ul',_vm._l((_vm.errors),function(error,i){return _c('li',{key:i},[_vm._v(" "+_vm._s(error)+" ")])}),0):_vm._e()])}
 var staticRenderFns = []
 
@@ -7460,21 +7959,21 @@ var helpers = __webpack_require__("d7c2");
   name: "AlertErrorList",
   computed: {
     errors: function errors() {
-      if (Object(helpers["e" /* isFunction */])(this.form.getErrorsAsArray)) return this.form.getErrorsAsArray();else return [];
+      return this.model.getErrorsAsArray();
     },
     hasError: function hasError() {
-      if (Object(helpers["e" /* isFunction */])(this.form.hasError)) return this.form.hasError();else return false;
+      return this.model.hasError();
     },
     errorMessage: function errorMessage() {
-      if (Object(helpers["e" /* isFunction */])(this.form.getErrorMessage)) return this.form.getErrorMessage();else return this.defaultErrorMessage;
+      return this.model.getErrorMessage();
     },
     shouldDisplayMessage: function shouldDisplayMessage() {
-      return this.hasError && Object(helpers["i" /* stringNotEmpty */])(this.errorMessage);
+      return this.hasError && Object(helpers["h" /* stringNotEmpty */])(this.errorMessage);
     }
   },
   methods: {
     dismiss: function dismiss() {
-      if (this.dismissible && Object(helpers["e" /* isFunction */])(this.form.clearErrors)) this.form.clearErrors();
+      if (this.dismissible) this.model.clearErrors();
     }
   },
   props: {
@@ -7486,7 +7985,7 @@ var helpers = __webpack_require__("d7c2");
       type: Boolean,
       default: true
     },
-    form: {
+    model: {
       type: Object,
       required: true
     }
@@ -7928,16 +8427,15 @@ module.exports = function (KEY, length, exec, sham) {
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ deepCopy; });
 __webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ deleteNullProps; });
-__webpack_require__.d(__webpack_exports__, "j", function() { return /* binding */ toTitleCase; });
+__webpack_require__.d(__webpack_exports__, "i", function() { return /* binding */ toTitleCase; });
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ capitalize; });
 __webpack_require__.d(__webpack_exports__, "d", function() { return /* binding */ isArray; });
-__webpack_require__.d(__webpack_exports__, "g", function() { return /* binding */ isString; });
-__webpack_require__.d(__webpack_exports__, "i", function() { return /* binding */ stringNotEmpty; });
-__webpack_require__.d(__webpack_exports__, "f", function() { return /* binding */ isObject; });
-__webpack_require__.d(__webpack_exports__, "e", function() { return /* binding */ isFunction; });
-__webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ reduceArrayToObject; });
+__webpack_require__.d(__webpack_exports__, "f", function() { return /* binding */ isString; });
+__webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ stringNotEmpty; });
+__webpack_require__.d(__webpack_exports__, "e", function() { return /* binding */ isObject; });
+__webpack_require__.d(__webpack_exports__, "g", function() { return /* binding */ reduceArrayToObject; });
 
-// UNUSED EXPORTS: isNullable, areArrays, areObjects, areStrings, mergeObjects
+// UNUSED EXPORTS: isFunction, isNullable, areArrays, areObjects, areStrings, mergeObjects
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
 var es_array_concat = __webpack_require__("99af");
@@ -9423,7 +9921,7 @@ module.exports.f = function (C) {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7a1f3ab0-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FormLabel.vue?vue&type=template&id=56afea17&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"40ca59de-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FormLabel.vue?vue&type=template&id=56afea17&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('label',{attrs:{"for":_vm.id},domProps:{"innerHTML":_vm._s(_vm.labelText)}})}
 var staticRenderFns = []
 
@@ -9446,7 +9944,7 @@ var helpers = __webpack_require__("d7c2");
       return this.field.id || this.field.name;
     },
     labelText: function labelText() {
-      return this.field.label || Object(helpers["j" /* toTitleCase */])(this.field.name);
+      return this.field.label || Object(helpers["i" /* toTitleCase */])(this.field.name);
     }
   },
   props: {
@@ -9643,10 +10141,8 @@ module.exports = function (key) {
 __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
-__webpack_require__.d(__webpack_exports__, "Form", function() { return /* reexport */ form_Form; });
-__webpack_require__.d(__webpack_exports__, "Requester", function() { return /* reexport */ form_Requester; });
+__webpack_require__.d(__webpack_exports__, "Model", function() { return /* reexport */ Model_Model; });
 __webpack_require__.d(__webpack_exports__, "FieldAliases", function() { return /* reexport */ aliases["a" /* default */]; });
-__webpack_require__.d(__webpack_exports__, "FormBuilder", function() { return /* reexport */ FormBuilder["default"]; });
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 // This file is imported into lib/wc client bundles.
@@ -9671,6 +10167,12 @@ var aliases = __webpack_require__("5621");
 // EXTERNAL MODULE: ./src/components/FormBuilder.vue + 6 modules
 var FormBuilder = __webpack_require__("6a29");
 
+// EXTERNAL MODULE: ./src/components/errors/ErrorList.vue + 4 modules
+var ErrorList = __webpack_require__("cfab");
+
+// EXTERNAL MODULE: ./src/components/errors/InlineError.vue + 4 modules
+var InlineError = __webpack_require__("794f");
+
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.fill.js
 var es_array_fill = __webpack_require__("cb29");
 
@@ -9683,11 +10185,14 @@ var es_array_for_each = __webpack_require__("4160");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.includes.js
 var es_array_includes = __webpack_require__("caad");
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.reduce.js
-var es_array_reduce = __webpack_require__("13d5");
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__("d3b7");
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.assign.js
-var es_object_assign = __webpack_require__("cca6");
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.promise.js
+var es_promise = __webpack_require__("e6cf");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.promise.finally.js
+var es_promise_finally = __webpack_require__("a79d");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.includes.js
 var es_string_includes = __webpack_require__("2532");
@@ -9695,9 +10200,48 @@ var es_string_includes = __webpack_require__("2532");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.for-each.js
 var web_dom_collections_for_each = __webpack_require__("159b");
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
-var defineProperty = __webpack_require__("ade3");
+// EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
+var runtime = __webpack_require__("96cf");
 
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+        args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+
+      _next(undefined);
+    });
+  };
+}
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js
 var objectSpread2 = __webpack_require__("5530");
 
@@ -9754,9 +10298,6 @@ function _getPrototypeOf(o) {
   };
   return _getPrototypeOf(o);
 }
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__("d3b7");
-
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.to-string.js
 var es_regexp_to_string = __webpack_require__("25f0");
 
@@ -9821,12 +10362,6 @@ function _createSuper(Derived) {
 // EXTERNAL MODULE: ./src/helpers.js + 4 modules
 var helpers = __webpack_require__("d7c2");
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.promise.js
-var es_promise = __webpack_require__("e6cf");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.promise.finally.js
-var es_promise_finally = __webpack_require__("a79d");
-
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.flat.js
 var es_array_flat = __webpack_require__("0481");
 
@@ -9836,7 +10371,7 @@ var es_array_unscopables_flat = __webpack_require__("4069");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.values.js
 var es_object_values = __webpack_require__("07ac");
 
-// CONCATENATED MODULE: ./src/form/RequestErrorHandler.js
+// CONCATENATED MODULE: ./src/model/RequestErrorHandler.js
 
 
 
@@ -9892,11 +10427,11 @@ var RequestErrorHandler_RequestErrorHandler = /*#__PURE__*/function () {
   }, {
     key: "extractResponseErrors",
     value: function extractResponseErrors(response) {
-      if (!Object(helpers["f" /* isObject */])(response.data)) return;
+      if (!Object(helpers["e" /* isObject */])(response.data)) return;
       var data = response.data;
       var errors = {};
-      if (Object(helpers["g" /* isString */])(data.message)) errors.message = data.message;
-      if (Object(helpers["f" /* isObject */])(data.errors)) errors.errors = data.errors;
+      if (Object(helpers["f" /* isString */])(data.message)) errors.message = data.message;
+      if (Object(helpers["e" /* isObject */])(data.errors)) errors.errors = data.errors;
       return errors;
     }
     /**
@@ -9976,7 +10511,7 @@ var RequestErrorHandler_RequestErrorHandler = /*#__PURE__*/function () {
   }, {
     key: "handleRequestFailure",
     value: function handleRequestFailure(error) {
-      if (Object(helpers["f" /* isObject */])(error.response)) {
+      if (Object(helpers["e" /* isObject */])(error.response)) {
         var errors = this.extractResponseErrors(error.response);
         this.setErrors(errors);
       }
@@ -10004,9 +10539,9 @@ var RequestErrorHandler_RequestErrorHandler = /*#__PURE__*/function () {
   }, {
     key: "pushErrors",
     value: function pushErrors(errors) {
-      if (Object(helpers["f" /* isObject */])(errors)) {
-        if (Object(helpers["g" /* isString */])(errors.message)) this._errorMessage += errors.message;
-        if (Object(helpers["f" /* isObject */])(errors.errors)) this._errors = Object(objectSpread2["a" /* default */])(Object(objectSpread2["a" /* default */])({}, this._errors), errors.errors);
+      if (Object(helpers["e" /* isObject */])(errors)) {
+        if (Object(helpers["f" /* isString */])(errors.message)) this._errorMessage += errors.message;
+        if (Object(helpers["e" /* isObject */])(errors.errors)) this._errors = Object(objectSpread2["a" /* default */])(Object(objectSpread2["a" /* default */])({}, this._errors), errors.errors);
       }
 
       return this;
@@ -10034,7 +10569,7 @@ var RequestErrorHandler_RequestErrorHandler = /*#__PURE__*/function () {
 var axios = __webpack_require__("bc3a");
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 
-// CONCATENATED MODULE: ./src/form/Requester.js
+// CONCATENATED MODULE: ./src/model/Model.js
 
 
 
@@ -10046,20 +10581,42 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 
 
 
-var Requester_Requester = /*#__PURE__*/function (_RequestErrorHandler) {
-  _inherits(Requester, _RequestErrorHandler);
 
-  var _super = _createSuper(Requester);
+
+
+
+
+
+
+
+
+
+var Model_Model = /*#__PURE__*/function (_RequestErrorHandler) {
+  _inherits(Model, _RequestErrorHandler);
+
+  var _super = _createSuper(Model);
 
   /**
-   * Create a new Requester instance.
+   * Create a new form instance.
+   *
+   * @param {Object} options
+   * @returns {void}
    */
-  function Requester() {
+  function Model() {
     var _this;
 
-    Object(classCallCheck["a" /* default */])(this, Requester);
+    var originalData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    Object(classCallCheck["a" /* default */])(this, Model);
 
     _this = _super.call(this);
+    /**
+     * The original data of the model
+     *
+     * @var {Object}
+     */
+
+    _this._originalData = Object(helpers["b" /* deepCopy */])(originalData);
     /**
      * Whether the request has finished
      *
@@ -10074,181 +10631,6 @@ var Requester_Requester = /*#__PURE__*/function (_RequestErrorHandler) {
      */
 
     _this._successful = false;
-    return _this;
-  } // Some of the following methods are intended to be override
-
-  /**
-   * Executes callback after the request
-   */
-
-
-  Object(createClass["a" /* default */])(Requester, [{
-    key: "afterRequest",
-    value: function afterRequest() {}
-    /**
-     * Executes callback after a successful request
-     */
-
-  }, {
-    key: "afterSuccessfulRequest",
-    value: function afterSuccessfulRequest(response) {
-      this._successful = true;
-    }
-    /**
-     * Executes callback after a successful request
-     */
-
-  }, {
-    key: "afterFailedRequest",
-    value: function afterFailedRequest(error) {
-      this._successful = false;
-      this.handleRequestFailure(error);
-    }
-    /**
-     * Executes callback before sending the request
-     */
-
-  }, {
-    key: "beforeSendRequest",
-    value: function beforeSendRequest() {}
-    /**
-     * Finish the request
-     *
-     * @returns {void}
-     */
-
-  }, {
-    key: "finishRequest",
-    value: function finishRequest() {
-      this.afterRequest();
-      this._isBusy = false;
-    }
-    /**
-     * Get the api client responsible for sending the request
-     *
-     * @returns {void}
-     */
-
-  }, {
-    key: "getApiClient",
-    value: function getApiClient() {
-      return window.axios || axios_default.a;
-    }
-    /**
-     * Start the request
-     *
-     * @returns {void}
-     */
-
-  }, {
-    key: "startRequest",
-    value: function startRequest() {
-      this.clearErrors();
-      this._isBusy = true;
-    }
-    /**
-     * Send an ajax request
-     *
-     * @param {String} method
-     * @param {String} url
-     * @param {Object} data
-     * @param {Object} config
-     * @returns {Promise} response
-     */
-
-  }, {
-    key: "sendRequest",
-    value: function sendRequest(method, url) {
-      var _this2 = this;
-
-      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-      var config = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-      // don't send request if
-      // other request is pending
-      if (this._isBusy) return;
-      this.startRequest();
-      this.beforeSendRequest();
-      var apiClient = this.getApiClient();
-      return new Promise(function (resolve, reject) {
-        apiClient.request(Object(objectSpread2["a" /* default */])({
-          url: url,
-          method: method,
-          data: data
-        }, config)).then(function (response) {
-          _this2.afterSuccessfulRequest(response);
-
-          resolve(response);
-        }).catch(function (error) {
-          _this2.afterFailedRequest(error);
-
-          reject(error);
-        }).finally(function () {
-          return _this2.finishRequest();
-        });
-      });
-    }
-  }]);
-
-  return Requester;
-}(RequestErrorHandler_RequestErrorHandler);
-
-/* harmony default export */ var form_Requester = (Requester_Requester);
-// CONCATENATED MODULE: ./src/form/Form.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var Form_Form = /*#__PURE__*/function (_Requester) {
-  _inherits(Form, _Requester);
-
-  var _super = _createSuper(Form);
-
-  /**
-   * Create a new form instance.
-   *
-   * @param {Object} options
-   * @return {void}
-   */
-  function Form() {
-    var _this;
-
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    Object(classCallCheck["a" /* default */])(this, Form);
-
-    _this = _super.call(this);
-    /**
-     * The property underscore will store all
-     * configuration and data of this Form,
-     * such as fields, default values. This
-     * will avoid conflict because some of the
-     * configuration properties may have the same
-     * name as the form fields.
-     *
-     * @var {Object}
-     */
-
-    _this._ = {};
-    /**
-     * Assign the data and the configuration for
-     * this instance.
-    */
-
-    Object.assign(_this._, options);
     /**
      * First, we set the default values to the
      * fields of this instance, so we can
@@ -10263,42 +10645,31 @@ var Form_Form = /*#__PURE__*/function (_Requester) {
      */
 
 
-    _this.fill(_this._originalData);
+    _this.fill(_this.originalData());
 
     return _this;
   } //
-  // ─── METHODS ────────────────────────────────────────────────────────────────────
+  // ─── SYNC ───────────────────────────────────────────────────────────────────────
   //
 
   /**
-   * Executes callback after a request
+   * Clear each secrete field
    *
-   * @return {void}
+   * @returns {Object} this
    */
 
 
-  Object(createClass["a" /* default */])(Form, [{
-    key: "afterRequest",
-    value: function afterRequest() {
-      this.clearSecretes();
-    }
-    /**
-     * Clear each secrete field
-     *
-     * @return {Object} this
-     */
-
-  }, {
+  Object(createClass["a" /* default */])(Model, [{
     key: "clearSecretes",
     value: function clearSecretes() {
-      var _iterator = Object(createForOfIteratorHelper["a" /* default */])(this._secretes),
+      var _iterator = Object(createForOfIteratorHelper["a" /* default */])(this.secretes()),
           _step;
 
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var secrete = _step.value;
           if (!this.hasOwnProperty(secrete)) continue;
-          if (Object(helpers["g" /* isString */])(this[secrete])) this[secrete] = "";else if (Object(helpers["d" /* isArray */])(this[secrete])) this[secrete] = [];else if (Object(helpers["f" /* isObject */])(this[secrete])) this[secrete] = {};else this[secrete] = null;
+          if (Object(helpers["f" /* isString */])(this[secrete])) this[secrete] = "";else if (Object(helpers["d" /* isArray */])(this[secrete])) this[secrete] = [];else if (Object(helpers["e" /* isObject */])(this[secrete])) this[secrete] = {};else this[secrete] = null;
         }
       } catch (err) {
         _iterator.e(err);
@@ -10309,25 +10680,57 @@ var Form_Form = /*#__PURE__*/function (_Requester) {
       return this;
     }
     /**
-     * Fill fields that are mass assignable
+     * Fill attributes that are mass assignable
      *
      * @param {Object} data
-     * @return {Object} this
+     * @returns {Object} this
      */
 
   }, {
     key: "fill",
     value: function fill(data) {
-      for (var field in data) {
-        if (this._fillable.includes(field)) this[field] = Object(helpers["b" /* deepCopy */])(data[field]);
+      for (var attr in data) {
+        if (this.fillable().includes(attr)) this[attr] = Object(helpers["b" /* deepCopy */])(data[attr]);
       }
 
       return this;
     }
     /**
+     * Get the values of this model's attributes
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "getValues",
+    value: function getValues() {
+      for (var _len = arguments.length, attributes = new Array(_len), _key = 0; _key < _len; _key++) {
+        attributes[_key] = arguments[_key];
+      }
+
+      if (attributes.length === 0) attributes = this.attributes();
+      var values = {};
+
+      var _iterator2 = Object(createForOfIteratorHelper["a" /* default */])(attributes),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var attr = _step2.value;
+          values[attr] = this[attr];
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+
+      return values;
+    }
+    /**
      * Reset the form fields.
      *
-     * @return {Object} this
+     * @returns {Object} this
      */
 
   }, {
@@ -10335,23 +10738,27 @@ var Form_Form = /*#__PURE__*/function (_Requester) {
     value: function reset() {
       var _this2 = this;
 
-      this._fields.forEach(function (field) {
-        if (_this2._originalData[field] !== undefined) _this2[field] = Object(helpers["b" /* deepCopy */])(_this2._originalData[field]);else if (_this2._defaults[field] !== undefined) _this2[field] = _this2._defaults[field];else _this2[field] = "";
+      var originalData = this.originalData();
+      var defaults = this.defaults();
+      var attributes = this.attributes();
+      attributes.forEach(function (attr) {
+        if (originalData[attr] !== undefined) _this2[attr] = Object(helpers["b" /* deepCopy */])(originalData[attr]);else if (defaults[attr] !== undefined) _this2[attr] = defaults[attr];else _this2[attr] = "";
       });
-
       return this;
     }
     /**
      * Set this fields to the default
      *
-     * @return {Object} this
+     * @returns {Object} this
      */
 
   }, {
     key: "setDefaultFieldValues",
     value: function setDefaultFieldValues() {
-      for (var field in this._defaults) {
-        this[field] = this._defaults[field];
+      var defaults = this.defaults();
+
+      for (var field in defaults) {
+        this[field] = defaults[field];
       }
 
       return this;
@@ -10359,20 +10766,20 @@ var Form_Form = /*#__PURE__*/function (_Requester) {
     /**
      * Set this original data
      *
-     * @return {Object} this
+     * @returns {Object} this
      */
 
   }, {
     key: "setOriginalData",
     value: function setOriginalData(data) {
-      this._.originalData = Object(helpers["b" /* deepCopy */])(data);
+      this._originalData = Object(helpers["b" /* deepCopy */])(data);
       this.fill(data);
       return this;
     }
     /**
      * Sync original data
      *
-     * @return {Object} this
+     * @returns {Object} this
      */
 
   }, {
@@ -10380,144 +10787,552 @@ var Form_Form = /*#__PURE__*/function (_Requester) {
     value: function sync() {
       var _this3 = this;
 
-      this._fields.forEach(function (field) {
-        if (!_this3._secretes.includes(field)) _this3._originalData[field] = _this3[field];
+      this.fields().forEach(function (field) {
+        if (!_this3.secretes().includes(field)) _this3.originalData()[field] = _this3[field];
       });
-
       return this;
     } //
-    // ─── GETTERS ────────────────────────────────────────────────────────────────────
+    // ─── REQUESTS ───────────────────────────────────────────────────────────────────
     //
 
     /**
-     * The form fields
+     * Executes callback after a request
      *
-     * @return {Array}
+     * @returns {void}
      */
 
   }, {
-    key: "_fields",
-    get: function get() {
-      return this._.fields;
+    key: "afterRequest",
+    value: function afterRequest() {
+      this.clearSecretes();
+    }
+    /**
+     * Executes callback after a successful request
+     *
+     * @returns {void}
+     */
+
+  }, {
+    key: "afterSuccessfulRequest",
+    value: function afterSuccessfulRequest(response) {
+      this._successful = true;
+    }
+    /**
+     * Executes callback after a successful request
+     *
+     * @returns {void}
+     */
+
+  }, {
+    key: "afterFailedRequest",
+    value: function afterFailedRequest(error) {
+      this._successful = false;
+      this.handleRequestFailure(error);
+    }
+    /**
+     * Get the api client responsible for sending the request
+     *
+     * @returns {void}
+     */
+
+  }, {
+    key: "apiClient",
+    value: function apiClient() {
+      return window.axios || axios_default.a;
+    }
+    /**
+     * Executes callback before sending the request
+     */
+
+  }, {
+    key: "beforeSendRequest",
+    value: function beforeSendRequest() {// intended to be overridden
+    }
+    /**
+     * Finish the request
+     *
+     * @returns {void}
+     */
+
+  }, {
+    key: "finishRequest",
+    value: function finishRequest() {
+      this.afterRequest();
+      this._isBusy = false;
+    }
+    /**
+     * Start the request
+     *
+     * @returns {void}
+     */
+
+  }, {
+    key: "startRequest",
+    value: function startRequest() {
+      this.clearErrors();
+      this._isBusy = true;
+    } //
+    // ─── ASYNC ──────────────────────────────────────────────────────────────────────
+    //
+
+    /**
+     * Send an ajax request
+     *
+     * @param {String} method
+     * @param {String} url
+     * @param {Object} data
+     * @param {Object} config
+     * @returns {Promise}
+     */
+
+  }, {
+    key: "sendRequest",
+    value: function sendRequest(_ref) {
+      var _this4 = this;
+
+      var method = _ref.method,
+          url = _ref.url,
+          _ref$data = _ref.data,
+          data = _ref$data === void 0 ? {} : _ref$data,
+          _ref$config = _ref.config,
+          config = _ref$config === void 0 ? {} : _ref$config;
+      // don't send request if
+      // other request is pending
+      if (this._isBusy) return;
+      this.startRequest();
+      this.beforeSendRequest();
+      return new Promise(function (resolve, reject) {
+        _this4.apiClient().request(Object(objectSpread2["a" /* default */])({
+          url: url,
+          method: method,
+          data: data
+        }, config)).then(function (response) {
+          _this4.afterSuccessfulRequest(response);
+
+          resolve(response);
+        }).catch(function (error) {
+          _this4.afterFailedRequest(error);
+
+          reject(error);
+        }).finally(function () {
+          _this4.finishRequest();
+        });
+      });
+    }
+    /**
+     * Send a post request
+     *
+     * @param {String} url
+     * @param {Object} config
+     * @returns {Promise}
+     */
+
+  }, {
+    key: "post",
+    value: function () {
+      var _post = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(url) {
+        var config,
+            _args = arguments;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                config = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
+                _context.next = 3;
+                return this.sendRequest({
+                  method: 'post',
+                  url: url,
+                  data: this.data(),
+                  config: config
+                });
+
+              case 3:
+                return _context.abrupt("return", _context.sent);
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function post(_x) {
+        return _post.apply(this, arguments);
+      }
+
+      return post;
+    }()
+    /**
+     * Send a put request
+     *
+     * @param {String} url
+     * @param {Object} config
+     * @returns {Promise}
+     */
+
+  }, {
+    key: "put",
+    value: function () {
+      var _put = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(url) {
+        var config,
+            _args2 = arguments;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                config = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {};
+                _context2.next = 3;
+                return this.sendRequest({
+                  method: 'put',
+                  url: url,
+                  data: this.data(),
+                  config: config
+                });
+
+              case 3:
+                return _context2.abrupt("return", _context2.sent);
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function put(_x2) {
+        return _put.apply(this, arguments);
+      }
+
+      return put;
+    }()
+    /**
+     * Send a patch request
+     *
+     * @param {String} url
+     * @param {Object} config
+     * @returns {Promise}
+     */
+
+  }, {
+    key: "patch",
+    value: function () {
+      var _patch = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(url) {
+        var config,
+            _args3 = arguments;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                config = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : {};
+                _context3.next = 3;
+                return this.sendRequest({
+                  method: 'patch',
+                  url: url,
+                  data: this.data(),
+                  config: config
+                });
+
+              case 3:
+                return _context3.abrupt("return", _context3.sent);
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function patch(_x3) {
+        return _patch.apply(this, arguments);
+      }
+
+      return patch;
+    }()
+    /**
+     * Create this resource
+     *
+     * @return {Promise}
+     */
+
+  }, {
+    key: "create",
+    value: function () {
+      var _create = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return this.sendRequest({
+                  method: 'post',
+                  data: this.data(),
+                  url: this.apiEndpoints('create')
+                });
+
+              case 2:
+                return _context4.abrupt("return", _context4.sent);
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function create() {
+        return _create.apply(this, arguments);
+      }
+
+      return create;
+    }()
+    /**
+     * Destroy this resource
+     *
+     * @return {Promise}
+     */
+
+  }, {
+    key: "destroy",
+    value: function () {
+      var _destroy = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return this.sendRequest({
+                  method: 'delete',
+                  url: this.apiEndpoints('delete')
+                });
+
+              case 2:
+                return _context5.abrupt("return", _context5.sent);
+
+              case 3:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function destroy() {
+        return _destroy.apply(this, arguments);
+      }
+
+      return destroy;
+    }()
+    /**
+     * Fetch this resource
+     *
+     * @return {Promise}
+     */
+
+  }, {
+    key: "fetch",
+    value: function () {
+      var _fetch = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return this.sendRequest({
+                  method: 'get',
+                  url: this.apiEndpoints('view')
+                });
+
+              case 2:
+                return _context6.abrupt("return", _context6.sent);
+
+              case 3:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6, this);
+      }));
+
+      function fetch() {
+        return _fetch.apply(this, arguments);
+      }
+
+      return fetch;
+    }()
+    /**
+     * Updates this resource in storage
+     *
+     * @return {Promise}
+     */
+
+  }, {
+    key: "update",
+    value: function () {
+      var _update = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                _context7.next = 2;
+                return this.sendRequest({
+                  method: 'put',
+                  url: this.apiEndpoints('update'),
+                  data: this.data()
+                });
+
+              case 2:
+                return _context7.abrupt("return", _context7.sent);
+
+              case 3:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7, this);
+      }));
+
+      function update() {
+        return _update.apply(this, arguments);
+      }
+
+      return update;
+    }() //
+    // ─── CONFIG ────────────────────────────────────────────────────────────────────
+    //
+
+    /**
+     * The attributes
+     *
+     * @returns {Array}
+     */
+
+  }, {
+    key: "attributes",
+    value: function attributes() {// this is intended to be overridden
+    }
+    /**
+     * The api endpoints for this resource
+     *
+     * @param {String} action
+     * @returns {String}
+     */
+
+  }, {
+    key: "apiEndpoints",
+    value: function apiEndpoints(action) {// this is intended to be overridden
+    }
+    /**
+     * How the fields should be rendered
+     *
+     * @returns {Array}
+     */
+
+  }, {
+    key: "fields",
+    value: function fields() {// this is intended to be overridden
     }
     /**
      * Get the data that should be sent in the request
      *
-     * @return {Object}
+     * @returns {Object}
      */
 
   }, {
-    key: "_data",
-    get: function get() {
-      var _this4 = this;
+    key: "data",
+    value: function data() {
+      var _this5 = this;
 
-      var _fields = this._fields,
-          _omitNull = this._omitNull,
-          _omitted = this._omitted;
       var data = {};
-
-      _fields.filter(function (field) {
-        return !_omitted.includes(field);
+      this.fields().filter(function (field) {
+        return !_this5.omitted().includes(field);
       }).forEach(function (field) {
-        return data[field] = _this4[field];
+        return data[field] = _this5[field];
       });
-
-      if (_omitNull) Object(helpers["c" /* deleteNullProps */])(data);
+      if (this.omitNull()) Object(helpers["c" /* deleteNullProps */])(data);
       return data;
     }
     /**
      * The default values of the fields.
      *
-     * @return {Array}
+     * @returns {Array}
      */
 
   }, {
-    key: "_defaults",
-    get: function get() {
-      return this._.defaults || this._fields.reduce(function (defaults, field) {
-        return Object(objectSpread2["a" /* default */])(Object(objectSpread2["a" /* default */])({}, defaults), {}, Object(defineProperty["a" /* default */])({}, field, ""));
-      }, {});
+    key: "defaults",
+    value: function defaults() {
+      var defaults = {};
+      this.fields().forEach(function (field) {
+        return defaults[field] = "";
+      });
+      return defaults;
     }
     /**
-     * The fields that are mass assignable.
+     * The attributes that are mass assignable.
      *
-     * @return {Array}
+     * @returns {Array}
      */
 
   }, {
-    key: "_fillable",
-    get: function get() {
-      return this._.fillable || this._fields;
+    key: "fillable",
+    value: function fillable() {
+      return this.attributes();
     }
     /**
      * The fields that should never be sent with the request
      *
-     * @return {Array}
+     * @returns {Array}
      */
 
   }, {
-    key: "_omitted",
-    get: function get() {
-      return this._.omitted || [];
+    key: "omitted",
+    value: function omitted() {
+      return [];
     }
     /**
      * Whether to omit null fields with the request
      *
-     * @return {Boolean}
+     * @returns {Boolean}
      */
 
   }, {
-    key: "_omitNull",
-    get: function get() {
-      return this._.hasOwnProperty('omitNull') ? this._.omitNull : true;
+    key: "omitNull",
+    value: function omitNull() {
+      return true;
     }
     /**
      * The model's original data
      *
-     * @return {Object}
+     * @returns {Object}
      */
 
   }, {
-    key: "_originalData",
-    get: function get() {
-      return this._.originalData || {};
+    key: "originalData",
+    value: function originalData() {
+      return this._originalData;
     }
     /**
      * The fields that should be cleared after each request
      *
-     * @return {Array}
+     * @returns {Array}
      */
 
   }, {
-    key: "_secretes",
-    get: function get() {
-      return this._.secretes || ["password", "password_confirmation"];
+    key: "secretes",
+    value: function secretes() {
+      return ["password", "password_confirmation"];
     }
   }]);
 
-  return Form;
-}(form_Requester);
-/**
- * Attach https methods to the Form class, making it
- * more convenient to send requests. For example,
- * instead of caliing form.sendRequest("post", url),
- * we can call form.post(url)
- *
- * Since these methods use the same parameters, it is
- * convenient to add them dynamically instead of repeating
- * the code several times.
- */
+  return Model;
+}(RequestErrorHandler_RequestErrorHandler);
 
 
-var methods = ["delete", "get", "patch", "post", "put"];
-methods.forEach(function (method) {
-  Form_Form.prototype[method] = function (url, config) {
-    var data = this._data;
-    return this.sendRequest(method, url, data, config);
-  };
-});
-/* harmony default export */ var form_Form = (Form_Form);
 // CONCATENATED MODULE: ./src/index.js
+
 
 
 
@@ -10526,7 +11341,7 @@ methods.forEach(function (method) {
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
 
 
-/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (FormBuilder["default"]);
+/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (/* Cannot get final name for export "default" in "./src/index.js" (known exports: , known reexports: Model FieldAliases) */ undefined);
 
 
 
@@ -10539,7 +11354,7 @@ methods.forEach(function (method) {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7a1f3ab0-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FormButtons.vue?vue&type=template&id=7128a57a&scoped=true&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"40ca59de-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FormButtons.vue?vue&type=template&id=7128a57a&scoped=true&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',_vm._b({},'div',_vm.wrapperAttr,false),[_c('div',{staticClass:"form-buttons"},[_c('button',_vm._b({},'button',_vm.cancelButtonAttr,false),[_vm._v(" "+_vm._s(_vm.cancelButtonText)+" ")]),_vm._v(" "),_c('button',_vm._b({},'button',_vm.submitButtonAttr,false),[_vm._v(" "+_vm._s(_vm.submitButtonText)+" ")])])])}
 var staticRenderFns = []
 

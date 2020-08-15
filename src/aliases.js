@@ -38,11 +38,9 @@ function getAliases() {
     return aliases;
 }
 
-const FieldAliases = {
+export default {
     aliases,
     setAliases,
     registerAliases,
     getAliases,
 };
-
-export default FieldAliases;

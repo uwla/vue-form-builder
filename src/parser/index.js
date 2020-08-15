@@ -130,7 +130,7 @@ function parseField(field) {
 
 	assignFieldDefaults(field);
 
-	return { ...field };
+	return { ... field };
 }
 
 /**

@@ -1,36 +1,23 @@
-import { isFunction } from "../../helpers";
-
 export default {
     name: "InlineErrors",
     computed: {
         hasError() {
-			if (isFunction(this.form.fieldHasError))
-				return this.form.fieldHasError(this.field)
-			else
-				return false
+			return this.model.fieldHasError(this.field)
         },
 
         errors() {
-			if (isFunction(this.form.getFieldErrors))
-				return this.form.getFieldErrors(this.field).slice(0, this.maxErrors)
-			else
-				return []
+			return this.model.getFieldErrors(this.field)
         }
     },
 
     props: {
-        form: {
+        model: {
             type: Object,
-            required: true
+			required: true
         },
         field: {
             type: String,
             required: true
         },
-        maxErrors: {
-            type: Number,
-            default: 10,
-            validator: value => value > 0
-        }
     }
 };

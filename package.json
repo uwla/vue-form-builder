@@ -10,8 +10,8 @@
   "main": "dist/FormBuilder.umd.js",
   "unpkg": "dist/FormBuilder.umd.min.js",
   "keywords": [
-    "form generator",
     "form builder",
+    "form generator",
     "vue",
     "form",
     "bootstrap"

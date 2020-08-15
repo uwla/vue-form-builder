@@ -3,7 +3,7 @@
 //
 
 import { parseFields } from '../parser'
-import { isArray, isFunction } from '../helpers'
+import { isArray } from '../helpers'
 
 /**
  * The following block of code is used to automatically import our
@@ -16,11 +16,10 @@ const components = {};
 files.keys().forEach(key => {
     const componentName = key.split('/').pop().split('.')[0];
 
-    if (componentName === "FormBuilder")
-        return;
-
-    const component = files(key).default;
-    components[componentName] = component;
+    if (componentName !== "FormBuilder") {
+		const component = files(key).default;
+		components[componentName] = component;
+	}
 });
 
 //
@@ -34,20 +33,20 @@ export default {
 
     computed: {
         formFields() {
-            const fields = parseFields(this.fields);
+			let fields = parseFields( this.model.fields() )
 
+			// set field value and css class
             fields.forEach(field => {
-                // set default class
                 if (! field.class)
                     field.class = this.fieldClass
 
-                // set default values
-                if (this.form[field.name] !== undefined)
-                    field.value = this.form[field.name]
+                if (this.model[field.name] !== undefined)
+                    field.value = this.model[field.name]
             });
 
             return fields;
-        },
+		},
+
     },
 
     methods: {
@@ -63,9 +62,9 @@ export default {
             if (isArray(this.form[field.name]))
                 this.updateFieldOptions(field, value)
             else if (field.type === "file")
-                this.form[field.name] = target.files[0]
+                this.model[field.name] = target.files[0]
             else
-                this.form[field.name] = value
+                this.model[field.name] = value
         },
 
         /**
@@ -74,12 +73,12 @@ export default {
          * @return {void}
          */
         updateFieldOptions(field, value) {
-            let index = this.form[field.name].indexOf(value)
+            let index = this.model[field.name].indexOf(value)
 
             if (index === -1)
-                this.form[field.name].push(value);
+                this.model[field.name].push(value);
             else
-                this.form[field.name].splice(index, 1)
+                this.model[field.name].splice(index, 1)
         },
 
         /**
@@ -88,17 +87,11 @@ export default {
          * @return {Boolean}
          */
         fieldHasError(field) {
-            if (isFunction(this.form.fieldHasError))
-                return this.form.fieldHasError(field)
-            return false
+            return this.model.fieldHasError(field)
         }
     },
 
     props: {
-        fields: {
-            type: Array,
-            required: true
-        },
         fieldClass: {
             type: String,
             default: "form-control"
@@ -107,23 +100,23 @@ export default {
             type: String,
             default: "form-group"
         },
-        form: {
+        model: {
             type: Object,
-            default: () => ({})
-        },
-        enableButtons: {
-            type: Boolean,
-            default: true,
+			required: true
         },
         formButtons: {
-            type: Object,
+			type: Object,
             default: () => ({})
         },
-        inlineErrors: {
+		showButtons: {
+			type: Boolean,
+			default: true,
+		},
+        showInlineErrors: {
             type: Boolean,
             default: true,
         },
-        errorList: {
+        showErrorList: {
             type: Boolean,
             default: false,
         }

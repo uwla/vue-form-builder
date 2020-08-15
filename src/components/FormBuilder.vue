@@ -2,10 +2,12 @@
 <template>
 	<form @submit.prevent="$emit('submit')">
 
-		<error-list v-if="errorList"
-					v-bind="{ form }" />
+		<error-list
+			v-if="showErrorList"
+			v-bind="{ model }" />
 
-		<slot name="start"></slot>
+		<slot name="start">
+		</slot>
 
 		<form-group
 			v-for="(field, i) in formFields" :key="i"
@@ -15,23 +17,26 @@
 
 			<form-label :field="field" />
 
-			<component :is="field.component"
-					   :field="field"
-	 				   :class="{'is-invalid': fieldHasError(field.name)}"
-					   @input="updateField(field)" />
+			<component
+				:is="field.component"
+				:field="field"
+				:class="{ 'is-invalid': fieldHasError(field.name) }"
+				@input="updateField(field)" />
 
 			<inline-error
-				v-if="inlineErrors"
-				v-bind="{ form, field: field.name}" />
+				v-if="showInlineErrors"
+				v-bind="{ model, field: field.name}" />
 		</form-group>
 
-		<slot></slot>
+		<slot>
+		</slot>
 
 		<form-buttons
-			v-if="enableButtons"
+			v-if="showButtons"
 			v-bind="formButtons" />
 
-		<slot name="end"></slot>
+		<slot name="end">
+		</slot>
 	</form>
 </template>
 

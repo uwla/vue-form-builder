@@ -1,4 +1,4 @@
-import {isArray, isObject, isString} from '../helpers'
+import { isArray, isObject, isString } from '../helpers'
 
 export default class RequestErrorHandler {
 	/**

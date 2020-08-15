@@ -1,12 +1,14 @@
 import FieldAliases from './aliases'
 import FormBuilder from './components/FormBuilder.vue'
-import Form from './form/Form'
-import Requester from './form/Requester'
+import ErrorList from './components/errors/ErrorList.vue'
+import InlineError from './components/errors/InlineError.vue'
+import Model from './model/Model'
 
 export {
-	Form,
-	Requester,
+	Model,
 	FieldAliases,
 	FormBuilder,
+	ErrorList,
+	InlineError,
 	FormBuilder as default
 };
