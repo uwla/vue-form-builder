@@ -82,7 +82,7 @@ import '@andresouzaabreu/vue-form-builder/dist/FormBuilder.css'
 ```vue
 <template>
     <div>
-        <form-builder v-bind="{ fields }"/>
+        <form-builder v-bind="{ fields, model }"/>
     </div>
 </template>
 
@@ -100,6 +100,12 @@ export default {
                    options: ["Admin", "Editor", "Author", "User", "Manager"]
                }
             ],
+            model: {
+                name: "",
+                email: "",
+                photo: "",
+                role: "",
+            }
         }
     }
 }
@@ -109,15 +115,15 @@ export default {
 ## Customize configuration
 
 | prop | type | default | description |
-| --- | --- | --- |
+| --- | --- | --- |  --- |
 | fields | `Array` | - | Specify how the form fields should be rendered |
-| form | `Object` | `{}` | Send requests to the AṔI and handle errors |
+| model | `Object` | `{}` | Update values to this object |
 | formButtons | `Object` | `{}` | Specify how to display the form buttons |
-| enableButtons | `Boolean` | `true` | Whether to render the form buttons provided by Form Builder |
 | fieldClass | `String` | `form-control` | The css class of form fields|
 | fieldGroupClass | `String` | `form-group` | The css class of the div wrapping the form fields |
-| inlineErrors | `Boolean` | `true` | Whether to display the error message inline |
-| ErrorList | `Boolean` | `false` | Whether to display the error messages as a list |
+| showButtons | `Boolean` | `true` | Whether to render the form buttons provided by Form Builder |
+| showInlineErrors | `Boolean` | `true` | Whether to display the error message inline |
+| showErrorList | `Boolean` | `false` | Whether to display the error messages as a list |
 
 ### fields
 
@@ -150,21 +156,13 @@ The fields array contains objects or strings representing a field. Here are some
 
 If the field is a string, we need to use `|` to separate the field attributes (this can be Html attributes, label text, element type, select options, etc). The order of the attributes does not matter (e.g, `name:email|text` is the sane as `text|name:email`).
 
-### form
+### model
 
-The `form` object contains the values of the form fields. The field value the user inputs will get updated in the `form`.
-
-The `form` must an instance of the `Form` class provided by Vue Form Builder. The form automatically handles error responses from the server and display them either as inline error messages or in a list (which is defined in the props).
+The `model` object contains the values of the form fields. The field value the user inputs will get updated in the `model`.
 
 Javascript Example:
 
 ```javascript
-const formOptions = {
-    fields: ['username', 'password'],
-}
-
-import { Form } from '@andresouzaabreu/vue-form-builder';
-const form = new Form(formOptions);
 
 export default {
     name: "LoginForm",
@@ -175,18 +173,21 @@ export default {
                 'name:username|label:Your username please|text',
                 'name:password|label:Your password please|password',
             ],
-            form: form,
+            model: {
+                username: "",
+                password: "",
+            },
         }
     },
     methods: {
         attemptLogin() {
-            form.post('/api/login').then(response => {
+            axios.post('/api/login', this.model).then(response => {
                 /* log the user in */
             }).catch(e => {
                 /*
-                There is no need to catch errors because
-                the Form will automatically do it for us.
-                So we don't need to write anything here.
+                If model is an instance that matches the API of
+                Model, then the errors will be displayed automatically.
+                Otherwise, you will need to manually handle them.
                 */
             })
         }
@@ -197,172 +198,7 @@ export default {
 in vue template:
 
 ```html
-<form-builder v-bind="{ fields, form }" @submit="attemptLogin()">
-```
-
-#### fields
-
-When creating a Form instance, we must specify some options. The most important one is the fields. For example:
-
-```javascript
-const formOptions = {
-    fields: ['username', 'password'],
-}
-
-import { Form } from '@andresouzaabreu/vue-form-builder';
-const form = new Form(formOptions);
-```
-
-```javascript
-// this will print the value the user has entered in the fields.
-// It syncs automatically. Take care with it
-console.log(form.username, form.password)
-```
-
-#### secretes
-
-When dealing with sensitive information, security is a must have. For that matter, we can specify which form fields should be cleared after each request.
-
-```javascript
-const formOptions = {
-    fields: ['username', 'password'],
-    secretes: ['password']
-}
-
-import { Form } from '@andresouzaabreu/vue-form-builder';
-const form = new Form(formOptions);
-```
-
-After submitting the form, the password field will be cleared regardless of whether the request has failed or succeed.
-
-By default, the following secretes are enabled in the `Form` class:
-
-```javascript
-get _secretes() {
-    return this._.secretes || ['password', 'password_confirmation']
-}
-```
-
-You can specify as many secretes as you want. The fields defined in secretes will always be cleared and they cannot have a default value.
-
-#### default field values
-
-We can specify default values for form fields as follows
-
-```javascript
-const formOptions = {
-    fields: ['name', 'email', 'country', 'want_subscribe'],
-    defaults: [
-        'name': '',
-        'email': '',
-        'country': 'US',
-        'want_subscribe': true,
-    ]
-}
-
-import { Form } from '@andresouzaabreu/vue-form-builder';
-const form = new Form(formOptions);
-
-export default {
-    name: "NewsletterForm",
-    data() {
-        return {
-            // specify how to render the fields
-            fields: [
-                'name:name|text|required',
-                'name:email|email|required',
-                {
-                    name: 'country',
-                    options: ['US', 'Canada', 'Japan', 'South Africa', /* ... more*/]
-                },
-                {
-                    name: 'want_subscribe',
-                    label: 'Subscribe for our newsletter!',
-                    type: 'checkbox'
-                    options: {
-                        /* the syntax is value : text*/
-                        'true': 'Yes'
-                        'false': 'No, thanks'
-                    }
-                }
-            ],
-            form: form,
-        }
-    },
-}
-```
-
-#### omit null fields
-
-If we set the option omit null to true, then empty fields will not be sent along with the request. Otherwise, empty fields will be sent. The default value is true.
-
-```javascript
-const formOptions = {
-    fields: ['name', 'email', 'country', 'want_subscribe'],
-    omitNull: false
-}
-
-const form = new Form(formOptions);
-```
-
-#### omitted fields
-
-We can omit form fields so that they will not be sent with the request. This is useful, for example, if we do not want to send additional fields in our request depending on if the user is logged in, if the user is subscribed to a service, and so on.
-
-```javascript
-const formOptions = {
-    omitted: ['password'] // do not send the password field, regardless if it is filled out
-}
-```
-
-I'm sorry, but I could not think about a practical example of using `omitted`.
-
-#### fillable
-
-We can use FormBuilder to create and update resources, such as messages, users, articles, and so on. When we are editing an existing resource, we want to populate it with existing data. For that matter, we can fill out the form with the data.
-
-```javascript
-const user = {
-    name: 'Jane',
-    email: 'jane@email.example',
-    age: 25,
-    country: 'German',
-    role: 'Editor'
-};
-
-const options = {
-    fields: ['name', 'email', 'role', 'age', 'country']
-};
-
-const form = new Form(options);
-
-form.fill(user);
-console.log(form.role) // outputs Editor
-```
-
-Filling out forms dynamically is very convenient because we don't have to fill out each field individually. However When filling out the form with user input, or with data from an api, we must take care because there is a security vulnerability called Mass Assignment. That can happen when we fill out several variables with values from user input without checking each of them.
-
-To prevent undesirable mass assignment, we can specify which values are fillable. A fillable field means that this field is mass assignable (can be assigned dynamically). By default, every field defined in fields are fillable. If we don't want this, we can specify as follows:
-
-```javascript
-const maliciousInput = {
-    name: 'Jane',
-    email: 'jane@email.example',
-    age: 25,
-    country: 'German',
-    role: 'Admin' // pay attention here !!
-};
-
-const options = {
-    fields: ['name', 'email', 'role', 'age', 'country'],
-    fillabe: ['name', 'email', 'age', 'country']
-};
-
-const form = new Form(options);
-
-form.fill(maliciousInput);
-console.log(form.role) // outputs "undefined" because 'role' is not fillable
-console.log(form.name) // outputs "Jane" because 'name' is fillable
+<form-builder v-bind="{ fields, model }" @submit="attemptLogin()">
 ```
 
 ### formButtons
@@ -377,32 +213,13 @@ console.log(form.name) // outputs "Jane" because 'name' is fillable
 
 **Note**: Attr means Html Attributes in this context.
 
-#### requests
+### showButtons
 
-We can use form to send requests to our API. When sending the requests, the values in the form will automatically be sent with the request!
-
-```javascript
-// create a new user. Data is sent automatically
-form.post('/api/users/').then(() => {/* do stuff */})
-
-// update a user.
-form.put('/api/users/' + form.id ).then(() => {/* do stuff */})
-// or
-form.patch('/api/users/' + form.id ).then(() => {/* do stuff */})
-
-// it can also delete a user, but it is not intended for this purpose
-form.delete('/api/users/' + form.id).then(() => {/* do stuff */})
-```
-
-`Form`uses `axios` to send ajax requests. Later on, we will enable the option to add a custom api client.
-
-### enableButtons
-
-Vue Form Builds automatically appends form buttons at the bottom of the form. You can disable that by setting `enableButtons` to false. You can use your own form buttons. For example:
+Vue Form Builds automatically appends form buttons at the bottom of the form. You can disable that by setting `showButtons` to false. You can use your own form buttons. For example:
 
 ```vue
 <template>
-    <form-builder v-bind="{fields, form}">
+    <form-builder v-bind="{ fields, model }">
         <div>
             <button @click="submit()">SAVE</button>
             <button @click="resetForm()">CANCEL</button>
@@ -510,7 +327,7 @@ Example:
 ```vue
 <template>
     <div>
-        <form-builder v-bind="{fields}">
+        <form-builder v-bind="{ fields, model }">
             <template #start>
                 <p>We need to collect some personal information before we proceed</p>
             </template>
@@ -534,6 +351,9 @@ export default {
                 "name:name|text",
                 "name:email|email|label:Email address",
             ],
+            model: {
+                /* ... */
+            }
         }
     }
 }
