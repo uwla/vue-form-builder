@@ -18,11 +18,9 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "build:npm": "vue-cli-service build --target lib --name FormBuilder src/index.js"
+    "build": "vue-cli-service build --target lib --name FormBuilder src/index.js"
   },
   "dependencies": {
-    "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "vue": "^2.6.11"
   },

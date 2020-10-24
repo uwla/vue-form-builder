@@ -16,7 +16,7 @@
 
 <script src="./FormButtons.js"></script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .form-buttons {
     display: flex;
     flex-direction: row;

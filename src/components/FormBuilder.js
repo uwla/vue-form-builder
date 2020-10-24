@@ -10,16 +10,16 @@ import { isArray } from '../helpers'
  * Vue components. It will recursively scan this directory for the
  * components and register them with the file basename.
  */
-const files = require.context('./', true, /\.vue$/i);
-const components = {};
+const files = require.context('./', true, /\.vue$/i)
+const components = {}
 
 files.keys().forEach(key => {
-    const componentName = key.split('/').pop().split('.')[0];
+    const componentName = key.split('/').pop().split('.')[0]
 
     if (componentName !== "FormBuilder") {
-		const component = files(key).default;
-		components[componentName] = component;
-	}
+        const component = files(key).default
+        components[componentName] = component
+    }
 });
 
 //
@@ -33,9 +33,9 @@ export default {
 
     computed: {
         formFields() {
-			let fields = parseFields( this.model.fields() )
+            let fields = parseFields( this.fields )
 
-			// set field value and css class
+            // set field value and css class
             fields.forEach(field => {
                 if (! field.class)
                     field.class = this.fieldClass
@@ -45,8 +45,7 @@ export default {
             });
 
             return fields;
-		},
-
+        },
     },
 
     methods: {
@@ -59,7 +58,7 @@ export default {
             const target = window.event.target,
                    value = target.value;
 
-            if (isArray(this.form[field.name]))
+            if (isArray(this.model[field.name]))
                 this.updateFieldOptions(field, value)
             else if (field.type === "file")
                 this.model[field.name] = target.files[0]
@@ -92,6 +91,10 @@ export default {
     },
 
     props: {
+        fields: {
+            type: Array,
+            required: true,
+        },
         fieldClass: {
             type: String,
             default: "form-control"
@@ -102,16 +105,16 @@ export default {
         },
         model: {
             type: Object,
-			required: true
+            default: () => emptyModel
         },
         formButtons: {
-			type: Object,
+            type: Object,
             default: () => ({})
         },
-		showButtons: {
-			type: Boolean,
-			default: true,
-		},
+        showButtons: {
+            type: Boolean,
+            default: true,
+        },
         showInlineErrors: {
             type: Boolean,
             default: true,
@@ -121,4 +124,28 @@ export default {
             default: false,
         }
     },
+}
+
+// Since the model prop is optional,
+// an empty model will be used if
+// the user does not provided one
+const emptyModel = {
+	hasError() {
+		return false
+	},
+    fieldHasError(field) {
+        return false
+	},
+	getFieldErrors(field) {
+		return []
+	},
+	getErrorsAsArray() {
+		return []
+	},
+	getErrorMessage() {
+		return ""
+	},
+    clearErrors() {
+        //
+    }
 }

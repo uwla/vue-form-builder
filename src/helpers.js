@@ -112,6 +112,14 @@ export function isNullable(variable) {
 }
 
 /**
+ * Indicates whether the value of a variable is not null
+ * @param {*} variable
+ */
+export function isNotNull(variable) {
+	return variable !== "" && variable != null && typeof variable !== "undefined";
+}
+
+/**
  * Indicates whether the given variables are all arrays
  *
  * @param {*} ...variables
