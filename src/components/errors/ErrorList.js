@@ -1,32 +1,26 @@
-import { stringNotEmpty } from "../../helpers";
-
 export default {
 	name: "AlertErrorList",
 	computed: {
 		errors() {
 			return this.model.getErrorsAsArray();
 		},
-
 		hasError() {
 			return this.model.hasError();
 		},
-
 		errorMessage() {
 			return this.model.getErrorMessage()
 		},
-
 		shouldDisplayMessage() {
-			return this.hasError && stringNotEmpty(this.errorMessage);
+			return this.hasError && this.errorMessage !== "";
 		},
 	},
-
 	methods: {
 		dismiss() {
-			if (this.dismissible)
+			if (this.dismissible) {
 				this.model.clearErrors()
+			}
 		}
 	},
-
 	props: {
 		defaultErrorMessage: {
 			type: String,

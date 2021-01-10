@@ -1,6 +1,6 @@
-import { capitalize, isString, stringNotEmpty } from "../helpers";
+import { capitalize } from "../helpers";
 import FieldAliases from "../aliases";
-import AttributeTypes from './attributes'
+import AttributeTypes from "./attributes";
 
 // ────────────────────────────────────────────────────────────────────────────────
 
@@ -22,15 +22,17 @@ function assignFieldDefaults(field) {
  * @returns {void}
  */
 function assignFieldDefaultHtmlElement(field) {
-	if (stringNotEmpty(field.element))
-		return;
+	if (typeof field.element === "string" && field.element !== "") {
+		return null;
+	}
 
-	if (field.type)
+	if (field.type) {
 		field.element = "input";
-	else if (field.options)
+	} else if (field.options) {
 		field.element = "select";
-	else
+	} else {
 		field.element = "textarea";
+	}
 }
 
 /**
@@ -40,10 +42,11 @@ function assignFieldDefaultHtmlElement(field) {
  * @returns {void}
  */
 function assignFieldVueComponent(field) {
-	if (field.options && ["checkbox", "radio", "select"].includes(field.type))
+	if (field.options && ["checkbox", "radio", "select"].includes(field.type)) {
 		field.component = "FormField" + capitalize(field.type);
-	else
+	} else {
 		field.component = "FormField" + capitalize(field.element);
+	}
 }
 
 /**
@@ -54,8 +57,9 @@ function assignFieldVueComponent(field) {
  */
 function getFieldAttributeClass(attribute) {
 	for (let attributeType of AttributeTypes) {
-		if (attributeType.isAttribute(attribute))
+		if (attributeType.isAttribute(attribute)) {
 			return attributeType;
+		}
 	}
 }
 
@@ -97,11 +101,14 @@ function isFieldAlias(str) {
  */
 function parseStringToFieldObject(str) {
 	let attributes = isFieldAlias(str) ? getFieldStringFromAlias(str) : str;
+	let attributeObject,
+		field = {};
 
-	let field = {};
-
-	attributes.split("|").forEach(attribute => {
-		field = {... field, ... parseStringAttributeToObject(attribute)}
+	attributes.split("|").forEach((attribute) => {
+		attributeObject = parseStringAttributeToObject(attribute);
+		for (let key in attributeObject) {
+			field[key] = attributeObject[key];
+		}
 	});
 
 	return field;
@@ -125,12 +132,13 @@ function parseStringAttributeToObject(attribute) {
  * @return {Object}
  */
 function parseField(field) {
-	if (isString(field))
+	if (typeof field === "string") {
 		field = parseStringToFieldObject(field);
+	}
 
 	assignFieldDefaults(field);
 
-	return { ... field };
+	return { ...field };
 }
 
 /**
@@ -143,6 +151,4 @@ function parseFields(fields) {
 	return fields.map(parseField);
 }
 
-export {
-	parseFields
-};
+export { parseFields };

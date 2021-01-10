@@ -1,5 +1,3 @@
-import { isString, isObject } from "./helpers"
-
 const aliases = {
     name: "name:name|text",
     fname: "name:fname|text",
@@ -28,11 +26,12 @@ function registerAliases(aliases) {
 function getAliases() {
     let config = sessionStorage.getItem('FormBuilderConfig');
 
-    if (isString(config)) {
+    if (typeof config === "string") {
         config = JSON.parse(config);
 
-        if (isObject(config.aliases))
+        if (typeof config.aliases === "object") {
             return config.aliases;
+		}
     }
 
     return aliases;

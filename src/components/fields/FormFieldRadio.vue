@@ -1,8 +1,7 @@
 <script>
-import FormFieldCheckbox from './FormFieldCheckbox.vue'
-
+import FormFieldCheckbox from "./FormFieldCheckbox.vue";
 export default {
-    ... FormFieldCheckbox,
-    name: "FormFieldRadio"
-}
+	...FormFieldCheckbox,
+	name: "FormFieldRadio",
+};
 </script>

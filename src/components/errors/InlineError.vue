@@ -5,9 +5,7 @@
 		</span>
 	</div>
 </template>
-
 <script src="./InlineError.js"></script>
-
 <style lang="css" scoped>
 .help-block.invalid-feedback span {
 	display: block;

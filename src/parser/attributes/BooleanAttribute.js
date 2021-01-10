@@ -4,7 +4,7 @@ export default class BooleanAttribute {
 	}
 
 	static parseStringAttributeToObject(attribute) {
-		return { [attribute] : true }
+		return { [attribute]: true };
 	}
 
 	static get attributes() {
@@ -14,7 +14,7 @@ export default class BooleanAttribute {
 			"disabled",
 			"hidden",
 			"required",
-			"readonly"
+			"readonly",
 		];
 	}
 }

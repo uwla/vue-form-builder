@@ -2,17 +2,14 @@ ul.form-field-options-list {
     max-height: 250px;
     overflow: auto;
     padding: 0;
-
     li {
         display: flex;
         align-items: center;
         justify-content: stretch;
         border-top: .8px solid #ccc;
-
         &:last-of-type {
             border-bottom: .8px solid #ccc;
         }
-
         input, label {
             width: auto;
             margin: 0;
@@ -20,18 +17,15 @@ ul.form-field-options-list {
             user-select: none;
             height: auto;
             padding: .4rem 0;
-
             &, &:focus {
                 outline: none;
                 border: none;
                 box-shadow: none;
             }
         }
-
         input {
             margin-right: .5rem
         }
-
         label {
             flex-grow: 5;
 

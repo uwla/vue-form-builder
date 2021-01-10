@@ -4,28 +4,10 @@ export default class InputAttribute {
 	}
 
 	static parseStringAttributeToObject(attribute) {
-        return {type: attribute};
+		return { type: attribute };
 	}
 
 	static get attributes() {
-		return [
-			"text",
-			"number",
-			"date",
-			"datetime-local",
-			"month",
-			"file",
-			"color",
-			"password",
-			"radio",
-			"range",
-			"url",
-			"email",
-			"checkbox",
-			"range",
-			"tel",
-			"time",
-			"week"
-		];
+		return ["text", "number", "date", "datetime-local", "month", "file", "color", "password", "radio", "range", "url", "email", "checkbox", "range", "tel", "time", "week"];
 	}
 }

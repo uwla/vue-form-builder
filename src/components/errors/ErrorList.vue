@@ -5,11 +5,9 @@
 				&times;
 			</span>
 		</button>
-
 		<div v-if="shouldDisplayMessage">
 			{{ errorMessage }}
 		</div>
-
 		<ul v-if="(errors.length > 0)">
 			<li v-for="(error, i) in errors" :key="i">
 				{{ error }}
@@ -17,9 +15,7 @@
 		</ul>
 	</div>
 </template>
-
 <script src="./ErrorList.js"></script>
-
 <style lang="css" scoped>
 .alert-danger ul {
 	margin: 0;
