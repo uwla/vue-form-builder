@@ -2,8 +2,7 @@ export default class OptionsAttribute {
 	static isAttribute(attribute) {
 		return attribute.startsWith("options:");
 	}
-
-	static parseStringAttributeToObject(attribute) {
+	static stringAttributeToObject(attribute) {
 		// The options variable has the format 'options:OBJECT',
 		// where OBJECT is a JSON object.
 

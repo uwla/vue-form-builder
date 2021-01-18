@@ -216,16 +216,16 @@ var BooleanAttribute = /*#__PURE__*/function () {
   Object(_home_andre_code_npm_vue_form_builder_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(BooleanAttribute, null, [{
     key: "isAttribute",
     value: function isAttribute(attribute) {
-      return this.attributes.includes(attribute);
+      return this.attributes().includes(attribute);
     }
   }, {
-    key: "parseStringAttributeToObject",
-    value: function parseStringAttributeToObject(attribute) {
+    key: "stringAttributeToObject",
+    value: function stringAttributeToObject(attribute) {
       return Object(_home_andre_code_npm_vue_form_builder_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])({}, attribute, true);
     }
   }, {
     key: "attributes",
-    get: function get() {
+    value: function attributes() {
       return ["autofocus", "multiple", "disabled", "hidden", "required", "readonly"];
     }
   }]);
@@ -1029,7 +1029,7 @@ var es_array_includes = __webpack_require__("caad");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.includes.js
 var es_string_includes = __webpack_require__("2532");
 
-// EXTERNAL MODULE: ./src/components/fields/FormField.js
+// EXTERNAL MODULE: ./src/components/fields/FormField.js + 1 modules
 var FormField = __webpack_require__("ba0b");
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/fields/FormFieldCheckbox.vue?vue&type=script&lang=js&
@@ -1128,8 +1128,8 @@ var OptionsAttribute = /*#__PURE__*/function () {
       return attribute.startsWith("options:");
     }
   }, {
-    key: "parseStringAttributeToObject",
-    value: function parseStringAttributeToObject(attribute) {
+    key: "stringAttributeToObject",
+    value: function stringAttributeToObject(attribute) {
       // The options variable has the format 'options:OBJECT',
       // where OBJECT is a JSON object.
       // So, we remove the substring 'options:' to parse the
@@ -1581,7 +1581,7 @@ var staticRenderFns = []
 
 // CONCATENATED MODULE: ./src/components/fields/FormFieldInput.vue?vue&type=template&id=2c29e7ba&scoped=true&
 
-// EXTERNAL MODULE: ./src/components/fields/FormField.js
+// EXTERNAL MODULE: ./src/components/fields/FormField.js + 1 modules
 var FormField = __webpack_require__("ba0b");
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/fields/FormFieldInput.vue?vue&type=script&lang=js&
@@ -1770,50 +1770,6 @@ fixRegExpWellKnownSymbolLogic('replace', 2, function (REPLACE, nativeReplace, ma
 
 /***/ }),
 
-/***/ "53ca":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _typeof; });
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("a4d3");
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("e01a");
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("d28b");
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("e260");
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("d3b7");
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("3ca3");
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("ddb0");
-/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_6__);
-
-
-
-
-
-
-
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
-}
-
-/***/ }),
-
 /***/ "54f7":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1916,9 +1872,8 @@ function _objectSpread2(target) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _home_andre_code_npm_vue_form_builder_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("53ca");
-/* harmony import */ var _home_andre_code_npm_vue_form_builder_node_modules_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("5530");
-
+/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("b64b");
+/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_0__);
 
 var aliases = {
   name: "name:name|text",
@@ -1936,38 +1891,50 @@ var aliases = {
   profile_picture: "name:profile_picture|file|accept:image/*"
 };
 
-function setAliases(aliases) {
-  sessionStorage.setItem('FormBuilderConfig', JSON.stringify({
-    aliases: aliases
-  }));
+function setAlias(key, alias) {
+  aliases[key] = alias;
 }
 
-function registerAliases(aliases) {
-  var currentAliases = getAliases();
-  setAliases(Object(_home_andre_code_npm_vue_form_builder_node_modules_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(Object(_home_andre_code_npm_vue_form_builder_node_modules_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])({}, currentAliases), aliases));
+function setAliases(aliases) {
+  for (var _i = 0, _Object$keys = Object.keys(newAliases); _i < _Object$keys.length; _i++) {
+    var key = _Object$keys[_i];
+    aliases[key] = newAliases[key];
+  }
+}
+
+function resetAliases() {
+  for (var _i2 = 0, _Object$keys2 = Object.keys(aliases); _i2 < _Object$keys2.length; _i2++) {
+    var key = _Object$keys2[_i2];
+    delete aliases[key];
+  }
+}
+
+function removeAlias(key) {
+  delete aliases[key];
+}
+
+function getAlias(key) {
+  return aliases[key];
 }
 
 function getAliases() {
-  var config = sessionStorage.getItem('FormBuilderConfig');
-
-  if (typeof config === "string") {
-    config = JSON.parse(config);
-
-    if (Object(_home_andre_code_npm_vue_form_builder_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(config.aliases) === "object") {
-      return config.aliases;
-    }
-  }
-
   return aliases;
 }
 
-var FieldAliases = {
-  aliases: aliases,
+function isAlias(key) {
+  return Object(aliases).hasOwnProperty(key);
+}
+
+var fieldAliases = {
   setAliases: setAliases,
-  registerAliases: registerAliases,
-  getAliases: getAliases
+  setAlias: setAlias,
+  resetAliases: resetAliases,
+  getAliases: getAliases,
+  getAlias: getAlias,
+  removeAlias: removeAlias,
+  isAlias: isAlias
 };
-/* harmony default export */ __webpack_exports__["a"] = (FieldAliases);
+/* harmony default export */ __webpack_exports__["a"] = (fieldAliases);
 
 /***/ }),
 
@@ -2031,18 +1998,18 @@ var ElementAttribute = /*#__PURE__*/function () {
   Object(_home_andre_code_npm_vue_form_builder_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(ElementAttribute, null, [{
     key: "isAttribute",
     value: function isAttribute(attribute) {
-      return this.attributes.includes(attribute);
+      return this.attributes().includes(attribute);
     }
   }, {
-    key: "parseStringAttributeToObject",
-    value: function parseStringAttributeToObject(attribute) {
+    key: "stringAttributeToObject",
+    value: function stringAttributeToObject(attribute) {
       return {
         element: attribute
       };
     }
   }, {
     key: "attributes",
-    get: function get() {
+    value: function attributes() {
       return ["input", "textarea", "select"];
     }
   }]);
@@ -2422,7 +2389,7 @@ var files = __webpack_require__("54f7");
 var AttributeTypes = files.keys().map(function (key) {
   return files(key).default;
 });
-/* harmony default export */ var attributes = (AttributeTypes);
+/* harmony default export */ var parser_attributes = (AttributeTypes);
 // CONCATENATED MODULE: ./src/parser/index.js
 
 
@@ -2434,28 +2401,9 @@ var AttributeTypes = files.keys().map(function (key) {
 
 
 
- // ────────────────────────────────────────────────────────────────────────────────
-
-/**
- * Assign defaults to the field object
- *
- * @param {Object}
- * @returns {void}
- */
-
-function assignFieldDefaults(field) {
-  assignFieldDefaultHtmlElement(field);
-  assignFieldVueComponent(field);
-}
-/**
- * Assign the default html element to the given field
- *
- * @param {Object}
- * @returns {void}
- */
 
 
-function assignFieldDefaultHtmlElement(field) {
+function assignDefaultHtmlElementToField(field) {
   if (typeof field.element === "string" && field.element !== "") {
     return null;
   }
@@ -2468,39 +2416,30 @@ function assignFieldDefaultHtmlElement(field) {
     field.element = "textarea";
   }
 }
-/**
- * Assign the matching Vue component to the given field
- *
- * @param {Object}
- * @returns {void}
- */
 
-
-function assignFieldVueComponent(field) {
+function assignComponentToField(field) {
   if (field.options && ["checkbox", "radio", "select"].includes(field.type)) {
     field.component = "FormField" + Object(helpers["a" /* capitalize */])(field.type);
   } else {
     field.component = "FormField" + Object(helpers["a" /* capitalize */])(field.element);
   }
 }
-/**
- * Get the class of the given attribute
- *
- * @param {String}
- * @return {String}
- */
 
+function assignDefaultsToField(field) {
+  assignDefaultHtmlElementToField(field);
+  assignComponentToField(field);
+}
 
-function getFieldAttributeClass(attribute) {
-  var _iterator = _createForOfIteratorHelper(attributes),
+function stringAttributeToObject(attribute) {
+  var _iterator = _createForOfIteratorHelper(parser_attributes),
       _step;
 
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var attributeType = _step.value;
+      var AttributeClass = _step.value;
 
-      if (attributeType.isAttribute(attribute)) {
-        return attributeType;
+      if (AttributeClass.isAttribute(attribute)) {
+        return AttributeClass.stringAttributeToObject(attribute);
       }
     }
   } catch (err) {
@@ -2509,53 +2448,13 @@ function getFieldAttributeClass(attribute) {
     _iterator.f();
   }
 }
-/**
- * Get all field aliases
- *
- * @param {String} alias
- * @returns {Object}
- */
 
-
-function getFieldAliases() {
-  return aliases["a" /* default */].getAliases();
-}
-/**
- * Get the a field string from a field alias
- *
- * @param {String} alias
- * @returns {String}
- */
-
-
-function getFieldStringFromAlias(alias) {
-  return getFieldAliases()[alias];
-}
-/**
- * Indicates whether a string is a field alias
- *
- * @param {String}
- * @returns {Boolean}
- */
-
-
-function isFieldAlias(str) {
-  return getFieldAliases().hasOwnProperty(str);
-}
-/**
- * Parse string to a field object
- *
- * @param {String}
- * @return {Object}
- */
-
-
-function parseStringToFieldObject(str) {
-  var attributes = isFieldAlias(str) ? getFieldStringFromAlias(str) : str;
+function stringToFieldObject(str) {
+  var attributes = aliases["a" /* default */].isAlias(str) ? aliases["a" /* default */].getAlias(str) : str;
   var attributeObject,
       field = {};
   attributes.split("|").forEach(function (attribute) {
-    attributeObject = parseStringAttributeToObject(attribute);
+    attributeObject = stringAttributeToObject(attribute);
 
     for (var key in attributeObject) {
       field[key] = attributeObject[key];
@@ -2563,41 +2462,15 @@ function parseStringToFieldObject(str) {
   });
   return field;
 }
-/**
- * Parse a field attribute to a field option object
- *
- * @param {String}
- * @return {Object}
- */
-
-
-function parseStringAttributeToObject(attribute) {
-  var AttributeType = getFieldAttributeClass(attribute);
-  return AttributeType.parseStringAttributeToObject(attribute);
-}
-/**
- * Parse a string or object to a field object.
- *
- * @param {Object|String}
- * @return {Object}
- */
-
 
 function parseField(field) {
   if (typeof field === "string") {
-    field = parseStringToFieldObject(field);
+    field = stringToFieldObject(field);
   }
 
-  assignFieldDefaults(field);
+  assignDefaultsToField(field);
   return Object(objectSpread2["a" /* default */])({}, field);
 }
-/**
- * Parse the given fields to the proper format.
- *
- * @param {Array}
- * @returns {Array}
- */
-
 
 function parseFields(fields) {
   return fields.map(parseField);
@@ -2914,7 +2787,7 @@ var staticRenderFns = []
 
 // CONCATENATED MODULE: ./src/components/fields/FormFieldSelect.vue?vue&type=template&id=aec2e604&
 
-// EXTERNAL MODULE: ./src/components/fields/FormField.js
+// EXTERNAL MODULE: ./src/components/fields/FormField.js + 1 modules
 var FormField = __webpack_require__("ba0b");
 
 // EXTERNAL MODULE: ./src/helpers.js
@@ -3300,7 +3173,7 @@ var staticRenderFns = []
 
 // CONCATENATED MODULE: ./src/components/fields/FormFieldTextarea.vue?vue&type=template&id=09eac951&
 
-// EXTERNAL MODULE: ./src/components/fields/FormField.js
+// EXTERNAL MODULE: ./src/components/fields/FormField.js + 1 modules
 var FormField = __webpack_require__("ba0b");
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/fields/FormFieldTextarea.vue?vue&type=script&lang=js&
@@ -4161,18 +4034,18 @@ var InputAttribute = /*#__PURE__*/function () {
   Object(_home_andre_code_npm_vue_form_builder_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(InputAttribute, null, [{
     key: "isAttribute",
     value: function isAttribute(attribute) {
-      return this.attributes.includes(attribute);
+      return this.attributes().includes(attribute);
     }
   }, {
-    key: "parseStringAttributeToObject",
-    value: function parseStringAttributeToObject(attribute) {
+    key: "stringAttributeToObject",
+    value: function stringAttributeToObject(attribute) {
       return {
         type: attribute
       };
     }
   }, {
     key: "attributes",
-    get: function get() {
+    value: function attributes() {
       return ["text", "number", "date", "datetime-local", "month", "file", "color", "password", "radio", "range", "url", "email", "checkbox", "range", "tel", "time", "week"];
     }
   }]);
@@ -4575,17 +4448,71 @@ module.exports = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("caad");
-/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("b0c0");
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _home_andre_code_npm_vue_form_builder_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("53ca");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("d7c2");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.includes.js
+var es_array_includes = __webpack_require__("caad");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
+var es_function_name = __webpack_require__("b0c0");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
+var es_symbol = __webpack_require__("a4d3");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.description.js
+var es_symbol_description = __webpack_require__("e01a");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.iterator.js
+var es_symbol_iterator = __webpack_require__("d28b");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.iterator.js
+var es_array_iterator = __webpack_require__("e260");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__("d3b7");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.iterator.js
+var es_string_iterator = __webpack_require__("3ca3");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.iterator.js
+var web_dom_collections_iterator = __webpack_require__("ddb0");
+
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
 
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = ({
+
+
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+// EXTERNAL MODULE: ./src/helpers.js
+var helpers = __webpack_require__("d7c2");
+
+// CONCATENATED MODULE: ./src/components/fields/FormField.js
+
+
+
+
+
+function isNonHtmlAttribute(fieldKey) {
+  return ["options", "element", "component", "label"].includes(fieldKey);
+}
+
+/* harmony default export */ var FormField = __webpack_exports__["a"] = ({
   computed: {
     cssId: function cssId() {
       return this.field.id || this.field.name;
@@ -4610,8 +4537,8 @@ module.exports = {
       var options = this.field.options;
 
       if (Array.isArray(options)) {
-        return Object(_helpers__WEBPACK_IMPORTED_MODULE_3__[/* reduceArrayToObject */ "b"])(options);
-      } else if (Object(_home_andre_code_npm_vue_form_builder_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(options) === "object") {
+        return Object(helpers["b" /* reduceArrayToObject */])(options);
+      } else if (_typeof(options) === "object") {
         return options;
       }
     }
@@ -4623,10 +4550,6 @@ module.exports = {
     }
   }
 });
-
-function isNonHtmlAttribute(fieldKey) {
-  return ["options", "element", "component", "label"].includes(fieldKey);
-}
 
 /***/ }),
 
@@ -5096,8 +5019,8 @@ var HtmlAttribute = /*#__PURE__*/function () {
       return attribute.includes(":") && !attribute.startsWith("options:");
     }
   }, {
-    key: "parseStringAttributeToObject",
-    value: function parseStringAttributeToObject(attribute) {
+    key: "stringAttributeToObject",
+    value: function stringAttributeToObject(attribute) {
       var key = attribute.split(":")[0],
           value = attribute.split(":")[1];
       return Object(_home_andre_code_npm_vue_form_builder_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])({}, key, value);
@@ -5910,7 +5833,7 @@ module.exports = function (key) {
 __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
-__webpack_require__.d(__webpack_exports__, "FieldAliases", function() { return /* reexport */ aliases["a" /* default */]; });
+__webpack_require__.d(__webpack_exports__, "fieldAliases", function() { return /* reexport */ aliases["a" /* default */]; });
 __webpack_require__.d(__webpack_exports__, "FormBuilder", function() { return /* reexport */ FormBuilder["default"]; });
 __webpack_require__.d(__webpack_exports__, "ErrorList", function() { return /* reexport */ ErrorList["default"]; });
 __webpack_require__.d(__webpack_exports__, "InlineError", function() { return /* reexport */ InlineError["default"]; });

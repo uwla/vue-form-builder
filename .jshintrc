@@ -2,5 +2,6 @@
 	"browser": true,
 	"node": true,
 	"esversion": 9,
-	"asi": true
+	"asi": false,
+	"latedef": true
 }

@@ -1,5 +1,8 @@
 import { reduceArrayToObject } from "../../helpers";
 
+function isNonHtmlAttribute(fieldKey) {
+	return ["options", "element", "component", "label"].includes(fieldKey);
+}
 export default {
 	computed: {
 		cssId() {
@@ -8,7 +11,7 @@ export default {
 		attributes() {
 			const fieldType = this.field.type;
 			const attributes = {
-				id: this.cssId,
+				id: this.cssId
 			};
 			for (let key in this.field) {
 				if (isNonHtmlAttribute(key) || (fieldType === "file" && key === "value")) {
@@ -25,16 +28,12 @@ export default {
 			} else if (typeof options === "object") {
 				return options;
 			}
-		},
+		}
 	},
 	props: {
 		field: {
 			type: Object,
-			required: true,
-		},
-	},
+			required: true
+		}
+	}
 };
-
-function isNonHtmlAttribute(fieldKey) {
-	return ["options", "element", "component", "label"].includes(fieldKey);
-}

@@ -1,13 +1,11 @@
 export default class BooleanAttribute {
 	static isAttribute(attribute) {
-		return this.attributes.includes(attribute);
+		return this.attributes().includes(attribute);
 	}
-
-	static parseStringAttributeToObject(attribute) {
+	static stringAttributeToObject(attribute) {
 		return { [attribute]: true };
 	}
-
-	static get attributes() {
+	static attributes() {
 		return [
 			"autofocus",
 			"multiple",
