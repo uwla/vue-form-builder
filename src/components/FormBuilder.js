@@ -7,7 +7,7 @@ import { parseFields } from "../parser";
  */
 const files = require.context("./", true, /\.vue$/i);
 const components = {};
-files.keys().forEach((key) => {
+files.keys().forEach(key => {
 	let component, componentName = key.split("/").pop().split(".")[0];
 	if (componentName !== "FormBuilder") {
 		component = files(key).default;
@@ -21,8 +21,7 @@ export default {
 	computed: {
 		formFields() {
 			let fields = parseFields(this.fields);
-			// set field value and css class
-			fields.forEach((field) => {
+			fields.forEach(field => {
 				if (! field.class) {
 					field.class = this.fieldClass;
 				}
@@ -32,14 +31,25 @@ export default {
 			});
 			return fields;
 		},
+		/* a flat array of errors */
+		errorList() {
+			let errorList = [];
+			for (let fieldErrors of Object.keys(this.vErrors)) {
+				for (let error of this.vErrors[fieldErrors]) {
+					errorList.push(error);
+				}
+			}
+			return errorList;
+		}
+	},
+	data() {
+		return {
+			vErrors: {},
+			vErrorMessage: ""
+		};
 	},
 	methods: {
-		/**
-		 * Update the field value in the form object
-		 * @param {Object} field
-		 * @return {void}
-		 */
-		updateField(field) {
+		updateFieldValue(field) {
 			const target = window.event.target;
 			if (Array.isArray(this.model[field.name])) {
 				this.updateFieldOptions(field, target.value);
@@ -49,11 +59,7 @@ export default {
 				this.model[field.name] = target.value;
 			}
 		},
-		/**
-		 * Update the field options in the form object
-		 * @param {Object}
-		 * @return {void}
-		 */
+		/* update a field of type select or checkbox */
 		updateFieldOptions(field, value) {
 			let index = this.model[field.name].indexOf(value);
 			if (index === -1) {
@@ -62,70 +68,71 @@ export default {
 				this.model[field.name].splice(index, 1);
 			}
 		},
-		/**
-		 * Whether the given field has errors
-		 * @param {String} field
-		 * @return {Boolean}
-		 */
 		fieldHasError(field) {
-			return this.model.fieldHasError(field);
+			return (
+				Array.isArray(this.vErrors[field]) &&
+				this.vErrors[field].length > 0
+			);
 		},
+		clearErrors() {
+			this.vErrors = {};
+			this.vErrorMessage = "";
+		}
 	},
 	props: {
 		fields: {
 			type: Array,
-			required: true,
+			required: true
 		},
 		fieldClass: {
 			type: String,
-			default: "form-control",
+			default: "form-control"
 		},
 		fieldGroupClass: {
 			type: String,
-			default: "form-group",
+			default: "form-group"
 		},
 		model: {
 			type: Object,
-			default: () => emptyModel,
+			required: true
+		},
+		errors: {
+			type: Object,
+			default: () => ({})
+		},
+		errorMessage: {
+			type: String,
+			default: ""
 		},
 		formButtons: {
 			type: Object,
-			default: () => ({}),
+			default: () => ({})
 		},
 		showButtons: {
 			type: Boolean,
-			default: true,
+			default: true
 		},
 		showInlineErrors: {
 			type: Boolean,
-			default: true,
+			default: true
 		},
 		showErrorList: {
 			type: Boolean,
-			default: false,
+			default: false
+		}
+	},
+	watch: {
+		errors: {
+			immediate: true,
+			handler: function(value) {
+				this.vErrors = value;
+			},
 		},
-	},
-};
-// Since the model prop is optional,
-// an empty model will be used if
-// the user does not provided one
-const emptyModel = {
-	hasError() {
-		return false;
-	},
-	fieldHasError(field) {
-		return false;
-	},
-	getFieldErrors(field) {
-		return [];
-	},
-	getErrorsAsArray() {
-		return [];
-	},
-	getErrorMessage() {
-		return "";
-	},
-	clearErrors() {
-		//
-	},
+		errorMessage: {
+			immediate: true,
+			handler: function(value) {
+				this.vErrorMessage = value;
+			},
+		},
+	}
 };

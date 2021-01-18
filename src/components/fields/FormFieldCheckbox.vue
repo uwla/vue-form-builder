@@ -1,8 +1,14 @@
 <template>
 	<ul class="form-field-options-list">
 		<li v-for="(text, value, i) in options" :key="i">
-			<input v-bind="getInputBindings(value)" @input="$emit('input')" />
-			<label :for="cssId + '-' + value">
+			<input
+				v-bind="attributes"
+				:value="value"
+				:id="cssId + '-' + i"
+				:checked="checked(value)"
+				@input="$emit('input')"
+			/>
+			<label :for="cssId + '-' + i">
 				{{ text }}
 			</label>
 		</li>
@@ -14,18 +20,12 @@ export default {
 	name: "FormFieldCheckbox",
 	mixins: [FormField],
 	methods: {
-		getInputBindings(value) {
-			let fieldValue = this.field.value;
-			return {
-				...this.attributes,
-				value,
-				id: this.cssId + "-" + value,
-				checked: Array.isArray(fieldValue)
-					? fieldValue.includes(value)
-					: value === fieldValue,
-			};
-		},
-	},
+		checked(value) {
+			return Array.isArray(this.field.value)
+				? this.field.value.includes(value)
+				: value === this.field.value;
+		}
+	}
 };
 </script>
 <style src="./FormFieldCheckbox.scss" lang="scss"></style>

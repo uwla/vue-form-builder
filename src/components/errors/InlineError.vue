@@ -1,5 +1,5 @@
 <template>
-	<div class="help-block invalid-feedback" v-if="hasError">
+	<div class="help-block invalid-feedback" v-if="errors.length > 0">
 		<span v-for="(error, i) in errors" :key="i">
 			{{ error }}
 		</span>

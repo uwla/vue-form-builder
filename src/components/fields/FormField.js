@@ -11,10 +11,7 @@ export default {
 				id: this.cssId,
 			};
 			for (let key in this.field) {
-				if (
-					isNonHtmlAttribute(key) ||
-					(fieldType === "file" && key === "value")
-				) {
+				if (isNonHtmlAttribute(key) || (fieldType === "file" && key === "value")) {
 					continue;
 				}
 				attributes[key] = this.field[key];

@@ -2,7 +2,9 @@
 	<form @submit.prevent="$emit('submit')">
 		<error-list
 			v-if="showErrorList"
-			v-bind="{ model }" />
+			:errors="errorList"
+			:errorMessage="vErrorMessage"
+			@dismiss="clearErrors()" />
 		<slot name="start">
 		</slot>
 		<form-group
@@ -15,10 +17,10 @@
 				:is="field.component"
 				:field="field"
 				:class="{ 'is-invalid': fieldHasError(field.name) }"
-				@input="updateField(field)" />
+				@input="updateFieldValue(field)" />
 			<inline-error
 				v-if="showInlineErrors"
-				v-bind="{ model, field: field.name}" />
+				:errors="vErrors[field.name]" />
 		</form-group>
 		<slot>
 		</slot>
