@@ -10,7 +10,7 @@
  */
 export function toTitleCase(str) {
     return str.charAt(0).toUpperCase() +
-        str.slice(1).replace(/[-_]/g, " ").replace(/([a-z])([A-Z])/g, "$1 $2");
+        str.slice(1).replace(/[-_]/gu, " ").replace(/([a-z])([A-Z])/gu, "$1 $2");
 }
 
 /**

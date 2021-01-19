@@ -11,16 +11,17 @@ A Vue plugin that automatically generates beautiful forms using bootstrap and di
     - [Installation](#installation)
     - [Set Up](#set-up)
     - [Use](#use)
-4. [Customize configuration](#get-started)
-    - [Columns](#columns)
-    - [Lang](#lang)
-    - [Action Buttons](#action-buttons)
-    - [Sorting Components](#sorting-components)
+4. [Configuration](#customize-configuration)
+    - [fields](#fields)
+    - [model](#model)
+    - [errors](#errors)
+    - [formButtons](#formButtons)
+    - [Aliases](#aliases)
+    - [Slots](#Slots)
 5. [License](#license)
 6. [Versioning](#versioning)
 7. [Contributing](#contributing)
 8. [Authors](#authors)
-9. [Built-with](#built-with)
 
 ## Demo
 
@@ -57,11 +58,11 @@ npm install --save @andresouzaabreu/vue-form-builder
 
 ```javascript
 // globally
-import FormBuilder from '@andresouzaabreu/vue-form-builder'
+import FormBuilder from '@andresouzaabreu/vue-form-builder';
 Vue.component("form-builder", FormBuilder)
 
 //locally
-import FormBuilder from '@andresouzaabreu/vue-form-builder'
+import FormBuilder from '@andresouzaabreu/vue-form-builder';
 export default {
     name: "MyComponent"
     components: {
@@ -79,13 +80,12 @@ import '@andresouzaabreu/vue-form-builder/dist/FormBuilder.css'
 
 ### Use
 
-```vue
+```html
 <template>
     <div>
-        <form-builder v-bind="{ fields, model }"/>
+        <form-builder v-bind="{ fields, model, errors }"/>
     </div>
 </template>
-
 <script>
 export default {
     data() {
@@ -105,19 +105,24 @@ export default {
                 email: "",
                 photo: "",
                 role: "",
-            }
+            },
+            /* each key in the error object should be the name of a form field.
+            Its value should be an array of strings (each string is an error)
+            */
+            errors: {}
         }
     }
 }
 </script>
 ```
 
-## Customize configuration
+## Configuration
 
 | prop | type | default | description |
 | --- | --- | --- |  --- |
 | fields | `Array` | - | Specify how the form fields should be rendered |
-| model | `Object` | `{}` | Update values to this object |
+| model | `Object` | - | When user inputs something, it will update the model object. |
+| errors | `Object` | `{}` | Error messages to display |
 | formButtons | `Object` | `{}` | Specify how to display the form buttons |
 | fieldClass | `String` | `form-control` | The css class of form fields|
 | fieldGroupClass | `String` | `form-group` | The css class of the div wrapping the form fields |
@@ -146,11 +151,11 @@ The fields array contains objects or strings representing a field. Here are some
         '<i class="fa fa-info" data-toggle="tooltip" title="The three digits behind the card"></i>',
 
     // we can pass objects
-    "name:gender|range|options:" + JSON.toString({M: "male", F: "female"}),
+    "name:gender|range|options:" + JSON.stringify({M: "male", F: "female"}),
     {
         name: "country",
         options: {...["China", "Spain", "USA", "Canada"]}
-    }
+    },
 ]
 ```
 
@@ -168,7 +173,6 @@ export default {
     name: "LoginForm",
     data() {
         return {
-            // specify how to render the fields
             fields: [
                 'name:username|label:Your username please|text',
                 'name:password|label:Your password please|password',
@@ -177,18 +181,21 @@ export default {
                 username: "",
                 password: "",
             },
+            errors: {}
         }
     },
     methods: {
         attemptLogin() {
             axios.post('/api/login', this.model).then(response => {
                 /* log the user in */
-            }).catch(e => {
-                /*
-                If model is an instance that matches the API of
-                Model, then the errors will be displayed automatically.
-                Otherwise, you will need to manually handle them.
+            }).catch(error => {
+                /* the response from the server can be accessed through error.response
+                The response object contains things such as headers, status code, and so
+                on. We are interested in the data property of the response object. The
+                data property should have the validation errors.
                 */
+                let data = error.response.data;
+                this.errors =data.errors;
             })
         }
     }
@@ -198,7 +205,19 @@ export default {
 in vue template:
 
 ```html
-<form-builder v-bind="{ fields, model }" @submit="attemptLogin()">
+<form-builder v-bind="{ fields, model, errors }" @submit="attemptLogin()">
+```
+
+### errors
+
+The errors prop must be an object with keys equal to the field names and values equal to an array of error for the associated field. For Example:
+
+```js
+{
+    username: ["Username must be at least 5 characters long", "Username can contain only letters and numbers"],
+    email: ["Invalid email"],
+    password: ["Password confirmation does not match"]
+}
 ```
 
 ### formButtons
@@ -217,7 +236,7 @@ in vue template:
 
 Vue Form Builds automatically appends form buttons at the bottom of the form. You can disable that by setting `showButtons` to false. You can use your own form buttons. For example:
 
-```vue
+```html
 <template>
     <form-builder v-bind="{ fields, model }">
         <div>
@@ -294,7 +313,7 @@ The following aliases are enable by default:
 We can override the aliases above or define our custom aliases as follow:
 
 ```javascript
-import { FieldAliases } fro '@andresouzaabreu/vue-form-builder';
+import { fieldAliases } fro '@andresouzaabreu/vue-form-builder';
 
 const customAliases = {
     country: "name:country|text",
@@ -302,14 +321,23 @@ const customAliases = {
     /*... more aliases*/
 };
 
-// register new aliases in addition to the default ones
-FieldAliases.registerAliases(customAliases);
+// add single alias
+fieldAliases.setAlias("birthday", "name:birthday|date|label:Your birthday");
 
-// set the aliases. This will delete default aliases and set new ones.
-FieldAliases.setAliases(customAliases);
+// add new aliases in addition to the default ones
+fieldAliases.setAliases(customAliases);
+
+// you may want to remove an alias
+fieldAliases.removeAlias("email");
+
+// or maybe reset all aliases
+fieldAliases.resetAliases();
 
 // get the aliases (we probably won't need this, unless to debug)
-console.log(FieldAliases.getAliases());
+console.log(fieldAliases.getAlias("country"));
+
+// get all of them
+console.log(fieldAliases.getAliases());
 ```
 
 **Note**: Define your custom aliases before registering FormBuilder as Vue component.
@@ -324,25 +352,22 @@ Vue Form Builder has three slots that allow us to customize our forms.
 
 Example:
 
-```vue
+```html
 <template>
     <div>
-        <form-builder v-bind="{ fields, model }">
+        <form-builder v-bind="{ fields, model, errors }">
             <template #start>
                 <p>We need to collect some personal information before we proceed</p>
             </template>
-
             <div>
                 <select id="custom-select"></select> <!-- a custom select -->
             </div>
-
             <template #end>
                 <p>By submitting this form, you agree with our terms and conditions</p>
             </template>
         </form-builder>
     </div>
 </template>
-
 <script>
 export default {
     data() {
@@ -353,15 +378,21 @@ export default {
             ],
             model: {
                 /* ... */
-            }
-        }
+            },
+            errors: {
+                name: ["Name too long", "Only characters allowed"]
+            },
+        };
     }
-}
+};
+</script>
 ```
 
 Will render something like
 
 ```html
+<!-- Any HTML comments that are listed below won't show up.
+They are just explaining things -->
 <div>
     <form>
         <!-- start -->
@@ -370,7 +401,14 @@ Will render something like
 
         <div class="form-group">
             <label for="name">Name</label>
-            <input class="form-control" name="name" id="name" type="text">
+            <!-- class is invalid is due to errors -->
+            <input class="form-control is-invalid" name="name" id="name" type="text">
+
+            <!-- below are the errors. They show up only if specified -->
+            <div class="help-block invalid-feedback">
+                <span>Name too long</span>
+                <span>Only characters allowed</span>
+            </div>
         </div>
         <div class="form-group">
             <label for="email">Email address</label>
@@ -395,9 +433,62 @@ Will render something like
 </div>
 ```
 
+### errors outside the form
+
+We can display the errors outside VueFormBuilder.
+
+Example below will not display error inside the form, but will show them as a list of error above the form. That is useful to display error somewhere else in the webpage.
+
+```html
+<template>
+    <div>
+        <div class="custom-error-list">
+            <!-- the errors prop must be A FLAT ARRAY OF STRINGS !
+            The errors will be displayed as a list -->
+            <error-list :errors="errors" errorMessage="Ops! Please, correct your input as indicated" />
+        </div>
+        <form-builder v-bind="{ fields, model, showInlineErrors: false }" />
+    </div>
+</template>
+<script>
+import { ErrorList } from "@andresouzaabreu/vue-form-builder";
+export default {
+    components: { ErrorList },
+    data() {
+        return {
+            model: /**/,
+            fields: /**/,
+            errors: /**/,
+        }
+    },
+}
+</script>
+```
+
+We can also use inline error if we have more complex fields (which VueFormBuilder may not be able to render)
+
+```html
+<template>
+    <form-builder v-bind="{ fields, model }" >
+        <div class="form-group">
+            <label>Article body</label>
+            <textarea id="ckeditor" name="body">
+            <inline-error v-if="errors.body" :errors="errors.body">
+        </div>
+    </form-builder>
+</template>
+<script>
+import { InlineError } from "@andresouzaabreu/vue-form-builder";
+export default {
+    components: { InlineError },
+    /* ... */
+}
+</script>
+```
+
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details
+See the [LICENSE](LICENSE.md) file for details
 
 ## Versioning
 
