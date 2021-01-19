@@ -5258,7 +5258,7 @@ module.exports = function (KEY, length, exec, sham) {
  * @returns {String}
  */
 function toTitleCase(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1).replace(/[-_]/g, " ").replace(/([a-z])([A-Z])/g, "$1 $2");
+  return str.charAt(0).toUpperCase() + str.slice(1).replace(/[\x2D_]/g, " ").replace(/([a-z])([A-Z])/g, "$1 $2");
 }
 /**
  * Capitalize the given string
