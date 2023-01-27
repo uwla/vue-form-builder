@@ -489,18 +489,8 @@ export default {
 
 ## License
 
-See the [LICENSE](LICENSE.md) file for details
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/AndreSouzaAbreu/vue-form-builder/tags).
+MIT
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Author
-
-- **André Souza Abreu** - *Initial work* - [Github](https://github.com/AndreSouzaAbreu)
-
-See also the list of [contributors](https://github.com/AndreSouzaAbreu/vue-form-builder/contributors) who participated in this project.
+Pull requests are welcome.
