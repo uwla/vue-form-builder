@@ -3,7 +3,7 @@ export default class TypeAttribute {
         return this.attributes().includes(attribute)
     }
     static stringAttributeToObject(attribute) {
-        return { element: attribute }
+        return { type: attribute }
     }
     static attributes() {
         return [

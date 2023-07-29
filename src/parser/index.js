@@ -14,14 +14,15 @@ import {
     BFormGroup
 } from 'bootstrap-vue'
 
+
 function getFieldElement(field) {
+    if (field.type) return field.type
     if (field.options) return 'select'
-    if (field.type) return 'input'
     return 'input'
 }
 
 function getFieldComponent(field) {
-    const element2component = {
+    const type2component = {
         checkbox: BFormCheckboxGroup,
         datapicker: BFormDatepicker,
         file: BFormFile,
@@ -33,15 +34,15 @@ function getFieldComponent(field) {
         timepicker: BFormTimepicker,
     }
 
-    return element2component[field.element]
+    return type2component[field.type]
 }
 
 function getFieldComponentProps(field) {
     let props = field.htmlAttributes || {}
-    if (['select', 'checkbox', 'radio'].includes(field.element))
+    if (! props.name)
+        props.name = field.name
+    if (['select', 'checkbox', 'radio'].includes(field.type))
         return { ...props, options: field.options, }
-    if (field.element == 'input')
-        return { ...props, type: field.type }
     return props
 }
 
@@ -54,9 +55,9 @@ function getFieldWrapperComponentProps(field) {
     return { label: field.label || capitalize(field.name) }
 }
 
-function assignDefaultsToField(field) {
-    if (! field.element)
-        field.element = getFieldElement(field)
+function assignDefaultAttributesToField(field) {
+    if (! field.type)
+        field.type = getFieldElement(field)
     if (! field.component)
         field.component = getFieldComponent(field)
     if (! field.componentProps)
@@ -74,13 +75,10 @@ function stringAttributeToObject(attribute) {
 }
 
 function stringToFieldObject(str) {
-    let attributes = fieldAliases.isAlias(str)
-        ? fieldAliases.getAlias(str)
-        : str
+    let attributes = fieldAliases.isAlias(str) ? fieldAliases.getAlias(str) : str
+    let attributeArray = attributes.split('|')
     let attributeObject = {}
     let field = {}
-
-    let attributeArray = attributes.split('|')
 
     attributeArray.forEach(attribute => {
         attributeObject = stringAttributeToObject(attribute)
@@ -98,9 +96,15 @@ function stringToFieldObject(str) {
 }
 
 function parseField(field) {
-    if (typeof field === 'string') field = stringToFieldObject(field)
-    else field = {... field}
-    assignDefaultsToField(field)
+    // convert a field into an object, or copy it
+    if (typeof field === 'string')
+        field = stringToFieldObject(field)
+    else
+        field = {... field}
+
+    // assign some default attributes to the field
+    assignDefaultAttributesToField(field)
+
     return field
 }
 
