@@ -24,7 +24,7 @@ function getFieldElement(field) {
 function getFieldComponent(field) {
     const type2component = {
         checkbox: BFormCheckboxGroup,
-        datapicker: BFormDatepicker,
+        datepicker: BFormDatepicker,
         file: BFormFile,
         input: BFormInput,
         radio: BFormRadioGroup,
@@ -38,11 +38,11 @@ function getFieldComponent(field) {
 }
 
 function getFieldComponentProps(field) {
-    let props = field.htmlAttributes || {}
+    let props = {... field.htmlAttributes }
     if (! props.name)
         props.name = field.name
     if (['select', 'checkbox', 'radio'].includes(field.type))
-        return { ...props, options: field.options, }
+        props.options = field.options
     return props
 }
 
@@ -56,6 +56,8 @@ function getFieldWrapperComponentProps(field) {
 }
 
 function assignDefaultAttributesToField(field) {
+    if (! field.htmlAttributes)
+        field.htmlAttributes = {}
     if (! field.type)
         field.type = getFieldElement(field)
     if (! field.component)
