@@ -1,4 +1,4 @@
-import VueFormBuilder from './components/FormBuilder.vue'
+import VueFormBuilder from './components/VueFormBuilder.vue'
 
 export {
     VueFormBuilder,

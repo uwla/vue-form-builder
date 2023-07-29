@@ -4,12 +4,10 @@
             v-bind="field.wrapperComponentProps"
             v-for="(field,i) in fieldsParsed"
             :key="i">
-
             <component :is="field.component"
                 v-bind="field.componentProps"
-                v-model="field.value"
-                />
+                v-model="field.value" />
         </component>
     </b-form>
 </template>
-<script src="./FormBuilder.js"></script>
+<script src="./VueFormBuilder.js"></script>
