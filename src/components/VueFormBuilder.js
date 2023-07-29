@@ -16,11 +16,9 @@ export default {
             for (let field of this.fieldsParsed)
                 field.value = getDefaultFieldValue(this.model, field)
         },
-
         parseFormFields() {
             this.fieldsParsed = parseFields(this.fields)
         },
-
         submitForm() {
             const data = {}
             for (let field of this.fieldsParsed)
