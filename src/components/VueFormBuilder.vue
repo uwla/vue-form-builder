@@ -1,5 +1,5 @@
 <template>
-    <b-form @submit.prevent="submitForm()">
+    <form @submit.prevent="submitForm()" @reset.prevent="resetForm()">
         <component :is="field.wrapperComponent"
             v-bind="field.wrapperComponentProps"
             v-for="(field,i) in fieldsParsed"
@@ -8,6 +8,6 @@
                 v-bind="field.componentProps"
                 v-model="field.value" />
         </component>
-    </b-form>
+    </form>
 </template>
 <script src="./VueFormBuilder.js"></script>

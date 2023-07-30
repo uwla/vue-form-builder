@@ -14,7 +14,10 @@ export default {
     methods: {
         syncWithModel() {
             for (let field of this.fieldsParsed)
+            {
+                if (! field.name) continue
                 field.value = getDefaultFieldValue(this.model, field)
+            }
         },
         parseFormFields() {
             this.fieldsParsed = parseFields(this.fields)
@@ -25,6 +28,9 @@ export default {
                 if (field.name) data[field.name] = field.value
             this.$emit('submit', data)
         },
+        resetForm() {
+            this.syncWithModel()
+        }
     },
 
     mounted() {

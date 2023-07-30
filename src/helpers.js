@@ -30,11 +30,9 @@ export function reduceArrayToObject(array) {
 }
 
 export function getDefaultFieldValue(model, field) {
-    let { name, value, options, type, htmlAttributes } = field
+    let { name, options, type, htmlAttributes } = field
     if (name && model[name])
         return model[name]
-    if (value != null)
-        return value
     if (type === 'checkbox' || type === 'tags')
         return []
     if (options && htmlAttributes.multiple)
