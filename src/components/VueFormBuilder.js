@@ -1,13 +1,10 @@
 import { getDefaultFieldValue } from '../helpers'
-import { parseFields } from '../parser'
-import { BForm } from 'bootstrap-vue'
+import { Parser } from '../parser'
 
 export default {
-    components: { BForm },
-
     data() {
         return {
-            fieldsParsed: []
+            fieldsParsed: [],
         }
     },
 
@@ -20,7 +17,12 @@ export default {
             }
         },
         parseFormFields() {
-            this.fieldsParsed = parseFields(this.fields)
+            const options = {
+                useBootstrap: this.useBootstrap,
+                wrapper: this.wrapper,
+            }
+            const parser = new Parser(options)
+            this.fieldsParsed = parser.parseFields(this.fields)
         },
         submitForm() {
             const data = {}
@@ -47,6 +49,15 @@ export default {
         fields: {
             type: Array,
             required: true
+        },
+        useBootstrap: {
+            type: Boolean,
+            default: true,
+        },
+        wrapper: {
+            type: String,
+            required: false,
+            default: null,
         }
     },
 

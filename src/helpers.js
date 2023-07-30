@@ -45,3 +45,42 @@ export function getDefaultFieldValue(model, field) {
         return ''
     return null
 }
+
+/**
+ * Bind 'this' variable to object's class methods.
+ *
+ * @param {Object} obj
+ * @return {void}
+ */
+export function bindThis(obj) {
+    const prototype = Object.getPrototypeOf(obj)
+    const methodNames = Object.getOwnPropertyNames(prototype)
+    for (let method of methodNames)
+        obj[method] = obj[method].bind(obj)
+}
+
+/**
+ * Deep copy
+ *
+ * @param {*} obj
+ * @return {*} 
+ */
+export function deepCopy(obj) {
+    if (obj === null || typeof obj !== 'object') {
+        return obj
+    }
+    let copy
+    if (Array.isArray(obj)) {
+        copy = []
+        for (let i = 0; i < obj.length; i++)
+            copy[i] = deepCopy(obj[i])
+    } else {
+        copy = {}
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                copy[key] = deepCopy(obj[key])
+            }
+        }
+    }
+    return copy
+}
