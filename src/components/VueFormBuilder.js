@@ -45,6 +45,14 @@ export default {
                     let checkboxes = form.querySelectorAll(`[name=${name}]`)
                     for (let checkbox of checkboxes)
                         checkbox.checked = field.value.includes(checkbox.value)
+                } else if (field.type === 'radio') {
+                    let options = form.querySelectorAll(`[name=${name}]`)
+                    for (let radio of options)
+                        radio.checked = field.value === radio.value
+                } else if (field.type === 'select' && field.componentProps.multiple) {
+                    let options = form.querySelectorAll(`[name=${name}] option`)
+                    for (let option of options)
+                        option.selected = field.value.includes(option.value)
                 } else {
                     let input = form.querySelector(`[name=${name}]`)
                     if (!input) return
