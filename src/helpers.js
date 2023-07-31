@@ -33,8 +33,10 @@ export function getDefaultFieldValue(model, field) {
     let { name, options, type, htmlAttributes } = field
     if (name && model[name])
         return model[name]
-    if (type === 'checkbox' || type === 'tags')
+    if (type === 'checkboxes' || type === 'tags')
         return []
+    if (type === 'checkbox')
+        return false
     if (options && htmlAttributes.multiple)
         return []
     if (options)

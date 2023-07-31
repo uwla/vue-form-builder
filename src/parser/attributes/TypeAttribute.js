@@ -8,6 +8,7 @@ export default class TypeAttribute {
     static attributes() {
         return [
             'checkbox',
+            'checkboxes',
             'datapicker',
             'file',
             'input',

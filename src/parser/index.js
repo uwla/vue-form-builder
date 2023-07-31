@@ -7,10 +7,11 @@ export class Parser {
      * Dictionary: field type => html component
      */
     htmlComponents = {
-        checkbox: 'input',
-        file: 'input',
-        input: 'input',
-        radio: 'input',
+        checkbox: 'vfb-checkbox',
+        checkboxes: 'vfb-checkboxes',
+        file: 'vfb-file',
+        input: 'vfb-input',
+        radio: 'vfb-input',
         select: 'vfb-select',
         textarea: 'textarea',
         wrapper: 'vfb-group',
@@ -20,7 +21,8 @@ export class Parser {
      *  Dictionary: field type => Bootstrap-vue component
      */
     bootstrapComponents = {
-        checkbox: 'b-form-checkbox-group',
+        checkbox: 'b-form-checkbox',
+        checkboxes: 'b-form-checkbox-group',
         datepicker: 'b-form-datepicker',
         file: 'b-form-file',
         input: 'b-form-input',
@@ -64,14 +66,12 @@ export class Parser {
     
     getFieldComponentProps(field) {
         let props = {... field.htmlAttributes }
-        if (! props.name)
+        if (!props.name)
             props.name = field.name
-        if (['select', 'checkbox', 'radio'].includes(field.type))
+        if (['select', 'checkboxes', 'radio'].includes(field.type))
             props.options = field.options
-        if (! this.useBootstrap && field.component === 'input')
-            props.type = field.type
-        if (! this.useBootstrap) 
-            props.id = 'vfb_' + generateRandomDigits(8)
+        if (!this.useBootstrap) 
+            props.id = 'VFB' + generateRandomDigits(10)
         return props
     }
     
@@ -81,12 +81,22 @@ export class Parser {
     
     getFieldWrapperComponentProps(field) {
         const props = {}
-        if (field.id)
-            props.labelFor = field.id
-        if (field.label)
-            props.label = field.label
-        else if (field.name)
-            props.label = capitalize(field.name)
+
+        // add label information
+        if (field.label !== 'none')
+        {
+            if (field.componentProps.id)
+                props.labelFor = field.componentProps.id
+            if (field.label)
+                props.label = field.label
+            else if (field.name)
+                props.label = capitalize(field.name)
+        }
+
+        // add a CSS class that make a checkbox come before the label
+        if (field.type === 'checkbox')
+            props.class = props.class || 'form-group-checkbox'
+
         return props
     }
     
