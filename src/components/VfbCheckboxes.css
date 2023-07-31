@@ -1,0 +1,14 @@
+.form-group-checkbox {
+    display: flex
+}
+
+.form-group-checkbox label {
+    order: 1
+}
+
+.vfb-checkboxes {
+    list-style: none;
+    padding: 0;
+    padding-left: 1em;
+    margin: 0;
+}
