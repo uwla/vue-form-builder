@@ -1,7 +1,7 @@
 export default {
     data() {
         return {
-            checked: ''
+            checked: this.value
         }
     },
     methods: {
