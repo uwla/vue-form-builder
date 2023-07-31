@@ -6,6 +6,7 @@ import VfbButtons from './components/VfbButtons.vue'
 import VfbSelect from './components/VfbSelect.vue'
 import VfbGroup from './components/VfbGroup.vue'
 import VfbInput from './components/VfbInput.vue'
+import VfbRadio from './components/VfbRadio.vue'
 import VfbFile from './components/VfbFile.vue'
 
 function install(Vue) {
@@ -16,6 +17,7 @@ function install(Vue) {
     Vue.component('vfb-select', VfbSelect)
     Vue.component('vfb-group', VfbGroup)
     Vue.component('vfb-input', VfbInput)
+    Vue.component('vfb-radio', VfbRadio)
     Vue.component('vfb-file', VfbFile)
     Vue.component('vfb', VueFormBuilder)
     Vue.component('vue-form-builder', VueFormBuilder)

@@ -11,7 +11,7 @@ export class Parser {
         checkboxes: 'vfb-checkboxes',
         file: 'vfb-file',
         input: 'vfb-input',
-        radio: 'vfb-input',
+        radio: 'vfb-radio',
         select: 'vfb-select',
         textarea: 'vfb-textarea',
         wrapper: 'vfb-group',
