@@ -13,7 +13,7 @@ export class Parser {
         input: 'vfb-input',
         radio: 'vfb-input',
         select: 'vfb-select',
-        textarea: 'textarea',
+        textarea: 'vfb-textarea',
         wrapper: 'vfb-group',
     }
 
