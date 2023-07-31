@@ -1,7 +1,7 @@
 <template>
     <ul class="vfb-checkboxes">
         <li v-for="(option,i) in options" :key="i">
-            <input type="checkbox" :value="option.value"
+            <input type="checkbox" :name="name" :value="option.value"
                 v-model="checked" @change="handleInput">
             <span>{{ option.text }}</span>
         </li>

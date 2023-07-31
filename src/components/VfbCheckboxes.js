@@ -9,5 +9,5 @@ export default {
             this.$emit('input', this.checked)
         }
     },
-    props: ['value', 'options']
+    props: ['value', 'options', 'name']
 }

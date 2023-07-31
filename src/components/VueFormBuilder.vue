@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="submitForm()" @reset.prevent="resetForm()">
+    <form ref="form" @submit.prevent="submitForm()" @reset.prevent="resetForm()">
         <component :is="field.wrapperComponent"
             v-bind="field.wrapperComponentProps"
             v-for="(field,i) in fieldsParsed"

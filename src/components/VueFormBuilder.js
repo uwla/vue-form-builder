@@ -13,7 +13,8 @@ export default {
             for (let field of this.fieldsParsed)
             {
                 if (! field.name) continue
-                field.value = getDefaultFieldValue(this.model, field)
+                let val = getDefaultFieldValue(this.model, field)
+                field.value = val
             }
         },
         parseFormFields() {
@@ -32,6 +33,24 @@ export default {
         },
         resetForm() {
             this.syncWithModel()
+
+            const form = this.$refs['form']
+            for (let field of this.fieldsParsed)
+            {
+                let name = field.name
+                if (! name) continue
+
+                if (field.type === 'checkboxes')
+                {
+                    let checkboxes = form.querySelectorAll(`[name=${name}]`)
+                    for (let checkbox of checkboxes)
+                        checkbox.checked = field.value.includes(checkbox.value)
+                } else {
+                    let input = form.querySelector(`[name=${name}]`)
+                    if (!input) return
+                    input.value = field.value
+                }
+            }
         }
     },
 
@@ -52,7 +71,7 @@ export default {
         },
         useBootstrap: {
             type: Boolean,
-            default: true,
+            default: false,
         },
         wrapper: {
             type: String,
