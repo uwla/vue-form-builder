@@ -1,11 +1,12 @@
 <template>
-    <div>
-        <b-button v-if="showReset" variant="danger" type="reset">
+    <div class="vfb-buttons">
+        <button v-if="showReset" class="danger" type="reset">
             {{ resetText }}
-        </b-button>
-        <b-button v-if="showSubmit" variant="success" type="submit">
+        </button>
+        <button v-if="showSubmit" class="success" type="submit">
             {{ submitText }}
-        </b-button>
+        </button>
     </div>
 </template>
 <script src="./VfbButtons.js"></script>
+<style src="./VfbButtons.css"></style>
