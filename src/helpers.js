@@ -72,6 +72,56 @@ export function generateRandomDigits(n) {
 }
 
 /**
+ * Reset the HTML inputs of the given form field.
+ * 
+ * @param {Object} form 
+ * @param {Object} field 
+ * @return {void}
+ */
+export function resetFormField(form, field)
+{
+    let name = field.name
+    if (!name) return
+
+    // toggle the checked state of multiple checkboxes
+    if (field.type === 'checkboxes') {
+        let checkboxes = form.querySelectorAll(`[name=${name}]`)
+        for (let checkbox of checkboxes)
+            checkbox.checked = field.value.includes(checkbox.value)
+        return
+    }
+    
+    // toggle the checked state of multiple radio inputs
+    if (field.type === 'radio') {
+        let options = form.querySelectorAll(`[name=${name}]`)
+        for (let radio of options)
+            radio.checked = (field.value === radio.value)
+        return
+    }
+    
+    // toggle the selected state of multiple select options
+    if (field.type === 'select' && field.componentProps.multiple) {
+        let options = form.querySelectorAll(`[name=${name}] option`)
+        for (let option of options)
+            option.selected = field.value.includes(option.value)
+        return
+    } 
+
+    // We have handled all multi-input fields.
+    // Handle single input now.
+    let input = form.querySelector(`[name=${name}]`)
+    if (!input) return
+    
+    // toggle the checked state if input is checkbox
+    if (field.type === 'checkbox')
+        input.checked = (field.value === input.value)
+
+    // otherwise, input must be string, so just make values equal
+    else
+        input.value = field.value
+}
+
+/**
  * Deep copy
  *
  * @param {*} obj

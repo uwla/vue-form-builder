@@ -1,4 +1,4 @@
-import { getDefaultFieldValue } from '../helpers'
+import { getDefaultFieldValue, resetFormField } from '../helpers'
 import { Parser } from '../parser'
 
 export default {
@@ -33,32 +33,8 @@ export default {
         },
         resetForm() {
             this.syncWithModel()
-
             const form = this.$refs['form']
-            for (let field of this.fieldsParsed)
-            {
-                let name = field.name
-                if (! name) continue
-
-                if (field.type === 'checkboxes')
-                {
-                    let checkboxes = form.querySelectorAll(`[name=${name}]`)
-                    for (let checkbox of checkboxes)
-                        checkbox.checked = field.value.includes(checkbox.value)
-                } else if (field.type === 'radio') {
-                    let options = form.querySelectorAll(`[name=${name}]`)
-                    for (let radio of options)
-                        radio.checked = field.value === radio.value
-                } else if (field.type === 'select' && field.componentProps.multiple) {
-                    let options = form.querySelectorAll(`[name=${name}] option`)
-                    for (let option of options)
-                        option.selected = field.value.includes(option.value)
-                } else {
-                    let input = form.querySelector(`[name=${name}]`)
-                    if (!input) return
-                    input.value = field.value
-                }
-            }
+            this.fieldsParsed.forEach(field => resetFormField(form, field))
         }
     },
 
