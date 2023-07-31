@@ -1,5 +1,5 @@
 import fieldAliases from '../aliases'
-import { bindThis, capitalize, deepCopy } from '../helpers'
+import { bindThis, capitalize, deepCopy, generateRandomDigits } from '../helpers'
 import AttributeClasses from './attributes'
 
 export class Parser {
@@ -7,13 +7,13 @@ export class Parser {
      * Dictionary: field type => html component
      */
     htmlComponents = {
-        checkbox: 'vfb-input',
-        file: 'vfb-input',
-        input: 'vfb-input',
-        radio: 'vfb-radio',
+        checkbox: 'input',
+        file: 'input',
+        input: 'input',
+        radio: 'input',
         select: 'vfb-select',
-        textarea: 'vfb-textarea',
-        wrapper: 'vfb-form-group',
+        textarea: 'textarea',
+        wrapper: 'vfb-group',
     }
 
     /**
@@ -68,6 +68,10 @@ export class Parser {
             props.name = field.name
         if (['select', 'checkbox', 'radio'].includes(field.type))
             props.options = field.options
+        if (! this.useBootstrap && field.component === 'input')
+            props.type = field.type
+        if (! this.useBootstrap) 
+            props.id = 'vfb_' + generateRandomDigits(8)
         return props
     }
     
@@ -76,8 +80,14 @@ export class Parser {
     }
     
     getFieldWrapperComponentProps(field) {
-        if (! field.name) return {}
-        return { label: field.label || capitalize(field.name) }
+        const props = {}
+        if (field.id)
+            props.labelFor = field.id
+        if (field.label)
+            props.label = field.label
+        else if (field.name)
+            props.label = capitalize(field.name)
+        return props
     }
     
     assignDefaultAttributesToField(field) {

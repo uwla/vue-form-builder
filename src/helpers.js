@@ -60,10 +60,20 @@ export function bindThis(obj) {
 }
 
 /**
+ * Generate some random digits
+ *
+ * @export
+ * @return {*}
+ */
+export function generateRandomDigits(n) {
+    return Math.random().toString().substring(2).substring(0, n)
+}
+
+/**
  * Deep copy
  *
  * @param {*} obj
- * @return {*} 
+ * @return {*}
  */
 export function deepCopy(obj) {
     if (obj === null || typeof obj !== 'object') {
@@ -72,8 +82,7 @@ export function deepCopy(obj) {
     let copy
     if (Array.isArray(obj)) {
         copy = []
-        for (let i = 0; i < obj.length; i++)
-            copy[i] = deepCopy(obj[i])
+        for (let i = 0; i < obj.length; i++) copy[i] = deepCopy(obj[i])
     } else {
         copy = {}
         for (let key in obj) {
