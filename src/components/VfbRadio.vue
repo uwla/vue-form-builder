@@ -1,7 +1,8 @@
 <template>
-    <ul class="vfb-radio">
+    <ul class="vfb-radios">
         <li v-for="(option,i) in options" :key="i">
-            <input type="radio" :name="name" :value="option.value"
+            <input class="vfb-radio" type="radio"
+                :name="name" :value="option.value"
                 v-model="checked" @change="handleInput">
             <span>{{ option.text }}</span>
         </li>

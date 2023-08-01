@@ -1,0 +1,20 @@
+.form-group-checkbox {
+    display: flex;
+    line-height: 1;
+    align-items: center;
+}
+
+.form-group-checkbox label {
+    order: 1;
+    margin: 0 !important;
+}
+
+.form-group-checkbox .vfb-checkbox {
+    margin-right: 0.5em;
+}
+
+.vfb-checkbox,
+.vfb-radio {
+    height: 1em;
+    width: 1em;
+}
