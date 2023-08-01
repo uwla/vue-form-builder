@@ -2,6 +2,13 @@ import { getDefaultFieldValue, resetFormField } from '../helpers'
 import { Parser } from '../parser'
 
 export default {
+    computed: {
+        formComponent() {
+            if (this.useBootstrap) return 'b-form'
+            return 'form'
+        }
+    },
+
     data() {
         return {
             fieldsParsed: [],
