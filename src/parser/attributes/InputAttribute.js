@@ -3,7 +3,7 @@ export default class InputAttribute {
         return this.attributes().includes(attribute)
     }
     static stringAttributeToObject(attribute) {
-        return { type: 'input', htmlAttributes: { type: attribute} }
+        return { type: 'input', props: { type: attribute} }
     }
     static attributes() {
         return [

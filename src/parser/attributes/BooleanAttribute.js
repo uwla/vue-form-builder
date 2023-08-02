@@ -3,7 +3,7 @@ export default class BooleanAttribute {
         return this.attributes().includes(attribute)
     }
     static stringAttributeToObject(attribute) {
-        return { htmlAttributes: { [attribute]: true } }
+        return { props: { [attribute]: true } }
     }
     static attributes() {
         return [

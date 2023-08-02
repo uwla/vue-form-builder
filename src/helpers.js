@@ -30,20 +30,20 @@ export function reduceArrayToObject(array) {
 }
 
 export function getDefaultFieldValue(model, field) {
-    let { name, options, type, htmlAttributes } = field
+    let { name, options, type, props } = field
     if (name && model[name])
         return model[name]
     if (type === 'checkboxes' || type === 'tags')
         return []
     if (type === 'checkbox')
         return false
-    if (options && htmlAttributes.multiple)
+    if (options && props.multiple)
         return []
     if (options)
         return ''
     if (type === 'textarea')
         return ''
-    if (['text', 'email', 'password', 'url'].includes(htmlAttributes.type))
+    if (['text', 'email', 'password', 'url'].includes(props.type))
         return ''
     return null
 }

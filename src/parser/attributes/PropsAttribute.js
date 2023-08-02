@@ -1,10 +1,20 @@
-export default class PropsAttribute {
+export default class HtmlAttribute {
     static isAttribute(attribute) {
-        return attribute.includes(':') && !attribute.startsWith('options=')
+        return attribute.includes('=')
     }
+
     static stringAttributeToObject(attribute) {
-        const key = attribute.split(':')[0]
-        const value = attribute.split(':')[1]
-        return { [key]: value }
+        let key = attribute.split('=')[0]
+        let value = attribute.split('=')[1]
+
+        // cast string values to boolean
+        if (value === 'true') value = true
+        if (value === 'false') value = false
+
+        return {
+            props: {
+                [key]: value
+            }
+        }
     }
 }

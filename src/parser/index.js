@@ -1,12 +1,18 @@
+import Attributes from './attributes'
 import fieldAliases from '../aliases'
-import { bindThis, capitalize, deepCopy, generateRandomDigits } from '../helpers'
-import AttributeClasses from './attributes'
+import {
+    bindThis,
+    capitalize,
+    deepCopy,
+    generateRandomDigits,
+    getDefaultFieldValue,
+} from '../helpers'
 
 export class Parser {
     /**
-     * Dictionary: field type => html component
+     * Dictionary: field type => VueFormBuilder component
      */
-    htmlComponents = {
+    componentsVfb = {
         checkbox: 'vfb-checkbox',
         checkboxes: 'vfb-checkboxes',
         file: 'vfb-file',
@@ -18,9 +24,9 @@ export class Parser {
     }
 
     /**
-     *  Dictionary: field type => Bootstrap-vue component
+     *  Dictionary: field type => BootstrapVue component
      */
-    bootstrapComponents = {
+    componentsBootstrap = {
         checkbox: 'b-form-checkbox',
         checkboxes: 'b-form-checkbox-group',
         datepicker: 'b-form-datepicker',
@@ -42,9 +48,9 @@ export class Parser {
     constructor(options) {
         // default field components
         if (options.useBootstrap)
-            this.components = this.bootstrapComponents
+            this.components = this.componentsBootstrap
         else
-            this.components = this.htmlComponents
+            this.components = this.componentsVfb
         
         // default wrapper component
         this.wrapper = options.wrapper || this.components.wrapper
@@ -56,7 +62,7 @@ export class Parser {
     getFieldType(field) {
         if (field.type) return field.type
         if (field.options) return 'select'
-        if (field.htmlAttributes.type) return 'input'
+        if (field.props.type) return 'input'
         return 'custom'
     }
     
@@ -65,7 +71,7 @@ export class Parser {
     }
     
     getFieldComponentProps(field) {
-        let props = {... field.htmlAttributes }
+        let props = {... field.props }
         if (!props.name)
             props.name = field.name
         if (['select', 'checkboxes', 'radio'].includes(field.type))
@@ -101,24 +107,26 @@ export class Parser {
     }
     
     assignDefaultAttributesToField(field) {
-        if (! field.htmlAttributes)
-            field.htmlAttributes = {}
+        if (! field.props)
+            field.props = {}
         if (! field.type)
             field.type = this.getFieldType(field)
         if (! field.component)
             field.component = this.getFieldComponent(field)
         if (! field.componentProps)
             field.componentProps = this.getFieldComponentProps(field)
-        if (! field.wrapperComponent)
-            field.wrapperComponent = this.getFieldWrapperComponent(field)
-        if (! field.wrapperComponentProps)
-            field.wrapperComponentProps = this.getFieldWrapperComponentProps(field)
+        if (! field.componentWrapper)
+            field.componentWrapper = this.getFieldWrapperComponent(field)
+        if (! field.componentPropsWrapper)
+            field.componentPropsWrapper = this.getFieldWrapperComponentProps(field)
+        if (! field.value)
+            field.value = getDefaultFieldValue({}, field)
     }
     
     stringAttributeToObject(attribute) {
-        for (let AttributeType of AttributeClasses)
-            if (AttributeType.isAttribute(attribute))
-                return AttributeType.stringAttributeToObject(attribute)
+        for (let Attribute of Attributes)
+            if (Attribute.isAttribute(attribute))
+                return Attribute.stringAttributeToObject(attribute)
     }
     
     stringToFieldObject(str) {

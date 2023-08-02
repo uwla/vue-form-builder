@@ -20,8 +20,7 @@ export default {
             for (let field of this.fieldsParsed)
             {
                 if (! field.name) continue
-                let val = getDefaultFieldValue(this.model, field)
-                field.value = val
+                field.value = getDefaultFieldValue(this.model, field)
             }
         },
         parseFormFields() {
@@ -54,7 +53,7 @@ export default {
         model: {
             type: Object,
             required: false,
-            default: () => ({})
+            default: () => ({}),
         },
         fields: {
             type: Array,
