@@ -18,6 +18,12 @@ export default {
     },
 
     methods: {
+        clearFieldFeedback(field) {
+            let { name } = field
+            if (! name) return
+            field.props.state = null
+            this.feedbacks[name].state = null
+        },
         displayErrors() {
             this.fieldsParsed = this.fieldsParsed.map(field => {
                 // nameless field have no feedback
@@ -60,19 +66,6 @@ export default {
                 return field
             })
         },
-        syncWithModel() {
-            for (let field of this.fieldsParsed)
-            {
-                if (! field.name) continue
-                field.value = getDefaultFieldValue(this.model, field)
-            }
-        },
-        clearFieldFeedback(field) {
-            let { name } = field
-            if (! name) return
-            field.props.state = null
-            this.feedbacks[name].state = null
-        },
         handleInput(field) {
             if (this.clearFeedbackOnInput)
                 this.clearFieldFeedback(field)
@@ -86,6 +79,11 @@ export default {
             }
             this.parser = new Parser(options)
             this.fieldsParsed = this.parser.parseFields(this.fields)
+        },
+        resetForm() {
+            this.syncWithModel()
+            const form = this.$refs['form']
+            this.fieldsParsed.forEach(field => resetFormField(form, field))
         },
         setupFeedback() {
             const { parser } = this
@@ -101,6 +99,28 @@ export default {
                 this.feedbacks[name].state = null
                 this.feedbacks[name].errors = this.errors[name]
                 this.feedbacks[name].message = this.messages[name]
+            }
+        },
+        submitForm() {
+            let valid = true
+
+            // validate the form if specified
+            if (this.validateOnSubmit)
+                valid = this.validateForm()
+
+            // don't submit the form if invalid
+            if (! valid) return
+
+            const data = {}
+            for (let field of this.fieldsParsed)
+                if (field.name) data[field.name] = field.value
+            this.$emit('submit', data)
+        },
+        syncWithModel() {
+            for (let field of this.fieldsParsed)
+            {
+                if (! field.name) continue
+                field.value = getDefaultFieldValue(this.model, field)
             }
         },
         validateField(field) {
@@ -149,26 +169,6 @@ export default {
             })
             return valid
         },
-        submitForm() {
-            let valid = true
-
-            // validate the form if specified
-            if (this.validateOnSubmit)
-                valid = this.validateForm()
-
-            // don't submit the form if invalid
-            if (! valid) return
-
-            const data = {}
-            for (let field of this.fieldsParsed)
-                if (field.name) data[field.name] = field.value
-            this.$emit('submit', data)
-        },
-        resetForm() {
-            this.syncWithModel()
-            const form = this.$refs['form']
-            this.fieldsParsed.forEach(field => resetFormField(form, field))
-        },
     },
 
     mounted() {
@@ -187,10 +187,23 @@ export default {
             required: false,
             default: () => ({})
         },
+        fields: {
+            type: Array,
+            required: true
+        },
         messages: {
             type: Object,
             required: false,
             default: () => ({}),
+        },
+        model: {
+            type: Object,
+            required: false,
+            default: () => ({}),
+        },
+        useBootstrap: {
+            type: Boolean,
+            default: false,
         },
         validateOnSubmit: {
             type: Boolean,
@@ -205,19 +218,6 @@ export default {
             required: false,
             default: () => ({}),
         },
-        model: {
-            type: Object,
-            required: false,
-            default: () => ({}),
-        },
-        fields: {
-            type: Array,
-            required: true
-        },
-        useBootstrap: {
-            type: Boolean,
-            default: false,
-        },
         wrapper: {
             type: String,
             required: false,
@@ -230,6 +230,9 @@ export default {
             handler: 'displayErrors',
             immediate: false,
         },
+        fields: {
+            handler: 'parseFormFields',
+        },
         messages: {
             handler: 'displayMessages',
             immediate: false,
@@ -237,8 +240,5 @@ export default {
         model: {
             handler: 'syncWithModel',
         },
-        fields: {
-            handler: 'parseFormFields',
-        }
     }
 }
