@@ -2,6 +2,7 @@ import VueFormBuilder from './components/VueFormBuilder.vue'
 import VfbCheckboxes from './components/VfbCheckboxes.vue'
 import VfbCheckbox from './components/VfbCheckbox.vue'
 import VfbTextarea from './components/VfbTextarea.vue'
+import VfbFeedback from './components/VfbFeedback.vue'
 import VfbButtons from './components/VfbButtons.vue'
 import VfbSelect from './components/VfbSelect.vue'
 import VfbGroup from './components/VfbGroup.vue'
@@ -13,6 +14,7 @@ function install(Vue) {
     Vue.component('vfb-checkboxes', VfbCheckboxes)
     Vue.component('vfb-checkbox', VfbCheckbox)
     Vue.component('vfb-textarea', VfbTextarea)
+    Vue.component('vfb-feedback', VfbFeedback)
     Vue.component('vfb-buttons', VfbButtons)
     Vue.component('vfb-select', VfbSelect)
     Vue.component('vfb-group', VfbGroup)
