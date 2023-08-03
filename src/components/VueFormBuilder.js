@@ -17,7 +17,7 @@ export default {
     },
 
     methods: {
-        applyErrors() {
+        displayErrors() {
             this.fieldsParsed = this.fieldsParsed.map(field => {
                 let { name } = field
                 if (! name) return field
@@ -31,7 +31,7 @@ export default {
                 return field
             })
         },
-        applySuccess() {
+        displayMessages() {
             this.fieldsParsed = this.fieldsParsed.map(field => {
                 let { name } = field
                 if (! name) return field
@@ -61,6 +61,8 @@ export default {
         handleInput(field) {
             if (this.clearFeedbackOnInput)
                 this.clearFieldFeedback(field)
+            if (this.validateOnInput)
+                this.validateField(field)
         },
         parseFormFields() {
             const options = {
@@ -79,44 +81,57 @@ export default {
                 this.feedbacks[name].message = this.messages[name]
             }
         },
+        validateField(field) {
+            // if nameless field, return it
+            let name = field.name
+            if (!name) return field
+
+            // if no validation function, return it
+            let validationFunction = this.validation[name]
+            if (validationFunction === undefined) return field
+
+            // apply validation function
+            let validated = validationFunction(field.value)
+
+            // default error message
+            let errors = this.errors[name]
+
+            // set validation state to undefined
+            field.componentProps.state = null
+            this.feedbacks[name].state = null
+
+            // field is invalid and we show default error message
+            if (validated === false && errors) {
+                field.componentProps.state = false
+                this.feedbacks[name].state = false
+                this.feedbacks[name].errors = errors
+            }
+
+            // field is invalid and we show the custom error returned
+            if (typeof validated === 'string') {
+                field.componentProps.state = false
+                this.feedbacks[name].state = false
+                this.feedbacks[name].errors = validated
+            }
+
+            // finally, return the field
+            return field
+        },
         validateForm() {
             let valid = true
             this.fieldsParsed = this.fieldsParsed.map(field => {
-                let name = field.name
-                if (! name) return field
-
-                let validationFunction = this.validation[name]
-                if (validationFunction === undefined) return field
-                
-                let validated = validationFunction(field.value)
-
-                let errors = this.errors[name]
-                field.componentProps.state = null
-                this.feedbacks[name].state = null
-                if (validated === false && errors)
-                {
-                    field.componentProps.state = false
-                    this.feedbacks[name].state = false
-                    this.feedbacks[name].errors = errors
+                field = this.validateField(field)
+                if (field.componentProps.state === false)
                     valid = false
-                }
-                if (typeof validated === 'string')
-                {
-                    field.componentProps.state = false
-                    this.feedbacks[name].state = false
-                    this.feedbacks[name].errors = validated
-                    valid = false
-                }
                 return field
             })
-
             return valid
         },
         submitForm() {
             let valid = true
 
             // validate the form if specified
-            if (this.validate)
+            if (this.validateOnSubmit)
                 valid = this.validateForm()
 
             // don't submit the form if invalid
@@ -154,9 +169,13 @@ export default {
             required: false,
             default: () => ({}),
         },
-        validate: {
+        validateOnSubmit: {
             type: Boolean,
             default: true,
+        },
+        validateOnInput: {
+            type: Boolean,
+            default: false,
         },
         validation: {
             type: Object,
@@ -185,11 +204,11 @@ export default {
 
     watch: {
         errors: {
-            handler: 'applyErrors',
+            handler: 'displayErrors',
             immediate: false,
         },
         messages: {
-            handler: 'applySuccess',
+            handler: 'displayMessages',
             immediate: false,
         },
         model: {
