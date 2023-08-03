@@ -13,35 +13,50 @@ export default {
         return {
             fieldsParsed: [],
             feedbacks: {},
+            parser: {},
         }
     },
 
     methods: {
         displayErrors() {
             this.fieldsParsed = this.fieldsParsed.map(field => {
+                // nameless field have no feedback
                 let { name } = field
                 if (! name) return field
+
+                // clear field feedback
+                this.clearFieldFeedback(field)
+
+                // return if no errors
                 let errors = this.errors[name]
-                field.componentProps.state = null
-                this.feedbacks[name].state = null
-                this.feedbacks[name].errors = errors
                 if (! errors) return field
-                field.componentProps.state = false
+
+                // update feedback
+                this.feedbacks[name].errors = errors
                 this.feedbacks[name].state = false
+                field.props.state = false
+
                 return field
             })
         },
         displayMessages() {
             this.fieldsParsed = this.fieldsParsed.map(field => {
+                // nameless field have no feedback
                 let { name } = field
                 if (! name) return field
+
+                // clear feedback
+                this.clearFieldFeedback(field)
+
+                // return if no message
                 let message = this.messages[name]
-                field.componentProps.state = null
-                this.feedbacks[name].state = null
-                this.feedbacks[name].message = message
                 if (! message) return field
-                field.componentProps.state = true
+
+                // update feedback
+                this.feedbacks[name].message = message
                 this.feedbacks[name].state = true
+                field.props.state = true
+
                 return field
             })
         },
@@ -55,7 +70,7 @@ export default {
         clearFieldFeedback(field) {
             let { name } = field
             if (! name) return
-            field.componentProps.state = null
+            field.props.state = null
             this.feedbacks[name].state = null
         },
         handleInput(field) {
@@ -69,13 +84,20 @@ export default {
                 useBootstrap: this.useBootstrap,
                 wrapper: this.wrapper,
             }
-            const parser = new Parser(options)
-            this.fieldsParsed = parser.parseFields(this.fields)
+            this.parser = new Parser(options)
+            this.fieldsParsed = this.parser.parseFields(this.fields)
+        },
+        setupFeedback() {
+            const { parser } = this
             for (let field of this.fieldsParsed)
             {
+                // nameless fields have no feedback, so skip them
                 let { name } = field
                 if (! name) continue
-                this.feedbacks[name] = { ... field.componentPropsFeedback}
+
+                // set the properties for the feedback component,
+                // some of which will be changed upon a feedback event.
+                this.feedbacks[name] = parser.getFieldFeedbackComponentProps(field)
                 this.feedbacks[name].state = null
                 this.feedbacks[name].errors = this.errors[name]
                 this.feedbacks[name].message = this.messages[name]
@@ -97,19 +119,19 @@ export default {
             let errors = this.errors[name]
 
             // set validation state to undefined
-            field.componentProps.state = null
+            field.props.state = null
             this.feedbacks[name].state = null
 
             // field is invalid and we show default error message
             if (validated === false && errors) {
-                field.componentProps.state = false
+                field.props.state = false
                 this.feedbacks[name].state = false
                 this.feedbacks[name].errors = errors
             }
 
             // field is invalid and we show the custom error returned
             if (typeof validated === 'string') {
-                field.componentProps.state = false
+                field.props.state = false
                 this.feedbacks[name].state = false
                 this.feedbacks[name].errors = validated
             }
@@ -121,7 +143,7 @@ export default {
             let valid = true
             this.fieldsParsed = this.fieldsParsed.map(field => {
                 field = this.validateField(field)
-                if (field.componentProps.state === false)
+                if (field.props.state === false)
                     valid = false
                 return field
             })
@@ -151,6 +173,7 @@ export default {
 
     mounted() {
        this.parseFormFields()
+       this.setupFeedback()
        this.syncWithModel()
     },
 

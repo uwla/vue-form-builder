@@ -65,45 +65,48 @@ export class Parser {
 
     getFieldType(field) {
         if (field.type) return field.type
-        if (field.options) return 'select'
         if (field.props.type) return 'input'
+        if (field.props.options) return 'select'
         return 'custom'
     }
     
     getFieldComponent(field) {
-        return this.components[field.type]
+        return field.component || this.components[field.type]
     }
     
     getFieldComponentProps(field) {
         let props = {... field.props }
         if (!props.name)
             props.name = field.name
-        if (['select', 'checkboxes', 'radio'].includes(field.type))
-            props.options = field.options
         if (!this.useBootstrap) 
             props.id = 'VFB' + generateRandomDigits(10)
         return props
     }
     
     getFieldWrapperComponent(field) {
-        return this.wrapper
+        return field.componentWrapper || this.wrapper
     }
     
     getFieldWrapperComponentProps(field) {
+        // if already set, return it
+        if (field.propsWrapper)
+            return field.propsWrapper
+
+        // begin with empty props
         const props = {}
 
         // add label information
         if (field.label !== 'none')
         {
-            if (field.componentProps.id)
-                props.labelFor = field.componentProps.id
+            if (field.props.id)
+                props.labelFor = field.props.id
             if (field.label)
                 props.label = field.label
             else if (field.name)
                 props.label = capitalize(field.name)
         }
 
-        // add a CSS class that make a checkbox come before the label
+        // add a CSS class that displays a field checkbox before the label
         if (field.type === 'checkbox')
             props.class = props.class || 'form-group-checkbox'
 
@@ -111,7 +114,7 @@ export class Parser {
     }
 
     getFieldFeedbackComponent(field) {
-        return 'vfb-feedback'
+        return field.componentFeedback || 'vfb-feedback'
     }
 
     getFieldFeedbackComponentProps(field) {
@@ -120,26 +123,39 @@ export class Parser {
             invalidFeedbackComponent: this.components['feedbackInvalid'],
         }
     }
+
+    getFieldValue(field) {
+        return field.value || getDefaultFieldValue({}, field)
+    }
     
-    assignDefaultAttributesToField(field) {
+    getFieldWithDefaults(field) {
+        // if unset, initialize field prop
         if (! field.props)
             field.props = {}
-        if (! field.type)
-            field.type = this.getFieldType(field)
-        if (! field.component)
-            field.component = this.getFieldComponent(field)
-        if (! field.componentProps)
-            field.componentProps = this.getFieldComponentProps(field)
-        if (! field.componentWrapper)
-            field.componentWrapper = this.getFieldWrapperComponent(field)
-        if (! field.componentPropsWrapper)
-            field.componentPropsWrapper = this.getFieldWrapperComponentProps(field)
-        if (! field.componentFeedback)
-            field.componentFeedback = this.getFieldFeedbackComponent(field)
-        if (! field.componentPropsFeedback)
-            field.componentPropsFeedback= this.getFieldFeedbackComponentProps(field)
-        if (! field.value)
-            field.value = getDefaultFieldValue({}, field)
+
+        // get field type, which may depend on field props
+        field.type = this.getFieldType(field)
+
+        // get field component, which depends on field type
+        field.component = this.getFieldComponent(field)
+
+        // get field component props, which depends on field component
+        field.props = this.getFieldComponentProps(field)
+
+        // get field wrapper, which depends on field component
+        field.componentWrapper = this.getFieldWrapperComponent(field)
+
+        // get field wrapper props, which depends on field wrapper component
+        field.propsWrapper = this.getFieldWrapperComponentProps(field)
+
+        // get field feedback component, which depends on props
+        field.componentFeedback = this.getFieldFeedbackComponent(field)
+    
+        // get field value, which depends on field component
+        field.value = this.getFieldValue(field)
+
+        // finally, return field
+        return field
     }
     
     stringAttributeToObject(attribute) {
@@ -177,7 +193,7 @@ export class Parser {
             field = deepCopy(field)
     
         // assign some default attributes to the field
-        this.assignDefaultAttributesToField(field)
+        field = this.getFieldWithDefaults(field)
     
         return field
     }

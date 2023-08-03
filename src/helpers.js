@@ -37,9 +37,9 @@ export function getDefaultFieldValue(model, field) {
         return []
     if (type === 'checkbox')
         return false
-    if (options && props.multiple)
+    if (props.options && props.multiple)
         return []
-    if (options)
+    if (props.options)
         return ''
     if (type === 'textarea')
         return ''
@@ -100,7 +100,7 @@ export function resetFormField(form, field)
     }
     
     // toggle the selected state of multiple select options
-    if (field.type === 'select' && field.componentProps.multiple) {
+    if (field.type === 'select' && field.props.multiple) {
         let options = form.querySelectorAll(`[name=${name}] option`)
         for (let option of options)
             option.selected = field.value.includes(option.value)
