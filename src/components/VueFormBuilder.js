@@ -23,12 +23,11 @@ export default {
                 if (! name) return field
                 let errors = this.errors[name]
                 field.componentProps.state = null
+                this.feedbacks[name].state = null
                 this.feedbacks[name].errors = errors
                 if (! errors) return field
                 field.componentProps.state = false
                 this.feedbacks[name].state = false
-                // field.componentPropsFeedback.state = false
-                // field.componentPropsFeedback.errors = errors
                 return field
             })
         },
@@ -38,12 +37,11 @@ export default {
                 if (! name) return field
                 let message = this.messages[name]
                 field.componentProps.state = null
+                this.feedbacks[name].state = null
                 this.feedbacks[name].message = message
                 if (! message) return field
                 field.componentProps.state = true
                 this.feedbacks[name].state = true
-                // field.componentPropsFeedback.state = true
-                // field.componentPropsFeedback.message = message
                 return field
             })
         },
@@ -53,6 +51,16 @@ export default {
                 if (! field.name) continue
                 field.value = getDefaultFieldValue(this.model, field)
             }
+        },
+        clearFieldFeedback(field) {
+            let { name } = field
+            if (! name) return
+            field.componentProps.state = null
+            this.feedbacks[name].state = null
+        },
+        handleInput(field) {
+            if (this.clearFeedbackOnInput)
+                this.clearFieldFeedback(field)
         },
         parseFormFields() {
             const options = {
@@ -83,7 +91,6 @@ export default {
                 let validated = validationFunction(field.value)
 
                 let errors = this.errors[name]
-                // field.componentPropsFeedback.state = null
                 field.componentProps.state = null
                 this.feedbacks[name].state = null
                 if (validated === false && errors)
@@ -91,8 +98,6 @@ export default {
                     field.componentProps.state = false
                     this.feedbacks[name].state = false
                     this.feedbacks[name].errors = errors
-                    // field.componentPropsFeedback.state = false
-                    // field.componentPropsFeedback.errors = errors
                     valid = false
                 }
                 if (typeof validated === 'string')
@@ -100,8 +105,6 @@ export default {
                     field.componentProps.state = false
                     this.feedbacks[name].state = false
                     this.feedbacks[name].errors = validated
-                    // field.componentPropsFeedback.state = false
-                    // field.componentPropsFeedback.errors = validated
                     valid = false
                 }
                 return field
@@ -137,6 +140,10 @@ export default {
     },
 
     props: {
+        clearFeedbackOnInput: {
+            type: Boolean,
+            default: true,
+        },
         errors: {
             type: Object,
             required: false,
