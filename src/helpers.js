@@ -30,15 +30,18 @@ export function isNumeric(str) {
 }
 
 /**
- * Turn an array into an object with object keys and values equal to array values
- * @param {Array}
- * @returns {Object}
+ * Shuffle the given array
+ *
+ * @param {Array} array
+ * @return {Array} 
  */
-export function reduceArrayToObject(array) {
-    const object = { }
-    for (let value of array)
-        object[value] = value
-    return object
+export function shuffleArray(array) {
+    array = [...array]
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }
 
 export function getDefaultFieldValue(model, field) {
