@@ -18,6 +18,18 @@ export function capitalize(str) {
 }
 
 /**
+ * Indicates whether a string represents a numeric value.
+ *
+ * @param {String} str
+ * @return {Boolean} 
+ */
+export function isNumeric(str) {
+    if (typeof str !== 'string') return false
+    let val = Number(str)
+    return !isNaN(val) && isFinite(val);
+}
+
+/**
  * Turn an array into an object with object keys and values equal to array values
  * @param {Array}
  * @returns {Object}
