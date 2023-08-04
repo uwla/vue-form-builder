@@ -2,10 +2,10 @@ import Attributes from './attributes'
 import fieldAliases from '../aliases'
 import {
     bindThis,
-    capitalize,
     deepCopy,
     generateRandomDigits,
     getDefaultFieldValue,
+    toTitleCase,
 } from '../helpers'
 
 export class Parser {
@@ -49,7 +49,7 @@ export class Parser {
      * 
      * @param {Object} options 
      */
-    constructor(options) {
+    constructor(options={}) {
         // default field components
         if (options.useBootstrap)
             this.components = this.componentsBootstrap
@@ -103,7 +103,7 @@ export class Parser {
             if (field.label)
                 props.label = field.label
             else if (field.name)
-                props.label = capitalize(field.name)
+                props.label = toTitleCase(field.name)
         }
 
         // add a CSS class that displays a field checkbox before the label
