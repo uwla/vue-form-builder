@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "build": "vue-cli-service build --target lib --name VueFormBuilder src/main.js",
-        "test:unit": "vue-cli-service test:unit"
+        "test": "vue-cli-service test:unit"
     },
     "main": "dist/VueFormBuilder.umd.js",
     "unpkg": "dist/VueFormBuilder.umd.min.js",
