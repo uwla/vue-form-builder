@@ -78,7 +78,7 @@ export class Parser {
         let props = {... field.props }
         if (!props.name)
             props.name = field.name
-        if (!this.useBootstrap) 
+        if (!this.useBootstrap && field.label !== 'none') 
             props.id = 'VFB' + generateRandomDigits(10)
         return props
     }

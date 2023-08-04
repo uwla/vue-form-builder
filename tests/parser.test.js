@@ -23,6 +23,12 @@ const textFields = [
 // object fields
 const objFields = [
     {
+        name: 'event_name',
+        props: {
+            type: 'text'
+        }
+    },
+    {
         name: 'meeting',
         label: 'Pick a date for your meeting',
         component: 'CustomDatePicker',
@@ -48,6 +54,36 @@ const objFields = [
 
 // mix of text and object fields
 const mixedFields = shuffleArray([...textFields, ...objFields])
+
+// field with all sorts of custom components
+const veryCustomizedFields = [
+    {
+        component: 'foo',
+        componentWrapper: 'bar',
+        componentFeedback: 'zoo',
+        props: {
+            a: 1,
+            b: 2,
+        },
+        propsWrapper: {
+            c: 3,
+            d: 4,
+        }
+    },
+    {
+        component: 'abc',
+        componentWrapper: 'def',
+        componentFeedback: 'ghi',
+        props: {
+            a1: [1,2,3],
+            b2: [4,5,6],
+        },
+        propsWrapper: {
+            c3: false,
+            d4: true,
+        }
+    },
+]
 
 // this variable will store the parsed fields
 let fields = []
@@ -125,6 +161,10 @@ test('it parses text fields', () => {
 test('it parses object fields', () => {
     fields = parser.parseFields(objFields)
     expect(fields).toMatchObject(objFields)
+
+    // more checks
+    expect(fields[0].type).toBe('input')
+    expect(fields[0].component).toBe('vfb-input')
 })
 
 test('it parser mixed fields', () => {
@@ -132,12 +172,45 @@ test('it parser mixed fields', () => {
     expect(fields).toBeTruthy()
 })
 
+test('it parser very customized fields', () => {
+    fields = parser.parseFields(veryCustomizedFields)
+    expect(fields).toMatchObject(veryCustomizedFields)
+})
+
 test('it assigns ID to the fields', () => {
+    fields = parser.parseFields(mixedFields)
     for (let field of fields)
     {
         // skip fields without label, cause they don't an ID
         if (field.label === 'none') continue
 
+        // the label-for of the wrapper should match the field ID
         expect(field.props.id).toBe(field.propsWrapper.labelFor)
     }
+})
+
+test('it parses fields using bootstrap components', () => {
+    let parser = new Parser({ useBootstrap: true })
+
+    // we need to get fields without custom components
+    let fieldsWithoutCustomComponents = mixedFields.filter(f => {
+        if (typeof f === 'string') return !(f.includes('component:'))
+        else return !(f.component)
+    })
+
+    // parse them
+    fields = parser.parseFields(fieldsWithoutCustomComponents)
+
+    for (let field of fields)
+    {
+        expect(field.component).toBe(parser.componentsBootstrap[field.type])
+        expect(field.componentWrapper).toBe(parser.componentsBootstrap.wrapper)
+    }
+})
+
+test('it parses fields using custom wrapper', () => {
+    let parser = new Parser({ wrapper: 'CustomWrapper' })
+    fields = parser.parseFields(mixedFields)
+    for (let field of fields)
+        expect(field.componentWrapper).toBe('CustomWrapper')
 })
