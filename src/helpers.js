@@ -45,7 +45,7 @@ export function shuffleArray(array) {
 }
 
 export function getDefaultFieldValue(model, field) {
-    let { name, options, type, props } = field
+    let { name, type, props } = field
     if (name && model[name])
         return model[name]
     if (type === 'checkboxes' || type === 'tags')
