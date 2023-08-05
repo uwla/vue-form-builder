@@ -56,7 +56,7 @@ test('it displays labels properly', () => {
     }).filter(label => label && label != 'none')
 
     // the label components
-    const labels = wrapper.findAll('label')
+    const labels = wrapper.findAll('.vfb-group > label')
 
     // check length
     expect(labels).toHaveLength(labelText.length)
@@ -99,7 +99,7 @@ test('it renders textarea', () => {
 
 test('it renders checkboxes', () => {
     const checkboxes = wrapper.findAll('input[name=fruits]')
-    const labels = wrapper.findAll('input[name=fruits] ~ span')
+    const labels = wrapper.findAll('input[name=fruits] ~ label')
     const values = ['apple', 'banana', 'orange', 'avocado']
 
     expect(checkboxes).toHaveLength(values.length)

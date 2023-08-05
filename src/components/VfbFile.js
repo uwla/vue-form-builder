@@ -8,5 +8,5 @@ export default {
                 this.$emit('input', files[0])
         }
     },
-    props: ['value', 'multiple']
+    props: ['value', 'multiple', 'state']
 }

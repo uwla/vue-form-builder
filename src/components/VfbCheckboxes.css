@@ -9,3 +9,13 @@
     display: flex;
     gap: .4em;
 }
+
+.vfb-checkboxes label, .vfb-radios label {
+    margin: 0 !important;
+}
+
+.vfb-checkboxes.is-invalid,
+.vfb-radios.is-invalid
+{
+    color: #dc3545
+}

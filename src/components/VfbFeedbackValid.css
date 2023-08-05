@@ -1,0 +1,10 @@
+.vfb-feedback-valid {
+    display: none;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: .8em;
+    color: #28a745;
+}
+.vfb-feedback-valid.visible {
+    display: block;
+}

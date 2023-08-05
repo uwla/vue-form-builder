@@ -9,5 +9,5 @@ export default {
             }
         }
     },
-    props: ['options', 'value']
+    props: ['options', 'value', 'state']
 }
