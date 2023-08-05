@@ -13,7 +13,7 @@ const fields = [
     'name:phone|tel|label:Phone number',
     'name:website|url|label:Personal website',
     'name:pass|password|label:Choose your password',
-    'name:birthday|datetime',
+    'name:birthday|date',
     'name:amount|range|min=5|max=25',
     'name:bio|textarea|label:Personal bio|rows=6',
     'name:gender|options:male,female',
@@ -21,12 +21,16 @@ const fields = [
     'name:fruits|checkboxes|options:apple,banana,orange,avocado',
     'name:country|radio|options:United States,Mexico,Canada,Other',
     'name:agree|label:Agree to the terms and conditions|checkbox',
-    'name:token|hidden|label:none|text|value=d43aa11a-f055-4266-b4c1-b9b0b3ec79aa',
+    'name:token|hidden|label:none|text',
+    'component:vfb-buttons|label:none|submitText=SUBMIT|resetText=RESET'
 ]
 
 const wrapper = mount(VueFormBuilder, {
     propsData: {
         fields,
+        model: {
+            token: 'd43aa11a-f055-4266-b4c1-b9b0b3ec79aa'
+        }
     }
 })
 
@@ -65,7 +69,7 @@ test('it displays labels properly', () => {
 test('it sets correct input types', () => {
     // these types are defined in the `fields` variable
     const inputTypes = [
-        'text', 'email', 'tel', 'url', 'password', 'datetime', 'range', 'file'
+        'text', 'email', 'tel', 'url', 'password', 'date', 'range', 'file'
     ]
 
     // get the input elements
@@ -81,8 +85,9 @@ test('it sets correct input types', () => {
 })
 
 test('it renders single checkbox', () => {
-    const checkbox = wrapper.find('input[type=checkbox][name=agree]')
+    const checkbox = wrapper.find('input[name=agree]')
     expect(checkbox).toBeTruthy()
+    expect(checkbox.attributes('type')).toBe('checkbox')
 })
 
 test('it renders textarea', () => {
@@ -138,8 +143,20 @@ test('it renders select', () => {
     }
 })
 
+test('it renders hidden fields', () => {
+    const input = wrapper.find('input[hidden]')
+    expect(input).toBeTruthy()
+    expect(input.attributes('name')).toBe('token')
+})
+
+test('it renders custom component', () => {
+    const buttons = wrapper.find('.vfb-buttons')
+    expect(buttons).toBeTruthy()
+    expect(buttons.find('[type=submit]').text()).toBe('SUBMIT')
+    expect(buttons.find('[type=reset]').text()).toBe('RESET')
+})
+
 // reset form
-// custom component
 // messages
 // validation
 // errors
