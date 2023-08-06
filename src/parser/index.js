@@ -109,10 +109,6 @@ export class Parser {
                 props.label = toTitleCase(field.name)
         }
 
-        // add a CSS class that displays a field checkbox before the label
-        if (field.type === 'checkbox')
-            props.class = props.class || 'form-group-checkbox'
-
         return props
     }
 

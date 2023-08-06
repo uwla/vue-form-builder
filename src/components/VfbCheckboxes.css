@@ -4,12 +4,6 @@
     margin: 0;
 }
 
-.vfb-checkboxes li, .vfb-radios li {
-    align-items: center;
-    display: flex;
-    gap: .4em;
-}
-
 .vfb-checkboxes label, .vfb-radios label {
     margin: 0 !important;
 }
