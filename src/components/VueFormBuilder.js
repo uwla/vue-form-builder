@@ -72,6 +72,13 @@ export default {
             if (this.validateOnInput)
                 this.validateField(field)
         },
+        initializeValues() {
+            for (let field of this.fieldsParsed)
+            {
+                if (! field.name) continue
+                field.value = getDefaultFieldValue(this.model, field)
+            }
+        },
         parseFormFields() {
             const options = {
                 useBootstrap: this.useBootstrap,
@@ -117,10 +124,14 @@ export default {
             this.$emit('submit', data)
         },
         syncWithModel() {
+            const form = this.$refs['form']
+            const model = this.model
             for (let field of this.fieldsParsed)
             {
-                if (! field.name) continue
-                field.value = getDefaultFieldValue(this.model, field)
+                let { name } = field
+                if (name == null || model[name] === undefined) continue
+                field.value = model[name]
+                resetFormField(form, field)
             }
         },
         validateField(field) {
@@ -174,7 +185,7 @@ export default {
     mounted() {
        this.parseFormFields()
        this.setupFeedback()
-       this.syncWithModel()
+       this.initializeValues()
     },
 
     props: {

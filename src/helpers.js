@@ -46,7 +46,7 @@ export function shuffleArray(array) {
 
 export function getDefaultFieldValue(model, field) {
     let { name, type, props } = field
-    if (name && model[name])
+    if (name && model[name] !== undefined)
         return model[name]
     if (type === 'checkboxes' || type === 'tags')
         return []
@@ -129,7 +129,7 @@ export function resetFormField(form, field)
     
     // toggle the checked state if input is checkbox
     if (field.type === 'checkbox')
-        input.checked = (field.value === input.value)
+        input.checked = field.value === true
 
     // otherwise, input must be string, so just make values equal
     else

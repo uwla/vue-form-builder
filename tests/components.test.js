@@ -28,7 +28,9 @@ const fields = [
 const wrapper = mount(VueFormBuilder, {
     propsData: {
         fields,
-        model: { token: 'd43aa11a-f055-4266-b4c1-b9b0b3ec79aa' },
+        model: {
+            token: 'd43aa11a-f055-4266-b4c1-b9b0b3ec79aa'
+        },
         errors: {},
         messages: {},
     }
@@ -221,6 +223,67 @@ test('it hides messages', async () => {
     expect(wrapper.findAll(`.vfb-feedback-valid.visible`)).toHaveLength(0)
 })
 
+test('it sync with the model', async () => {
+    const model = {
+        name: 'john',
+        email: 'john@email.test',
+        gender: 'male',
+        phone: '+1 999 9999-9999',
+        fruits: ['banana', 'avocado'],
+        website: 'http://example.test/',
+        country: 'Mexico',
+        agree: true,
+        bio: 'Hello, this is John Doe from Mexico. I like bananas.',
+    }
+
+    await wrapper.setProps({ model })
+
+    for (let key in model)
+    {
+        let value = model[key]
+
+        // select
+        if (key === 'country')
+        {
+            const select = wrapper.find(`[name=${key}]`)
+            const options = select.findAll('option')
+            for (let i = 0; i < options.length; i+=1)
+            {
+                let option = options.at(i).element
+                expect(option.selected).toBe(option.value === value)
+            }
+            continue
+        }
+
+        // checkboxes
+        if (key === 'fruits')
+        {
+            const checkboxes = wrapper.findAll(`[name=${key}]`)
+            for (let i = 0; i < checkboxes.length; i += 1)
+            {
+                let checkbox = checkboxes.at(i)
+                let val = checkbox.element.value
+                expect(checkbox.element.checked).toBe(value.includes(val))
+            }
+            continue
+        }
+
+        // text inputs
+        if (typeof value === 'string')
+        {
+            const input = wrapper.find(`[name=${key}]`)
+            expect(input.element.value).toBe(value)
+            continue
+        }
+
+        // checkbox
+        if (value === true || value === false)
+        {
+            const checkbox = wrapper.find(`[name=${key}]`)
+            expect(checkbox.element.checked).toBe(value)
+        }
+    }
+})
 // reset form
 // messages
 // validation
