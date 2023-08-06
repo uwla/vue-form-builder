@@ -194,8 +194,11 @@ test('it parses fields using bootstrap components', () => {
 
     // we need to get fields without custom components
     let fieldsWithoutCustomComponents = mixedFields.filter(f => {
-        if (typeof f === 'string') return !(f.includes('component:'))
-        else return !(f.component)
+        if (typeof f === 'string' && f.includes('component:'))
+            return false
+        if (typeof f === 'object' && f.component)
+            return false
+        return true
     })
 
     // parse them
@@ -204,13 +207,23 @@ test('it parses fields using bootstrap components', () => {
     for (let field of fields)
     {
         expect(field.component).toBe(parser.componentsBootstrap[field.type])
-        expect(field.componentWrapper).toBe(parser.componentsBootstrap.wrapper)
+
+        if (field.props.hidden) // hidden fields have a div as default wrapper
+            expect(field.componentWrapper).toBe('div')
+        else
+            expect(field.componentWrapper).toBe(parser.componentsBootstrap.wrapper)
     }
 })
 
 test('it parses fields using custom wrapper', () => {
     let parser = new Parser({ wrapper: 'CustomWrapper' })
     fields = parser.parseFields(mixedFields)
+
     for (let field of fields)
-        expect(field.componentWrapper).toBe('CustomWrapper')
+    {
+        if (field.props.hidden) // hidden fields have a div as default wrapper
+            expect(field.componentWrapper).toBe('div')
+        else
+            expect(field.componentWrapper).toBe('CustomWrapper')
+    }
 })
