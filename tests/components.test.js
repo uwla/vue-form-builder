@@ -12,7 +12,7 @@ const fields = [
     'name:email|email',
     'name:phone|tel|label:Phone number',
     'name:website|url|label:Personal website',
-    'name:pass|password|label:Choose your password',
+    'name:password|password|label:Choose your password',
     'name:birthday|date',
     'name:amount|range|min=5|max=25',
     'name:bio|textarea|label:Personal bio|rows=6',
@@ -28,9 +28,9 @@ const fields = [
 const wrapper = mount(VueFormBuilder, {
     propsData: {
         fields,
-        model: {
-            token: 'd43aa11a-f055-4266-b4c1-b9b0b3ec79aa'
-        }
+        model: { token: 'd43aa11a-f055-4266-b4c1-b9b0b3ec79aa' },
+        errors: {},
+        messages: {},
     }
 })
 
@@ -113,7 +113,7 @@ test('it renders checkboxes', () => {
 
 test('it renders radio', () => {
     const radios = wrapper.findAll('input[name=country]')
-    const labels = wrapper.findAll('input[name=country] ~ span')
+    const labels = wrapper.findAll('input[name=country] ~ label')
     const values = ['United States', 'Mexico', 'Canada', 'Other']
 
     expect(radios).toHaveLength(values.length)
@@ -154,6 +154,40 @@ test('it renders custom component', () => {
     expect(buttons).toBeTruthy()
     expect(buttons.find('[type=submit]').text()).toBe('SUBMIT')
     expect(buttons.find('[type=reset]').text()).toBe('RESET')
+})
+
+// ────────────────────────────────────────────────────────────────────────────────
+// async tests
+
+test('it shows errors', async () => {
+    const errors = {
+        name: 'Name must be longer.',
+        email: 'Email is required.',
+        phone: 'Phone is invalid.',
+        website: 'Website must be valid URL.',
+        password: 'Password must contain letters and numbers.',
+        bio: 'Bio cannot have more than 100 words.',
+        gender: 'Pick a gender',
+        photo: 'File size must be below 2MB.',
+        fruits: 'Choose at most 3 fruits.',
+        country: 'Select a country.',
+        agree: 'We cannot procede without agreement.',
+    }
+
+    await wrapper.setProps({ errors })
+
+    let errorsArray = Object.values(errors)
+    let feedbacks = wrapper.findAll(`.vfb-feedback-invalid.visible`)
+
+    expect(feedbacks).toHaveLength(errorsArray.length)
+
+    for (let i = 0; i < feedbacks.length; i += 1)
+        expect(feedbacks.at(i).text()).toBe(errorsArray[i])
+})
+
+test('it hides errors', async () => {
+    await wrapper.setProps({ errors: {} })
+    expect(wrapper.findAll(`.vfb-feedback-invalid.visible`)).toHaveLength(0)
 })
 
 // reset form
