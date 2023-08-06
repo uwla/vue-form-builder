@@ -5,6 +5,7 @@
     font-size: .8em;
     color: #28a745;
 }
+
 .vfb-feedback-valid.visible {
     display: block;
 }

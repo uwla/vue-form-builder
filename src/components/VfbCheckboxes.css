@@ -13,3 +13,9 @@
 {
     color: #dc3545
 }
+
+.vfb-checkboxes.is-valid,
+.vfb-radios.is-valid
+{
+    color: #28a745;
+}

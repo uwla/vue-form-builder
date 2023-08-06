@@ -109,6 +109,9 @@ export class Parser {
                 props.label = toTitleCase(field.name)
         }
 
+        if (field.type === 'checkbox')
+            props.class = 'vfb-group-checkbox'
+
         return props
     }
 
