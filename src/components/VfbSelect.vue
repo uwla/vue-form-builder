@@ -1,7 +1,7 @@
 <template>
     <select v-model="selected"
         class="vfb-select"
-        :class="{'is-invalid': state === false, 'is-valid': state === true}">
+        :class="{'invalid': state === false, 'valid': state === true}">
         <option v-for="(option,i) in options" :key="i" :value="option.value">
             {{ option.text }}
         </option>

@@ -8,14 +8,14 @@
     margin: 0 !important;
 }
 
-.vfb-checkboxes.is-invalid,
-.vfb-radios.is-invalid
+.vfb-checkboxes.invalid,
+.vfb-radios.invalid
 {
     color: #dc3545
 }
 
-.vfb-checkboxes.is-valid,
-.vfb-radios.is-valid
+.vfb-checkboxes.valid,
+.vfb-radios.valid
 {
     color: #28a745;
 }

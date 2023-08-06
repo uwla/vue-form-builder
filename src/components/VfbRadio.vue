@@ -1,6 +1,6 @@
 <template>
     <ul class="vfb-radios"
-        :class="{'is-invalid': state === false, 'is-valid': state === true}">
+        :class="{'invalid': state === false, 'valid': state === true}">
         <li v-for="(option,i) in options" :key="i">
             <input class="vfb-radio" type="radio"
                 :name="name" :value="option.value" :id="`${id}_${i}`"

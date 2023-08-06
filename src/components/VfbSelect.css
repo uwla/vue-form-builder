@@ -1,5 +1,4 @@
 .vfb-select {
-    appearance: none;
     background: #fff;
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
@@ -14,8 +13,6 @@
         border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     vertical-align: middle;
     width: 100%;
-    -moz-appearance: none;
-    -webkit-appearance: none;
 }
 
 .vfb-select:focus {
@@ -31,7 +28,7 @@
     padding-right: 0.75rem;
 }
 
-.vfb-select.is-invalid, .vfb-select.is-valid {
+.vfb-select.invalid, .vfb-select.valid {
     background-size: 1.1em 1.1em;
     background-repeat: no-repeat;
     background-position: top .5em right 1em;
