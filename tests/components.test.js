@@ -190,6 +190,37 @@ test('it hides errors', async () => {
     expect(wrapper.findAll(`.vfb-feedback-invalid.visible`)).toHaveLength(0)
 })
 
+test('it shows messages', async () => {
+    const messages = {
+        name: 'all right!',
+        email: 'email looks good!',
+        phone: 'phone looks good!',
+        website: 'url looks good!',
+        password: 'strong password!',
+        bio: 'all right!',
+        gender: 'all right!',
+        photo: 'awesome!',
+        fruits: 'all right',
+        country: 'all right',
+        agree: 'congrats',
+    }
+
+    await wrapper.setProps({ messages })
+
+    let messagesArray = Object.values(messages)
+    let feedbacks = wrapper.findAll(`.vfb-feedback-valid.visible`)
+
+    expect(feedbacks).toHaveLength(messagesArray.length)
+
+    for (let i = 0; i < feedbacks.length; i += 1)
+        expect(feedbacks.at(i).text()).toBe(messagesArray[i])
+})
+
+test('it hides messages', async () => {
+    await wrapper.setProps({ messages: {} })
+    expect(wrapper.findAll(`.vfb-feedback-valid.visible`)).toHaveLength(0)
+})
+
 // reset form
 // messages
 // validation
