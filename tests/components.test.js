@@ -20,6 +20,7 @@ const fields = [
     'name:photo|label:Profile picture|file',
     'name:fruits|checkboxes|options:apple,banana,orange,avocado',
     'name:country|radio|options:United States,Mexico,Canada,Other',
+    'name:languages|multiple|options:bash,c,c++,go,java,javascript,php,python,perl,r',
     'name:agree|label:Agree to the terms and conditions|checkbox',
     'name:token|hidden|label:none|text',
     'component:vfb-buttons|label:none|submitText=SUBMIT|resetText=RESET'
@@ -36,16 +37,80 @@ const model = {
     country: 'Mexico',
     agree: true,
     bio: 'Hello, this is John Doe from Mexico. I like bananas.',
+    token: 'd43aa11a-f055-4266-b4c1-b9b0b3ec79aa',
 }
 
+// error messages, used later
+const errors = {
+    name: 'Name must be longer.',
+    email: 'Email is required.',
+    phone: 'Phone is invalid.',
+    website: 'Website must be valid URL.',
+    password: 'Password must contain letters and numbers.',
+    bio: 'Bio cannot have more than 100 words.',
+    gender: 'Pick a gender',
+    photo: 'File size must be below 2MB.',
+    fruits: 'Choose fruits.',
+    country: 'Select a country.',
+    agree: 'We must reach an agreement.',
+}
+
+// success messages, used later
+const messages = {
+    name: 'all right!',
+    email: 'email looks good!',
+    phone: 'phone looks good!',
+    website: 'url looks good!',
+    password: 'strong password!',
+    bio: 'all right!',
+    gender: 'all right!',
+    photo: 'awesome!',
+    fruits: 'all right',
+    country: 'all right',
+    agree: 'congrats',
+}
+
+// validation rules, used later
+const validationRules = {
+    name: (val) => {
+        if (val.length < 3)
+            return 'Name too short'
+        if (val.length > 30)
+            return 'Name too long'
+        return true
+    },
+    fruits: (val) => {
+        if (val.length > 3)
+            return 'Pick 3 fruits at most!'
+        if (val.length < 1)
+            return 'Pick 1 fruit at least'
+        return true
+    },
+    bio: (val) => {
+        if (! val.includes('hello'))
+            return 'Your bio must include the world "hello"'
+        return true
+    },
+    languages: (val) => {
+        if (val.length < 2)
+            return 'it is required to know at least two languages'
+        if (!val.includes('java') && !val.includes('c++'))
+            return 'it is required that you know Java or C++'
+        return true
+    },
+    agree: (val) => val,
+}
+
+
+// wrapper
 const wrapper = mount(VueFormBuilder, {
     propsData: {
         fields,
-        model: {
-            token: 'd43aa11a-f055-4266-b4c1-b9b0b3ec79aa'
-        },
+        model: {},
         errors: {},
         messages: {},
+        validation: {},
+        validateOnSubmit: false,
     }
 })
 
@@ -175,20 +240,6 @@ test('it renders custom component', () => {
 // async tests
 
 test('it shows errors', async () => {
-    const errors = {
-        name: 'Name must be longer.',
-        email: 'Email is required.',
-        phone: 'Phone is invalid.',
-        website: 'Website must be valid URL.',
-        password: 'Password must contain letters and numbers.',
-        bio: 'Bio cannot have more than 100 words.',
-        gender: 'Pick a gender',
-        photo: 'File size must be below 2MB.',
-        fruits: 'Choose at most 3 fruits.',
-        country: 'Select a country.',
-        agree: 'We cannot procede without agreement.',
-    }
-
     await wrapper.setProps({ errors })
 
     let errorsArray = Object.values(errors)
@@ -206,20 +257,6 @@ test('it hides errors', async () => {
 })
 
 test('it shows messages', async () => {
-    const messages = {
-        name: 'all right!',
-        email: 'email looks good!',
-        phone: 'phone looks good!',
-        website: 'url looks good!',
-        password: 'strong password!',
-        bio: 'all right!',
-        gender: 'all right!',
-        photo: 'awesome!',
-        fruits: 'all right',
-        country: 'all right',
-        agree: 'congrats',
-    }
-
     await wrapper.setProps({ messages })
 
     let messagesArray = Object.values(messages)
@@ -367,6 +404,59 @@ test('it resets the form', async () => {
     // assert payload matches model
     const payload = event[0]
     expect(payload).toMatchObject(model)
+})
+
+test('it can validate on input', async () => {
+    await wrapper.setProps({
+        validateOnInput: true,
+        validation: validationRules,
+        errors: errors,
+        clearFeedbackOnInput: false,
+    })
+    wrapper.vm.setupFeedback()
+
+    let feedbackText = () => wrapper.find('.vfb-feedback-invalid.visible').text()
+    let feedbacks = () => wrapper.findAll('.vfb-feedback-invalid.visible')
+
+    // short name
+    await wrapper.find('[name=name]').setValue('Le')
+    expect(feedbackText()).toBe('Name too short')
+
+    // long name
+    let name = 'Katelynn Medhurst Michale Sporer Leatha Stiedemann'
+    await wrapper.find('[name=name]').setValue(name)
+    expect(feedbackText()).toBe('Name too long')
+
+    // set valid name
+    await wrapper.find('[name=name]').setValue('John Doe')
+    expect(feedbacks()).toHaveLength(0)
+
+    // set invalid bio
+    await wrapper.find('[name=bio]').setValue("Hi, I'm John")
+    expect(feedbackText()).toBe('Your bio must include the world "hello"')
+
+    // set valid bio
+    await wrapper.find('[name=bio]').setValue("Hi, hello, I'm John")
+    expect(feedbacks()).toHaveLength(0)
+
+    // invalid agreement
+    await wrapper.find('[name=agree]').setChecked(false)
+    expect(feedbackText()).toBe(errors['agree'])
+
+    // valid agreement
+    await wrapper.find('[name=agree]').setChecked(true)
+    expect(feedbacks()).toHaveLength(0)
+
+    // uncheck all
+    // let checkboxes = wrapper.findAll('[name=fruits]')
+    // for (let i = 0; i < checkboxes.length; i += 1)
+    //     await checkboxes.at(i).setChecked(false)
+    // expect(feedbackText()).toBe('Pick 1 fruit at least')
+
+    // // check all
+    // for (let i = 0; i < checkboxes.length; i += 1)
+    //     await checkboxes.at(i).setChecked(true)
+    // expect(feedbackText()).toBe('Pick 3 at most')
 })
 
 // validation
