@@ -463,6 +463,47 @@ test('it can validate on input', async () => {
     for (let i = 0; i < checkboxes.length; i += 1)
         await checkboxes.at(i).setChecked(false)
     expect(feedbackText()).toBe('Pick 1 fruit at least')
+
+    // now, make it valid
+    await checkboxes.at(0).setChecked()
+    await checkboxes.at(1).setChecked()
+    expect(feedbacks()).toHaveLength(0)
+
+    // select
+    let select = wrapper.find('select[name=languages]')
+
+    // first error
+    const option1 = wrapper.find('option[value=go')
+    await option1.setSelected(true)
+    expect(feedbackText()).toBe('it is required to know at least two languages')
+
+    // second error
+    const option2 = wrapper.find('option[value=bash')
+    await option2.setSelected(true)
+    expect(feedbackText()).toBe('it is required that you know Java or C++')
+
+    // no errors
+    const option3 = wrapper.find('option[value=java]')
+    await option3.setSelected(true)
+    expect(feedbacks()).toHaveLength(0)
+
+    // For some reason, the following code is not triggering the change event:
+    // await option3.setSelected(false)
+    // so, it needs to be trigged manually
+
+    // second error again
+    option3.element.selected = false
+    await select.trigger('change')
+    expect(feedbackText()).toBe('it is required that you know Java or C++')
+
+    // first error again
+    option1.element.selected = false
+    await select.trigger('change')
+    expect(feedbackText()).toBe('it is required to know at least two languages')
+
+    // clear again
+    await option3.setSelected()
+    expect(feedbacks()).toHaveLength(0)
 })
 
 // validation
