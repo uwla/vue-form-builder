@@ -99,6 +99,11 @@ const validationRules = {
         return true
     },
     agree: (val) => val,
+    gender: (val) => {
+        if (val == null || val == '')
+            return 'gender cannot be empty'
+        return true
+    }
 }
 
 
@@ -418,6 +423,9 @@ test('it can validate on input', async () => {
     let feedbackText = () => wrapper.find('.vfb-feedback-invalid.visible').text()
     let feedbacks = () => wrapper.findAll('.vfb-feedback-invalid.visible')
 
+    // ─────────────────────────────────────────────────────────────────────────
+    // Text field
+
     // short name
     await wrapper.find('[name=name]').setValue('Le')
     expect(feedbackText()).toBe('Name too short')
@@ -431,6 +439,9 @@ test('it can validate on input', async () => {
     await wrapper.find('[name=name]').setValue('John Doe')
     expect(feedbacks()).toHaveLength(0)
 
+    // ─────────────────────────────────────────────────────────────────────────
+    // Textarea field
+
     // set invalid bio
     await wrapper.find('[name=bio]').setValue("Hi, I'm John")
     expect(feedbackText()).toBe('Your bio must include the world "hello"')
@@ -439,6 +450,9 @@ test('it can validate on input', async () => {
     await wrapper.find('[name=bio]').setValue("Hi, hello, I'm John")
     expect(feedbacks()).toHaveLength(0)
 
+    // ─────────────────────────────────────────────────────────────────────────
+    // Single checkbox field
+
     // invalid agreement
     await wrapper.find('[name=agree]').setChecked(false)
     expect(feedbackText()).toBe(errors['agree'])
@@ -446,6 +460,9 @@ test('it can validate on input', async () => {
     // valid agreement
     await wrapper.find('[name=agree]').setChecked(true)
     expect(feedbacks()).toHaveLength(0)
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Checkboxes field
 
     // checkboxes
     let checkboxes = wrapper.findAll('[name=fruits]')
@@ -468,6 +485,9 @@ test('it can validate on input', async () => {
     await checkboxes.at(0).setChecked()
     await checkboxes.at(1).setChecked()
     expect(feedbacks()).toHaveLength(0)
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Multiple-options Select field
 
     // select
     let select = wrapper.find('select[name=languages]')
@@ -503,6 +523,18 @@ test('it can validate on input', async () => {
 
     // clear again
     await option3.setSelected()
+    expect(feedbacks()).toHaveLength(0)
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Single option Select field
+
+    // invalid value
+    select = wrapper.find('select[name=gender]')
+    await select.setValue('')
+    expect(feedbackText()).toBe('gender cannot be empty')
+
+    // valid value
+    await select.setValue('male')
     expect(feedbacks()).toHaveLength(0)
 })
 
