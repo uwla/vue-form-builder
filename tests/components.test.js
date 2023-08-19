@@ -81,7 +81,7 @@ const validationRules = {
     },
     fruits: (val) => {
         if (val.length > 3)
-            return 'Pick 3 fruits at most!'
+            return 'Pick 3 fruits at most'
         if (val.length < 1)
             return 'Pick 1 fruit at least'
         return true
@@ -447,16 +447,22 @@ test('it can validate on input', async () => {
     await wrapper.find('[name=agree]').setChecked(true)
     expect(feedbacks()).toHaveLength(0)
 
-    // uncheck all
-    // let checkboxes = wrapper.findAll('[name=fruits]')
-    // for (let i = 0; i < checkboxes.length; i += 1)
-    //     await checkboxes.at(i).setChecked(false)
-    // expect(feedbackText()).toBe('Pick 1 fruit at least')
+    // checkboxes
+    let checkboxes = wrapper.findAll('[name=fruits]')
 
-    // // check all
-    // for (let i = 0; i < checkboxes.length; i += 1)
-    //     await checkboxes.at(i).setChecked(true)
-    // expect(feedbackText()).toBe('Pick 3 at most')
+    // first reset everything
+    for (let i = 0; i < checkboxes.length; i += 1)
+        await checkboxes.at(i).setChecked(false)
+
+    // check all
+    for (let i = 0; i < checkboxes.length; i += 1)
+        await checkboxes.at(i).setChecked(true)
+    expect(feedbackText()).toBe('Pick 3 fruits at most')
+
+    // uncheck all
+    for (let i = 0; i < checkboxes.length; i += 1)
+        await checkboxes.at(i).setChecked(false)
+    expect(feedbackText()).toBe('Pick 1 fruit at least')
 })
 
 // validation
