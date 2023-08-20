@@ -52,7 +52,7 @@ const errors = {
     photo: 'File size must be below 2MB.',
     fruits: 'Choose fruits.',
     country: 'Select a country.',
-    agree: 'We must reach an agreement.',
+    agree: 'We must reach an agreement',
 }
 
 // success messages, used later
@@ -101,7 +101,7 @@ const validationRules = {
     agree: (val) => val,
     gender: (val) => {
         if (val == null || val == '')
-            return 'gender cannot be empty'
+            return 'Gender cannot be empty'
         return true
     }
 }
@@ -122,7 +122,7 @@ const wrapper = mount(VueFormBuilder, {
 // ─────────────────────────────────────────────────────────────────────────────
 
 test('it mounts', () => {
-    expect(wrapper).toBeTruthy()
+    expect(wrapper.exists()).toBe(true)
 })
 
 test('it displays labels properly', () => {
@@ -171,13 +171,13 @@ test('it sets correct input types', () => {
 
 test('it renders single checkbox', () => {
     const checkbox = wrapper.find('input[name=agree]')
-    expect(checkbox).toBeTruthy()
+    expect(checkbox.exists()).toBe(true)
     expect(checkbox.attributes('type')).toBe('checkbox')
 })
 
 test('it renders textarea', () => {
     const textarea = wrapper.find('textarea') 
-    expect(textarea).toBeTruthy()
+    expect(textarea.exists()).toBe(true)
     expect(textarea.attributes('rows')).toBe('6')
     expect(textarea.attributes('name')).toBe('bio')
 })
@@ -213,7 +213,7 @@ test('it renders radio', () => {
 test('it renders select', () => {
     // check select
     const select = wrapper.find('select')
-    expect(select).toBeTruthy()
+    expect(select.exists()).toBe(true)
 
     // check options
     const options = select.findAll('option')
@@ -230,15 +230,15 @@ test('it renders select', () => {
 
 test('it renders hidden fields', () => {
     const input = wrapper.find('input[hidden]')
-    expect(input).toBeTruthy()
+    expect(input.exists()).toBe(true)
     expect(input.attributes('name')).toBe('token')
 })
 
 test('it renders custom component', () => {
-    const buttons = wrapper.find('.vfb-buttons')
-    expect(buttons).toBeTruthy()
-    expect(buttons.find('[type=submit]').text()).toBe('SUBMIT')
-    expect(buttons.find('[type=reset]').text()).toBe('RESET')
+    const containerButtons = wrapper.find('.vfb-buttons')
+    expect(containerButtons.exists()).toBe(true)
+    expect(containerButtons.find('[type=submit]').text()).toBe('SUBMIT')
+    expect(containerButtons.find('[type=reset]').text()).toBe('RESET')
 })
 
 // ────────────────────────────────────────────────────────────────────────────────
@@ -346,6 +346,8 @@ test('it submits the form correctly', async () => {
     {
         let val = values[key]
 
+        // ─────────────────────────────────────────────────────────────────────
+        // checkboxes
         if (key === 'fruits')
         {
             const checkboxes = wrapper.findAll(`[name=${key}]`)
@@ -356,6 +358,9 @@ test('it submits the form correctly', async () => {
             }
             continue
         }
+
+        // ─────────────────────────────────────────────────────────────────────
+        // radio
 
         if (key === 'country')
         {
@@ -369,12 +374,16 @@ test('it submits the form correctly', async () => {
             continue
         }
 
+        // ─────────────────────────────────────────────────────────────────────
+        // text
         if (typeof val === 'string')
         {
             const input = wrapper.find(`[name=${key}]`)
             input.setValue(val)
         }
 
+        // ─────────────────────────────────────────────────────────────────────
+        // boolean
         if (val === true || val === false)
         {
             const checkbox = wrapper.find(`[name=${key}]`)
@@ -493,12 +502,12 @@ test('it can validate on input', async () => {
     let select = wrapper.find('select[name=languages]')
 
     // first error
-    const option1 = wrapper.find('option[value=go')
+    const option1 = wrapper.find('option[value=go]')
     await option1.setSelected(true)
     expect(feedbackText()).toBe('it is required to know at least two languages')
 
     // second error
-    const option2 = wrapper.find('option[value=bash')
+    const option2 = wrapper.find('option[value=bash]')
     await option2.setSelected(true)
     expect(feedbackText()).toBe('it is required that you know Java or C++')
 
@@ -531,7 +540,7 @@ test('it can validate on input', async () => {
     // invalid value
     select = wrapper.find('select[name=gender]')
     await select.setValue('')
-    expect(feedbackText()).toBe('gender cannot be empty')
+    expect(feedbackText()).toBe('Gender cannot be empty')
 
     // valid value
     await select.setValue('male')
@@ -539,3 +548,45 @@ test('it can validate on input', async () => {
 })
 
 // validation
+test('it validates on submission', async () => {
+    await wrapper.setProps({
+        validateOnInput: false,
+        validateOnSubmit: true,
+    })
+
+    // get the fields
+    const bioField = wrapper.find('[name=bio]')
+    const nameField = wrapper.find('[name=name]')
+    const agreeField = wrapper.find('[name=agree]')
+    const genderField = wrapper.find('[name=gender]')
+    const checkboxes = wrapper.findAll('[name=fruits]').wrappers
+    const options = wrapper.findAll('select[name=languages] option').wrappers
+
+    // set invalid values for fields
+    await bioField.setValue('Im Le')
+    await nameField.setValue('Le')
+    await genderField.setValue('')
+    await agreeField.setChecked(false)
+    checkboxes.forEach(async (c) => await c.setChecked(true))
+    options.forEach(async (o) => await o.setSelected(true))
+
+    // submit form
+    await wrapper.trigger('submit')
+
+    // expected error messages.
+    // their order depends on the order of the fields (which field comes first)
+    const expectedErros = [
+        'Name too short',
+        'Your bio must include the world "hello"',
+        'Gender cannot be empty',
+        'Pick 3 fruits at most',
+        'We must reach an agreement',
+    ]
+
+    // get the visible feedbacks
+    const feedbacks = wrapper.findAll('.vfb-feedback-invalid.visible')
+    const errors = feedbacks.wrappers.map(f => f.text())
+
+    // test feedback
+    expect(errors).toEqual(expectedErros)
+})
