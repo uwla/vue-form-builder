@@ -70,38 +70,57 @@ const messages = {
     agree: 'congrats',
 }
 
+// errors used in validation
+// this variable is used to avoid repeating strings when testing validation
+const validationErrors = {
+    name: {
+        short: 'Name too short',
+        long: 'Name too long',
+    },
+    fruits: {
+        many: 'Pick 3 fruits at most',
+        few: 'Pick 1 fruit at least',
+    },
+    bio: 'Your bio should include the world "hello"',
+    languages: {
+        few: 'Select at least two languages',
+        include: 'Selected languages must include C++ or Java',
+    },
+    gender: 'Gender cannot be empty',
+}
+
 // validation rules, used later
 const validationRules = {
     name: (val) => {
         if (val.length < 3)
-            return 'Name too short'
+            return validationErrors['name']['short']
         if (val.length > 30)
-            return 'Name too long'
+            return validationErrors['name']['long']
         return true
     },
     fruits: (val) => {
         if (val.length > 3)
-            return 'Pick 3 fruits at most'
+            return validationErrors['fruits']['many']
         if (val.length < 1)
-            return 'Pick 1 fruit at least'
+            return validationErrors['fruits']['few']
         return true
     },
     bio: (val) => {
         if (! val.includes('hello'))
-            return 'Your bio must include the world "hello"'
+            return validationErrors['bio']
         return true
     },
     languages: (val) => {
         if (val.length < 2)
-            return 'it is required to know at least two languages'
+            return validationErrors['languages']['few']
         if (!val.includes('java') && !val.includes('c++'))
-            return 'it is required that you know Java or C++'
+            return validationErrors['languages']['include']
         return true
     },
     agree: (val) => val,
     gender: (val) => {
         if (val == null || val == '')
-            return 'Gender cannot be empty'
+            return validationErrors['gender']
         return true
     }
 }
@@ -437,12 +456,12 @@ test('it can validate on input', async () => {
 
     // short name
     await wrapper.find('[name=name]').setValue('Le')
-    expect(feedbackText()).toBe('Name too short')
+    expect(feedbackText()).toBe(validationErrors['name']['short'])
 
     // long name
     let name = 'Katelynn Medhurst Michale Sporer Leatha Stiedemann'
     await wrapper.find('[name=name]').setValue(name)
-    expect(feedbackText()).toBe('Name too long')
+    expect(feedbackText()).toBe(validationErrors['name']['long'])
 
     // set valid name
     await wrapper.find('[name=name]').setValue('John Doe')
@@ -453,7 +472,7 @@ test('it can validate on input', async () => {
 
     // set invalid bio
     await wrapper.find('[name=bio]').setValue("Hi, I'm John")
-    expect(feedbackText()).toBe('Your bio must include the world "hello"')
+    expect(feedbackText()).toBe(validationErrors['bio'])
 
     // set valid bio
     await wrapper.find('[name=bio]').setValue("Hi, hello, I'm John")
@@ -483,12 +502,12 @@ test('it can validate on input', async () => {
     // check all
     for (let i = 0; i < checkboxes.length; i += 1)
         await checkboxes.at(i).setChecked(true)
-    expect(feedbackText()).toBe('Pick 3 fruits at most')
+    expect(feedbackText()).toBe(validationErrors['fruits']['many'])
 
     // uncheck all
     for (let i = 0; i < checkboxes.length; i += 1)
         await checkboxes.at(i).setChecked(false)
-    expect(feedbackText()).toBe('Pick 1 fruit at least')
+    expect(feedbackText()).toBe(validationErrors['fruits']['few'])
 
     // now, make it valid
     await checkboxes.at(0).setChecked()
@@ -504,12 +523,12 @@ test('it can validate on input', async () => {
     // first error
     const option1 = wrapper.find('option[value=go]')
     await option1.setSelected(true)
-    expect(feedbackText()).toBe('it is required to know at least two languages')
+    expect(feedbackText()).toBe(validationErrors['languages']['few'])
 
     // second error
     const option2 = wrapper.find('option[value=bash]')
     await option2.setSelected(true)
-    expect(feedbackText()).toBe('it is required that you know Java or C++')
+    expect(feedbackText()).toBe(validationErrors['languages']['include'])
 
     // no errors
     const option3 = wrapper.find('option[value=java]')
@@ -523,12 +542,12 @@ test('it can validate on input', async () => {
     // second error again
     option3.element.selected = false
     await select.trigger('change')
-    expect(feedbackText()).toBe('it is required that you know Java or C++')
+    expect(feedbackText()).toBe(validationErrors['languages']['include'])
 
     // first error again
     option1.element.selected = false
     await select.trigger('change')
-    expect(feedbackText()).toBe('it is required to know at least two languages')
+    expect(feedbackText()).toBe(validationErrors['languages']['few'])
 
     // clear again
     await option3.setSelected()
@@ -540,7 +559,7 @@ test('it can validate on input', async () => {
     // invalid value
     select = wrapper.find('select[name=gender]')
     await select.setValue('')
-    expect(feedbackText()).toBe('Gender cannot be empty')
+    expect(feedbackText()).toBe(validationErrors['gender'])
 
     // valid value
     await select.setValue('male')
@@ -576,17 +595,17 @@ test('it validates on submission', async () => {
     // expected error messages.
     // their order depends on the order of the fields (which field comes first)
     const expectedErros = [
-        'Name too short',
-        'Your bio must include the world "hello"',
-        'Gender cannot be empty',
-        'Pick 3 fruits at most',
-        'We must reach an agreement',
+        validationErrors['name']['short'],
+        validationErrors['bio'],
+        validationErrors['gender'],
+        validationErrors['fruits']['many'],
+        errors['agree'],
     ]
 
     // get the visible feedbacks
     const feedbacks = wrapper.findAll('.vfb-feedback-invalid.visible')
-    const errors = feedbacks.wrappers.map(f => f.text())
+    const feedbackText = feedbacks.wrappers.map(f => f.text())
 
     // test feedback
-    expect(errors).toEqual(expectedErros)
+    expect(feedbackText).toEqual(expectedErros)
 })
