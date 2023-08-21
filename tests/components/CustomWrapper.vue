@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="custom-wrapper">
         <label :for="labelFor">{{ label }}</label>
         <slot></slot>
     </div>
@@ -7,6 +7,6 @@
 <script>
 export default {
     name: 'CustomWrapper',
-    props: ['label', 'labelFor']
+    props: ['label', 'labelFor', 'a1', 'b2', 'c3']
 }
 </script>

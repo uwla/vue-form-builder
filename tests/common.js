@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 import CustomField from './components/CustomField.vue'
 import CustomWrapper from './components/CustomWrapper.vue'
+import CustomFeedback from './components/CustomFeedback.vue'
 import CalendarField from './components/CalendarField.vue'
 import { default as install, VueFormBuilder } from '../src/main'
 import { shuffleArray } from '../src/helpers'
@@ -80,29 +81,35 @@ export const mixedFields = shuffleArray([...textFields, ...objFields])
 // field with all sorts of custom components
 export const veryCustomizedFields = [
     {
-        component: 'foo',
-        componentWrapper: 'bar',
-        componentFeedback: 'zoo',
+        name: 'foo',
+        component: 'CustomField',
+        componentWrapper: 'CustomWrapper',
+        componentFeedback: 'CustomFeedback',
         props: {
-            a: 1,
-            b: 2,
+            prop1: [1,2,3],
+            prop2: 'foo',
+            prop3: 'bar',
         },
         propsWrapper: {
-            c: 3,
-            d: 4,
+            a1: 'x',
+            b2: [4, 5, 6],
+            c3: { x: 1, y: 1 },
         }
     },
     {
-        component: 'abc',
-        componentWrapper: 'def',
-        componentFeedback: 'ghi',
+        name: 'bar',
+        component: 'CustomField',
+        componentWrapper: 'CustomWrapper',
+        componentFeedback: 'CustomFeedback',
         props: {
-            a1: [1,2,3],
-            b2: [4,5,6],
+            prop1: null,
+            prop2: false,
+            prop3: { x: 1, y: 1 },
         },
         propsWrapper: {
-            c3: false,
-            d4: true,
+            a1: true,
+            b2: [4, 5, 6],
+            c3: 'foo',
         }
     },
 ]
@@ -211,6 +218,7 @@ export const validationRules = {
 // register some custom components
 Vue.component('CustomField', CustomField)
 Vue.component('CustomWrapper', CustomWrapper)
+Vue.component('CustomFeedback', CustomFeedback)
 Vue.component('CalendarField', CalendarField)
 
 // before mounting the wrapper, install the vue components
