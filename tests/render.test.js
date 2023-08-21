@@ -1,9 +1,6 @@
 import { toTitleCase } from '../src/helpers'
 import { fields, wrapper } from './common'
 
-test('it mounts', () => {
-    expect(wrapper.exists()).toBe(true)
-})
 
 test('it renders labels', () => {
     // get the label text from the fields

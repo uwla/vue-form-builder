@@ -1,5 +1,5 @@
 import { Parser } from '../src/parser'
-import { shuffleArray } from '../src/helpers'
+import { textFields, objFields, mixedFields, veryCustomizedFields } from './common'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // We will reuse some variables throughout the tests
@@ -7,83 +7,6 @@ import { shuffleArray } from '../src/helpers'
 // create an instance of a parser
 const parser = new Parser()
 
-// text fields
-const textFields = [
-    'name:name|text|min=5|max=30',
-    'name:email_address|email|required',
-    'name:bio|textarea|label:Personal bio|rows=6',
-    'name:gender|options:male,female',
-    'name:photo|label:Profile picture|file',
-    'name:fruits|checkboxes|options:apple,banana,orange,avocado',
-    'name:country|radio|options:United States,Mexico,Canada,Other',
-    'name:token|hidden|text|value=d43aa11a-f055-4266-b4c1-b9b0b3ec79aa',
-    'component:CustomField|prop1=foo|prop2=false|prop3=100'
-]
-
-// object fields
-const objFields = [
-    {
-        name: 'event_name',
-        props: {
-            type: 'text'
-        }
-    },
-    {
-        name: 'meeting',
-        label: 'Pick a date for your meeting',
-        component: 'CustomDatePicker',
-        props: {
-            theme: 'green',
-            enableTransitions: true,
-            range: ['2024-02-01', '2024-06-30'],
-            calendar: {
-                provider: 'CALENDAR_PROVIDER',
-                apiKey: 'SECRET_KEY',
-            }
-        },
-    },
-    {
-        component: 'vfb-buttons',
-        label: 'none',
-        props: {
-            submitText: 'UPDATE',
-            cancelText: 'CANCEL',
-        }
-    }
-]
-
-// mix of text and object fields
-const mixedFields = shuffleArray([...textFields, ...objFields])
-
-// field with all sorts of custom components
-const veryCustomizedFields = [
-    {
-        component: 'foo',
-        componentWrapper: 'bar',
-        componentFeedback: 'zoo',
-        props: {
-            a: 1,
-            b: 2,
-        },
-        propsWrapper: {
-            c: 3,
-            d: 4,
-        }
-    },
-    {
-        component: 'abc',
-        componentWrapper: 'def',
-        componentFeedback: 'ghi',
-        props: {
-            a1: [1,2,3],
-            b2: [4,5,6],
-        },
-        propsWrapper: {
-            c3: false,
-            d4: true,
-        }
-    },
-]
 
 // this variable will store the parsed fields
 let fields = []

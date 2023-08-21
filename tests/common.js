@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
+import CustomField from './components/CustomField.vue'
+import CustomWrapper from './components/CustomWrapper.vue'
+import CalendarField from './components/CalendarField.vue'
 import { default as install, VueFormBuilder } from '../src/main'
+import { shuffleArray } from '../src/helpers'
 
 
 // ────────────────────────────────────────────────────────────────────────────────
@@ -24,6 +28,86 @@ export const fields = [
     'name:token|hidden|label:none|text',
     'component:vfb-buttons|label:none|submitText=SUBMIT|resetText=RESET'
 ]
+
+// text fields
+export const textFields = [
+    'name:name|text|min=5|max=30',
+    'name:email_address|email|required',
+    'name:bio|textarea|label:Personal bio|rows=6',
+    'name:gender|options:male,female',
+    'name:photo|label:Profile picture|file',
+    'name:fruits|checkboxes|options:apple,banana,orange,avocado',
+    'name:country|radio|options:United States,Mexico,Canada,Other',
+    'name:token|hidden|text|value=d43aa11a-f055-4266-b4c1-b9b0b3ec79aa',
+    'component:CustomField|prop1=foo|prop2=false|prop3=100'
+]
+
+// object fields
+export const objFields = [
+    {
+        name: 'event_name',
+        props: {
+            type: 'text'
+        }
+    },
+    {
+        name: 'meeting',
+        label: 'Pick date for your meeting',
+        component: 'CalendarField',
+        props: {
+            theme: 'green',
+            enableTransitions: true,
+            range: ['2024-02-01', '2024-06-30'],
+            calendarDriver: {
+                provider: 'CALENDAR_PROVIDER',
+                apiKey: 'SECRET_KEY',
+            }
+        },
+    },
+    {
+        component: 'vfb-buttons',
+        label: 'none',
+        props: {
+            submitText: 'UPDATE',
+            cancelText: 'CANCEL',
+        }
+    }
+]
+
+// mix of text and object fields
+export const mixedFields = shuffleArray([...textFields, ...objFields])
+
+// field with all sorts of custom components
+export const veryCustomizedFields = [
+    {
+        component: 'foo',
+        componentWrapper: 'bar',
+        componentFeedback: 'zoo',
+        props: {
+            a: 1,
+            b: 2,
+        },
+        propsWrapper: {
+            c: 3,
+            d: 4,
+        }
+    },
+    {
+        component: 'abc',
+        componentWrapper: 'def',
+        componentFeedback: 'ghi',
+        props: {
+            a1: [1,2,3],
+            b2: [4,5,6],
+        },
+        propsWrapper: {
+            c3: false,
+            d4: true,
+        }
+    },
+]
+
+// -----------------------------------------------------------------------------
 
 // the model, which will be later used.
 export const model = {
@@ -123,6 +207,11 @@ export const validationRules = {
         return true
     }
 }
+
+// register some custom components
+Vue.component('CustomField', CustomField)
+Vue.component('CustomWrapper', CustomWrapper)
+Vue.component('CalendarField', CalendarField)
 
 // before mounting the wrapper, install the vue components
 Vue.use(install)
