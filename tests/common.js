@@ -11,11 +11,11 @@ import { shuffleArray } from '../src/helpers'
 // ────────────────────────────────────────────────────────────────────────────────
 // COMMON VARIABLES USED ACROSS TEST SUITES
 
-export const fields = [
+export const textFields = [
     'name:name|text|min=5|max=30',
-    'name:email|email',
+    'name:email|email|required',
     'name:phone|tel|label:Phone number',
-    'name:website|url|label:Personal website',
+    'name:website_url|url',
     'name:password|password|label:Choose your password',
     'name:birthday|date',
     'name:amount|range|min=5|max=25',
@@ -27,21 +27,12 @@ export const fields = [
     'name:languages|multiple|options:bash,c,c++,go,java,javascript,php,python,perl,r',
     'name:agree|label:Agree to the terms and conditions|checkbox',
     'name:token|hidden|label:none|text',
+    'component:CustomField|prop1=foo|prop2=false|prop3=100',
     'component:vfb-buttons|label:none|submitText=SUBMIT|resetText=RESET'
 ]
 
-// text fields
-export const textFields = [
-    'name:name|text|min=5|max=30',
-    'name:email_address|email|required',
-    'name:bio|textarea|label:Personal bio|rows=6',
-    'name:gender|options:male,female',
-    'name:photo|label:Profile picture|file',
-    'name:fruits|checkboxes|options:apple,banana,orange,avocado',
-    'name:country|radio|options:United States,Mexico,Canada,Other',
-    'name:token|hidden|text|value=d43aa11a-f055-4266-b4c1-b9b0b3ec79aa',
-    'component:CustomField|prop1=foo|prop2=false|prop3=100'
-]
+// default fields are text fields
+export const fields = textFields
 
 // object fields
 export const objFields = [
@@ -123,7 +114,7 @@ export const model = {
     gender: 'male',
     phone: '+1 999 9999-9999',
     fruits: ['banana', 'avocado'],
-    website: 'http://example.test/',
+    website_url: 'http://example.test/',
     country: 'Mexico',
     agree: true,
     bio: 'Hello, this is John Doe from Mexico. I like bananas.',
@@ -135,7 +126,7 @@ export const errors = {
     name: 'Name must be longer.',
     email: 'Email is required.',
     phone: 'Phone is invalid.',
-    website: 'Website must be valid URL.',
+    website_url: 'Website must be valid URL.',
     password: 'Password must contain letters and numbers.',
     bio: 'Bio cannot have more than 100 words.',
     gender: 'Pick a gender',
@@ -150,7 +141,7 @@ export const messages = {
     name: 'all right!',
     email: 'email looks good!',
     phone: 'phone looks good!',
-    website: 'url looks good!',
+    website_url: 'url looks good!',
     password: 'strong password!',
     bio: 'all right!',
     gender: 'all right!',

@@ -54,7 +54,7 @@ test('it submits the form correctly', async () => {
         name: 'Mary Lindsey',
         email: 'mary@email.test',
         phone: '+100 12345 6789',
-        website: 'http://mary.me',
+        website_url: 'http://mary.me',
         birthday: '1980-01-01',
         amount: '10',
         bio: 'hello world!',

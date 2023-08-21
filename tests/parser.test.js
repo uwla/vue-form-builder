@@ -26,59 +26,90 @@ test('it parses text fields', () => {
 
     // email field
     expect(fields[1].props.type).toBe('email')
-    expect(fields[1].props.name).toBe('email_address')
+    expect(fields[1].props.name).toBe('email')
     expect(fields[1].props.required).toBe(true)
-    expect(fields[1].propsWrapper.label).toBe('Email address')
+    expect(fields[1].propsWrapper.label).toBe('Email')
     expect(fields[1].component).toBe('vfb-input')
 
+    // phone field
+    expect(fields[2].props.type).toBe('tel')
+    expect(fields[2].props.name).toBe('phone')
+    expect(fields[2].propsWrapper.label).toBe('Phone number')
+    expect(fields[2].component).toBe('vfb-input')
+
+    // website field
+    expect(fields[3].props.type).toBe('url')
+    expect(fields[3].props.name).toBe('website_url')
+    expect(fields[3].propsWrapper.label).toBe('Website url')
+    expect(fields[3].component).toBe('vfb-input')
+
+    // password field
+    expect(fields[4].props.type).toBe('password')
+    expect(fields[4].props.name).toBe('password')
+    expect(fields[4].propsWrapper.label).toBe('Choose your password')
+    expect(fields[4].component).toBe('vfb-input')
+
+    // birthday field
+    expect(fields[5].props.type).toBe('date')
+    expect(fields[5].props.name).toBe('birthday')
+    expect(fields[5].propsWrapper.label).toBe('Birthday')
+    expect(fields[5].component).toBe('vfb-input')
+
+    // amount field
+    expect(fields[6].props.type).toBe('range')
+    expect(fields[6].props.min).toBe(5)
+    expect(fields[6].props.max).toBe(25)
+    expect(fields[6].props.name).toBe('amount')
+    expect(fields[6].propsWrapper.label).toBe('Amount')
+    expect(fields[6].component).toBe('vfb-input')
+
     // bio field
-    expect(fields[2].props.name).toBe('bio')
-    expect(fields[2].props.rows).toBe(6)
-    expect(fields[2].propsWrapper.label).toBe('Personal bio')
-    expect(fields[2].component).toBe('vfb-textarea')
+    expect(fields[7].props.name).toBe('bio')
+    expect(fields[7].props.rows).toBe(6)
+    expect(fields[7].propsWrapper.label).toBe('Personal bio')
+    expect(fields[7].component).toBe('vfb-textarea')
 
     // gender field
-    expect(fields[3].props.name).toBe('gender')
-    expect(fields[3].props.options).toEqual([
+    expect(fields[8].props.name).toBe('gender')
+    expect(fields[8].props.options).toEqual([
         { value: 'male', text: 'male' },
         { value: 'female', text: 'female' },
     ])
-    expect(fields[3].component).toBe('vfb-select')
+    expect(fields[8].component).toBe('vfb-select')
 
     // photo field
-    expect(fields[4].props.name).toBe('photo')
-    expect(fields[4].propsWrapper.label).toBe('Profile picture')
-    expect(fields[4].component).toBe('vfb-file')
+    expect(fields[9].props.name).toBe('photo')
+    expect(fields[9].propsWrapper.label).toBe('Profile picture')
+    expect(fields[9].component).toBe('vfb-file')
 
     // fruits field
-    expect(fields[5].props.name).toBe('fruits')
-    expect(fields[5].props.options).toEqual([
+    expect(fields[10].props.name).toBe('fruits')
+    expect(fields[10].props.options).toEqual([
         { value: 'apple', text: 'apple' },
         { value: 'banana', text: 'banana' },
         { value: 'orange', text: 'orange' },
         { value: 'avocado', text: 'avocado' },
     ])
-    expect(fields[5].component).toBe('vfb-checkboxes')
+    expect(fields[10].component).toBe('vfb-checkboxes')
 
     // country field
-    expect(fields[6].props.name).toBe('country')
-    expect(fields[6].props.options).toEqual([
+    expect(fields[11].props.name).toBe('country')
+    expect(fields[11].props.options).toEqual([
         { value: 'United States', text: 'United States' },
         { value: 'Mexico', text: 'Mexico' },
         { value: 'Canada', text: 'Canada' },
         { value: 'Other', text: 'Other' },
     ])
-    expect(fields[6].component).toBe('vfb-radio')
+    expect(fields[11].component).toBe('vfb-radio')
 
     // token
-    expect(fields[7].props.value).toBe('d43aa11a-f055-4266-b4c1-b9b0b3ec79aa')
-    expect(fields[7].props.hidden).toBe(true)
+    expect(fields[14].props.hidden).toBe(true)
 
     // custom
-    expect(fields[8].component).toBe('CustomField')
-    expect(fields[8].props.prop1).toBe('foo')
-    expect(fields[8].props.prop2).toBe(false)
-    expect(fields[8].props.prop3).toBe(100)
+    expect(fields[15].component).toBe('CustomField')
+    expect(fields[15].props.prop1).toBe('foo')
+    expect(fields[15].props.prop2).toBe(false)
+    expect(fields[15].props.prop3).toBe(100)
 })
 
 test('it parses object fields', () => {

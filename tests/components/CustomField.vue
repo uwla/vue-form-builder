@@ -1,5 +1,5 @@
 <template>
-    <input class="custom-field" v-model="value">
+    <div class="custom-field">Some custom field</div>
 </template>
 <script>
 export default {
