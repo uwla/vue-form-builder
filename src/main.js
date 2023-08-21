@@ -30,13 +30,17 @@ function install(Vue) {
 }
 
 export {
-    VfbFile,
-    VfbGroup,
-    VfbInput,
-    VfbSelect,
+    install as default,
     VfbButtons,
     VfbCheckbox,
     VfbCheckboxes,
+    VfbFile,
+    VfbGroup,
+    VfbInput,
+    VfbRadio,
+    VfbSelect,
+    VfbTextarea,
+    VfbFeedback,
+    VueFormBuilder as Vfb,
     VueFormBuilder,
-    install as default,
 }
