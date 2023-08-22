@@ -4,7 +4,8 @@ import { Parser } from '../parser'
 export default {
     computed: {
         formComponent() {
-            if (this.useBootstrap) return 'b-form'
+            if (this.useBootstrap)
+                return 'b-form'
             return 'form'
         }
     },

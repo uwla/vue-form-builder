@@ -2,6 +2,13 @@ export default {
     computed: {
         showFeedback() {
             return this.state !== null
+        },
+        errorMessages() {
+            if (Array.isArray(this.errors))
+                return this.errors
+            if (typeof this.errors === 'string')
+                return [this.errors]
+            return []
         }
     },
     props: {
