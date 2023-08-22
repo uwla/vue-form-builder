@@ -1,17 +1,102 @@
 # VUE FORM BUILDER
 
+Vue  Form  Builder  is  a  Vue2  plugin  that  generates  beautiful  forms  from
+declarative rules.
+
+For example:
+
+```javascript
+const fields = [
+    'name:name|label:Nome|text',
+    'name:e-mail|email',
+    'name:photo|label:Profile picture|multiple|file',
+    'name:bio|textarea',
+    'name:gender|options:male,female',
+    'name:birthday|input|type=date',
+    'name:fruits|label:Pick fruits|checkboxes|options:apple,banana,orange,avocado',
+    'name:agree|checkbox|label:Agree to terms and conditions',
+    'component:vfb-buttons|class=right|submitText=SALVAR|label:none',
+]
+```
+
+Which generates the following HTML:
+
+```html
+<form>
+    <div class="vfb-group">
+        <label for="VFB5403525774">Nome</label>
+        <input class="vfb-input" type="text" name="name" id="VFB5403525774" />
+    </div>
+    <div class="vfb-group">
+        <label for="VFB6006665634">Email</label>
+        <input class="vfb-input" type="email" name="e-mail" id="VFB6006665634" />
+    </div>
+    <div class="vfb-group">
+        <label for="VFB3533685551">Profile picture</label>
+        <input type="file" multiple="multiple" class="vfb-input" name="photo" id="VFB3533685551" />
+    </div>
+    <div class="vfb-group">
+        <label for="VFB8863682902">Bio</label>
+        <textarea class="vfb-textarea" name="bio" id="VFB8863682902">
+        </textarea>
+    </div>
+    <div class="vfb-group">
+        <label for="VFB3862635914">Gender</label>
+        <select class="vfb-select" name="gender" id="VFB3862635914">
+            <option value="male">male</option>
+            <option value="female">female</option>
+        </select>
+    </div>
+    <div class="vfb-group">
+        <label for="VFB9638368444">Birthday</label>
+        <input class="vfb-input" type="date" name="birthday" id="VFB9638368444" />
+    </div>
+    <div class="vfb-group">
+        <label for="VFB3283836544">Pick fruits</label>
+        <ul class="vfb-checkboxes">
+            <li>
+                <input type="checkbox" name="fruits" id="VFB3283836544_0" class="vfb-checkbox" value="apple" />
+                <label for="VFB3283836544_0">apple</label>
+            </li>
+            <li>
+                <input type="checkbox" name="fruits" id="VFB3283836544_1" class="vfb-checkbox" value="banana" />
+                <label for="VFB3283836544_1">banana</label>
+            </li>
+            <li>
+                <input type="checkbox" name="fruits" id="VFB3283836544_2" class="vfb-checkbox" value="orange" />
+                <label for="VFB3283836544_2">orange</label>
+            </li>
+            <li>
+                <input type="checkbox" name="fruits" id="VFB3283836544_3" class="vfb-checkbox" value="avocado" />
+                <label for="VFB3283836544_3">avocado</label>
+            </li>
+        </ul>
+    </div>
+    <div class="vfb-group vfb-group-checkbox">
+        <label for="VFB6242754745">Agree to terms and conditions</label>
+        <input type="checkbox" class="vfb-checkbox" name="agree" id="VFB6242754745" />
+    </div>
+    <div class="vfb-group">
+        <div class="vfb-buttons right">
+            <button type="reset" class="btn btn-danger">CANCEL</button>
+            <button type="submit" class="btn btn-success">SALVAR</button>
+        </div>
+    </div>
+</form>
+```
+
 ## Features
 
 - concise syntax for fast development
 - support for custom components
-- can prefill the values of form fields
+- can prefill the form with a given model
 - integration with Bootstrap Vue
-- shows error messages next to field
-- shows success messages next to field
+- shows error messages (compatible with Laravel API)
+- shows success messages
 - validates fields when user enters input
 - validates form upon submission
-- validation rules
-- custom components
+- user-defined validation rules
+- custom Vue components
 
 ## Demo
 
@@ -27,6 +112,58 @@ Install via NPM:
 
 ```shell
 npm install @uwlajs/vue-form-builder
+```
+
+Import it
+
+```javascript
+import Vue from 'vue'
+import VueFormBuilder from '@uwlajs/vue-form-builder'
+
+Vue.use(VueFormBuilder)
+```
+
+You may want to register the components manually, but this may be cumbersome:
+
+```javascript
+// register VFB
+import { VueFormBuilder } from '@uwlajs/vue-form-builder'
+Vue.component('vue-form-builder', VueFormBuilder)
+
+// If you want to use VFB components, you must register auxiliary components you use.
+// If you want to use your own components, you don't need to register VFB components.
+
+import {VfbButtons, VfbCheckbox, VfbCheckboxes, VfbFeedback, VfbFeedbackInvalid,
+VfbFeedbackValid, VfbFile, VfbGroup, VfbInput, VfbRadio, VfbSelect, VfbTextarea}
+from '@uwlajs/vue-form-builder'
+
+Vue.component('vfb-feedback-invalid', VfbFeedbackInvalid)
+Vue.component('vfb-feedback-valid', VfbFeedbackValid)
+Vue.component('vfb-checkboxes', VfbCheckboxes)
+Vue.component('vfb-checkbox', VfbCheckbox)
+Vue.component('vfb-textarea', VfbTextarea)
+Vue.component('vfb-feedback', VfbFeedback)
+Vue.component('vfb-buttons', VfbButtons)
+Vue.component('vfb-select', VfbSelect)
+Vue.component('vfb-group', VfbGroup)
+Vue.component('vfb-input', VfbInput)
+Vue.component('vfb-radio', VfbRadio)
+Vue.component('vfb-file', VfbFile)
+```
+
+### CSS
+
+If you need to import this plugin's CSS if you want to use it:
+
+```javascript
+import '@uwlajs/vue-form-builder/dist/VueFormBuilder.css'
+```
+
+If you are using this plugin with BootstrapVue, you don't need  to  import  this
+plugin's CSS, and shall instead import BootstrapVue's CSS:
+
+```javascript
+import 'bootstrap-vue/dist/bootstrap-vue.min.css'
 ```
 
 ## Configuration
@@ -115,13 +252,215 @@ More instructions can be found on the [official page](https://bootstrap-vue.org/
 
 ### Components
 
-#### Custom component
+#### Custom field component
+
+You can set custom components for rendering fields like so:
+
+```javascript
+// option 1
+field = 'name:lang|label:Favorite languages|component:multiselect|options:js,c,c++,go,php|track-by=value|label=text|multiple',
+
+// option 2 (equivalent to option 1)
+field = {
+    component: 'multiselect',
+    label: 'Favorite language',
+    name: 'lang',
+    props: {
+        'track-by': 'value',
+        'label': 'text',
+        'multiple': true,
+        'options': [
+            { value: 'js', text: 'js' },
+            { value: 'c', text: 'c' },
+            { value: 'c++', text: 'c++' },
+            { value: 'go', text: 'go' },
+            { value: 'php', text: 'php' },
+        ]
+    }
+}
+```
+
+In the example above, we are using [Vue Multiselect Plugin](https://vue-multiselect.js.org/).
+You can use any component you want, including the ones yourself wrote.
+
+#### Component CSS ID
+
+An important point is that,  by  default,  `VueFormBuilder`  will  add  an  `id`
+attribute to `props`, which is a random string designed to be a unique  CSS  id.
+If the `component` does not explicitly have a property  called  `id`,  then  Vue
+will understand this is actually an HTML attribute and will set `id` as the  CSS
+id of `component`. Otherwise, if the component has a property called `id`,  then
+Vue won't automatically set it as an HTML attribute. If `props.id`  is  defined,
+then `VueFormBuilder` won't generated an `id`.
+
+```javascript
+// explicitly setting a CSS id
+field = 'name:email|id=email_address|type:email'
+
+// same thing, but in Object notation
+field = {
+    name: 'email',
+    type: 'email',
+    props: {
+        id: 'email_address',
+    }
+}
+```
+
+Whatever the value of `id` is, it will be passed to the field wrapper  component
+by default, so that the label is uniquely associated with the field.
+
+```html
+<div class="vfb-group">
+    <input name="email" id="email_address" type="email" />
+    <label for="email_address">Email</label>
+</div>
+```
 
 #### Custom wrapper
+
+A wrapper is a container that wraps the field. It is useful for showing labels
+next to the input field, or to show additional information.
+
+`VueFormBuilder` assumes the `componentWrapper` is a Vue component with at least
+two props: `label` and `labelFor`.  So,  if  you  are  using  a  custom  wrapper
+yourself wrote, make sure to declare those properties, even if you don't plan to
+use these values. Otherwise,  Vue  will  set  `label`  and  `labelFor`  as  HTML
+attributes, visible in the browser devtools.
+
+```html
+<template>
+    <div class="custom-wrapper">
+        <slot></slot>
+        <label :for="labelFor">{{ label }}</label>
+    </div>
+</template>
+<script>
+export default {
+    props: ['label', 'labelFor', 'foo', 'bar']
+}
+</script>
+```
+
+Then, to use this wrapper in an individual field:
+
+```javascript
+Vue.component('my-custom-wrapper', CustomWrapper)
+
+// string notation
+field = 'name:foo|text|componentWrapper:my-custom-wrapper'
+
+// object notation
+field = {
+    name: 'foo',
+    type: 'text',
+    componentWrapper: 'my-custom-wrapper',
+}
+```
+
+To use your wrapper component as the default wrapper component, pass it as the
+`wrapper` property to `VueFormBuilder`:
+
+```html
+<vue-form-builder :fields="fields" wrapper='my-custom-wrapper' />
+```
+
+You can set a `div` as field wrapper. That way,  it  won't  show  anything  else
+besides the `field` component.
+
+```javascript
+// explicitly setting the wrapper component
+field = 'name:email|email|componentWrapper:div'
+
+// same thing, but in Object notation
+field = {
+    name: 'email',
+    type: 'email',
+    componentWrapper: 'div',
+}
+```
+
+In that case,, it is recommend to set `label` to `none` because `VueFormBuilder`
+will pass the `label` and `labelFor` as properties, which  Vue  will  render  as
+HTML attributes. So:
+
+```javascript
+// explicitly setting the wrapper component
+field = 'name:email|email|componentWrapper:div|label:none'
+
+// same thing, but in Object notation
+field = {
+    name: 'email',
+    type: 'email',
+    label: 'none',
+    componentWrapper: 'div',
+}
+```
+
+#### Component label
 
 ### Feedback
 
 #### Errors
+
+The error is an array mapping field names to strings or arrays of strings.
+
+```javascript
+errors: {
+    name: [
+        'Name too long.',
+        'Name cannot contain special characters.'
+    ],
+    email: [
+        'Email must be a valid email.',
+    ],
+    photo: [
+        'Photo cannot exceed 2MB.',
+        'Photo has invalid dimensions.',
+        'Supported formats are PNG or JPG.',
+    ]
+}
+```
+
+If set, it will display those  errors  below  the  corresponding  fields,  whose
+`name` matches the key in the `errors` object. It is useful if when the  backend
+returns errors and you want to show them:
+
+```html
+<template>
+    <div>
+        <h1>Add Post</h1>
+        <vue-form-builder :fields="fields" :errors="errors" @submit="addPost" />
+    </div>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            fields: [
+                'name:title|text',
+                'name:author|text',
+                'name:body|textarea|rows=15',
+                'name:img|label:Cover image|file|accepts=image/jpg',
+            ],
+            errors: {},
+        }
+    },
+    methods: {
+        addPost(data) {
+            const url = 'http://localhost:8080/api/post'
+            axios.post(url, data).then(response => {
+                // show some successful message..
+            }).catch(exception => {
+                // assuming the backend follows 'Laravel API' for erros,
+                // no further parsing is needed
+                this.errors = exception.response.data.errors
+            })
+        }
+    }
+}
+</script>
+```
 
 #### Message
 
