@@ -1,3 +1,4 @@
+import fieldAliases from '../src/aliases'
 import { Parser } from '../src/parser'
 import { textFields, objFields, mixedFields, veryCustomizedFields } from './common'
 
@@ -121,14 +122,32 @@ test('it parses object fields', () => {
     expect(fields[0].component).toBe('vfb-input')
 })
 
-test('it parser mixed fields', () => {
+test('it parses mixed fields', () => {
     fields = parser.parseFields(mixedFields)
     expect(fields).toBeTruthy()
 })
 
-test('it parser very customized fields', () => {
+test('it parses very customized fields', () => {
     fields = parser.parseFields(veryCustomizedFields)
     expect(fields).toMatchObject(veryCustomizedFields)
+})
+
+test('it parses', () => {
+    let keys = Object.keys(fieldAliases.getAliases())
+    let values = Object.values(fieldAliases.getAliases())
+    let fieldsFromKeys = parser.parseFields(keys)
+    let fieldsFromValues = parser.parseFields(values)
+
+    // need to remove the ID field, because it is unique for each field
+    function removeCssId(obj) {
+        delete obj.props.id
+        delete obj.propsWrapper.labelFor
+    }
+    fieldsFromKeys.forEach(removeCssId)
+    fieldsFromValues.forEach(removeCssId)
+
+    // now, they should be strictly equal
+    expect(fieldsFromKeys).toStrictEqual(fieldsFromValues)
 })
 
 test('it assigns ID to the fields', () => {
