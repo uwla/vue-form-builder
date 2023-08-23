@@ -121,6 +121,9 @@ export const model = {
     token: 'd43aa11a-f055-4266-b4c1-b9b0b3ec79aa',
 }
 
+// the order in which the keys of the following objects appear is important
+// for the tests! do not modify it!
+
 // error messages, used later
 export const errors = {
     name: 'Name must be longer.',
@@ -138,16 +141,17 @@ export const errors = {
 
 // success messages, used later
 export const messages = {
-    name: 'all right!',
+    name: 'name looks good',
     email: 'email looks good!',
     phone: 'phone looks good!',
-    website_url: 'url looks good!',
-    password: 'strong password!',
-    bio: 'all right!',
-    gender: 'all right!',
-    photo: 'awesome!',
-    fruits: 'all right',
-    country: 'all right',
+    website_url: 'url is working',
+    password: 'strong password, congrats',
+    bio: 'bio looks good!',
+    gender: 'thanks for filling it out',
+    photo: 'awesome photo',
+    fruits: 'awesome choice of fruits',
+    country: 'valid country, nice!',
+    languages: 'great languages!',
     agree: 'congrats',
 }
 

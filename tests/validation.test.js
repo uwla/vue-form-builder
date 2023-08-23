@@ -1,55 +1,60 @@
-import { errors, model, validationErrors, validationRules, wrapper } from './common'
+import { errors, messages, model, validationErrors, validationRules, wrapper } from './common'
 
-test('it can validate on input', async () => {
+test('it validates on input', async () => {
     await wrapper.setProps({
         model: model,
         validateOnInput: true,
         validation: validationRules,
         errors: errors,
+        messages: messages,
         clearFeedbackOnInput: false,
     })
     wrapper.vm.setupFeedback()
 
-    let feedbackText = () => wrapper.find('.vfb-feedback-invalid.visible').text()
-    let feedbacks = () => wrapper.findAll('.vfb-feedback-invalid.visible')
+    let invalidFeedbacks = () => wrapper.findAll('.vfb-feedback-invalid.visible')
+    let invalidFeedbackText = () => wrapper.find('.vfb-feedback-invalid.visible').text()
+    let validFeedbackText = (n) => wrapper.find(`[name=${n}]~.vfb-feedback .visible`).text()
 
     // ─────────────────────────────────────────────────────────────────────────
     // Text field
 
     // short name
     await wrapper.find('[name=name]').setValue('Le')
-    expect(feedbackText()).toBe(validationErrors['name']['short'])
+    expect(invalidFeedbackText()).toBe(validationErrors['name']['short'])
 
     // long name
     let name = 'Katelynn Medhurst Michale Sporer Leatha Stiedemann'
     await wrapper.find('[name=name]').setValue(name)
-    expect(feedbackText()).toBe(validationErrors['name']['long'])
+    expect(invalidFeedbackText()).toBe(validationErrors['name']['long'])
 
     // set valid name
     await wrapper.find('[name=name]').setValue('John Doe')
-    expect(feedbacks()).toHaveLength(0)
+    expect(invalidFeedbacks()).toHaveLength(0)
+    expect(validFeedbackText('name')).toBe(messages['name'])
 
     // ─────────────────────────────────────────────────────────────────────────
     // Textarea field
 
     // set invalid bio
     await wrapper.find('[name=bio]').setValue("Hi, I'm John")
-    expect(feedbackText()).toBe(validationErrors['bio'])
+    expect(invalidFeedbackText()).toBe(validationErrors['bio'])
 
     // set valid bio
     await wrapper.find('[name=bio]').setValue("Hi, hello, I'm John")
-    expect(feedbacks()).toHaveLength(0)
+    expect(invalidFeedbacks()).toHaveLength(0)
+    expect(validFeedbackText('bio')).toBe(messages['bio'])
 
     // ─────────────────────────────────────────────────────────────────────────
     // Single checkbox field
 
     // invalid agreement
     await wrapper.find('[name=agree]').setChecked(false)
-    expect(feedbackText()).toBe(errors['agree'])
+    expect(invalidFeedbackText()).toBe(errors['agree'])
 
     // valid agreement
     await wrapper.find('[name=agree]').setChecked(true)
-    expect(feedbacks()).toHaveLength(0)
+    expect(invalidFeedbacks()).toHaveLength(0)
+    expect(validFeedbackText('agree')).toBe(messages['agree'])
 
     // ─────────────────────────────────────────────────────────────────────────
     // Checkboxes field
@@ -64,17 +69,21 @@ test('it can validate on input', async () => {
     // check all
     for (let i = 0; i < checkboxes.length; i += 1)
         await checkboxes.at(i).setChecked(true)
-    expect(feedbackText()).toBe(validationErrors['fruits']['many'])
+    expect(invalidFeedbackText()).toBe(validationErrors['fruits']['many'])
 
     // uncheck all
     for (let i = 0; i < checkboxes.length; i += 1)
         await checkboxes.at(i).setChecked(false)
-    expect(feedbackText()).toBe(validationErrors['fruits']['few'])
+    expect(invalidFeedbackText()).toBe(validationErrors['fruits']['few'])
 
     // now, make it valid
     await checkboxes.at(0).setChecked()
     await checkboxes.at(1).setChecked()
-    expect(feedbacks()).toHaveLength(0)
+    expect(invalidFeedbacks()).toHaveLength(0)
+
+    // expect the successful message to match
+    // it is needed to use custom selector
+    expect(wrapper.find('.vfb-checkboxes~.vfb-feedback .visible').text()).toBe(messages['fruits'])
 
     // ─────────────────────────────────────────────────────────────────────────
     // Multiple-options Select field
@@ -85,17 +94,20 @@ test('it can validate on input', async () => {
     // first error
     const option1 = wrapper.find('option[value=go]')
     await option1.setSelected(true)
-    expect(feedbackText()).toBe(validationErrors['languages']['few'])
+    expect(invalidFeedbackText()).toBe(validationErrors['languages']['few'])
 
     // second error
     const option2 = wrapper.find('option[value=bash]')
     await option2.setSelected(true)
-    expect(feedbackText()).toBe(validationErrors['languages']['include'])
+    expect(invalidFeedbackText()).toBe(validationErrors['languages']['include'])
 
     // no errors
     const option3 = wrapper.find('option[value=java]')
     await option3.setSelected(true)
-    expect(feedbacks()).toHaveLength(0)
+    expect(invalidFeedbacks()).toHaveLength(0)
+
+    // expect the successful message to match
+    expect(validFeedbackText('languages')).toBe(messages['languages'])
 
     // For some reason, the following code is not triggering the change event:
     // await option3.setSelected(false)
@@ -104,16 +116,19 @@ test('it can validate on input', async () => {
     // second error again
     option3.element.selected = false
     await select.trigger('change')
-    expect(feedbackText()).toBe(validationErrors['languages']['include'])
+    expect(invalidFeedbackText()).toBe(validationErrors['languages']['include'])
 
     // first error again
     option1.element.selected = false
     await select.trigger('change')
-    expect(feedbackText()).toBe(validationErrors['languages']['few'])
+    expect(invalidFeedbackText()).toBe(validationErrors['languages']['few'])
 
     // clear again
     await option3.setSelected()
-    expect(feedbacks()).toHaveLength(0)
+    expect(invalidFeedbacks()).toHaveLength(0)
+
+    // expect the successful message to match again
+    expect(validFeedbackText('languages')).toBe(messages['languages'])
 
     // ─────────────────────────────────────────────────────────────────────────
     // Single option Select field
@@ -121,11 +136,12 @@ test('it can validate on input', async () => {
     // invalid value
     select = wrapper.find('select[name=gender]')
     await select.setValue('')
-    expect(feedbackText()).toBe(validationErrors['gender'])
+    expect(invalidFeedbackText()).toBe(validationErrors['gender'])
 
     // valid value
     await select.setValue('male')
-    expect(feedbacks()).toHaveLength(0)
+    expect(invalidFeedbacks()).toHaveLength(0)
+    expect(validFeedbackText('gender')).toBe(messages['gender'])
 })
 
 test('it validates on submission', async () => {
