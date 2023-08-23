@@ -11,6 +11,7 @@ import VfbGroup from './components/VfbGroup.vue'
 import VfbInput from './components/VfbInput.vue'
 import VfbRadio from './components/VfbRadio.vue'
 import VfbFile from './components/VfbFile.vue'
+import fieldAliases from './aliases'
 
 function install(Vue) {
     Vue.component('vfb-feedback-invalid', VfbFeedbackInvalid)
@@ -30,6 +31,7 @@ function install(Vue) {
 }
 
 export {
+    fieldAliases,
     install as default,
     VfbButtons,
     VfbCheckbox,

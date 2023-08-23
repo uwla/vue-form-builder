@@ -1,7 +1,7 @@
 const aliases = {
     name: 'name:name|text',
-    fname: 'name:fname|text',
-    lname: 'name:lname|text',
+    fname: 'name:fname|text|label:First name',
+    lname: 'name:lname|text|label:Last name',
     username: 'name:username|text',
     email: 'name:email|email',
     email_confirmation: 'name:email_confirmation|email',
@@ -14,28 +14,49 @@ const aliases = {
     profile_picture: 'name:profile_picture|file|accept=image/*'
 }
 
+function addAlias(key, alias) {
+    if (aliases[key] === undefined)
+        aliases[key] = alias
+}
+
+function addAliases(newAliases) {
+    for (let key of Object.keys(newAliases))
+        addAlias(key, newAliases[key])
+}
+
 function setAlias(key, alias) {
-    aliases[key] = alias
+    if (aliases[key] !== undefined)
+        aliases[key] = alias
 }
 
-function setAliases(aliases) {
-    for (let key of Object.keys(aliases)) aliases[key] = aliases[key]
+function setAliases(newAliases) {
+    for (let key of Object.keys(newAliases))
+        setAlias(key, newAliases[key])
 }
 
-function resetAliases() {
-    for (let key of Object.keys(aliases)) delete aliases[key]
+function delAllAliases() {
+    for (let key of Object.keys(aliases))
+        delete aliases[key]
 }
 
-function removeAlias(key) {
+function delAlias(key) {
     delete aliases[key]
+}
+
+function delAliases(keys) {
+    keys.forEach(delAlias)
 }
 
 function getAlias(key) {
     return aliases[key]
 }
 
-function getAliases() {
-    return aliases
+function getAliases(keys) {
+    return keys.filter(isAlias).map(getAlias)
+}
+
+function getAllAliases() {
+    return {... aliases}
 }
 
 function isAlias(key) {
@@ -43,13 +64,16 @@ function isAlias(key) {
 }
 
 const fieldAliases = {
+    addAlias,
+    delAlias,
+    delAliases,
+    delAllAliases,
     getAlias,
     getAliases,
+    getAllAliases,
     isAlias,
-    removeAlias,
-    resetAliases,
     setAlias,
-    setAliases
+    setAliases,
 }
 
 export default fieldAliases
