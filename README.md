@@ -3,7 +3,31 @@
 Vue  Form  Builder  is  a  Vue2  plugin  that  generates  beautiful  forms  from
 declarative rules.
 
-For example:
+## Features
+
+- concise syntax for fast development
+- support for custom components
+- aliases for reusing common rules
+- can prefill the form with given model
+- integration with Bootstrap Vue
+- shows error messages (compatible with Laravel API)
+- shows success messages (compatible with Laravel API)
+- validates fields when user enters input
+- validates form upon submission
+- user-defined validation rules
+- custom Vue components
+
+## Demo
+
+A demo app is available:
+
+- [live demo](https://4rxmw4.csb.app/)
+- [live demo and code](https://codesandbox.io/s/vue-form-builder-demo-4rxmw4)
+- [code](https://github.com/uwla/vue-form-builder-demo)
+
+## Example
+
+SImple example:
 
 ```javascript
 const fields = [
@@ -85,27 +109,6 @@ Which generates the following HTML:
 </form>
 ```
 
-## Features
-
-- concise syntax for fast development
-- support for custom components
-- can prefill the form with a given model
-- integration with Bootstrap Vue
-- shows error messages (compatible with Laravel API)
-- shows success messages
-- validates fields when user enters input
-- validates form upon submission
-- user-defined validation rules
-- custom Vue components
-
-## Demo
-
-A demo app is available:
-
-- [live demo](https://4rxmw4.csb.app/)
-- [live demo and code](https://codesandbox.io/s/vue-form-builder-demo-4rxmw4)
-- [code](https://github.com/uwla/vue-form-builder-demo)
-
 ## Installation
 
 Install via NPM:
@@ -170,7 +173,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.min.css'
 
 ### Props
 
- he only required property is `fields`.
+The only required property is `fields`.
 
 | name                 | type    | default | description                                             |
 | -------------------- | ------- | ------- | ------------------------------------------------------- |
@@ -195,7 +198,7 @@ Each field has
 | label        | `String`           | dynamic       |  Label to be displayed by the wrapper.                                           |
 | component    | `String`, `Object` | dynamic       |  Vue Component that renders the field.                                           |
 | props        | `Object`           | dynamic       |  Properties for the field component (both Vue props and HTML attributes)         |
-| propsWapper  | `Object`           | dynamic       |  Properties for the field wrapper component (both Vue props and HTML attributes) |
+| propsWrapper | `Object`           | dynamic       |  Properties for the field wrapper component (both Vue props and HTML attributes) |
 | type         | `String`           | dynamic       |  Field type, used to determine which Vue Component to use (if not specified)     |
 | wrapper      | `String`, `Object` | `vfb-wrapper` |  Vue Component wrapping the field.                                               |
 
@@ -203,7 +206,7 @@ Most  attributes  are  optional,  but  some  are  required.  If  `component`  is
 specified, then `name` is optional.
 
 Some fields do not have a default value, because their default value depends  on
-other attibutes. For example, if `type` is  `file`,  then  `component`  will  be
+other attributes. For example, if `type` is `file`,  then  `component`  will  be
 `vfb-file` (default) or `b-form-file` if `useBootstrap` is set to `true`.
 
 The `name` field is required if you want to display  feedback  for  that  field,
@@ -223,6 +226,84 @@ As said before, `label` and `id` are  passed  to  the  `wrapper`  component.  If
 shall take care of passing the desired properties to the `wrapper`.
 
 #### Aliases
+
+Field aliases are single words used as an alias to a field declaration. They
+make it easy to reuse field declarations across instances of `VueFormBuilder`.
+The default aliases are:
+
+```javascript
+{
+    name: 'name:name|text',
+    fname: 'name:fname|text|label:First name',
+    lname: 'name:lname|text|label:Last name',
+    username: 'name:username|text',
+    email: 'name:email|email',
+    email_confirmation: 'name:email_confirmation|email',
+    password: 'name:password|password',
+    password_confirmation: 'name:password_confirmation|password',
+    age: 'name:age|number',
+    birthday: 'name:birthday|date',
+    photo: 'name:photo|file|accept=image/*',
+    picture: 'name:picture|file|accept=image/*',
+    profile_picture: 'name:profile_picture|file|accept=image/*'
+}
+```
+
+Thus, the following field declarations are equivalent:
+
+```javascript
+// using alias
+fields = ['name', 'email', 'password', 'age', 'photo']
+
+// using string notation
+fields = [ 
+    'name:name|text',
+    'name:email|email',
+    'name:password|password',
+    'name:age|number',
+    'name:photo|file|accept=image/*',
+ ]
+
+ // using object notation
+ fields = [
+    { name: 'name', type: 'text' },
+    { name: 'email', type: 'email' },
+    { name: 'password', type: 'password' },
+    { name: 'age', type: 'number' },
+    { name: 'photo', type: 'file', props: { accept: 'image/*' } },
+ ]
+```
+
+Aliases are available to all instances of `VueFormBuilder`. The facade to handle
+aliases is `fieldAliases`:
+
+```javascript
+import fieldAliases from '@uwlajs/vue-form-builder'
+```
+
+The `fieldAliases` provides the following methods
+
+| method                          | description                             |
+| ------------------------------- | --------------------------------------- |
+| `addAliases(newAliases)`        | Add multiple aliases at once            |
+| `addAlias(key, value)`          | Add single alias                        |
+| `delAliases(keys)`              | Delete existing aliases                 |
+| `delAlias(key)`                 | Delete existing alias                   |
+| `delAllAliases()`               | Delete all existing aliases             |
+| `getAliases(keys)`              | Get the values of several aliases       |
+| `getAlias(key)`                 | Get the value of an alias               |
+| `getAllAliases()`               | Get all the available aliases           |
+| `isAlias(key)`                  | Check if alias exists (returns boolean) |
+| `setAliases(newAliases)`        | Replace existing aliases with new ones  |
+| `setAlias(key, newValue)`       | Replace existing alias with new one     |
+
+Where:
+
+- `key`: string, the alias itself
+- `keys`: array of strings, the aliases
+- `value`, `newValue`: string or object, the alias value
+- `newAlias`: object whose `keys` are aliases and whose values are the  aliases'
+values.
 
 ### Bootstrap Vue
 
@@ -380,9 +461,11 @@ field = {
 }
 ```
 
-In that case,, it is recommend to set `label` to `none` because `VueFormBuilder`
-will pass the `label` and `labelFor` as properties, which  Vue  will  render  as
-HTML attributes. So:
+#### Component label
+
+In the previous example, it is recommend to set `label` to `none` because
+`VueFormBuilder` will pass the `label` and `labelFor` as properties, which  Vue
+will  render  as HTML attributes. So:
 
 ```javascript
 // explicitly setting the wrapper component
@@ -397,9 +480,63 @@ field = {
 }
 ```
 
-#### Component label
+Moreover, if you explicitly set `propsWrapper`, then `label` won't be added by
+`VueFormBuilder` by default:
+
+```javascript
+field = {
+    name: 'email_address',
+    type: 'email',
+    componentWrapper: 'custom-wrapper',
+    propsWrapper: { 'foo': 1, 'bar:': 2 }
+}
+```
+
+In that case, you would have to manually pass the label to the wrapper.
 
 ### Feedback
+
+Feedback components are used to display helpful messages, such as error message
+or successful messages. The default component used to show feedback is 
+`vfb-feedback`, but you can customize it:
+
+```javascript
+// string notation
+field = 'name:photo|file|componentFeedback:custom-feedback'
+
+// object notation
+field = {
+    name: 'photo',
+    type: 'file',
+    props: { componentFeedback: 'custom-feedback' }
+}
+```
+
+For that matter, the feedback component should abide to the following interface:
+
+```javascript
+props: {
+    state: {
+        default: null,
+        type: Boolean,
+    },
+    errors: [String, Array],
+    message: String,
+    invalidFeedbackComponent: [String, Object],
+    validFeedbackComponent: [String, Object],
+}
+```
+
+The feedback component should declare the properties defined above,  with  their
+respective types. Otherwise, `VueFormBuilder` won't be  able  to  pass  relevant
+information to be display  as  feedback.  In  practice,  you  can  design  those
+components as you wish, though it may lack the intended functionality.
+
+The `invalidFeedbackComponent` is used  to  render  error  messages,  while  the
+`validFeedbackComponent` is used to show success messages. Both of  them  should
+have a boolean prop called `state`. If `state` is  `false`,  then  the  feedback
+should display errors. If `state`, then  the  feedback  should  display  success
+messages.
 
 #### Errors
 
@@ -464,11 +601,26 @@ export default {
 
 #### Message
 
+The `messages` is an object mapping a field name to a string. Example:
+
+```javascript
+messages = {
+    email: 'Email is valid',
+    photo: 'Looks good',
+    website: 'Website URL seems to be working',
+    domain: 'Domain seems to be reachable',
+    info: 'All right here!',
+}
+```
+
+If set, the messages are shown as valid feedback, styled  in  green  aside  with
+success icons.
+
 #### Custom feedback component
 
 ### Validation
 
-The validation is an object mapping a field name to a function. Example:
+The `validation` is an object mapping a field name to a function. Example:
 
 ```javascript
 const validation = {
