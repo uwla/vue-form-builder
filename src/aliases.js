@@ -47,6 +47,10 @@ function delAliases(keys) {
     keys.forEach(delAlias)
 }
 
+function isAlias(key) {
+    return Object(aliases).hasOwnProperty(key)
+}
+
 function getAlias(key) {
     return aliases[key]
 }
@@ -59,12 +63,9 @@ function getAllAliases() {
     return {... aliases}
 }
 
-function isAlias(key) {
-    return Object(aliases).hasOwnProperty(key)
-}
-
 const fieldAliases = {
     addAlias,
+    addAliases,
     delAlias,
     delAliases,
     delAllAliases,

@@ -133,8 +133,8 @@ test('it parses very customized fields', () => {
 })
 
 test('it parses', () => {
-    let keys = Object.keys(fieldAliases.getAliases())
-    let values = Object.values(fieldAliases.getAliases())
+    let keys = Object.keys(fieldAliases.getAllAliases())
+    let values = Object.values(fieldAliases.getAllAliases())
     let fieldsFromKeys = parser.parseFields(keys)
     let fieldsFromValues = parser.parseFields(values)
 
