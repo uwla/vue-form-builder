@@ -190,7 +190,7 @@ The only required property is `fields`.
 
 ### Fields
 
-Each field has 
+Each field has the following attributes:
 
 | name         | type               | default       |  description                                                                     |
 | ------------ | ------------------ | ------------- |  ------------------------------------------------------------------------------- |
@@ -225,7 +225,76 @@ As said before, `label` and `id` are  passed  to  the  `wrapper`  component.  If
 `propsWrapper` is set, it won't be changed by this  plugin  and  the  programmer
 shall take care of passing the desired properties to the `wrapper`.
 
-#### Aliases
+### Syntax
+
+You can declare fields either as objects or strings. For string declarations, we
+use a string notation that consists of the following rules:
+
+- The string is made of attributes separated by the symbol `|`.
+- There are four attribute types:
+1. The first attribute type has the format `key:value`.
+2. The second attribute has the format `key=value`.
+3. The third attribute type is syntax sugar for the first type and has the format
+`value`. For example: instead of `type:checkboxes` you just use `checkboxes`.
+4. The fourth attribute type is syntax sugar for the  second  type  and  has  the
+format `value`. For example: instead of `required=true` you just use `required`.
+
+#### First type
+
+The first attribute type were described in the previous section.
+
+#### Second type
+
+The second attribute type is arbitrary in order to provide flexibility  to  pass
+props to custom components. The attributes are cast: string numbers are cast  to
+numbers, and `true` and `false` are cast to boolean.
+
+It is important to notice that if the Vue component used  to  render  the  field
+does not explicitly declare a prop, then Vue will render  the  attribute  as  an
+HTML attribute. For example, `class=red` will make Vue apply the class `red`  to
+the component if it does not declare a prop  called  `class`.  Another  example:
+setting `rows=10` to a textarea component will make Vue apply `rows="10"` to the
+textarea element if the component does not declare a prop called `red`.
+
+#### Third type
+
+The third attribute type supports the following values: 
+
+- **input  types**:  `color`,  `date`,  `datetime`,  `datetime`-local,  `email`,
+`month`, `number`, `password`, `range`, `tel`, `text`, `time`, `url`, `week`.
+- **field types**:  `checkbox`,  `checkboxes`,  `datapicker`,  `file`,  `input`,
+`radio`, `select`, `tags`, `textarea`, `timepicker`.
+
+The `input types`  are  syntax  sugar  for  `type:input|type=<attribue>`,  where
+`<attribute>` is color, date, etc.
+
+The `field types` are syntax sugar for `type:<attribute>`,  where  `<attribute>`
+is checkbox, file, etc.
+
+#### Fourth type
+
+The  fourth  attribute  types  supports  the  following   values:   `autofocus`,
+`multiple`, `disabled`, `hidden`, `required`, `readonly`, `stacked`, `switches`.
+It is syntax sugar for `attribute=true`, where attribute is one of the  previous
+value.
+
+#### Object notation
+
+Instead of using string notation, you can provide objects:
+
+```javascript
+fields = [
+  { name: 'name', type: 'text', props: { min: 3, max: 30, required: true} },
+  { name: 'email', type: 'email', label: 'Email address', props: { required: true } },
+  { name: 'password', type: 'password', props: { min: 10, required: true } },
+  { name: 'photo', type: 'file', props: { accept: 'image/*' } },
+  { name: 'info', type: 'textarea', props: { rows: 10 } },
+]
+```
+
+The accepted attributes for the object field were already described previously.
+
+### Aliases
 
 Field aliases are single words used as an alias to a field declaration. They
 make it easy to reuse field declarations across instances of `VueFormBuilder`.
