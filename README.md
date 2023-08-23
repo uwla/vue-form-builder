@@ -260,7 +260,7 @@ textarea element if the component does not declare a prop called `red`.
 
 The third attribute type supports the following values: 
 
-- **input  types**:  `color`,  `date`,  `datetime`,  `datetime`-local,  `email`,
+- **input  types**:  `color`,  `date`,  `datetime`,  `datetime-local`,  `email`,
 `month`, `number`, `password`, `range`, `tel`, `text`, `time`, `url`, `week`.
 - **field types**:  `checkbox`,  `checkboxes`,  `datapicker`,  `file`,  `input`,
 `radio`, `select`, `tags`, `textarea`, `timepicker`.
@@ -563,6 +563,23 @@ field = {
 
 In that case, you would have to manually pass the label to the wrapper.
 
+### Model
+
+To fill out the form with predefined values by setting the `model` prop:
+
+```javascript
+model = {
+    name: 'Joe Doe',
+    email: 'joe@example.test',
+    job: 'Software Enginer',
+    roles: ['user', 'staff'],
+}
+```
+
+This will set the initial values of the fields whose name match the keys of  the
+objects. Notice that if the user enters input, it will not change the values  of
+the `model` prop. That is, there is **no** two-way binding like `v-model`.
+
 ### Feedback
 
 Feedback components are used to display helpful messages, such as error message
@@ -787,3 +804,7 @@ export default {
 ## Contributions
 
 Contributions are welcome. Fork the repo, then make a PR.
+
+## License
+
+MIT
