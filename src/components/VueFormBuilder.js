@@ -147,13 +147,23 @@ export default {
             // apply validation function
             let validated = validationFunction(field.value)
 
-            // default error message
+            // the default error message
             let errors = this.errors[name]
+
+            // the default success message
+            let message = this.messages[name]
 
             // set validation state to undefined
             field.props.state = null
             this.feedbacks[name].state = null
 
+            // field is valid and we show default success message
+            if (validated === true && message)
+            {
+                field.props.state = true
+                this.feedbacks[name].state = true
+                this.feedbacks[name].message = message
+            }
             // field is invalid and we show default error message
             if (validated === false && errors) {
                 field.props.state = false
