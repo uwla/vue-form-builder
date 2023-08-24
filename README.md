@@ -3,6 +3,23 @@
 Vue  Form  Builder  is  a  Vue2  plugin  that  generates  beautiful  forms  from
 declarative rules.
 
+1. [Features](#features)
+2. [Demo](#demo)
+3. [Example](#example)
+4. [Installation](#installation)
+5. [Configuration](#configuration)
+    - [Properties](#props)
+    - [Fields](#fields)
+    - [Syntax](#syntax)
+    - [Aliases](#aliases)
+    - [Bootstrap Vue](#bootstrap-vue)
+    - [Custom components](#custom-components)
+    - [Model](#model)
+    - [Feedback](#feedback)
+    - [Validation](#validation)
+6. [Contributing](#contributing)
+7. [License](#license)
+
 ## Features
 
 - concise syntax for fast development
@@ -11,7 +28,7 @@ declarative rules.
 - can prefill the form with given model
 - integration with Bootstrap Vue
 - shows error messages (compatible with Laravel API)
-- shows success messages (compatible with Laravel API)
+- shows success messages
 - validates fields when user enters input
 - validates form upon submission
 - user-defined validation rules
@@ -400,7 +417,7 @@ Vue.use(BootstrapVue)
 
 More instructions can be found on the [official page](https://bootstrap-vue.org/docs#getting-started)
 
-### Components
+### Custom components
 
 #### Custom field component
 
@@ -801,7 +818,7 @@ export default {
 </script>
 ```
 
-## Contributions
+## Contributing
 
 Contributions are welcome. Fork the repo, then make a PR.
 
