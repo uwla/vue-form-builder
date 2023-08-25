@@ -11,9 +11,6 @@
     display: inline;
     float: left;
 }
-.vfb-group-checkbox .vfb-feedback {
-    position: absolute;
-}
 
 div.vfb-group > label, div.form-group > label {
     display: inline-block !important;

@@ -37,7 +37,6 @@
 .vfb-buttons {
     display: flex;
     gap: 0.5em;
-    margin-top: 2em;
 }
 
 .vfb-buttons.right {

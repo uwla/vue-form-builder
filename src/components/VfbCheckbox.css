@@ -5,3 +5,19 @@
     float: left;
     margin-right: .5em;
 }
+
+/* fix style of bootstrap */
+.form-group.vfb-group-checkbox {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: start;
+}
+.form-group.vfb-group-checkbox .vfb-feedback {
+    width: 1px;
+    white-space: nowrap;
+    overflow: visible;
+}
+
+.vfb-group-checkbox > label {
+    margin-bottom: 0 !important;
+}
