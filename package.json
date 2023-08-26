@@ -13,7 +13,6 @@
     "main": "dist/VueFormBuilder.umd.js",
     "unpkg": "dist/VueFormBuilder.umd.min.js",
     "dependencies": {
-        "bootstrap-vue": "^2.23.1",
         "vue": "^2.6.11"
     },
     "devDependencies": {
