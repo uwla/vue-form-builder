@@ -1,6 +1,6 @@
 {
     "name": "@uwlajs/vue-form-builder",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "private": false,
     "author": "uwla",
     "description": "Vue plugin that generates beautiful forms from declarative rules",
