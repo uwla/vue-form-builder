@@ -92,6 +92,7 @@ export default {
             this.syncWithModel()
             const form = this.$refs['form']
             this.fieldsParsed.forEach(field => resetFormField(form, field))
+            this.$emit('reset')
         },
         setupFeedback() {
             const { parser } = this
