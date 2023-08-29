@@ -1,5 +1,6 @@
 import fieldAliases from '../src/aliases'
 import { Parser } from '../src/parser'
+import { componentsBootstrap } from '../src/parser/components'
 import { textFields, objFields, mixedFields, veryCustomizedFields } from './common'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -179,12 +180,12 @@ test('it parses fields using bootstrap components', () => {
 
     for (let field of fields)
     {
-        expect(field.component).toBe(parser.componentsBootstrap[field.type])
+        expect(field.component).toBe(componentsBootstrap[field.type])
 
         if (field.props.hidden) // hidden fields have a div as default wrapper
             expect(field.componentWrapper).toBe('div')
         else
-            expect(field.componentWrapper).toBe(parser.componentsBootstrap.wrapper)
+            expect(field.componentWrapper).toBe(componentsBootstrap.wrapper)
     }
 })
 

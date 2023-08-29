@@ -1,49 +1,9 @@
 import Attributes from './attributes'
 import fieldAliases from '../aliases'
-import {
-    bindThis,
-    deepCopy,
-    generateRandomDigits,
-    getDefaultFieldValue,
-    toTitleCase,
-} from '../helpers'
+import { componentsBootstrap, componentsVfb } from './components'
+import { bindThis, deepCopy, generateRandomDigits, getDefaultFieldValue, toTitleCase } from '../helpers'
 
 export class Parser {
-    /**
-     * Dictionary: field type => VueFormBuilder component
-     */
-    componentsVfb = {
-        checkbox: 'vfb-checkbox',
-        checkboxes: 'vfb-checkboxes',
-        feedbackInvalid: 'vfb-feedback-invalid',
-        feedbackValid: 'vfb-feedback-valid',
-        file: 'vfb-file',
-        input: 'vfb-input',
-        radio: 'vfb-radio',
-        select: 'vfb-select',
-        textarea: 'vfb-textarea',
-        wrapper: 'vfb-group',
-    }
-
-    /**
-     *  Dictionary: field type => BootstrapVue component
-     */
-    componentsBootstrap = {
-        checkbox: 'b-form-checkbox',
-        checkboxes: 'b-form-checkbox-group',
-        datepicker: 'b-form-datepicker',
-        feedbackInvalid: 'b-form-invalid-feedback',
-        feedbackValid: 'b-form-valid-feedback',
-        file: 'b-form-file',
-        input: 'b-form-input',
-        radio: 'b-form-radio-group',
-        select: 'b-form-select',
-        tags: 'b-form-tags',
-        textarea: 'b-form-textarea',
-        timepicker: 'b-form-timepicker',
-        wrapper: 'b-form-group',
-    }
-
     /**
      * Create a new Parser instance.
      * 
@@ -52,9 +12,9 @@ export class Parser {
     constructor(options={}) {
         // default field components
         if (options.useBootstrap)
-            this.components = this.componentsBootstrap
+            this.components = componentsBootstrap
         else
-            this.components = this.componentsVfb
+            this.components = componentsVfb
         
         // default wrapper component
         this.wrapper = options.wrapper || this.components.wrapper
@@ -78,7 +38,7 @@ export class Parser {
         let props = {... field.props }
         if (!props.name)
             props.name = field.name
-        if (!this.useBootstrap && field.label !== 'none') 
+        if (!this.useBootstrap && field.label !== 'none' && !props.hidden) 
             props.id = 'VFB' + generateRandomDigits(10)
         return props
     }
@@ -99,7 +59,7 @@ export class Parser {
         const props = {}
 
         // add label information
-        if (field.label !== 'none')
+        if (field.label !== 'none' && !field.hidden)
         {
             if (field.props.id)
                 props.labelFor = field.props.id
@@ -168,6 +128,10 @@ export class Parser {
     
     stringToFieldObject(str) {
         let attributes = fieldAliases.isAlias(str) ? fieldAliases.getAlias(str) : str
+
+        if (typeof attributes === 'object')
+            return attributes
+
         let attributeArray = attributes.split('|')
         let attributeObject = {}
         let field = {}
