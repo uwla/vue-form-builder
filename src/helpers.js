@@ -30,6 +30,27 @@ export function isNumeric(str) {
 }
 
 /**
+ * Cast a string to Boolean or Number
+ *
+ * @param {Any} value
+ * @return {Any}
+ */
+export function castValue(value) {
+    if (value === 'true') return true
+    if (value === 'false') return false
+    if (isNumeric(value)) return Number(value)
+    return value
+}
+
+export function isNullable(value) {
+    return (value === null) ||
+        (value === '') ||
+        (value === undefined) || 
+        (Array.isArray(value) && value.length === 0) ||
+        (typeof value === 'object' && Object.values(value).every(isNullable))
+}
+
+/**
  * Shuffle the given array
  *
  * @param {Array} array

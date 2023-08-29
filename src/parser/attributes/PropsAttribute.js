@@ -1,4 +1,4 @@
-import { isNumeric } from "../../helpers"
+import { castValue } from "../../helpers"
 
 export default class HtmlAttribute {
     static isAttribute(attribute) {
@@ -9,10 +9,8 @@ export default class HtmlAttribute {
         let key = attribute.split('=')[0]
         let value = attribute.split('=')[1]
 
-        // cast values
-        if (value === 'true') value = true
-        if (value === 'false') value = false
-        if (isNumeric(value)) value = Number(value)
+        // cast value if needed
+        value = castValue(value)
 
         return {
             props: {

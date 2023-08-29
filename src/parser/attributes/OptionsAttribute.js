@@ -1,3 +1,5 @@
+import { castValue } from "../../helpers"
+
 export default class PropsAttribute {
     static isAttribute(attribute) {
         return attribute.includes(':')
@@ -14,6 +16,9 @@ export default class PropsAttribute {
             value = value.split(',').map(val => ({ value: val, text: val }))
             return { props: { options: value } }
         }
+
+        // cast value if needed
+        value = castValue(value)
 
         return { [key]: value }
     }

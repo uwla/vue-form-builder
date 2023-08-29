@@ -1,4 +1,4 @@
-import { getDefaultFieldValue, resetFormField } from '../helpers'
+import { getDefaultFieldValue, isNullable, resetFormField } from '../helpers'
 import { Parser } from '../parser'
 
 export default {
@@ -120,9 +120,18 @@ export default {
             // don't submit the form if invalid
             if (! valid) return
 
+            // construct data object
             const data = {}
+            let { omitNull } = this
             for (let field of this.fieldsParsed)
-                if (field.name) data[field.name] = field.value
+            {
+                let { name, value } = field
+                if (! name) continue
+                if (isNullable(value) && omitNull) continue
+                data[field.name] = value
+            }
+
+            // emit data
             this.$emit('submit', data)
         },
         syncWithModel() {
@@ -223,6 +232,10 @@ export default {
             type: Object,
             required: false,
             default: () => ({}),
+        },
+        omitNull: {
+            type: Boolean,
+            default: false,
         },
         useBootstrap: {
             type: Boolean,
