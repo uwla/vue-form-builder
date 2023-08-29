@@ -42,6 +42,12 @@ export function castValue(value) {
     return value
 }
 
+/**
+ * Indicates whether the given value is nullable or empty.
+ *
+ * @param {Any} value
+ * @return {Boolean} 
+ */
 export function isNullable(value) {
     return (value === null) ||
         (value === '') ||
@@ -100,11 +106,65 @@ export function bindThis(obj) {
 /**
  * Generate some random digits
  *
- * @export
+ * @param {Number} n The amount of digits
  * @return {*}
  */
 export function generateRandomDigits(n) {
     return Math.random().toString().substring(2).substring(0, n)
+}
+
+/**
+ * Determine if the given value is a file
+ *
+ * @param {Any} value
+ * @return {Boolean}
+ */
+export function isFile(value) {
+    return value instanceof File || value instanceof Blob
+}
+
+/**
+ * Determine if the given field has a file
+ *
+ * @param {Object} field
+ * @return {Boolean}
+ */
+export function fieldHasFile(field) {
+    let { value } = field
+    if (Array.isArray(value)) return value.some(isFile)
+    return isFile(value)
+}
+
+/**
+ * Append a value to the form data.
+ *
+ * @param {FormData} formData
+ * @param {String} key
+ * @param {Any} value
+ * @return {void}
+ */
+export function appendToFormData(formData, key, value)
+{
+    if (Array.isArray(value))
+        value.forEach(item => appendToFormData(formData, `${key}[]`, item))
+    else
+        formData.append(key, value)
+}
+
+/**
+ * Convert the data object to form data
+ *
+ * @param {Object} data
+ * @return {FormData}
+ */
+export function toFormData(data)
+{
+    return data
+    // // something is going wrong here... I have to comment out the following lines
+    // const formData = new FormData()
+    // for (let key of Object.keys(data))
+    //     appendToFormData(formData, key, data[key])
+    // return formData
 }
 
 /**
