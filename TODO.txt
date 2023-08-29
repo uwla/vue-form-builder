@@ -1,0 +1,5 @@
+# TODO
+
+- [ ] specify model key (model_key:key)
+- [ ] omit (omit_null) fields passed to submit
+- [ ] support for form data
