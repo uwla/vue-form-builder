@@ -134,7 +134,7 @@ Install via NPM:
 npm install @uwlajs/vue-form-builder
 ```
 
-Import it
+Import VueFormBuilder, which will register all components.
 
 ```javascript
 import Vue from 'vue'
@@ -143,15 +143,15 @@ import VueFormBuilder from '@uwlajs/vue-form-builder'
 Vue.use(VueFormBuilder)
 ```
 
-You may want to register the components manually, but this may be cumbersome:
+Alternatively, You may want to register the components manually, but this may be cumbersome:
 
 ```javascript
-// register VFB
+// If you use your own Vue components for every field, those two lines below are enough
 import { VueFormBuilder } from '@uwlajs/vue-form-builder'
 Vue.component('vue-form-builder', VueFormBuilder)
 
-// If you want to use VFB components, you must register auxiliary components you use.
-// If you want to use your own components, you don't need to register VFB components.
+// If you want to use VFB components (provided by the plugin),
+// you must register auxiliary components you use:
 
 import {VfbButtons, VfbCheckbox, VfbCheckboxes, VfbFeedback, VfbFeedbackInvalid,
 VfbFeedbackValid, VfbFile, VfbGroup, VfbInput, VfbRadio, VfbSelect, VfbTextarea}
@@ -173,7 +173,7 @@ Vue.component('vfb-file', VfbFile)
 
 ### CSS
 
-If you need to import this plugin's CSS if you want to use it:
+If you want to use VFB components, you need to import the CSS:
 
 ```javascript
 import '@uwlajs/vue-form-builder/dist/VueFormBuilder.css'
