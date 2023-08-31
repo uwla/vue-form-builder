@@ -7,7 +7,7 @@ export default {
             if (this.useBootstrap)
                 return 'b-form'
             return 'form'
-        }
+        },
     },
 
     data() {
@@ -87,6 +87,11 @@ export default {
             }
             this.parser = new Parser(options)
             this.fieldsParsed = this.parser.parseFields(this.fields)
+            this.fieldsParsed = this.fieldsParsed.map(f => {
+                if (f.model === true)
+                    f.props.model = this.model
+                return f
+            })
         },
         resetForm() {
             this.syncWithModel()
@@ -149,9 +154,19 @@ export default {
             for (let field of this.fieldsParsed)
             {
                 let { name, type } = field
+
+                // field needs direct access to the model
+                if (field.model === true)
+                    field.props.model = model
+
+                // skip it if value for the current field is not defined
                 if (name == null || model[name] === undefined || type === 'file')
                     continue
+
+                // update the value to match the model
                 field.value = model[name]
+
+                // force update the HTML accordingly
                 resetFormField(form, field)
             }
         },
