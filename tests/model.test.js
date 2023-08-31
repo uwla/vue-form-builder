@@ -1,3 +1,4 @@
+import { isNullable } from '../src/helpers'
 import { model, wrapper } from './common'
 
 test('it syncs with the model', async () => {
@@ -49,21 +50,7 @@ test('it syncs with the model', async () => {
     }
 })
 
-test('it submits the form correctly', async () => {
-    const values  = {
-        name: 'Mary Lindsey',
-        email: 'mary@email.test',
-        phone: '+100 12345 6789',
-        website_url: 'http://mary.me',
-        birthday: '1980-01-01',
-        amount: '10',
-        bio: 'hello world!',
-        gender:  'female',
-        fruits: ['apple', 'orange'],
-        country: 'Mexico',
-        agree: false,        
-    } 
-
+async function simulateUserInput(wrapper, values) {
     for (let key in values)
     {
         let val = values[key]
@@ -83,7 +70,6 @@ test('it submits the form correctly', async () => {
 
         // ─────────────────────────────────────────────────────────────────────
         // radio
-
         if (key === 'country')
         {
             const radios = wrapper.findAll(`[name=${key}]`)
@@ -112,6 +98,24 @@ test('it submits the form correctly', async () => {
             checkbox.setChecked(val)
         }
     }
+}
+
+test('it submits the form correctly', async () => {
+    const values  = {
+        name: 'Mary Lindsey',
+        email: 'mary@email.test',
+        phone: '+100 12345 6789',
+        website_url: 'http://mary.me',
+        birthday: '1980-01-01',
+        bio: 'hello world!',
+        gender:  'female',
+        fruits: ['apple', 'orange'],
+        country: 'Mexico',
+        agree: false,        
+    } 
+
+    // set the values
+    await simulateUserInput(wrapper, values)
 
     // trigger a submit event
     await wrapper.trigger('submit')
@@ -140,4 +144,36 @@ test('it resets the form to the model', async () => {
     // assert payload matches model
     const payload = event[0]
     expect(payload).toMatchObject(model)
+})
+
+test('it omits null values', async () => {
+    await wrapper.setProps({ omitNull: true, validation: {} })
+
+    await wrapper.find('[name=name]').setValue('')
+    await wrapper.find('[name=phone]').setValue('')
+    await wrapper.find('[name=bio]').setValue('')
+    await wrapper.find('[name=gender]').setValue('')
+    await wrapper.find('[name=birthday]').setValue('')
+    await wrapper.find('[name=token]').setValue('')
+
+    wrapper.findAll('[name=fruits]').wrappers.forEach(async c => { await c.setChecked(true) })
+    wrapper.findAll('[name=fruits]').wrappers.forEach(async c => { await c.setChecked(false) })
+
+    // filter values to not include null ones
+    const keys = ['website_url', 'email', 'country', 'agree']
+    const values = { }
+    keys.forEach(k => values[k] = model[k])
+
+    // trigger submit
+    await wrapper.trigger('submit')
+
+    // get the event object (which is the third submit event)
+    const event = wrapper.emitted('submit')[2]
+
+    // assert event has been emitted
+    expect(event).toBeTruthy()
+
+    // assert payload matches the expected
+    const payload = event[0]
+    expect(payload).toStrictEqual(values)
 })
