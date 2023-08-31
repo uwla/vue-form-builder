@@ -72,6 +72,30 @@ export default {
                 this.clearFieldFeedback(field)
             if (this.validateOnInput)
                 this.validateField(field)
+
+            // determine if there is a field needing access to the current
+            // values of the form
+            const needsValue = this.fieldsParsed.some(f => f.model === true)
+
+            // if no field needs to know other field values, just return
+            if (! needsValue) return
+
+            // if there is one which does need, it is necessary to pass those
+            // values as a prop to the component.
+
+            // get the values
+            let values = {}
+            this.fieldsParsed.forEach(f => {
+                if (f.name)
+                    values[f.name] = f.value
+            })
+
+            // update the fields
+            this.fieldsParsed = this.fieldsParsed.map(field => {
+                if (field.model === true)
+                    field.props.values = values
+                return field
+            })
         },
         initializeValues() {
             for (let field of this.fieldsParsed)
