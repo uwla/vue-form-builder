@@ -148,8 +148,9 @@ export default {
             const model = this.model
             for (let field of this.fieldsParsed)
             {
-                let { name } = field
-                if (name == null || model[name] === undefined) continue
+                let { name, type } = field
+                if (name == null || model[name] === undefined || type === 'file')
+                    continue
                 field.value = model[name]
                 resetFormField(form, field)
             }
