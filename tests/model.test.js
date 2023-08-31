@@ -1,4 +1,3 @@
-import { isNullable } from '../src/helpers'
 import { model, wrapper } from './common'
 
 test('it syncs with the model', async () => {

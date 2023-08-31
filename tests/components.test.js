@@ -1,4 +1,5 @@
-import { fields, veryCustomizedFields,  wrapper } from './common'
+import { deepCopy } from '../src/helpers'
+import { fields, model, veryCustomizedFields,  wrapper } from './common'
 
 test('it loads customized fields', async () => {
     await wrapper.setProps({
@@ -35,6 +36,33 @@ test('it set correct props of custom components', async () => {
         // increment counter
         i += 1
     }
+})
+
+test('it passes model to components', async () => {
+    // make the first field request the model
+    veryCustomizedFields[0].model = true
+
+    // reset the fields
+    await wrapper.setProps({ fields: deepCopy(veryCustomizedFields) })
+
+    // get the vue component
+    let component1 = wrapper.findAll('.custom-field').at(0)
+    let component2 = wrapper.findAll('.custom-field').at(1)
+
+    // test with empty model
+    await wrapper.setProps({ model: {} })
+    expect(component1.vm.$props.model).toMatchObject({})
+    expect(component2.vm.$props.model).toBeUndefined()
+
+    // test model
+    await wrapper.setProps({ model: model })
+    expect(component1.vm.$props.model).toMatchObject(model)
+    expect(component2.vm.$props.model).toBeUndefined()
+
+    // make the second component request the model
+    veryCustomizedFields[1].model = true
+    await wrapper.setProps({ fields: deepCopy(veryCustomizedFields) })
+    expect(component2.vm.$props.model).toMatchObject(model)
 })
 
 // undo the change on the internal state of the wrapper

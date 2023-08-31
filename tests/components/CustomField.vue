@@ -4,6 +4,6 @@
 <script>
 export default {
     name: 'CustomField',
-    props: ['prop1', 'prop2', 'prop3', 'value']
+    props: ['prop1', 'prop2', 'prop3', 'value', 'values', 'model']
 }
 </script>
