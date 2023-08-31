@@ -136,22 +136,6 @@ export function fieldHasFile(field) {
 }
 
 /**
- * Append a value to the form data.
- *
- * @param {FormData} formData
- * @param {String} key
- * @param {Any} value
- * @return {void}
- */
-export function appendToFormData(formData, key, value)
-{
-    if (Array.isArray(value))
-        value.forEach(item => appendToFormData(formData, `${key}[]`, item))
-    else
-        formData.append(key, value)
-}
-
-/**
  * Convert the data object to form data
  *
  * @param {Object} data
@@ -159,12 +143,16 @@ export function appendToFormData(formData, key, value)
  */
 export function toFormData(data)
 {
-    return data
-    // // something is going wrong here... I have to comment out the following lines
-    // const formData = new FormData()
-    // for (let key of Object.keys(data))
-    //     appendToFormData(formData, key, data[key])
-    // return formData
+    let formData = new FormData()
+    for (let key of Object.keys(data))
+    {
+        let val = data[key]
+        if (Array.isArray(val))
+            val.forEach(item => formData.append(`${key}[]`, item))
+        else
+            formData.append(key, val)
+    }
+    return formData
 }
 
 /**
