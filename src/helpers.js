@@ -53,7 +53,7 @@ export function isNullable(value) {
         (value === '') ||
         (value === undefined) || 
         (Array.isArray(value) && value.length === 0) ||
-        (typeof value === 'object' && Object.values(value).every(isNullable))
+        (typeof value === 'object' && !isFile(value) && Object.values(value).every(isNullable))
 }
 
 /**
