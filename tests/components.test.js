@@ -65,5 +65,54 @@ test('it passes model to components', async () => {
     expect(component2.vm.$props.model).toMatchObject(model)
 })
 
+test('it passes values to components', async () => {
+    let formFields = [...veryCustomizedFields, ...fields]
+
+    // make the first field request the values
+    formFields[0].values = true
+
+    // reset the fields
+    await wrapper.setProps({ fields: deepCopy(formFields) })
+
+    // some helpers
+    async function simulateInput() {
+        await wrapper.find('[name=name]').setValue('joe doe')
+        await wrapper.find('[name=bio]').setValue('Hi there')
+        await wrapper.find('[name=agree]').setChecked(false)
+        wrapper.findAll('[name=fruits]').wrappers.forEach(async x => {
+            await x.setChecked(true)
+        })
+        wrapper.findAll('[name=languages] option').wrappers.forEach(async x => {
+            await x.setSelected(true)
+        })
+    }
+
+    function getValues() {
+        let values = {}
+        wrapper.vm.fieldsParsed.forEach(f => {
+            if (f.name)
+                values[f.name] = f.value
+        });
+        return values
+    }
+
+    // get the vue component
+    let component1 = wrapper.findAll('.custom-field').at(0)
+    let component2 = wrapper.findAll('.custom-field').at(1)
+
+    // test it does pass the values
+    await simulateInput()
+    expect(component1.vm.$props.values).toMatchObject(getValues())
+    expect(component2.vm.$props.values).toBeUndefined()
+
+    // make the second component request the model
+    formFields[1].values = true
+    await wrapper.setProps({ fields: deepCopy(formFields) })
+
+    // trigger input
+    await simulateInput()
+    expect(component2.vm.$props.values).toMatchObject(getValues())
+})
+
 // undo the change on the internal state of the wrapper
 wrapper.setProps({ fields })

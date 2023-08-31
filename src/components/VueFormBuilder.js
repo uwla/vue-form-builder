@@ -92,7 +92,7 @@ export default {
 
             // update the fields
             this.fieldsParsed = this.fieldsParsed.map(field => {
-                if (field.model === true)
+                if (field.values === true)
                     field.props.values = values
                 return field
             })
