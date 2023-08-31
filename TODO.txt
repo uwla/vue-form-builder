@@ -1,5 +1,14 @@
 # TODO
 
-- [ ] specify model key (model_key:key)
-- [ ] omit (omit_null) fields passed to submit
-- [ ] support for form data
+- add automated tests:
+    - [ ] test `omit null` feature
+    - [ ] test `form data` feature
+    - [ ] test `model access` feature
+    - [ ] test `values access` feature
+
+# DONE
+
+- [x] omit null values in payload on submit
+- [x] convert submit payload to form data if needed
+- [x] allow component to access model
+- [x] allow component to access current form values
