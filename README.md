@@ -17,6 +17,7 @@ declarative rules.
     - [Model](#model)
     - [Feedback](#feedback)
     - [Validation](#validation)
+    - [Events](#events)
 6. [Contributing](#contributing)
 7. [License](#license)
 
@@ -199,6 +200,7 @@ The only required property is `fields`.
 | fields               | Array   | -       | An array describing how to render the fields.           |
 | messages             | Object  | `{}`    | An object describing messages to show below the fields. |
 | model                | Object  | `{}`    | An object with the default values for the fields.       |
+| omitNull             | Boolean | `false` | Whether to omit null values in submit event's payload   |
 | useBootstrap         | Boolean | `false` | Whether to use Bootstrap Vue components.                |
 | validateOnSubmit     | Boolean | `true`  | Whether to validate the form upon submission.           |
 | validateOnInput      | Boolean | `true`  | Whether to validate fields upon user input.             |
@@ -212,19 +214,22 @@ Each field has the following attributes:
 | name         | type               | default       |  description                                                                     |
 | ------------ | ------------------ | ------------- |  ------------------------------------------------------------------------------- |
 | name         | `String`           | -             |  Name of the field                                                               |
-| label        | `String`           | dynamic       |  Label to be displayed by the wrapper.                                           |
 | component    | `String`, `Object` | dynamic       |  Vue Component that renders the field.                                           |
+| label        | `String`           | dynamic       |  Label to be displayed by the wrapper.                                           |
+| model        | `Boolean`          | `false`       |  Whether to pass `model` (see previous section) as a prop to the field component |
 | props        | `Object`           | dynamic       |  Properties for the field component (both Vue props and HTML attributes)         |
 | propsWrapper | `Object`           | dynamic       |  Properties for the field wrapper component (both Vue props and HTML attributes) |
 | type         | `String`           | dynamic       |  Field type, used to determine which Vue Component to use (if not specified)     |
+| values       | `Boolean`          | `false`       |  Whether to pass the current form values as a prop to the field component        |
 | wrapper      | `String`, `Object` | `vfb-wrapper` |  Vue Component wrapping the field.                                               |
 
-Most  attributes  are  optional,  but  some  are  required.  If  `component`  is
-specified, then `name` is optional.
+Most attributes are optional under certain conditions and required under others.
+If `component` is specified, then `name` is optional. Otherwise, it is required.
 
-Some fields do not have a default value, because their default value depends  on
-other attributes. For example, if `type` is `file`,  then  `component`  will  be
-`vfb-file` (default) or `b-form-file` if `useBootstrap` is set to `true`.
+Some fields do not have a default value, because their default value is dynamic:
+it depends on the values of other attributes. For example, if `type` is  `file`,
+then `component` will be `vfb-file` (default) or `b-form-file` if `useBootstrap`
+is set to `true`.
 
 The `name` field is required if you want to display  feedback  for  that  field,
 apply validation rules, or get user input when the form is submitted.
@@ -241,6 +246,15 @@ As said before, `label` and `id` are  passed  to  the  `wrapper`  component.  If
 `propsWrapper` is not set, it will default to `{label: label, labelFor: id}`. If
 `propsWrapper` is set, it won't be changed by this  plugin  and  the  programmer
 shall take care of passing the desired properties to the `wrapper`.
+
+If `model` is set to true, the `model` prop passed to `VueFormBuilder` will also
+be passed as prop to the field's Vue component. This useful if you have a custom
+component that needs to access some of the model's values.
+
+If `values` is set to true, the current form values will be passed as a prop  to
+the field's Vue component. This useful if you  have  a  custom  component  whose
+content depends on the values of other fields, dynamically changing according to
+the user input.
 
 ### Syntax
 
@@ -721,6 +735,24 @@ success icons.
 
 #### Custom feedback component
 
+You can define a custom feedback component by setting `feedback` property  of  a
+field (via string notation or JS Object) to the name of your feedback component.
+`VueFormBuilder` will attempt to pass the following properties to the `feedback`
+component:
+
+- `state`: if `true`, it should display valid feedback. If  `false`,  it  should
+display invalid feedback. If `null`, it should do nothing.
+- `message`: string with the message to be displayed as valid feedback.
+- `errors`: string or array of string with the error messages to be displayed as
+invalid feedback.
+- `validFeedbackComponent`: the VueJS component which is supposed to render  the
+valid feedback (it comes from `VueFormBuilder` or `BootstrapVue`).
+- `invalidFeedbackComponent`: the VueJS component which is  supposed  to  render
+the invalid feedback (it comes from `VueFormBuilder` or `BootstrapVue`).
+
+Make sure to  explicitly  declare  those  properties  in  your  custom  feedback
+component, even if you may not use some of them.
+
 ### Validation
 
 The `validation` is an object mapping a field name to a function. Example:
@@ -738,7 +770,7 @@ const validation = {
         if (val < 18)
             return false
         return true
-    }
+    },
     fruits: (val) => {
         // val is an array of fruits
         if (val.length > 3)
@@ -779,9 +811,16 @@ show as error. If no validation rule exists, nothing will be done.
  
 #### Validation on submit
 
-If set to `true`, whenever user submits the form, the validation rules for all
-fields will be run. If all validation rules pass, then `VueFormBuilder` will
-emit an `submit` event whose payload looks like the following:
+If set to `true`, whenever user submits the form, the validation rules  for  all
+fields will be run. If all validation rules  pass,  then  `VueFormBuilder`  will
+emit an `submit` event whose payload is described in the next section.
+
+### Events
+
+#### Submit
+
+When the form is submitted and pass the validation rules (if they exist and  are
+enabled), it emits an event called `submit` whose payload looks like this:
 
 ```javascript
 {
@@ -817,6 +856,22 @@ export default {
 }
 </script>
 ```
+
+If the payload contains a `File` or `Bob`, then the payload won't  be  `Object`:
+it will be an instance of `FormData`. This is useful because in order to  upload
+files via AJAX you need to convert the JS Object  into  the  `FormData`  format.
+`VueFormBuilder` will automatically do it for you.
+
+#### Reset
+
+When the user resets the form by, for example, clicking  on  a  button  of  type
+`reset`, then `VueFormBuilder` will reset all field values to match  the  values
+defined by `model` or, if the corresponding value in model is not set,  it  will
+reset the form values to empty strings, arrays, or null.
+
+It will also emit an event called `reset` with no payload.  This  event  can  be
+used to trigger some action in your UI, such as hiding a modal dialog containing
+a form built with `VueFormBuilder`.
 
 ## Contributing
 
