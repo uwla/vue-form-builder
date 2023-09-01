@@ -1,10 +1,11 @@
 # TODO
 
 - add automated tests:
-    - [ ] test `omit null` feature
+    - [x] test `omit null` feature
     - [ ] test `form data` feature
-    - [ ] test `model access` feature
-    - [ ] test `values access` feature
+    - [x] test `model access` feature
+    - [x] test `values access` feature
+ - replace `componentWrapper` with `wrapper`
 
 # DONE
 
