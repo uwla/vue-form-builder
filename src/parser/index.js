@@ -47,7 +47,7 @@ export class Parser {
         let defaultWrapper = this.wrapper
         if (field.props.hidden === true)
             defaultWrapper = 'div'
-        return field.componentWrapper || defaultWrapper
+        return field.componentWrapper || field.wrapper || defaultWrapper
     }
     
     getFieldWrapperComponentProps(field) {

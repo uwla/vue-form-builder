@@ -503,11 +503,11 @@ by default, so that the label is uniquely associated with the field.
 A wrapper is a container that wraps the field. It is useful for showing labels
 next to the input field, or to show additional information.
 
-`VueFormBuilder` assumes the `componentWrapper` is a Vue component with at least
-two props: `label` and `labelFor`.  So,  if  you  are  using  a  custom  wrapper
-yourself wrote, make sure to declare those properties, even if you don't plan to
-use these values. Otherwise,  Vue  will  set  `label`  and  `labelFor`  as  HTML
-attributes, visible in the browser devtools.
+`VueFormBuilder` assumes the `wrapper` is a Vue  component  with  at  least  two
+props: `label` and `labelFor`. So, if you are using a  custom  wrapper  yourself
+wrote, make sure to declare those properties, even if  you  don't  plan  to  use
+these values. Otherwise, Vue will set `label` and `labelFor` as HTML attributes,
+visible in the browser devtools.
 
 ```html
 <template>
@@ -529,13 +529,13 @@ Then, to use this wrapper in an individual field:
 Vue.component('my-custom-wrapper', CustomWrapper)
 
 // string notation
-field = 'name:foo|text|componentWrapper:my-custom-wrapper'
+field = 'name:foo|text|wrapper:my-custom-wrapper'
 
 // object notation
 field = {
     name: 'foo',
     type: 'text',
-    componentWrapper: 'my-custom-wrapper',
+    wrapper: 'my-custom-wrapper',
 }
 ```
 
@@ -551,13 +551,13 @@ besides the `field` component.
 
 ```javascript
 // explicitly setting the wrapper component
-field = 'name:email|email|componentWrapper:div'
+field = 'name:email|email|wrapper:div'
 
 // same thing, but in Object notation
 field = {
     name: 'email',
     type: 'email',
-    componentWrapper: 'div',
+    wrapper: 'div',
 }
 ```
 
@@ -569,14 +569,14 @@ will  render  as HTML attributes. So:
 
 ```javascript
 // explicitly setting the wrapper component
-field = 'name:email|email|componentWrapper:div|label:none'
+field = 'name:email|email|wrapper:div|label:none'
 
 // same thing, but in Object notation
 field = {
     name: 'email',
     type: 'email',
     label: 'none',
-    componentWrapper: 'div',
+    wrapper: 'div',
 }
 ```
 
@@ -587,7 +587,7 @@ Moreover, if you explicitly set `propsWrapper`, then `label` won't be added by
 field = {
     name: 'email_address',
     type: 'email',
-    componentWrapper: 'custom-wrapper',
+    wrapper: 'custom-wrapper',
     propsWrapper: { 'foo': 1, 'bar:': 2 }
 }
 ```
