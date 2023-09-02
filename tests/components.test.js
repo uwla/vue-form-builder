@@ -1,5 +1,5 @@
 import { deepCopy } from '../src/helpers'
-import { fields, model, veryCustomizedFields,  wrapper } from './common'
+import { fields, getValues, model, simulateUserInput, veryCustomizedFields,  wrapper } from './common'
 
 test('it loads customized fields', async () => {
     await wrapper.setProps({
@@ -74,26 +74,13 @@ test('it passes values to components', async () => {
     // reset the fields
     await wrapper.setProps({ fields: deepCopy(formFields) })
 
-    // some helpers
-    async function simulateInput() {
-        await wrapper.find('[name=name]').setValue('joe doe')
-        await wrapper.find('[name=bio]').setValue('Hi there')
-        await wrapper.find('[name=agree]').setChecked(false)
-        wrapper.findAll('[name=fruits]').wrappers.forEach(async x => {
-            await x.setChecked(true)
-        })
-        wrapper.findAll('[name=languages] option').wrappers.forEach(async x => {
-            await x.setSelected(true)
-        })
-    }
-
-    function getValues() {
-        let values = {}
-        wrapper.vm.fieldsParsed.forEach(f => {
-            if (f.name)
-                values[f.name] = f.value
-        });
-        return values
+    // the input
+    const input = {
+        name: 'joe doe',
+        bio: 'Hello, I\'m Joe',
+        agree: false,
+        fruits: ['avocado'],
+        languages: ['bash'],
     }
 
     // get the vue component
@@ -101,8 +88,8 @@ test('it passes values to components', async () => {
     let component2 = wrapper.findAll('.custom-field').at(1)
 
     // test it does pass the values
-    await simulateInput()
-    expect(component1.vm.$props.values).toMatchObject(getValues())
+    await simulateUserInput(wrapper, input)
+    expect(component1.vm.$props.values).toMatchObject(getValues(wrapper))
     expect(component2.vm.$props.values).toBeUndefined()
 
     // make the second component request the model
@@ -110,8 +97,8 @@ test('it passes values to components', async () => {
     await wrapper.setProps({ fields: deepCopy(formFields) })
 
     // trigger input
-    await simulateInput()
-    expect(component2.vm.$props.values).toMatchObject(getValues())
+    await simulateUserInput(wrapper, input)
+    expect(component2.vm.$props.values).toMatchObject(getValues(wrapper))
 })
 
 // undo the change on the internal state of the wrapper

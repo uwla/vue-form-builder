@@ -210,6 +210,73 @@ export const validationRules = {
     }
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// HELPERS
+
+// simulate user input on the wrapper
+export async function simulateUserInput(wrapper, values) {
+    for (let key in values)
+    {
+        let val = values[key]
+
+        // ─────────────────────────────────────────────────────────────────────
+        // checkboxes
+        if (key === 'fruits')
+        {
+            const checkboxes = wrapper.findAll(`[name=${key}]`)
+            for (let i = 0; i < checkboxes.length; i += 1)
+            {
+                let checkbox = checkboxes.at(i)
+                checkbox.setChecked(val.includes(checkbox.element.value))
+            }
+            continue
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        // radio
+        if (key === 'country')
+        {
+            const radios = wrapper.findAll(`[name=${key}]`)
+            for (let i = 0; i < radios.length; i += 1)
+            {
+                let radio = radios.at(i)
+                if (val === radio.element.value)
+                    radio.setChecked()
+            }
+            continue
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        // text
+        if (typeof val === 'string')
+        {
+            const input = wrapper.find(`[name=${key}]`)
+            input.setValue(val)
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        // boolean
+        if (val === true || val === false)
+        {
+            const checkbox = wrapper.find(`[name=${key}]`)
+            checkbox.setChecked(val)
+        }
+    }
+}
+
+// Get the form values within the wrapper without submitting it
+export function getValues(wrapper) {
+    let values = {}
+    wrapper.vm.fieldsParsed.forEach(f => {
+        if (f.name)
+            values[f.name] = f.value
+    });
+    return values
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VUE
+
 // register some custom components
 Vue.component('CustomField', CustomField)
 Vue.component('CustomWrapper', CustomWrapper)

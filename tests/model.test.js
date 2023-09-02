@@ -1,4 +1,4 @@
-import { model, wrapper } from './common'
+import { model, simulateUserInput, wrapper } from './common'
 
 test('it syncs with the model', async () => {
     await wrapper.setProps({ model })
@@ -48,56 +48,6 @@ test('it syncs with the model', async () => {
         }
     }
 })
-
-async function simulateUserInput(wrapper, values) {
-    for (let key in values)
-    {
-        let val = values[key]
-
-        // ─────────────────────────────────────────────────────────────────────
-        // checkboxes
-        if (key === 'fruits')
-        {
-            const checkboxes = wrapper.findAll(`[name=${key}]`)
-            for (let i = 0; i < checkboxes.length; i += 1)
-            {
-                let checkbox = checkboxes.at(i)
-                checkbox.setChecked(val.includes(checkbox.element.value))
-            }
-            continue
-        }
-
-        // ─────────────────────────────────────────────────────────────────────
-        // radio
-        if (key === 'country')
-        {
-            const radios = wrapper.findAll(`[name=${key}]`)
-            for (let i = 0; i < radios.length; i += 1)
-            {
-                let radio = radios.at(i)
-                if (val === radio.element.value)
-                    radio.setChecked()
-            }
-            continue
-        }
-
-        // ─────────────────────────────────────────────────────────────────────
-        // text
-        if (typeof val === 'string')
-        {
-            const input = wrapper.find(`[name=${key}]`)
-            input.setValue(val)
-        }
-
-        // ─────────────────────────────────────────────────────────────────────
-        // boolean
-        if (val === true || val === false)
-        {
-            const checkbox = wrapper.find(`[name=${key}]`)
-            checkbox.setChecked(val)
-        }
-    }
-}
 
 test('it submits the form correctly', async () => {
     const values  = {
@@ -158,7 +108,6 @@ test('it omits null values', async () => {
     await wrapper.find('[name=gender]').setValue('')
     await wrapper.find('[name=birthday]').setValue('')
     await wrapper.find('[name=token]').setValue('')
-
     wrapper.findAll('[name=fruits]').wrappers.forEach(async c => { await c.setChecked(true) })
     wrapper.findAll('[name=fruits]').wrappers.forEach(async c => { await c.setChecked(false) })
 
