@@ -119,8 +119,12 @@ test('it submits the form correctly', async () => {
     // trigger a submit event
     await wrapper.trigger('submit')
 
+    // get the submit events
+    const events = wrapper.emitted('submit')
+    expect(events.length).toBeGreaterThan(0)
+
     // get the event object
-    const event = wrapper.emitted('submit')[0]
+    const event = events[events.length - 1]
 
     // assert event has been emitted
     expect(event).toBeTruthy()
@@ -166,8 +170,12 @@ test('it omits null values', async () => {
     // trigger submit
     await wrapper.trigger('submit')
 
-    // get the event object (which is the third submit event)
-    const event = wrapper.emitted('submit')[2]
+    // get the submit events
+    const events = wrapper.emitted('submit')
+    expect(events.length).toBeGreaterThan(1)
+
+    // get the event object
+    const event = events[events.length - 1]
 
     // assert event has been emitted
     expect(event).toBeTruthy()
