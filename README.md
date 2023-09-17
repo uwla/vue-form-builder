@@ -1,7 +1,7 @@
 # VUE FORM BUILDER
 
-Vue  Form  Builder  is  a  Vue2  plugin  that  generates  beautiful  forms  from
-declarative rules.
+`VueFormBuilder` is a Vue plugin that automatically  generates  beautiful  forms
+from declarative rules.
 
 1. [Features](#features)
 2. [Demo](#demo)
@@ -18,10 +18,11 @@ declarative rules.
     - [Feedback](#feedback)
     - [Validation](#validation)
     - [Events](#events)
-6. [Contributing](#contributing)
-7. [License](#license)
+6. [Roadmap](#roadmap)
+7. [Contributing](#contributing)
+8. [License](#license)
 
-## Features
+## FEATURES
 
 - concise syntax for fast development
 - support for custom components
@@ -35,7 +36,7 @@ declarative rules.
 - user-defined validation rules
 - custom Vue components
 
-## Demo
+## DEMO
 
 A demo app is available:
 
@@ -43,7 +44,7 @@ A demo app is available:
 - [live demo and code](https://codesandbox.io/s/vue-form-builder-demo-4rxmw4)
 - [code](https://github.com/uwla/vue-form-builder-demo)
 
-## Example
+## EXAMPLE
 
 SImple example:
 
@@ -127,7 +128,7 @@ Which generates the following HTML:
 </form>
 ```
 
-## Installation
+## INSTALLATION
 
 Install via NPM:
 
@@ -187,7 +188,7 @@ plugin's CSS, and shall instead import BootstrapVue's CSS:
 import 'bootstrap-vue/dist/bootstrap-vue.min.css'
 ```
 
-## Configuration
+## CONFIGURATION
 
 ### Props
 
@@ -873,10 +874,14 @@ It will also emit an event called `reset` with no payload.  This  event  can  be
 used to trigger some action in your UI, such as hiding a modal dialog containing
 a form built with `VueFormBuilder`.
 
-## Contributing
+## ROADMAP
+
+- Support for Vue3
+
+## CONTRIBUTING
 
 Contributions are welcome. Fork the repo, then make a PR.
 
-## License
+## LICENSE
 
 MIT
