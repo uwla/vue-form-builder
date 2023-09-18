@@ -18,5 +18,8 @@ type Field = {
     values?: boolean,
 }
 
+type FieldDescription = Field|string
+type FieldAlias = FieldDescription
+type FieldAliases = { [key: string]: FieldAlias }
 type Data = { [key: FieldName]: FieldValue }
 type Model = { [key: FieldName]: FieldValue }
