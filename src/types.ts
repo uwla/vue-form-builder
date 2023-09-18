@@ -1,25 +1,42 @@
 // TYPE DEFINITIONS
 
-type vueComponent = string
+type VueComponent = string
+type VueComponentProps = { [key: string]: any }
+
 type FieldValue = any
 type FieldType = string
 type FieldName = string
-type FieldProps = { [key: string]: any }
-
 type Field = {
-    componentFeedback: vueComponent,
-    component: vueComponent,
-    componentWrapper: vueComponent,
+    [index: string]: any,
+    component: VueComponent,
+    componentFeedback: VueComponent,
+    componentWrapper: VueComponent,
+    label?: string,
     model?: boolean,
     name?: FieldName,
-    props: FieldProps,
+    props: VueComponentProps,
+    propsWrapper: VueComponentProps,
     type: FieldType,
     value?: FieldValue,
     values?: boolean,
+    wrapper?: VueComponent
 }
 
 type FieldDescription = Field|string
 type FieldAlias = FieldDescription
 type FieldAliases = { [key: string]: FieldAlias }
+
+type Attribute = { [key: string]: any }
+interface AttributeParser {
+    isAttribute(str: string): boolean
+    stringToAttribute(str: string): Attribute
+}
+
 type Data = { [key: FieldName]: FieldValue }
 type Model = { [key: FieldName]: FieldValue }
+
+type Type2Component = { [key: FieldType]: VueComponent }
+type ParserOptions = {
+    useBootstrap?: boolean,
+    wrapper?: VueComponent,
+}
