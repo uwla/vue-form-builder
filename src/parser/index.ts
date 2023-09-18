@@ -139,11 +139,11 @@ export class Parser {
         if (typeof attributes === 'object')
             return attributes
 
-        let attributeArray = attributes.split('|')
+        let attrArray = attributes.split('|')
         let field : Field = {} as Field
     
-        attributeArray.forEach(attribute => {
-            let attributeObject : Attribute = this.stringToAttribute(attribute)
+        attrArray.forEach((attrStr : string) => {
+            let attributeObject : Attribute = this.stringToAttribute(attrStr)
             for (let key in attributeObject)
             {
                 let attributeValue : any = attributeObject[key]

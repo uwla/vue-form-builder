@@ -16,9 +16,13 @@ export function isNumeric(str: any): boolean {
 }
 
 export function castValue<T>(value: T): number|boolean|T {
-    if (value === 'true') return true
-    if (value === 'false') return false
-    if (isNumeric(value)) return Number(value)
+    if (typeof value === 'string')
+    {
+        let str = value as string
+        if (str === 'true') return true
+        if (str === 'false') return false
+        if (isNumeric(str)) return Number(str)
+    }
     return value
 }
 
@@ -164,7 +168,7 @@ export function deepCopy<T>(obj: T): T {
         return obj
 
     if (Array.isArray(obj))
-        return obj.map(item => deepCopy(item)) as T
+        return (obj.map(item => deepCopy(item)) as unknown) as T
 
     const copiedObj = {} as T
     for (const key in obj) {

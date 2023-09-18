@@ -22,7 +22,7 @@ type Field = {
     wrapper?: VueComponent
 }
 
-type FieldDescription = Field|string
+type FieldDescription = Field|string|any
 type FieldAlias = FieldDescription
 type FieldAliases = { [key: string]: FieldAlias }
 
