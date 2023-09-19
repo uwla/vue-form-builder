@@ -3,13 +3,13 @@ import { defineComponent } from "vue"
 export default defineComponent({
     data() {
         return {
-            checked: this.value
+            checked: this.modelValue
         }
     },
     methods: {
         handleInput() {
-            this.$emit('input', this.checked)
+            this.$emit('update:modelValue', this.checked)
         }
     },
-    props: ['value', 'options', 'name', 'state', 'id']
+    props: ['modelValue', 'options', 'name', 'state', 'id']
 })

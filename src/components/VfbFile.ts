@@ -5,10 +5,10 @@ export default defineComponent({
         handleInput(e: any) {
             const { files } = e.target
             if (this.multiple)
-                this.$emit('input', files)
+                this.$emit('update:modelValue', files)
             else
-                this.$emit('input', files[0])
+                this.$emit('update:modelValue', files[0])
         }
     },
-    props: ['value', 'multiple', 'state']
+    props: ['modelValue', 'multiple', 'state']
 })

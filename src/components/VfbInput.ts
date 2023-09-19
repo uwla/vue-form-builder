@@ -4,12 +4,12 @@ export default defineComponent({
     computed: {
         val: {
             get() {
-                return this.value
+                return this.modelValue
             },
             set(value: any) {
-                this.$emit('input', value)
+                this.$emit('update:modelValue', value)
             }
         }
     },
-    props: ['value', 'state']
+    props: ['modelValue', 'state']
 })

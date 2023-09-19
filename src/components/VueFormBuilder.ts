@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import { fieldHasFile, getDefaultFieldValue, isNullable, resetFormField, toFormData } from '../helpers'
+import { fieldHasFile, getDefaultFieldValue, isNullable, resetFormField, stopEvent, toFormData } from '../helpers'
 import { Parser } from '../parser'
 
 export default defineComponent({
@@ -118,10 +118,16 @@ export default defineComponent({
                 return f
             })
         },
-        resetForm() {
+        resetForm(e : any) {
+            // stop HTML form submission event
+            stopEvent(e)
+
+            // sync form with the values of the model
             this.syncWithModel()
             const form = this.$refs['form']
             this.fieldsParsed.forEach(field => resetFormField(form, field))
+
+            // emit reset notice
             this.$emit('reset')
         },
         setupFeedback() {
@@ -140,7 +146,11 @@ export default defineComponent({
                 this.feedbacks[name].message = this.messages[name]
             }
         },
-        submitForm() {
+        submitForm(e : any) {
+            // stop HTML form submission event
+            stopEvent(e)
+
+            // whether form is valid
             let valid = true
 
             // validate the form if specified

@@ -117,6 +117,14 @@ export function toFormData(data: Data): FormData {
     return formData
 }
 
+export function stopEvent(event: any) {
+    if (event) {
+        event.preventDefault()
+        event.stopPropagation()
+        event.stopImmediatePropagation()
+    }
+}
+
 export function resetFormField(form: any, field: Field): void {
     let name = field.name
     if (!name) return
