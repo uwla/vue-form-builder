@@ -1,0 +1,49 @@
+/* ────────────────────────────────────────────────────────────────────────── */
+/* extracted from bootstrap */
+
+.vfb-buttons .btn {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    color: #212529;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0.375rem 0.75rem;
+    text-align: center;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    user-select: none;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+.vfb-buttons .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+}
+
+.vfb-buttons .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+/* ────────────────────────────────────────────────────────────────────────── */
+
+.vfb-buttons {
+    display: flex;
+    gap: 0.5em;
+}
+
+.vfb-buttons.right {
+    justify-content: end;
+}
+
+.vfb-buttons.block button {
+    margin-left: 0;
+    width: 100%;
+}

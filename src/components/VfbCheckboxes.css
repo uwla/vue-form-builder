@@ -1,0 +1,21 @@
+.vfb-checkboxes, .vfb-radios {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.vfb-checkboxes label, .vfb-radios label {
+    margin: 0 !important;
+}
+
+.vfb-checkboxes.invalid,
+.vfb-radios.invalid
+{
+    color: #dc3545
+}
+
+.vfb-checkboxes.valid,
+.vfb-radios.valid
+{
+    color: #28a745;
+}

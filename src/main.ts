@@ -1,0 +1,50 @@
+import VfbFeedbackInvalid from './components/VfbFeedbackInvalid.vue'
+import VfbFeedbackValid from './components/VfbFeedbackValid.vue'
+import VueFormBuilder from './components/VueFormBuilder.vue'
+import VfbCheckboxes from './components/VfbCheckboxes.vue'
+import VfbCheckbox from './components/VfbCheckbox.vue'
+import VfbTextarea from './components/VfbTextarea.vue'
+import VfbFeedback from './components/VfbFeedback.vue'
+import VfbButtons from './components/VfbButtons.vue'
+import VfbSelect from './components/VfbSelect.vue'
+import VfbGroup from './components/VfbGroup.vue'
+import VfbInput from './components/VfbInput.vue'
+import VfbRadio from './components/VfbRadio.vue'
+import VfbFile from './components/VfbFile.vue'
+import fieldAliases from './aliases'
+
+const components : { [key: string] : any } = {
+    // vue form builder components
+    'vfb-feedback-invalid': VfbFeedbackInvalid,
+    'vfb-feedback-valid': VfbFeedbackValid,
+    'vfb-checkboxes': VfbCheckboxes,
+    'vfb-checkbox': VfbCheckbox,
+    'vfb-textarea': VfbTextarea,
+    'vfb-feedback': VfbFeedback,
+    'vfb-buttons': VfbButtons,
+    'vfb-select': VfbSelect,
+    'vfb-group': VfbGroup,
+    'vfb-input': VfbInput,
+    'vfb-radio': VfbRadio,
+    'vfb-file': VfbFile,
+
+    // vue form builder
+    'vfb': VueFormBuilder,
+    'vue-form-builder': VueFormBuilder,
+}
+
+function install(Vue: any) {
+    const keys = Object.keys(components)
+    for (let componentName in keys) {
+        if (Object(components).hasOwnProperty(componentName)) {
+            Vue.component(componentName, components[componentName])
+        }
+    }
+}
+
+export {
+    components,
+    fieldAliases,
+    install,
+    VueFormBuilder,
+}
