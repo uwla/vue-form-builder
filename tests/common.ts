@@ -1,3 +1,9 @@
+import { mount } from '@vue/test-utils'
+import CustomField from './components/CustomField.vue'
+import CustomWrapper from './components/CustomWrapper.vue'
+import CustomFeedback from './components/CustomFeedback.vue'
+import CalendarField from './components/CalendarField.vue'
+import { components, VueFormBuilder } from '../src/main'
 import { shuffleArray } from '../src/helpers'
 
 // ────────────────────────────────────────────────────────────────────────────────
@@ -24,7 +30,7 @@ export const textFields : FieldDescription[] = [
 ]
 
 // default fields are text fields
-export const fields = textFields
+export const fields : FieldDescription[] = textFields
 
 // object fields
 export const objFields : FieldDescription[] = [
@@ -59,10 +65,10 @@ export const objFields : FieldDescription[] = [
 ]
 
 // mix of text and object fields
-export const mixedFields = shuffleArray([...textFields, ...objFields])
+export const mixedFields : FieldDescription[] = shuffleArray([...textFields, ...objFields])
 
 // field with all sorts of custom components
-export const veryCustomizedFields = [
+export const veryCustomizedFields : FieldDescription[] = [
     {
         name: 'foo',
         component: 'CustomField',
@@ -97,4 +103,25 @@ export const veryCustomizedFields = [
     },
 ]
 
-// -----------------------------------------------------------------------------
+// ─────────────────────────────────────────────────────────────────────────────
+// VUE WRAPPER
+
+export const wrapper = mount(VueFormBuilder, {
+    global: {
+        components: {
+            ...components,
+            CalendarField,
+            CustomFeedback,
+            CustomField,
+            CustomWrapper,
+        },
+    },
+    props: {
+        fields: fields,
+        model: {},
+        errors: {},
+        messages: {},
+        validation: {},
+        validateOnSubmit: false,
+    },
+})
