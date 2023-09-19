@@ -10,7 +10,7 @@
 .form-group.vfb-group-checkbox {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: start;
+    justify-content: flex-start;
 }
 .form-group.vfb-group-checkbox .vfb-feedback {
     width: 1px;
