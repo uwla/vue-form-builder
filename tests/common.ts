@@ -103,6 +103,175 @@ export const veryCustomizedFields : FieldDescription[] = [
     },
 ]
 
+// -----------------------------------------------------------------------------
+
+// the model
+export const model : Model = {
+    name: 'john',
+    email: 'john@email.test',
+    gender: 'male',
+    phone: '+1 999 9999-9999',
+    fruits: ['banana', 'avocado'],
+    website_url: 'http://example.test/',
+    country: 'Mexico',
+    agree: true,
+    bio: 'Hello, this is John Doe from Mexico. I like bananas.',
+    token: 'd43aa11a-f055-4266-b4c1-b9b0b3ec79aa',
+}
+
+// the order in which the keys of the following objects appear is important
+// for the tests! do not modify it!
+
+// // error messages
+// export const errors = {
+//     name: 'Name must be longer.',
+//     email: 'Email is required.',
+//     phone: 'Phone is invalid.',
+//     website_url: 'Website must be valid URL.',
+//     password: 'Password must contain letters and numbers.',
+//     bio: 'Bio cannot have more than 100 words.',
+//     gender: 'Pick a gender',
+//     photo: 'File size must be below 2MB.',
+//     fruits: 'Choose fruits.',
+//     country: 'Select a country.',
+//     agree: 'We must reach an agreement',
+// }
+
+// // success messages
+// export const messages = {
+//     name: 'name looks good',
+//     email: 'email looks good!',
+//     phone: 'phone looks good!',
+//     website_url: 'url is working',
+//     password: 'strong password, congrats',
+//     bio: 'bio looks good!',
+//     gender: 'thanks for filling it out',
+//     photo: 'awesome photo',
+//     fruits: 'awesome choice of fruits',
+//     country: 'valid country, nice!',
+//     languages: 'great languages!',
+//     agree: 'congrats',
+// }
+
+// // errors used in validation
+// export const validationErrors = {
+//     name: {
+//         short: 'Name too short',
+//         long: 'Name too long',
+//     },
+//     fruits: {
+//         many: 'Pick 3 fruits at most',
+//         few: 'Pick 1 fruit at least',
+//     },
+//     bio: 'Your bio should include the world "hello"',
+//     languages: {
+//         few: 'Select at least two languages',
+//         include: 'Selected languages must include C++ or Java',
+//     },
+//     gender: 'Gender cannot be empty',
+// }
+
+// // validation rules
+// export const validationRules = {
+//     agree: (val) => val,
+//     name: (val) => {
+//         if (val.length < 3)
+//             return validationErrors['name']['short']
+//         if (val.length > 30)
+//             return validationErrors['name']['long']
+//         return true
+//     },
+//     fruits: (val) => {
+//         if (val.length > 3)
+//             return validationErrors['fruits']['many']
+//         if (val.length < 1)
+//             return validationErrors['fruits']['few']
+//         return true
+//     },
+//     bio: (val) => {
+//         if (! val.includes('hello'))
+//             return validationErrors['bio']
+//         return true
+//     },
+//     languages: (val) => {
+//         if (val.length < 2)
+//             return validationErrors['languages']['few']
+//         if (!val.includes('java') && !val.includes('c++'))
+//             return validationErrors['languages']['include']
+//         return true
+//     },
+//     gender: (val) => {
+//         if (val == null || val == '')
+//             return validationErrors['gender']
+//         return true
+//     }
+// }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// HELPERS
+
+// simulate user input on the wrapper
+export async function simulateUserInput(wrapper : any, values : any) {
+    for (let key in values)
+    {
+        let val = values[key]
+
+        // ─────────────────────────────────────────────────────────────────────
+        // checkboxes
+        if (key === 'fruits')
+        {
+            const checkboxes = wrapper.findAll(`[name=${key}]`)
+            for (let i = 0; i < checkboxes.length; i += 1)
+            {
+                let checkbox = checkboxes.at(i)
+                checkbox.setChecked(val.includes(checkbox.element.value))
+            }
+            continue
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        // radio
+        if (key === 'country')
+        {
+            const radios = wrapper.findAll(`[name=${key}]`)
+            for (let i = 0; i < radios.length; i += 1)
+            {
+                let radio = radios.at(i)
+                if (val === radio.element.value)
+                    radio.setChecked()
+            }
+            continue
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        // text
+        if (typeof val === 'string')
+        {
+            const input = wrapper.find(`[name=${key}]`)
+            input.setValue(val)
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        // boolean
+        if (val === true || val === false)
+        {
+            const checkbox = wrapper.find(`[name=${key}]`)
+            checkbox.setChecked(val)
+        }
+    }
+}
+
+// Get the form values within the wrapper without submitting it
+export function getValues(wrapper : any) {
+    let values : any = {}
+    wrapper.vm.fieldsParsed.forEach((f : any) => {
+        if (f.name)
+            values[f.name] = f.value
+    });
+    return values
+}
+
+
 // ─────────────────────────────────────────────────────────────────────────────
 // VUE WRAPPER
 

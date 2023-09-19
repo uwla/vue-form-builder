@@ -33,18 +33,17 @@ const components : { [key: string] : any } = {
     'vue-form-builder': VueFormBuilder,
 }
 
-function install(Vue: any) {
-    const keys = Object.keys(components)
-    for (let componentName in keys) {
-        if (Object(components).hasOwnProperty(componentName)) {
-            Vue.component(componentName, components[componentName])
-        }
-    }
+function install(app: any) {
+    for (let componentName in components)
+        app.component(componentName, components[componentName])
 }
+
+const plugin = { install }
 
 export {
     components,
     fieldAliases,
+    plugin as default,
     install,
     VueFormBuilder,
 }
