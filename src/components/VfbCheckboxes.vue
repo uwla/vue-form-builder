@@ -2,9 +2,14 @@
     <ul class="vfb-checkboxes"
         :class="{'invalid': state === false, 'valid': state === true}">
         <li v-for="(option,i) in options" :key="i">
-            <input class="vfb-checkbox" type="checkbox"
-                :name="name" :value="option.value" :id="`${id}_${i}`"
-                v-model="checked" @change="handleInput">
+            <input
+                type="checkbox"
+                class="vfb-checkbox"
+                :name="name"
+                :id="`${id}_${i}`"
+                :value="option.value"
+                :checked="modelValue.includes(option.value)"
+                @change="handleInput" />
             <label :for="`${id}_${i}`">
                 {{ option.text }}
             </label>

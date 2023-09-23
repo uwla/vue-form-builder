@@ -27,8 +27,7 @@ test('it syncs with the model', async () => {
             {
                 let checkbox = checkboxes[i]
                 let val = checkbox.element.value
-                // FIX: the following line is not passing the tests
-                // expect(checkbox.element.checked).toBe(value.includes(val))
+                expect(checkbox.element.checked).toBe(value.includes(val))
             }
             continue
         }
@@ -59,8 +58,7 @@ test('it submits the form correctly', async () => {
         birthday: '1980-01-01',
         bio: 'hello world!',
         gender:  'female',
-        // FIX: the following line is not passing the tests
-        // fruits: ['apple', 'orange'],
+        fruits: ['apple', 'orange'],
         country: 'Mexico',
         agree: false,        
     } 
@@ -101,37 +99,36 @@ test('it resets the form to the model', async () => {
     expect(payload).toMatchObject(model)
 })
 
-// test('it omits null values', async () => {
-//     await wrapper.setProps({ omitNull: true, validation: {} })
+test('it omits null values', async () => {
+    await wrapper.setProps({ omitNull: true, validation: {} })
 
-//     await wrapper.find('[name=name]').setValue('')
-//     await wrapper.find('[name=phone]').setValue('')
-//     await wrapper.find('[name=bio]').setValue('')
-//     await wrapper.find('[name=gender]').setValue('')
-//     await wrapper.find('[name=birthday]').setValue('')
-//     await wrapper.find('[name=token]').setValue('')
-//     wrapper.findAll('[name=fruits]').forEach(async (c : any) => { await c.setChecked(true) })
-//     wrapper.findAll('[name=fruits]').forEach(async (c : any) => { await c.setChecked(false) })
+    await wrapper.find('[name=name]').setValue('')
+    await wrapper.find('[name=phone]').setValue('')
+    await wrapper.find('[name=bio]').setValue('')
+    await wrapper.find('[name=gender]').setValue('')
+    await wrapper.find('[name=birthday]').setValue('')
+    await wrapper.find('[name=token]').setValue('')
+    wrapper.findAll('[name=fruits]').forEach(async (c : any) => await c.setValue(false))
 
-//     // filter values to not include null ones
-//     const keys = ['website_url', 'email', 'country', 'agree']
-//     const values : any = {}
-//     keys.forEach((k : string) => values[k] = model[k])
+    // filter keys to not include null ones
+    const keys = ['website_url', 'email', 'country', 'agree']
+    const values : any = {}
+    keys.forEach((k : string) => values[k] = model[k])
 
-//     // trigger submit
-//     await wrapper.trigger('submit')
+    // trigger submit
+    await wrapper.trigger('submit')
 
-//     // get the submit events
-//     const events : any = wrapper.emitted('submit')
-//     expect(events.length).toBeGreaterThan(1)
+    // get the submit events
+    const events : any = wrapper.emitted('submit')
+    expect(events.length).toBeGreaterThan(1)
 
-//     // get the event object
-//     const event = events[events.length - 1]
+    // get the event object
+    const event = events[events.length - 1]
 
-//     // assert event has been emitted
-//     expect(event).toBeTruthy()
+    // assert event has been emitted
+    expect(event).toBeTruthy()
 
-//     // assert payload matches the expected
-//     const payload = event[0]
-//     expect(payload).toStrictEqual(values)
-// })
+    // assert payload matches the expected
+    const payload = event[0]
+    expect(payload).toStrictEqual(values)
+})
