@@ -122,90 +122,90 @@ export const model : Model = {
 // the order in which the keys of the following objects appear is important
 // for the tests! do not modify it!
 
-// // error messages
-// export const errors = {
-//     name: 'Name must be longer.',
-//     email: 'Email is required.',
-//     phone: 'Phone is invalid.',
-//     website_url: 'Website must be valid URL.',
-//     password: 'Password must contain letters and numbers.',
-//     bio: 'Bio cannot have more than 100 words.',
-//     gender: 'Pick a gender',
-//     photo: 'File size must be below 2MB.',
-//     fruits: 'Choose fruits.',
-//     country: 'Select a country.',
-//     agree: 'We must reach an agreement',
-// }
+// error messages
+export const errors = {
+    name: 'Name must be longer.',
+    email: 'Email is required.',
+    phone: 'Phone is invalid.',
+    website_url: 'Website must be valid URL.',
+    password: 'Password must contain letters and numbers.',
+    bio: 'Bio cannot have more than 100 words.',
+    gender: 'Pick a gender',
+    photo: 'File size must be below 2MB.',
+    fruits: 'Choose fruits.',
+    country: 'Select a country.',
+    agree: 'We must reach an agreement',
+}
 
-// // success messages
-// export const messages = {
-//     name: 'name looks good',
-//     email: 'email looks good!',
-//     phone: 'phone looks good!',
-//     website_url: 'url is working',
-//     password: 'strong password, congrats',
-//     bio: 'bio looks good!',
-//     gender: 'thanks for filling it out',
-//     photo: 'awesome photo',
-//     fruits: 'awesome choice of fruits',
-//     country: 'valid country, nice!',
-//     languages: 'great languages!',
-//     agree: 'congrats',
-// }
+// success messages
+export const messages = {
+    name: 'name looks good',
+    email: 'email looks good!',
+    phone: 'phone looks good!',
+    website_url: 'url is working',
+    password: 'strong password, congrats',
+    bio: 'bio looks good!',
+    gender: 'thanks for filling it out',
+    photo: 'awesome photo',
+    fruits: 'awesome choice of fruits',
+    country: 'valid country, nice!',
+    languages: 'great languages!',
+    agree: 'congrats',
+}
 
-// // errors used in validation
-// export const validationErrors = {
-//     name: {
-//         short: 'Name too short',
-//         long: 'Name too long',
-//     },
-//     fruits: {
-//         many: 'Pick 3 fruits at most',
-//         few: 'Pick 1 fruit at least',
-//     },
-//     bio: 'Your bio should include the world "hello"',
-//     languages: {
-//         few: 'Select at least two languages',
-//         include: 'Selected languages must include C++ or Java',
-//     },
-//     gender: 'Gender cannot be empty',
-// }
+// errors used in validation
+export const validationErrors = {
+    name: {
+        short: 'Name too short',
+        long: 'Name too long',
+    },
+    fruits: {
+        many: 'Pick 3 fruits at most',
+        few: 'Pick 1 fruit at least',
+    },
+    bio: 'Your bio should include the world "hello"',
+    languages: {
+        few: 'Select at least two languages',
+        include: 'Selected languages must include C++ or Java',
+    },
+    gender: 'Gender cannot be empty',
+}
 
-// // validation rules
-// export const validationRules = {
-//     agree: (val) => val,
-//     name: (val) => {
-//         if (val.length < 3)
-//             return validationErrors['name']['short']
-//         if (val.length > 30)
-//             return validationErrors['name']['long']
-//         return true
-//     },
-//     fruits: (val) => {
-//         if (val.length > 3)
-//             return validationErrors['fruits']['many']
-//         if (val.length < 1)
-//             return validationErrors['fruits']['few']
-//         return true
-//     },
-//     bio: (val) => {
-//         if (! val.includes('hello'))
-//             return validationErrors['bio']
-//         return true
-//     },
-//     languages: (val) => {
-//         if (val.length < 2)
-//             return validationErrors['languages']['few']
-//         if (!val.includes('java') && !val.includes('c++'))
-//             return validationErrors['languages']['include']
-//         return true
-//     },
-//     gender: (val) => {
-//         if (val == null || val == '')
-//             return validationErrors['gender']
-//         return true
-//     }
-// }
+// validation rules
+export const validationRules = {
+    agree: (val : any) => val,
+    name: (val : any) => {
+        if (val.length < 3)
+            return validationErrors['name']['short']
+        if (val.length > 30)
+            return validationErrors['name']['long']
+        return true
+    },
+    fruits: (val : any) => {
+        if (val.length > 3)
+            return validationErrors['fruits']['many']
+        if (val.length < 1)
+            return validationErrors['fruits']['few']
+        return true
+    },
+    bio: (val : any) => {
+        if (! val.includes('hello'))
+            return validationErrors['bio']
+        return true
+    },
+    languages: (val : any) => {
+        if (val.length < 2)
+            return validationErrors['languages']['few']
+        if (!val.includes('java') && !val.includes('c++'))
+            return validationErrors['languages']['include']
+        return true
+    },
+    gender: (val : any) => {
+        if (val == null || val == '')
+            return validationErrors['gender']
+        return true
+    }
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HELPERS
