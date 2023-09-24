@@ -126,32 +126,34 @@ export function stopEvent(event: any) {
 }
 
 export function resetFormField(form: any, field: Field): void {
-    let name = field.name
+    let { name, type, props } = field
     if (!name) return
+    let value = deepCopy(field.value)
 
     // toggle the checked state of multiple checkboxes
-    if (field.type === 'checkboxes') {
+    if (type === 'checkboxes') {
         let checkboxes = form.querySelectorAll(`[name=${name}]`)
         for (let checkbox of checkboxes) {
-            checkbox.checked = field.value.includes(checkbox.value)
+            let checked = value.includes(checkbox.value)
+            checkbox.checked = checked
         }
         return
     }
 
     // toggle the checked state of multiple radio inputs
-    if (field.type === 'radio') {
+    if (type === 'radio') {
         let options = form.querySelectorAll(`[name=${name}]`)
         for (let radio of options) {
-            radio.checked = (field.value === radio.value)
+            radio.checked = (value === radio.value)
         }
         return
     }
 
     // toggle the selected state of multiple select options
-    if (field.type === 'select' && field.props.multiple) {
+    if (type === 'select' && props.multiple) {
         let options = form.querySelectorAll(`[name=${name}] option`)
         for (let option of options) {
-            option.selected = field.value.includes(option.value)
+            option.selected = value.includes(option.value)
         }
         return
     }
@@ -164,10 +166,10 @@ export function resetFormField(form: any, field: Field): void {
 
     // toggle the checked state if input is checkbox
     // otherwise, input must be string, so just make values equal
-    if (field.type === 'checkbox') {
-        input.checked = (field.value === true)
+    if (type === 'checkbox') {
+        input.checked = (value === true)
     } else {
-        input.value = field.value
+        input.value = value
     }
 }
 
