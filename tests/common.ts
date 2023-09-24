@@ -225,12 +225,8 @@ export async function simulateUserInput(wrapper : any, values : any) {
             {
                 let checkbox = checkboxes[i]
                 let checked = val.includes(checkbox.element.value)
-                // console.log("before", checkbox.element.value, val, checked, checkbox.element.checked)
-                if (checkbox.element.checked !== checked) {
-                    await checkbox.trigger('click')
-                    // checkbox.trigger('change')
-                }
-                // console.log("after", checkbox.element.value, val, checked, checkbox.element.checked)
+                checkbox.element.checked = checked
+                await checkbox.trigger('change')
             }
             continue
         }
@@ -244,7 +240,7 @@ export async function simulateUserInput(wrapper : any, values : any) {
             {
                 let radio = radios[i]
                 if (val === radio.element.value)
-                    radio.setValue(true)
+                    await radio.setValue(true)
             }
             continue
         }
@@ -254,7 +250,7 @@ export async function simulateUserInput(wrapper : any, values : any) {
         if (typeof val === 'string')
         {
             const input = wrapper.find(`[name=${key}]`)
-            input.setValue(val)
+            await input.setValue(val)
         }
 
         // ─────────────────────────────────────────────────────────────────────
@@ -262,7 +258,7 @@ export async function simulateUserInput(wrapper : any, values : any) {
         if (val === true || val === false)
         {
             const checkbox = wrapper.find(`[name=${key}]`)
-            checkbox.setChecked(val)
+            await checkbox.setValue(val)
         }
     }
 }

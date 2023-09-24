@@ -76,27 +76,12 @@ export default defineComponent({
 
             // determine if there is a field needing access to the current
             // values of the form
-            const needsValue = this.fieldsParsed.some(f => f.model === true)
+            const needsValue = this.fieldsParsed.some(f => f.values === true)
 
             // if no field needs to know other field values, just return
-            if (! needsValue) return
-
-            // if there is one which does need, it is necessary to pass those
-            // values as a prop to the component.
-
-            // get the values
-            let values = {} as Data
-            this.fieldsParsed.forEach(f => {
-                if (f.name)
-                    values[f.name] = f.value
-            })
-
-            // update the fields
-            this.fieldsParsed = this.fieldsParsed.map(field => {
-                if (field.values === true)
-                    field.props.values = values
-                return field
-            })
+            // if (needsValue)
+                // this.passValuesToFieldsAsProps()
+            this.passValuesToFieldsAsProps()
         },
         initializeValues() {
             for (let field of this.fieldsParsed)
@@ -116,6 +101,21 @@ export default defineComponent({
                 if (f.model === true)
                     f.props.model = this.model
                 return f
+            })
+        },
+        passValuesToFieldsAsProps() {
+            // get the current values
+            let values = {} as Data
+            this.fieldsParsed.forEach(f => {
+                if (f.name)
+                    values[f.name] = f.value
+            })
+
+            // update the fields
+            this.fieldsParsed = this.fieldsParsed.map(field => {
+                if (field.values === true)
+                    field.props.values = values
+                return field
             })
         },
         resetForm(e : any) {
