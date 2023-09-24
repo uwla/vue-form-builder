@@ -102,13 +102,22 @@ test('it resets the form to the model', async () => {
 test('it omits null values', async () => {
     await wrapper.setProps({ omitNull: true, validation: {} })
 
+    // empty some string fields
     await wrapper.find('[name=name]').setValue('')
     await wrapper.find('[name=phone]').setValue('')
     await wrapper.find('[name=bio]').setValue('')
     await wrapper.find('[name=gender]').setValue('')
     await wrapper.find('[name=birthday]').setValue('')
     await wrapper.find('[name=token]').setValue('')
-    wrapper.findAll('[name=fruits]').forEach(async (c : any) => await c.setValue(false))
+
+    // empty all checkboxes
+    let checkboxes = wrapper.findAll('[name=fruits]') as any
+    for (let checkbox of checkboxes) {
+        if (checkbox.element.checked) {
+            checkbox.element.checked = false
+            await checkbox.trigger('change')
+        }
+    } 
 
     // filter keys to not include null ones
     const keys = ['website_url', 'email', 'country', 'agree']

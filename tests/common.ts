@@ -225,8 +225,10 @@ export async function simulateUserInput(wrapper : any, values : any) {
             {
                 let checkbox = checkboxes[i]
                 let checked = val.includes(checkbox.element.value)
-                checkbox.element.checked = checked
-                await checkbox.trigger('change')
+                if (checked !== checkbox.element.checked) {
+                    checkbox.element.checked = checked
+                    await checkbox.trigger('change')
+                }
             }
             continue
         }
