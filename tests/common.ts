@@ -221,11 +221,11 @@ export async function simulateUserInput(wrapper : any, values : any) {
         if (key === 'fruits')
         {
             const checkboxes = wrapper.findAll(`[name=${key}]`)
-            for (let i = 0; i < checkboxes.length; i += 1)
+            for (let checkbox of checkboxes)
             {
-                let checkbox = checkboxes[i]
                 let checked = val.includes(checkbox.element.value)
-                if (checked !== checkbox.element.checked) {
+                if (checked !== checkbox.element.checked)
+                {
                     checkbox.element.checked = checked
                     await checkbox.trigger('change')
                 }
@@ -238,9 +238,8 @@ export async function simulateUserInput(wrapper : any, values : any) {
         if (key === 'country')
         {
             const radios = wrapper.findAll(`[name=${key}]`)
-            for (let i = 0; i < radios.length; i += 1)
+            for (let radio of radios)
             {
-                let radio = radios[i]
                 if (val === radio.element.value)
                     await radio.setValue(true)
             }
@@ -271,7 +270,7 @@ export function getValues(wrapper : any) {
     wrapper.vm.fieldsParsed.forEach((f : any) => {
         if (f.name)
             values[f.name] = f.value
-    });
+    })
     return values
 }
 
