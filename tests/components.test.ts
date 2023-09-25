@@ -94,9 +94,7 @@ test('it passes values to components', async () => {
     let component2 = wrapper.findAllComponents(CustomField)[1]
 
     // test it does pass the values
-    await wrapper.vm.passValuesToFieldsAsProps()
-    // DEBUG: line above should be replaced by line below and test still pass
-    // await simulateUserInput(wrapper, input) 
+    await simulateUserInput(wrapper, input)
 
     expect(component1.props().values).toMatchObject(getValues(wrapper))
     expect(component2.props().values).toBeUndefined()
@@ -106,9 +104,7 @@ test('it passes values to components', async () => {
     await wrapper.setProps({ fields: deepCopy(formFields) })
 
     // trigger input
-    await wrapper.vm.passValuesToFieldsAsProps()
-    // DEBUG: line above should be replaced by line below and test still pass
-    // await simulateUserInput(wrapper, input) 
+    await simulateUserInput(wrapper, input)
     expect(component2.props().values).toMatchObject(getValues(wrapper))
 })
 
