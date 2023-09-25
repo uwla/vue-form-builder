@@ -5,8 +5,8 @@
             v-for="(field,i) in fieldsParsed" :key="i">
             <component :is="field.component"
                 v-bind="field.props"
-                v-model="field.value"
-                @model:updateValue="handleInput(field)" />
+                :modelValue="field.value"
+                @update:modelValue="(v: any) => handleInput(field, v)" />
             <component :is="field.componentFeedback"
                 v-bind="feedbacks[field.name]"
                 v-if="field.name" />

@@ -68,7 +68,8 @@ export default defineComponent({
                 return field
             })
         },
-        handleInput(field: Field) {
+        handleInput(field: Field, value: any) {
+            field.value = value
             if (this.clearFeedbackOnInput)
                 this.clearFieldFeedback(field)
             if (this.validateOnInput)
@@ -79,9 +80,8 @@ export default defineComponent({
             const needsValue = this.fieldsParsed.some(f => f.values === true)
 
             // if no field needs to know other field values, just return
-            // if (needsValue)
-                // this.passValuesToFieldsAsProps()
-            this.passValuesToFieldsAsProps()
+            if (needsValue)
+                this.passValuesToFieldsAsProps()
         },
         initializeValues() {
             for (let field of this.fieldsParsed)
