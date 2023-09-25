@@ -68,6 +68,29 @@ export default defineComponent({
                 return field
             })
         },
+        getValues(): Data|FormData {
+            let data = {} as Data
+
+            // form fields
+            let fields = this.fieldsParsed as Field[]
+
+            // if omitNull is true, will emit nullable field values
+            let { omitNull } = this
+            for (let field of fields)
+            {
+                let { name, value } = field
+                if (! name) continue
+                if (isNullable(value) && omitNull) continue
+                data[name] = value
+            }
+
+            // if data has file, convert it to FormData
+            const hasFile = fields.some(fieldHasFile)
+            if (hasFile)
+                return toFormData(data)
+
+            return data
+        },
         handleInput(field: Field, value: any) {
             field.value = value
             if (this.clearFeedbackOnInput)
@@ -160,28 +183,8 @@ export default defineComponent({
             // don't submit the form if invalid
             if (! valid) return
 
-            // event payload
-            let data = {} as Data
-
-            // form fields
-            let fields = this.fieldsParsed as Field[]
-
-            // if omitNull is true, will emit nullable field values
-            let { omitNull } = this
-            for (let field of fields)
-            {
-                let { name, value } = field
-                if (! name) continue
-                if (isNullable(value) && omitNull) continue
-                data[name] = value
-            }
-
-            // if data has file, convert it to FormData
-            const hasFile = fields.some(fieldHasFile)
-            if (hasFile) data = toFormData(data)
-
             // emit data
-            this.$emit('submit', data)
+            this.$emit('submit', this.getValues())
         },
         syncWithModel() {
             const form = this.$refs['form']
