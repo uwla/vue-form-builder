@@ -1,4 +1,4 @@
-import { errors, messages, model, validationErrors, validationRules, wrapper } from './common'
+import { errors, messages, model, setCheckboxValue, validationErrors, validationRules, wrapper } from './common'
 
 test('it validates on input', async () => {
     await wrapper.setProps({
@@ -63,19 +63,13 @@ test('it validates on input', async () => {
     let checkboxes = wrapper.findAll('[name=fruits]') as any
 
     // check all
-    for (let checkbox of checkboxes) {
-        if (! checkbox.element.checked) {
-            checkbox.element.checked = true
-            await checkbox.trigger('change')
-        }
-    }
+    for (let checkbox of checkboxes)
+       await setCheckboxValue(checkbox, true)
     expect(invalidFeedbackText()).toBe(validationErrors['fruits']['many'])
 
     // uncheck all
-    for (let checkbox of checkboxes) {
-        checkbox.element.checked = false
-        await checkbox.trigger('change')
-    }
+    for (let checkbox of checkboxes)
+        await setCheckboxValue(checkbox, false)
     expect(invalidFeedbackText()).toBe(validationErrors['fruits']['few'])
 
     // now, make it valid
@@ -122,8 +116,7 @@ test('it validates on input', async () => {
     expect(invalidFeedbackText()).toBe(validationErrors['languages']['few'])
 
     // clear again
-    option3.element.selected = true
-    await select.trigger('change')
+    await option3.setValue(true)
     expect(invalidFeedbacks()).toHaveLength(0)
 
     // expect the successful message to match again
@@ -162,12 +155,8 @@ test('it validates on submission', async () => {
     await nameField.setValue('Le')
     await genderField.setValue('')
     await agreeField.setValue(false)
-    for (let checkbox of checkboxes as any) {
-        if (! checkbox.element.checked) {
-            checkbox.element.checked = true
-            await checkbox.trigger('change')
-        }
-    }
+    for (let checkbox of checkboxes as any)
+        await setCheckboxValue(checkbox, true)
     options.forEach(async (o: any) => await o.setValue(true))
 
     // submit form

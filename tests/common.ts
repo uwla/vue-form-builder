@@ -210,6 +210,14 @@ export const validationRules = {
 // ─────────────────────────────────────────────────────────────────────────────
 // HELPERS
 
+//
+export async function setCheckboxValue(checkbox: any, value: boolean) {
+    if (checkbox.element.checked !== value) {
+        checkbox.element.checked = value
+        await checkbox.trigger('change')
+    }
+}
+
 // simulate user input on the wrapper
 export async function simulateUserInput(wrapper : any, values : any) {
     for (let key in values)
@@ -224,11 +232,7 @@ export async function simulateUserInput(wrapper : any, values : any) {
             for (let checkbox of checkboxes)
             {
                 let checked = val.includes(checkbox.element.value)
-                if (checked !== checkbox.element.checked)
-                {
-                    checkbox.element.checked = checked
-                    await checkbox.trigger('change')
-                }
+                await setCheckboxValue(checkbox, checked)
             }
             continue
         }
@@ -259,7 +263,7 @@ export async function simulateUserInput(wrapper : any, values : any) {
         if (val === true || val === false)
         {
             const checkbox = wrapper.find(`[name=${key}]`)
-            await checkbox.setValue(val)
+            await setCheckboxValue(checkbox, val)
         }
     }
 }

@@ -1,4 +1,4 @@
-import { model, simulateUserInput, wrapper } from './common'
+import { model, setCheckboxValue, simulateUserInput, wrapper } from './common'
 
 test('it syncs with the model', async () => {
     await wrapper.setProps({ model })
@@ -112,12 +112,8 @@ test('it omits null values', async () => {
 
     // empty all checkboxes
     let checkboxes = wrapper.findAll('[name=fruits]') as any
-    for (let checkbox of checkboxes) {
-        if (checkbox.element.checked) {
-            checkbox.element.checked = false
-            await checkbox.trigger('change')
-        }
-    } 
+    for (let checkbox of checkboxes)
+        await setCheckboxValue(checkbox, false)
 
     // filter keys to not include null ones
     const keys = ['website_url', 'email', 'country', 'agree']
