@@ -10,7 +10,6 @@
         "format": " npx prettier --write . | awk '{ print $1 }' | xargs -I{} truncate -s -1 {}"
     },
     "dependencies": {
-        "core-js": "^3.8.3",
         "vue": "^3.2.13"
     },
     "devDependencies": {
