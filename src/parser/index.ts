@@ -65,9 +65,9 @@ export class Parser {
         const props : VueComponentProps = {}
 
         // add label information
-        if (field.label !== 'none' && !field.props.hidden)
+        if (!field.props.hidden && field.label !== 'none')
         {
-            if (field.props.id)
+            if (field.props.id && !['radio', 'checkboxes'].includes(field.type))
                 props.labelFor = field.props.id
             if (field.label)
                 props.label = field.label
