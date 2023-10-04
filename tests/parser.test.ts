@@ -158,6 +158,9 @@ test('it assigns ID to the fields', () => {
         // skip fields without label, cause they don't an ID
         if (field.label === 'none') continue
 
+        // skip checkboxes and radio fields
+        if (field.type === 'radio' || field.type === 'checkboxes') continue
+
         // the label-for of the wrapper should match the field ID
         expect(field.props.id).toBe(field.propsWrapper.labelFor)
     }

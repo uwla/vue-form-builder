@@ -24,7 +24,7 @@ test('it renders labels', () => {
     
     // check text
     for (let i = 0; i < labels.length; i += 1)
-        expect(labels.at(i).text()).toBe(labelText[i])
+        expect(labels[i].text()).toBe(labelText[i])
 })
 
 test('it renders input with correct type attributes', () => {
