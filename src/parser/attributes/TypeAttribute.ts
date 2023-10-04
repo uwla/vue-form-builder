@@ -15,6 +15,7 @@ export default class TypeAttribute implements AttributeParser {
             'file',
             'input',
             'radio',
+            'range',
             'select',
             'tags',
             'textarea',

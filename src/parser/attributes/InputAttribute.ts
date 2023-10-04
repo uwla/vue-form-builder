@@ -19,7 +19,6 @@ export default class InputAttribute implements AttributeParser {
             'month',
             'number',
             'password',
-            'range',
             'tel',
             'text',
             'time',

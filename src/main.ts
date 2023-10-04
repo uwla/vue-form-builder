@@ -10,6 +10,7 @@ import VfbSelect from './components/VfbSelect.vue'
 import VfbGroup from './components/VfbGroup.vue'
 import VfbInput from './components/VfbInput.vue'
 import VfbRadio from './components/VfbRadio.vue'
+import VfbRange from './components/VfbRange.vue'
 import VfbFile from './components/VfbFile.vue'
 import fieldAliases from './aliases'
 
@@ -26,6 +27,7 @@ const components : { [key: string] : any } = {
     'vfb-group': VfbGroup,
     'vfb-input': VfbInput,
     'vfb-radio': VfbRadio,
+    'vfb-range': VfbRange,
     'vfb-file': VfbFile,
 
     // vue form builder
@@ -40,10 +42,11 @@ function install(app: any) {
 
 const plugin = { install }
 
+export default plugin
 export {
     components,
     fieldAliases,
-    plugin as default,
+    plugin,
     install,
     VueFormBuilder,
 }
