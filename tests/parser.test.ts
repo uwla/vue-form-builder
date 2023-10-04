@@ -58,12 +58,12 @@ test('it parses text fields', () => {
     expect(fields[5].component).toBe('vfb-input')
 
     // amount field
-    expect(fields[6].props.type).toBe('range')
+    expect(fields[6].type).toBe('range')
     expect(fields[6].props.min).toBe(5)
     expect(fields[6].props.max).toBe(25)
     expect(fields[6].props.name).toBe('amount')
     expect(fields[6].propsWrapper.label).toBe('Amount')
-    expect(fields[6].component).toBe('vfb-input')
+    expect(fields[6].component).toBe('vfb-range')
 
     // bio field
     expect(fields[7].props.name).toBe('bio')
