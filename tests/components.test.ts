@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest'
 import { deepCopy } from '../src/helpers'
 import { fields, getValues, model, simulateUserInput, veryCustomizedFields,  wrapper } from './common'
 import CustomField from './components/CustomField.vue'

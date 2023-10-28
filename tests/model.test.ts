@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest'
 import { model, setCheckboxValue, simulateUserInput, wrapper } from './common'
 
 test('it syncs with the model', async () => {

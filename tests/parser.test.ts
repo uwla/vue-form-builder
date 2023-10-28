@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest'
 import fieldAliases from '../src/aliases'
 import { Parser } from '../src/parser'
 import { componentsBootstrap } from '../src/parser/components'

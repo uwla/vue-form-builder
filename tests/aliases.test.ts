@@ -1,4 +1,5 @@
-import fieldAliases from "../src/aliases";
+import { expect, test } from 'vitest'
+import fieldAliases from '../src/aliases'
 
 let key = 'name'
 let val : FieldAlias = 'name:name|label|Full name|text'

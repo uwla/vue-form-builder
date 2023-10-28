@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest'
 import { errors, messages, model, setCheckboxValue, validationErrors, validationRules, wrapper } from './common'
 
 test('it validates on input', async () => {

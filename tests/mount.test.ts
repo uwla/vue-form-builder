@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest'
 import { fields, mixedFields, objFields,  textFields,  wrapper } from './common'
 
 test('it mounts', () => {

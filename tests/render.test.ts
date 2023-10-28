@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest'
 import { toTitleCase } from '../src/helpers'
 import { fields, wrapper } from './common'
 

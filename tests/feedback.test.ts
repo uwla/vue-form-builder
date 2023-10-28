@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest'
 import { errors, messages, wrapper } from './common'
 
 test('it shows errors', async () => {

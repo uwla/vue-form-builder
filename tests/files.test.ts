@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest'
 import { castValue } from '../src/helpers'
 import { model, wrapper } from './common'
 import VfbFile from '../src/components/VfbFile.vue'
