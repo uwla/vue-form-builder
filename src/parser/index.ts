@@ -1,11 +1,11 @@
 import Attributes from './attributes'
 import Aliases from '../aliases'
-import { componentsBootstrap, componentsVfb } from './components'
+import { BootstrapVueProvider, VfbProvider } from './components'
 import { bindThis, deepCopy, generateRandomDigits, getDefaultFieldValue, toTitleCase } from '../helpers'
 
 export class Parser {
     useBootstrap : boolean
-    components : Type2Component
+    components : ComponentProvider
     wrapper : VueComponent
 
     /**
@@ -17,10 +17,12 @@ export class Parser {
         this.useBootstrap = (options.useBootstrap === true)
 
         // default field components
-        if (this.useBootstrap)
-            this.components = componentsBootstrap
+        if (options.componentProvider)
+            this.components = options.componentProvider
+        else if (this.useBootstrap)
+            this.components = BootstrapVueProvider
         else
-            this.components = componentsVfb
+            this.components = VfbProvider
         
         // default wrapper component
         this.wrapper = options.wrapper || this.components.wrapper

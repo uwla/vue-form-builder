@@ -1,7 +1,7 @@
 import '../types'
 
 // Dictionary: field type => VueFormBuilder component
-export const componentsVfb : Type2Component = {
+export const VfbProvider : ComponentProvider = {
     checkbox: 'vfb-checkbox',
     checkboxes: 'vfb-checkboxes',
     feedbackInvalid: 'vfb-feedback-invalid',
@@ -16,7 +16,7 @@ export const componentsVfb : Type2Component = {
 }
 
 // Dictionary: field type => BootstrapVue component
-export const componentsBootstrap : Type2Component = {
+export const BootstrapVueProvider : ComponentProvider = {
     checkbox: 'b-form-checkbox',
     checkboxes: 'b-form-checkbox-group',
     datepicker: 'b-form-datepicker',

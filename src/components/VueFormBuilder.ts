@@ -1,6 +1,7 @@
 import { defineComponent } from 'vue'
 import { fieldHasFile, getDefaultFieldValue, isNullable, resetFormField, stopEvent, toFormData } from '../helpers'
 import { Parser } from '../parser'
+import { BootstrapVueProvider, VfbProvider } from '../parser/components'
 
 export default defineComponent({
     computed: {
@@ -277,6 +278,12 @@ export default defineComponent({
         clearFeedbackOnInput: {
             type: Boolean,
             default: true,
+        },
+        componentProvider: {
+            type: Object as () => ComponentProvider,
+            default: () => {
+                return VfbProvider
+            }
         },
         errors: {
             type: Object,

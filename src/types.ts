@@ -35,8 +35,9 @@ interface AttributeParser {
 type Data = { [key: FieldName]: FieldValue }
 type Model = { [key: FieldName]: FieldValue }
 
-type Type2Component = { [key: FieldType]: VueComponent }
+type ComponentProvider = { [key: FieldType]: VueComponent }
 type ParserOptions = {
     useBootstrap?: boolean,
     wrapper?: VueComponent,
+    componentProvider?: ComponentProvider,
 }

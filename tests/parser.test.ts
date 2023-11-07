@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
 import fieldAliases from '../src/aliases'
 import { Parser } from '../src/parser'
-import { componentsBootstrap } from '../src/parser/components'
+import { BootstrapVueProvider } from '../src/parser/components'
 import { textFields, objFields, mixedFields, veryCustomizedFields } from './common'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -182,14 +182,14 @@ test('it parses fields using bootstrap components', () => {
     // parse them
     fields = parser.parseFields(fieldsWithoutCustomComponents)
 
-    for (let field of fields)
+    for (let field of fields as Field[])
     {
-        expect(field.component).toBe(componentsBootstrap[field.type])
+        expect(field.component).toBe(BootstrapVueProvider[field.type])
 
         if (field.props.hidden) // hidden fields have a div as default wrapper
             expect(field.componentWrapper).toBe('div')
         else
-            expect(field.componentWrapper).toBe(componentsBootstrap.wrapper)
+            expect(field.componentWrapper).toBe(BootstrapVueProvider.wrapper)
     }
 })
 
