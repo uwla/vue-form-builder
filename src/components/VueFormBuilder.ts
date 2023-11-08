@@ -1,14 +1,15 @@
 import { defineComponent } from 'vue'
 import { fieldHasFile, getDefaultFieldValue, isNullable, resetFormField, stopEvent, toFormData } from '../helpers'
 import { Parser } from '../parser'
-import { BootstrapVueProvider, VfbProvider } from '../parser/components'
+import { ProviderService } from '../provider'
 
 export default defineComponent({
     computed: {
+        componentProvider() {
+            return ProviderService.getProvider(this.provider)
+        },
         formComponent() {
-            if (this.useBootstrap)
-                return 'b-form'
-            return 'form'
+            return this.componentProvider['form']
         },
     },
 
@@ -116,9 +117,11 @@ export default defineComponent({
         },
         parseFormFields() {
             const options = {
-                useBootstrap: this.useBootstrap,
+                attachRandomId: (this.provider === 'vfb'),
+                provider: this.provider,
                 wrapper: this.wrapper,
             }
+
             this.parser = new Parser(options)
             this.fieldsParsed = this.parser.parseFields(this.fields)
             this.fieldsParsed = this.fieldsParsed.map(f => {
@@ -279,12 +282,6 @@ export default defineComponent({
             type: Boolean,
             default: true,
         },
-        componentProvider: {
-            type: Object as () => ComponentProvider,
-            default: () => {
-                return VfbProvider
-            }
-        },
         errors: {
             type: Object,
             required: false,
@@ -308,9 +305,9 @@ export default defineComponent({
             type: Boolean,
             default: false,
         },
-        useBootstrap: {
-            type: Boolean,
-            default: false,
+        provider: {
+            type: String,
+            default: 'vfb'
         },
         validateOnSubmit: {
             type: Boolean,

@@ -36,8 +36,11 @@ type Data = { [key: FieldName]: FieldValue }
 type Model = { [key: FieldName]: FieldValue }
 
 type ComponentProvider = { [key: FieldType]: VueComponent }
+type ProviderName = string
+type Providers = { [key: ProviderName] : ComponentProvider }
+
 type ParserOptions = {
-    useBootstrap?: boolean,
+    attachRandomId?: Boolean,
+    provider: ProviderName,
     wrapper?: VueComponent,
-    componentProvider?: ComponentProvider,
 }

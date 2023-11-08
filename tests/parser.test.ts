@@ -1,8 +1,10 @@
 import { expect, test } from 'vitest'
 import fieldAliases from '../src/aliases'
 import { Parser } from '../src/parser'
-import { BootstrapVueProvider } from '../src/parser/components'
 import { textFields, objFields, mixedFields, veryCustomizedFields } from './common'
+import { ProviderService } from '../src/provider'
+
+const BootstrapVueProvider = ProviderService.getProvider('bootstrap-vue')
 
 // ─────────────────────────────────────────────────────────────────────────────
 // We will reuse some variables throughout the tests
@@ -168,7 +170,7 @@ test('it assigns ID to the fields', () => {
 })
 
 test('it parses fields using bootstrap components', () => {
-    let parser = new Parser({ useBootstrap: true })
+    let parser = new Parser({ provider: 'bootstrap-vue' })
 
     // we need to get fields without custom components
     let fieldsWithoutCustomComponents = mixedFields.filter(f => {
@@ -194,7 +196,7 @@ test('it parses fields using bootstrap components', () => {
 })
 
 test('it parses fields using custom wrapper', () => {
-    let parser = new Parser({ wrapper: 'CustomWrapper' })
+    let parser = new Parser({ provider: 'vfb', wrapper: 'CustomWrapper' })
     fields = parser.parseFields(mixedFields)
 
     for (let field of fields)

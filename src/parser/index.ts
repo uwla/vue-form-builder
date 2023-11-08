@@ -1,31 +1,27 @@
 import Attributes from './attributes'
 import Aliases from '../aliases'
-import { BootstrapVueProvider, VfbProvider } from './components'
 import { bindThis, deepCopy, generateRandomDigits, getDefaultFieldValue, toTitleCase } from '../helpers'
+import { ProviderService } from '../provider'
+
+const defaultParserOptions : ParserOptions = {
+    attachRandomId: true,
+    provider: 'vfb',
+}
 
 export class Parser {
-    useBootstrap : boolean
     components : ComponentProvider
     wrapper : VueComponent
+    attachRandomId : Boolean
 
     /**
      * Create a new Parser instance.
      * 
      * @param {Object} options 
      */
-    constructor(options : ParserOptions = {}) {
-        this.useBootstrap = (options.useBootstrap === true)
-
-        // default field components
-        if (options.componentProvider)
-            this.components = options.componentProvider
-        else if (this.useBootstrap)
-            this.components = BootstrapVueProvider
-        else
-            this.components = VfbProvider
-        
-        // default wrapper component
-        this.wrapper = options.wrapper || this.components.wrapper
+    constructor(options : ParserOptions = defaultParserOptions) {
+        this.attachRandomId = (options.attachRandomId === true)
+        this.components = ProviderService.getProvider(options.provider)
+        this.wrapper = options.wrapper || this.components['wrapper']
 
         // helper to fix casual JS ugliness
         bindThis(this)
@@ -46,7 +42,7 @@ export class Parser {
         let props = {... field.props }
         if (!props.name)
             props.name = field.name
-        if (!this.useBootstrap && field.label !== 'none' && !props.hidden) 
+        if (this.attachRandomId && field.label !== 'none' && !props.hidden) 
             props.id = 'VFB' + generateRandomDigits(10)
         return props
     }
