@@ -344,5 +344,9 @@ export default defineComponent({
         model: {
             handler: 'syncWithModel',
         },
+        provider: {
+            handler: 'parseFormFields',
+            immediate: false,
+        },
     }
 })
