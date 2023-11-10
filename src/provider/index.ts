@@ -1,6 +1,6 @@
 import { VfbProvider, BootstrapVueProvider } from "./providers"
 
-const providers : Providers = {
+var providers : Providers = {
     'vfb': VfbProvider,
     'bootstrap-vue': BootstrapVueProvider,
 }

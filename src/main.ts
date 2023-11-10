@@ -13,6 +13,7 @@ import VfbRadio from './components/VfbRadio.vue'
 import VfbRange from './components/VfbRange.vue'
 import VfbFile from './components/VfbFile.vue'
 import fieldAliases from './aliases'
+import { ProviderService } from './provider'
 
 const components : { [key: string] : any } = {
     // vue form builder components
@@ -49,4 +50,5 @@ export {
     plugin,
     install,
     VueFormBuilder,
+    ProviderService,
 }
