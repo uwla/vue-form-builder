@@ -4,16 +4,23 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build-types": "vue-tsc && mv dist/main.d.ts vue-form-builder.d.ts",
+    "build-js": "vite build && mv vue-form-builder.d.ts dist/",
+    "build": "npm run build-types && npm run build-js",
     "test": "vitest run"
   },
   "main": "./dist/vue-form-builder.cjs",
   "module": "./dist/vue-form-builder.js",
   "exports": {
     ".": {
-      "import": "./dist/vue-form-builder.js",
-      "require": "./dist/vue-form-builder.umd.cjs"
+      "import": {
+        "types": "./vue-form-builder.d.ts",
+        "default": "./dist/vue-form-builder.js"
+      },
+      "require": {
+        "default": "./dist/vue-form-builder.umd.cjs",
+        "types": "./vue-form-builder.d.ts"
+      }
     },
     "./dist/style.css": "./dist/style.css"
   },
