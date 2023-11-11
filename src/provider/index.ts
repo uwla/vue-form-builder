@@ -1,7 +1,9 @@
-import { VfbProvider, BootstrapVueProvider } from "./providers"
+import { VfbProvider, BootstrapVueProvider, VuetifyProvider, PrimevueProvider } from "./providers"
 
 var providers : Providers = {
     'vfb': VfbProvider,
+    'vuetify': VuetifyProvider,
+    'primevue': PrimevueProvider,
     'bootstrap-vue': BootstrapVueProvider,
 }
 
