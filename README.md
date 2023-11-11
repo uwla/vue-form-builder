@@ -12,7 +12,8 @@ from declarative rules.
     - [Fields](#fields)
     - [Syntax](#syntax)
     - [Aliases](#aliases)
-    - [Bootstrap Vue](#bootstrap-vue)
+    - [UI Frameworks integration](#integration-with-ui-frameworks)
+    - [Component Providers](#providers)
     - [Custom components](#custom-components)
     - [Model](#model)
     - [Feedback](#feedback)
@@ -28,7 +29,7 @@ from declarative rules.
 - support for custom components
 - aliases for reusing common rules
 - can prefill the form with given model
-- integration with Bootstrap Vue
+- support for UI frameworks (Vuetify, Primevue, and more)
 - shows error messages (compatible with Laravel API)
 - shows success messages
 - validates fields when user enters input
@@ -139,53 +140,29 @@ npm install @uwlajs/vue-form-builder
 Import VueFormBuilder, which will register all components.
 
 ```javascript
-import Vue from 'vue'
 import VueFormBuilder from '@uwlajs/vue-form-builder'
 
-Vue.use(VueFormBuilder)
+const app = createApp(App)
+app.use(VueFormBuilder)
 ```
 
-Alternatively, You may want to register the components manually, but this may be cumbersome:
+If you do not want to use `VueFormBuilder` components and, instead, want to  use
+external components (such as UI framework components), you just have  to  import
+the main `VueFormBuilder` component:
 
 ```javascript
-// If you use your own Vue components for every field, those two lines below are enough
 import { VueFormBuilder } from '@uwlajs/vue-form-builder'
-Vue.component('vue-form-builder', VueFormBuilder)
-
-// If you want to use VFB components (provided by the plugin),
-// you must register auxiliary components you use:
-
-import {VfbButtons, VfbCheckbox, VfbCheckboxes, VfbFeedback, VfbFeedbackInvalid,
-VfbFeedbackValid, VfbFile, VfbGroup, VfbInput, VfbRadio, VfbSelect, VfbTextarea}
-from '@uwlajs/vue-form-builder'
-
-Vue.component('vfb-feedback-invalid', VfbFeedbackInvalid)
-Vue.component('vfb-feedback-valid', VfbFeedbackValid)
-Vue.component('vfb-checkboxes', VfbCheckboxes)
-Vue.component('vfb-checkbox', VfbCheckbox)
-Vue.component('vfb-textarea', VfbTextarea)
-Vue.component('vfb-feedback', VfbFeedback)
-Vue.component('vfb-buttons', VfbButtons)
-Vue.component('vfb-select', VfbSelect)
-Vue.component('vfb-group', VfbGroup)
-Vue.component('vfb-input', VfbInput)
-Vue.component('vfb-radio', VfbRadio)
-Vue.component('vfb-file', VfbFile)
+app.component('vue-form-builder', VueFormBuilder)
 ```
+
+But if you do so, you **need** to use another [component  provider](#providers).
 
 ### CSS
 
-If you want to use VFB components, you need to import the CSS:
+If you want to use `VFB` components, you need to import the CSS:
 
 ```javascript
 import '@uwlajs/vue-form-builder/dist/VueFormBuilder.css'
-```
-
-If you are using this plugin with BootstrapVue, you don't need  to  import  this
-plugin's CSS, and shall instead import BootstrapVue's CSS:
-
-```javascript
-import 'bootstrap-vue/dist/bootstrap-vue.min.css'
 ```
 
 ## CONFIGURATION
@@ -202,7 +179,7 @@ The only required property is `fields`.
 | messages             | Object  | `{}`    | An object describing messages to show below the fields. |
 | model                | Object  | `{}`    | An object with the default values for the fields.       |
 | omitNull             | Boolean | `false` | Whether to omit null values in submit event's payload   |
-| useBootstrap         | Boolean | `false` | Whether to use Bootstrap Vue components.                |
+| provider             | String  | `vfb`   | provider which defines default components for fields    |
 | validateOnSubmit     | Boolean | `true`  | Whether to validate the form upon submission.           |
 | validateOnInput      | Boolean | `true`  | Whether to validate fields upon user input.             |
 | validation           | Object  | `{}`    | An object with the validation rules.                    |
@@ -229,8 +206,7 @@ If `component` is specified, then `name` is optional. Otherwise, it is required.
 
 Some fields do not have a default value, because their default value is dynamic:
 it depends on the values of other attributes. For example, if `type` is  `file`,
-then `component` will be `vfb-file` (default) or `b-form-file` if `useBootstrap`
-is set to `true`.
+then `component` will be `vfb-file` (if `provider` is `vfb`).
 
 The `name` field is required if you want to display  feedback  for  that  field,
 apply validation rules, or get user input when the form is submitted.
@@ -406,31 +382,137 @@ Where:
 - `newAlias`: object whose `keys` are aliases and whose values are the  aliases'
 values.
 
-### Bootstrap Vue
+### Integration with UI frameworks
 
-If set to `true`, it will use [BootstrapVue form components](https://bootstrap-vue.org/docs/components/).
+Integration with UI frameworks is possible by setting the `provider` prop to the
+desired framework. The default `provider` is `vfb`, which uses `VueFormBuilder`
+components.
 
-Notice that you have to explicitly install BootstrapVue:
+You can integrate `VueFormBuilder` with **any** framework by making use  of  the
+[ProviderService](#providers).
 
-```shell
-npm install bootstrap-vue bootstrap@^4.6
+Example:
+
+```vue
+<!-- default provider -->
+<vue-form-builder :fields="fields" />
+
+<!-- vuetify provider -->
+<vue-form-builder :fields="fields" provider="vuetify" />
+
+<!-- primevue provider -->
+<vue-form-builder :fields="fields" provider="vuetify" />
 ```
 
-Then import the JavaScript and CSS:
+Currently, there is partial  support  for  `Primevue`  and  `Vuetify`.  That  is
+because some of their form components are not compatible with the  API  expected
+by `VueFormBuilder`.
+
+One solution is for the developer to implement the *Adapter Pattern*: write  Vue
+components that wrap `Primevue` or `Vuetify` form components and,  at  the  same
+time, expose an API compatible with `VueFormBuilder`:
+
+```vue
+<template>
+    <v-radio-group :modelValue="val" @update:modelValue="handleInput" >
+        <v-radio v-for="radio in options" :key="radio.value"
+            :label="radio.text"
+            :value="radio.value"
+            />
+    </v-radio-group>
+</template>
+<script type="ts">
+import { defineComponent } from "vue"
+
+export default defineComponent({
+    data: () => {
+        return {
+            val: this.modelValue
+        }
+    },
+    methods: {
+        handleInput() {
+            this.$emit('update:modelValue', this.val)
+        }
+    },
+    props: ['modelValue', 'options']
+})
+</script>
+```
+
+Another solution is to manually define components, which  is  explained  in  the
+[custom components section](#custom-components).
+
+`VueFormBuilder` has full support for  `BootstrapVue`  in  its  prior  versions,
+which are versions that work with `Vue2`. But,  because  `BootstrapVue`  has  no
+support for `Vue3`, the versions of `VueFormBuilder` that work  with  `Vue3`  do
+not have support for `BootstrapVue`.
+
+### Providers
+
+A provider is basically a dictionary mapping field types to Vue components.
+
+An example:
+
+```typescript
+const VfbProvider : ComponentProvider = {
+    checkboxes: 'vfb-checkboxes',
+    checkbox: 'vfb-checkbox',
+    feedbackInvalid: 'vfb-feedback-invalid',
+    feedbackValid: 'vfb-feedback-valid',
+    file: 'vfb-file',
+    form: 'form',
+    input: 'vfb-input',
+    radio: 'vfb-radio',
+    range: 'vfb-range',
+    select: 'vfb-select',
+    textarea: 'vfb-textarea',
+    wrapper: 'vfb-group',
+}
+```
+
+Valid field types are: `checkboxes`, `checkbox`, `feedbackInvalid`,
+`feedbackValid`, `file`, `form`, `input`, `radio`, `range`, `select`,
+`textarea`, and `wrapper`.
+
+The values are the name of the `Vue` components, not the components  themselves.
+The reason behind this is to avoid overhead and performance  issue:  `Vue`  give
+some warning about setting a `Vue` component as a reactive property  of  another
+component.
+
+These components will be rendered as the default components for the form fields.
+Of course, you can override the component on a per-field basis, as explained  in
+the [custom components section](#custom-components).
+
+You can add custom providers as follows:
 
 ```javascript
-import Vue from 'vue'
-import { BootstrapVue } from 'bootstrap-vue'
+import { ProviderService } from 'uwlajs/vue-form-builder'
 
-// Import Bootstrap and BootstrapVue CSS files (order is important)
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-
-// Make BootstrapVue available throughout your project
-Vue.use(BootstrapVue)
+ProviderService.addProvider('myProvider', {
+    'input': 'CustomInput',
+    'form': 'CustomForm',
+    'textarea': 'CustomArea',
+    'wrapper': 'CustomFieldWrapper',
+    // and more ...
+})
 ```
 
-More instructions can be found on the [official page](https://bootstrap-vue.org/docs#getting-started)
+Then, use it:
+
+```vue
+<vue-form-builder :fields="fields" provider="myProvider" />
+```
+
+The `ProviderService` has the following API:
+
+| method                                | description                     |
+| :-----------------------------------: | :-----------------------------: |
+| `addProvider(providerName, provider)` | add new provider                |
+| `delProvider(providerName)`           | delete existing provider        |
+| `getProvider(providerName)`           | get the provider                |
+| `hasProvider(providerName)`           | check if provider is registered |
+| `setProvider(providerName, provider)` | override existing provider      |
 
 ### Custom components
 
@@ -747,9 +829,9 @@ display invalid feedback. If `null`, it should do nothing.
 - `errors`: string or array of string with the error messages to be displayed as
 invalid feedback.
 - `validFeedbackComponent`: the VueJS component which is supposed to render  the
-valid feedback (it comes from `VueFormBuilder` or `BootstrapVue`).
+valid feedback.
 - `invalidFeedbackComponent`: the VueJS component which is  supposed  to  render
-the invalid feedback (it comes from `VueFormBuilder` or `BootstrapVue`).
+the invalid feedback.
 
 Make sure to  explicitly  declare  those  properties  in  your  custom  feedback
 component, even if you may not use some of them.
@@ -885,3 +967,4 @@ Contributions are welcome. Fork the repo, then make a PR.
 ## LICENSE
 
 MIT
+
