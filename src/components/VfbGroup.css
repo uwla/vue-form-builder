@@ -2,6 +2,10 @@
     margin-bottom: 1rem;
 }
 
+.vfb-group:last-child {
+    margin-bottom: 0;
+}
+
 .vfb-group label {
     display: inline-block;
     margin-bottom: 0.5rem;
