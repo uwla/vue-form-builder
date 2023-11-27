@@ -112,7 +112,7 @@ export default defineComponent({
             for (let field of this.fieldsParsed)
             {
                 if (! field.name) continue
-                field.value = getDefaultFieldValue(this.model, field)
+                field.value = getDefaultFieldValue(this.defaults, field)
             }
         },
         parseFormFields() {
@@ -126,7 +126,7 @@ export default defineComponent({
             this.fieldsParsed = this.parser.parseFields(this.fields)
             this.fieldsParsed = this.fieldsParsed.map(f => {
                 if (f.model === true)
-                    f.props.model = this.model
+                    f.props.model = this.defaults
                 return f
             })
         },
@@ -150,7 +150,7 @@ export default defineComponent({
             stopEvent(e)
 
             // sync form with the values of the model
-            this.syncWithModel()
+            this.resetValuesToDefaults()
             const form = this.$refs['form']
             this.fieldsParsed.forEach(field => resetFormField(form, field))
 
@@ -190,9 +190,9 @@ export default defineComponent({
             // emit data
             this.$emit('submit', this.getValues())
         },
-        syncWithModel() {
+        resetValuesToDefaults() {
             const form = this.$refs['form']
-            const model = this.model
+            const model = this.defaults
             for (let field of this.fieldsParsed)
             {
                 let { name, type } = field
@@ -282,6 +282,11 @@ export default defineComponent({
             type: Boolean,
             default: true,
         },
+        defaults: {
+            type: Object,
+            required: false,
+            default: () => ({}),
+        },
         errors: {
             type: Object,
             required: false,
@@ -292,11 +297,6 @@ export default defineComponent({
             required: true
         },
         messages: {
-            type: Object,
-            required: false,
-            default: () => ({}),
-        },
-        model: {
             type: Object,
             required: false,
             default: () => ({}),
@@ -330,6 +330,9 @@ export default defineComponent({
     },
 
     watch: {
+        defaults: {
+            handler: 'resetValuesToDefaults',
+        },
         errors: {
             handler: 'displayErrors',
             immediate: false,
@@ -340,9 +343,6 @@ export default defineComponent({
         messages: {
             handler: 'displayMessages',
             immediate: false,
-        },
-        model: {
-            handler: 'syncWithModel',
         },
         provider: {
             handler: 'parseFormFields',

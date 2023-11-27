@@ -1,12 +1,12 @@
 import { expect, test } from 'vitest'
-import { model, setCheckboxValue, simulateUserInput, wrapper } from './common'
+import { defaults, setCheckboxValue, simulateUserInput, wrapper } from './common'
 
 test('it syncs with the model', async () => {
-    await wrapper.setProps({ model })
+    await wrapper.setProps({ defaults: defaults })
 
-    for (let key in model)
+    for (let key in defaults)
     {
-        let value = model[key]
+        let value = defaults[key]
 
         // radio options
         if (key === 'country')
@@ -97,7 +97,7 @@ test('it resets the form to the model', async () => {
 
     // assert payload matches model
     const payload = event[0]
-    expect(payload).toMatchObject(model)
+    expect(payload).toMatchObject(defaults)
 })
 
 test('it omits null values', async () => {
@@ -119,7 +119,7 @@ test('it omits null values', async () => {
     // filter keys to not include null ones
     const keys = ['website_url', 'email', 'country', 'agree']
     const values : any = {}
-    keys.forEach((k : string) => values[k] = model[k])
+    keys.forEach((k : string) => values[k] = defaults[k])
 
     // trigger submit
     await wrapper.trigger('submit')

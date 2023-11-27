@@ -105,8 +105,8 @@ export const veryCustomizedFields : FieldDescription[] = [
 
 // -----------------------------------------------------------------------------
 
-// the model
-export const model : Model = {
+// the model for the default values
+export const defaults : Model = {
     name: 'john',
     email: 'john@email.test',
     gender: 'male',
@@ -294,7 +294,7 @@ export const wrapper = mount(VueFormBuilder, {
     },
     props: {
         fields: fields,
-        model: {},
+        defaults: {},
         errors: {},
         messages: {},
         validation: {},

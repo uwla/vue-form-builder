@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import { deepCopy } from '../src/helpers'
-import { fields, getValues, model, simulateUserInput, veryCustomizedFields,  wrapper } from './common'
+import { fields, getValues, defaults, simulateUserInput, veryCustomizedFields,  wrapper } from './common'
 import CustomField from './components/CustomField.vue'
 import CustomFeedback from './components/CustomFeedback.vue'
 import CustomWrapper from './components/CustomWrapper.vue'
@@ -57,19 +57,19 @@ test('it passes model to components', async () => {
     let component2 = wrapper.findAllComponents(CustomField)[1]
 
     // test with empty model
-    await wrapper.setProps({ model: {} })
+    await wrapper.setProps({ defaults: {} })
     expect(component1.props().model).toMatchObject({})
     expect(component2.props().model).toBeUndefined()
 
     // test model
-    await wrapper.setProps({ model: model })
-    expect(component1.props().model).toMatchObject(model)
+    await wrapper.setProps({ defaults: defaults })
+    expect(component1.props().model).toMatchObject(defaults)
     expect(component2.props().model).toBeUndefined()
 
     // make the second component request the model
     fields[1].model = true
     await wrapper.setProps({ fields: deepCopy(fields) })
-    expect(component2.props().model).toMatchObject(model)
+    expect(component2.props().model).toMatchObject(defaults)
 })
 
 test('it passes values to components', async () => {
