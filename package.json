@@ -1,39 +1,40 @@
 {
-  "name": "vue-form-builder",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "build-types": "vue-tsc && mv dist/main.d.ts vue-form-builder.d.ts",
-    "build-js": "vite build && mv vue-form-builder.d.ts dist/",
-    "build": "npm run build-types && npm run build-js",
-    "test": "vitest run"
-  },
-  "main": "./dist/vue-form-builder.cjs",
-  "module": "./dist/vue-form-builder.js",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./vue-form-builder.d.ts",
-        "default": "./dist/vue-form-builder.js"
-      },
-      "require": {
-        "default": "./dist/vue-form-builder.umd.cjs",
-        "types": "./vue-form-builder.d.ts"
-      }
+    "name": "vue-form-builder",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "build-types": "vue-tsc && mv dist/main.d.ts vue-form-builder.d.ts",
+        "build-js": "vite build && mv vue-form-builder.d.ts dist/",
+        "build": "npm run build-types && npm run build-js",
+        "test": "vitest run"
     },
-    "./dist/style.css": "./dist/style.css"
-  },
-  "dependencies": {
-    "vue": "^3.3.4"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^4.2.3",
-    "@vue/test-utils": "^2.4.1",
-    "jsdom": "^22.1.0",
-    "typescript": "^5.0.2",
-    "vite": "^4.4.5",
-    "vitest": "^0.34.6",
-    "vue-tsc": "^1.8.5"
-  }
+    "main": "./dist/vue-form-builder.cjs",
+    "module": "./dist/vue-form-builder.js",
+    "typings": "dist/vue-form-builder.d.ts",
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./dist/vue-form-builder.d.ts",
+                "default": "./dist/vue-form-builder.js"
+            },
+            "require": {
+                "default": "./dist/vue-form-builder.umd.cjs",
+                "types": "./dist/vue-form-builder.d.ts"
+            }
+        },
+        "./dist/style.css": "./dist/style.css"
+    },
+    "dependencies": {
+        "vue": "^3.3.4"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^4.2.3",
+        "@vue/test-utils": "^2.4.1",
+        "jsdom": "^22.1.0",
+        "typescript": "^5.0.2",
+        "vite": "^4.4.5",
+        "vitest": "^0.34.6",
+        "vue-tsc": "^1.8.5"
+    }
 }
