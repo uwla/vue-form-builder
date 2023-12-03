@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import { castValue } from '../src/helpers'
-import { defaults, wrapper } from './common'
+import { model, wrapper } from './common'
 import VfbFile from '../src/components/VfbFile.vue'
 
 let fileInput : any
@@ -12,7 +12,7 @@ test('it has file input', () => {
 })
 
 test('it gets the file', async () => {
-    await wrapper.setProps({ defaults: defaults })
+    await wrapper.setProps({ modelValue: model })
 
     // this is the file data
     const data = [] as BlobPart[];
@@ -47,8 +47,8 @@ test('it gets the file', async () => {
     expect(payload.get('photo')).toMatchObject(file)
 
     // it should also contain other data
-    for (let key of Object.keys(defaults)) {
-        let val = defaults[key]
+    for (let key of Object.keys(model)) {
+        let val = model[key]
         let payloadVal = null
 
         // arrays are dealt differently in form data

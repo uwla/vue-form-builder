@@ -1,9 +1,9 @@
 import { expect, test } from 'vitest'
-import { errors, messages, defaults, setCheckboxValue, validationErrors, validationRules, wrapper } from './common'
+import { errors, messages, model, setCheckboxValue, validationErrors, validationRules, wrapper } from './common'
 
 test('it validates on input', async () => {
     await wrapper.setProps({
-        defaults: defaults,
+        modelValue: model,
         validateOnInput: true,
         validation: validationRules,
         errors: errors,

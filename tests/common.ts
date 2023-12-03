@@ -106,7 +106,7 @@ export const veryCustomizedFields : FieldDescription[] = [
 // -----------------------------------------------------------------------------
 
 // the model for the default values
-export const defaults : Model = {
+export const model : Model = {
     name: 'john',
     email: 'john@email.test',
     gender: 'male',

@@ -1,12 +1,12 @@
 import { expect, test } from 'vitest'
-import { defaults, setCheckboxValue, simulateUserInput, wrapper } from './common'
+import { model, setCheckboxValue, simulateUserInput, wrapper } from './common'
 
 test('it syncs with the model', async () => {
-    await wrapper.setProps({ defaults: defaults })
+    await wrapper.setProps({ modelValue: model })
 
-    for (let key in defaults)
+    for (let key in model)
     {
-        let value = defaults[key]
+        let value = model[key]
 
         // radio options
         if (key === 'country')
@@ -85,7 +85,8 @@ test('it submits the form correctly', async () => {
     expect(payload).toMatchObject(values)
 })
 
-test('it resets the form to the model', async () => {
+test('it resets the form to the defaults', async () => {
+    await wrapper.setProps({ defaults: model })
     await wrapper.trigger('reset')
     await wrapper.trigger('submit')
 
@@ -97,7 +98,7 @@ test('it resets the form to the model', async () => {
 
     // assert payload matches model
     const payload = event[0]
-    expect(payload).toMatchObject(defaults)
+    expect(payload).toMatchObject(model)
 })
 
 test('it omits null values', async () => {
@@ -119,7 +120,7 @@ test('it omits null values', async () => {
     // filter keys to not include null ones
     const keys = ['website_url', 'email', 'country', 'agree']
     const values : any = {}
-    keys.forEach((k : string) => values[k] = defaults[k])
+    keys.forEach((k : string) => values[k] = model[k])
 
     // trigger submit
     await wrapper.trigger('submit')
