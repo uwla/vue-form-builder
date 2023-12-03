@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import { fieldHasFile, getDefaultFieldValue, isNullable, resetFormField, stopEvent, toFormData } from '../helpers'
+import { deepCopy, fieldHasFile, getDefaultFieldValue, isNullable, resetFormField, stopEvent, toFormData } from '../helpers'
 import { Parser } from '../parser'
 import { ProviderService } from '../provider'
 
@@ -100,19 +100,33 @@ export default defineComponent({
             if (this.validateOnInput)
                 this.validateField(field)
 
-            // determine if there is a field needing access to the current
-            // values of the form
+            // determine if there is a field component which needs to access the
+            // values of other form fields
             const needsValue = this.fieldsParsed.some(f => f.values === true)
 
-            // if no field needs to know other field values, just return
-            if (needsValue)
-                this.passValuesToFieldsAsProps()
+            // if some field component needs to know the values of other fields,
+            // pass them as props to the component
+            if (needsValue) this.passValuesToFieldsAsProps()
+
+            // emit value 
+            if (this.modelValue !== null && field.name)
+            {
+                let newValue = deepCopy(this.modelValue) as any
+                newValue[field.name] = value
+                this.$emit('update:modelValue', newValue)
+            }
         },
         initializeValues() {
+            let defaults = this.defaults
+
+            // the default values are overwritten by the modelValue
+            if (this.modelValue != null)
+                defaults = this.modelValue
+
             for (let field of this.fieldsParsed)
             {
                 if (! field.name) continue
-                field.value = getDefaultFieldValue(this.defaults, field)
+                field.value = getDefaultFieldValue(defaults, field)
             }
         },
         parseFormFields() {
@@ -126,7 +140,7 @@ export default defineComponent({
             this.fieldsParsed = this.parser.parseFields(this.fields)
             this.fieldsParsed = this.fieldsParsed.map(f => {
                 if (f.model === true)
-                    f.props.model = this.defaults
+                    f.props.model = this.modelValue
                 return f
             })
         },
@@ -191,26 +205,36 @@ export default defineComponent({
             this.$emit('submit', this.getValues())
         },
         resetValuesToDefaults() {
+            this.setFieldValues(this.defaults)
+        },
+        setFieldValues(values: any) {
             const form = this.$refs['form']
-            const model = this.defaults
             for (let field of this.fieldsParsed)
             {
                 let { name, type } = field
 
                 // field needs direct access to the model
                 if (field.model === true)
-                    field.props.model = model
+                    field.props.model = this.modelValue
 
-                // skip it if value for the current field is not defined
-                if (name == null || model[name] === undefined || type === 'file')
+                // skip it if value for the current field is not defined,
+                // or if its type is file type
+                if (name == null || values[name] === undefined || type === 'file')
+                    continue
+
+                // skip it if value is equal
+                if (field.value == values[name])
                     continue
 
                 // update the value to match the model
-                field.value = model[name]
+                field.value = values[name]
 
                 // force update the HTML accordingly
                 resetFormField(form, field)
             }
+        },
+        syncValuesWithModel() {
+            this.setFieldValues(this.modelValue)
         },
         validateField(field: Field) {
             // if nameless field, return it
@@ -301,6 +325,11 @@ export default defineComponent({
             required: false,
             default: () => ({}),
         },
+        modelValue: {
+            type: Object,
+            required: false,
+            default: () => null,
+        },
         omitNull: {
             type: Boolean,
             default: false,
@@ -330,9 +359,6 @@ export default defineComponent({
     },
 
     watch: {
-        defaults: {
-            handler: 'resetValuesToDefaults',
-        },
         errors: {
             handler: 'displayErrors',
             immediate: false,
@@ -342,6 +368,10 @@ export default defineComponent({
         },
         messages: {
             handler: 'displayMessages',
+            immediate: false,
+        },
+        modelValue: {
+            handler: 'syncValuesWithModel',
             immediate: false,
         },
         provider: {
