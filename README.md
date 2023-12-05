@@ -15,6 +15,7 @@ from declarative rules.
     - [UI Frameworks integration](#integration-with-ui-frameworks)
     - [Component Providers](#providers)
     - [Custom components](#custom-components)
+    - [Defaults](#defaults)
     - [Model](#model)
     - [Feedback](#feedback)
     - [Validation](#validation)
@@ -29,6 +30,7 @@ from declarative rules.
 - support for custom components
 - aliases for reusing common rules
 - can prefill the form with given model
+- can set default field values (useful in form reset)
 - support for UI frameworks (Vuetify, Primevue, and more)
 - shows error messages (compatible with Laravel API)
 - shows success messages
@@ -174,10 +176,11 @@ The only required property is `fields`.
 | name                 | type    | default | description                                             |
 | -------------------- | ------- | ------- | ------------------------------------------------------- |
 | clearFeedbackOnInput | Boolean | `true`  | Whether to clear feedback on user input.                |
-| errors               | Object  | `{}`    | An object describing errors to show below the fields.   |
+| errors               | Object  | `{}`    | An object with errors to show below each field.         |
+| defaults             | Object  | `{}`    | An object with default values for the fields.           |
 | fields               | Array   | -       | An array describing how to render the fields.           |
-| messages             | Object  | `{}`    | An object describing messages to show below the fields. |
-| model                | Object  | `{}`    | An object with the default values for the fields.       |
+| messages             | Object  | `{}`    | An object with feedback to show below each field.       |
+| modelValue           | Object  | `null`  | The model to be synced with the field values.           |
 | omitNull             | Boolean | `false` | Whether to omit null values in submit event's payload   |
 | provider             | String  | `vfb`   | provider which defines default components for fields    |
 | validateOnSubmit     | Boolean | `true`  | Whether to validate the form upon submission.           |
@@ -194,7 +197,7 @@ Each field has the following attributes:
 | name         | `String`           | -             |  Name of the field                                                               |
 | component    | `String`, `Object` | dynamic       |  Vue Component that renders the field.                                           |
 | label        | `String`           | dynamic       |  Label to be displayed by the wrapper.                                           |
-| model        | `Boolean`          | `false`       |  Whether to pass `model` (see previous section) as a prop to the field component |
+| model        | `Boolean`          | `false`       |  Whether to pass `modelValue` as a prop to the field component                   |
 | props        | `Object`           | dynamic       |  Properties for the field component (both Vue props and HTML attributes)         |
 | propsWrapper | `Object`           | dynamic       |  Properties for the field wrapper component (both Vue props and HTML attributes) |
 | type         | `String`           | dynamic       |  Field type, used to determine which Vue Component to use (if not specified)     |
@@ -224,9 +227,9 @@ As said before, `label` and `id` are  passed  to  the  `wrapper`  component.  If
 `propsWrapper` is set, it won't be changed by this  plugin  and  the  programmer
 shall take care of passing the desired properties to the `wrapper`.
 
-If `model` is set to true, the `model` prop passed to `VueFormBuilder` will also
-be passed as prop to the field's Vue component. This useful if you have a custom
-component that needs to access some of the model's values.
+If `model` is set to true, the `modelValue` prop passed to `VueFormBuilder` will
+also be passed as prop to the field's Vue component. This useful if you  have  a
+custom component that needs to access some of the model's values.
 
 If `values` is set to true, the current form values will be passed as a prop  to
 the field's Vue component. This useful if you  have  a  custom  component  whose
@@ -242,10 +245,12 @@ use a string notation that consists of the following rules:
 - There are four attribute types:
 1. The first attribute type has the format `key:value`.
 2. The second attribute has the format `key=value`.
-3. The third attribute type is syntax sugar for the first type and has the format
-`value`. For example: instead of `type:checkboxes` you just use `checkboxes`.
-4. The fourth attribute type is syntax sugar for the  second  type  and  has  the
-format `value`. For example: instead of `required=true` you just use `required`.
+3. The third attribute type is syntax sugar for  the  first  type  and  has  the
+   format `value`. For  example:  instead  of  `type:checkboxes`  you  just  use
+   `checkboxes`.
+4. The fourth attribute type is syntax sugar for the second  type  and  has  the
+   format  `value`.  For  example:  instead  of  `required=true`  you  just  use
+   `required`.
 
 #### First type
 
@@ -471,8 +476,8 @@ const VfbProvider : ComponentProvider = {
 }
 ```
 
-Valid field types are: `checkboxes`, `checkbox`, `feedbackInvalid`,
-`feedbackValid`, `file`, `form`, `input`, `radio`, `range`, `select`,
+Valid   field   types   are:   `checkboxes`,   `checkbox`,    `feedbackInvalid`,
+`feedbackValid`,  `file`,   `form`,   `input`,   `radio`,   `range`,   `select`,
 `textarea`, and `wrapper`.
 
 The values are the name of the `Vue` components, not the components  themselves.
@@ -677,12 +682,12 @@ field = {
 
 In that case, you would have to manually pass the label to the wrapper.
 
-### Model
+### Defaults
 
-To fill out the form with predefined values by setting the `model` prop:
+To fill out the form with predefined values by setting the `defaults` prop:
 
 ```javascript
-model = {
+defaults = {
     name: 'Joe Doe',
     email: 'joe@example.test',
     job: 'Software Engineer',
@@ -691,13 +696,31 @@ model = {
 ```
 
 This will set the initial values of the fields whose name match the keys of  the
-objects. Notice that if the user enters input, it will not change the values  of
-the `model` prop. That is, there is **no** two-way binding like `v-model`.
+objects. If the user resets the form, the field values will  fall  back  to  the
+values in `defaults`.
+
+### Model
+
+You can use `v-model` to set default for field values and have two-way binding.
+Here is how the `modelValue` should look like:
+
+```javascript
+modelValue = {
+    name: 'Joe Doe',
+    email: 'joe@example.test',
+    job: 'Software Engineer',
+    roles: ['user', 'staff'],
+}
+```
+
+This will set the initial values of the fields whose name match the keys of  the
+objects. It overwrites the `defaults` property.  Moreover,  it  syncs  with  the
+field values as the user enters input.
 
 ### Feedback
 
-Feedback components are used to display helpful messages, such as error message
-or successful messages. The default component used to show feedback is 
+Feedback components are used to display helpful messages, such as error  message
+or  successful  messages.  The  default  component  used  to  show  feedback  is
 `vfb-feedback`, but you can customize it:
 
 ```javascript
@@ -949,8 +972,8 @@ files via AJAX you need to convert the JS Object  into  the  `FormData`  format.
 
 When the user resets the form by, for example, clicking  on  a  button  of  type
 `reset`, then `VueFormBuilder` will reset all field values to match  the  values
-defined by `model` or, if the corresponding value in model is not set,  it  will
-reset the form values to empty strings, arrays, or null.
+defined by `default` or, if the corresponding value is not set,  it  will  reset
+the form values to empty strings, arrays, or null.
 
 It will also emit an event called `reset` with no payload.  This  event  can  be
 used to trigger some action in your UI, such as hiding a modal dialog containing
@@ -959,6 +982,7 @@ a form built with `VueFormBuilder`.
 ## ROADMAP
 
 - [x] Support for Vue3
+- [ ] Support for SSR
 
 ## CONTRIBUTING
 
