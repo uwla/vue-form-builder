@@ -1,0 +1,8 @@
+node_modules/
+src/
+tests/
+.git*
+.vscode
+.editorconfig
+vite.config.ts
+tsconfig.*

@@ -1,8 +1,10 @@
 {
-    "name": "vue-form-builder",
-    "private": true,
-    "version": "0.0.0",
-    "type": "module",
+    "name": "@uwlajs/vue-form-builder",
+    "version": "1.0.0",
+    "description": "Vue plugin that generates beautiful forms from declarative rules",
+    "license": "MIT",
+    "author": "uwla",
+    "private": false,
     "scripts": {
         "build-types": "vue-tsc && mv dist/main.d.ts vue-form-builder.d.ts",
         "build-js": "vite build && mv vue-form-builder.d.ts dist/",
