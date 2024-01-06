@@ -1,6 +1,6 @@
 {
     "name": "@uwlajs/vue-form-builder",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Vue plugin that generates beautiful forms from declarative rules",
     "license": "MIT",
     "author": "uwla",
@@ -13,6 +13,7 @@
     },
     "main": "./dist/vue-form-builder.cjs",
     "module": "./dist/vue-form-builder.js",
+    "type": "module",
     "typings": "dist/vue-form-builder.d.ts",
     "exports": {
         ".": {
