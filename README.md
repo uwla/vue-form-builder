@@ -1,6 +1,6 @@
 # VUE FORM BUILDER
 
-`VueFormBuilder` is a Vue3 plugin that automatically generates  beautiful  forms
+`VueFormBuilder` is a Vue  plugin that automatically generates  beautiful  forms
 from declarative rules.
 
 1. [Features](#features)
@@ -31,21 +31,29 @@ from declarative rules.
 - aliases for reusing common rules
 - can prefill the form with given model
 - can set default field values (useful in form reset)
-- support for UI frameworks (Vuetify, Primevue, and more)
+- support for UI frameworks (Vuetify, Primevue, BootstrapVue, and more)
 - shows error messages (compatible with Laravel API)
 - shows success messages
 - validates fields when user enters input
 - validates form upon submission
 - user-defined validation rules
 - custom Vue components
+- support for Vue2 and Vue3
 
 ## DEMO
 
-A demo app is available:
+A demo app for `Vue3` is available in the GitHub Pages of this package:
+[uwla.github.io/vue-form-builder/demo](https://uwla.github.io/vue-form-builder/demo).
+
+There is also another demo, but for `Vue2`, available on CodeSandbox:
 
 - [live demo](https://4rxmw4.csb.app/)
 - [live demo and code](https://codesandbox.io/s/vue-form-builder-demo-4rxmw4)
 - [code](https://github.com/uwla/vue-form-builder-demo)
+
+The demo for `Vue2` (built with an earlier version of this plugin) can also be
+replicated in `Vue3` with the latest versions of this plugin. So, both demos are
+worth playing with.
 
 ## EXAMPLE
 
