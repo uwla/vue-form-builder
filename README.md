@@ -31,7 +31,7 @@ from declarative rules.
 - aliases for reusing common rules
 - can prefill the form with given model
 - can set default field values (useful in form reset)
-- support for UI frameworks (Vuetify, Primevue, BootstrapVue, and more)
+- support for UI frameworks (Vuetify, PrimeVue, BootstrapVue, and more)
 - shows error messages (compatible with Laravel API)
 - shows success messages
 - validates fields when user enters input
@@ -251,6 +251,7 @@ use a string notation that consists of the following rules:
 
 - The string is made of attributes separated by the symbol `|`.
 - There are four attribute types:
+
 1. The first attribute type has the format `key:value`.
 2. The second attribute has the format `key=value`.
 3. The third attribute type is syntax sugar for  the  first  type  and  has  the
@@ -279,7 +280,7 @@ textarea element if the component does not declare a prop called `red`.
 
 #### Third type
 
-The third attribute type supports the following values: 
+The third attribute type supports the following values:
 
 - **input  types**:  `color`,  `date`,  `datetime`,  `datetime-local`,  `email`,
 `month`, `number`, `password`, `range`, `tel`, `text`, `time`, `url`, `week`.
@@ -368,7 +369,7 @@ Aliases are available to all instances of `VueFormBuilder`. The facade to handle
 aliases is `fieldAliases`:
 
 ```javascript
-import fieldAliases from '@uwlajs/vue-form-builder'
+import { fieldAliases } from '@uwlajs/vue-form-builder'
 ```
 
 The `fieldAliases` provides the following methods
@@ -413,16 +414,16 @@ Example:
 <!-- vuetify provider -->
 <vue-form-builder :fields="fields" provider="vuetify" />
 
-<!-- primevue provider -->
-<vue-form-builder :fields="fields" provider="vuetify" />
+<!-- PrimeVue provider -->
+<vue-form-builder :fields="fields" provider="primevue" />
 ```
 
-Currently, there is partial  support  for  `Primevue`  and  `Vuetify`.  That  is
+Currently, there is partial  support  for  `PrimeVue`  and  `Vuetify`.  That  is
 because some of their form components are not compatible with the  API  expected
 by `VueFormBuilder`.
 
 One solution is for the developer to implement the *Adapter Pattern*: write  Vue
-components that wrap `Primevue` or `Vuetify` form components and,  at  the  same
+components that wrap `PrimeVue` or `Vuetify` form components and,  at  the  same
 time, expose an API compatible with `VueFormBuilder`:
 
 ```vue
@@ -830,6 +831,8 @@ export default {
 </script>
 ```
 
+The errors format is compatible with Laravel's API for form errors.
+
 #### Message
 
 The `messages` is an object mapping a field name to a string. Example:
@@ -922,7 +925,7 @@ do anything because the input value is valid. If  the  validation  rule  returns
 `false`, it will show the  error  message  for  that  field,  specified  by  the
 `errors` property. If the validation rule returns a string, that string will  be
 show as error. If no validation rule exists, nothing will be done.
- 
+
 #### Validation on submit
 
 If set to `true`, whenever user submits the form, the validation rules  for  all
@@ -971,7 +974,7 @@ export default {
 </script>
 ```
 
-If the payload contains a `File` or `Bob`, then the payload won't  be  `Object`:
+If the payload contains a `File` or `Blob`, then the payload won't be  `Object`:
 it will be an instance of `FormData`. This is useful because in order to  upload
 files via AJAX you need to convert the JS Object  into  the  `FormData`  format.
 `VueFormBuilder` will automatically do it for you.
@@ -999,4 +1002,3 @@ Contributions are welcome. Fork the repo, then make a PR.
 ## LICENSE
 
 MIT
-
