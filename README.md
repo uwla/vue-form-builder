@@ -3,26 +3,28 @@
 `VueFormBuilder` is a Vue  plugin that automatically generates  beautiful  forms
 from declarative rules.
 
-1. [Features](#features)
-2. [Demo](#demo)
-3. [Example](#example)
-4. [Installation](#installation)
-5. [Configuration](#configuration)
-    - [Properties](#props)
+- [VUE FORM BUILDER](#vue-form-builder)
+  - [FEATURES](#features)
+  - [DEMO](#demo)
+  - [EXAMPLE](#example)
+  - [INSTALLATION](#installation)
+    - [CSS](#css)
+  - [CONFIGURATION](#configuration)
+    - [Props](#props)
     - [Fields](#fields)
     - [Syntax](#syntax)
     - [Aliases](#aliases)
-    - [UI Frameworks integration](#integration-with-ui-frameworks)
-    - [Component Providers](#providers)
+    - [Integration with UI frameworks](#integration-with-ui-frameworks)
+    - [Providers](#providers)
     - [Custom components](#custom-components)
     - [Defaults](#defaults)
     - [Model](#model)
     - [Feedback](#feedback)
     - [Validation](#validation)
     - [Events](#events)
-6. [Roadmap](#roadmap)
-7. [Contributing](#contributing)
-8. [License](#license)
+  - [ROADMAP](#roadmap)
+  - [CONTRIBUTING](#contributing)
+  - [LICENSE](#license)
 
 ## FEATURES
 
@@ -51,7 +53,7 @@ There is also another demo, but for `Vue2`, available on CodeSandbox:
 - [live demo and code](https://codesandbox.io/s/vue-form-builder-demo-4rxmw4)
 - [code](https://github.com/uwla/vue-form-builder-demo)
 
-The demo for `Vue2` (built with an earlier version of this plugin) can also be
+The demo for `Vue2` (built with an earlier version of this plugin) can  also  be
 replicated in `Vue3` with the latest versions of this plugin. So, both demos are
 worth playing with.
 
@@ -1001,4 +1003,4 @@ Contributions are welcome. Fork the repo, then make a PR.
 
 ## LICENSE
 
-MIT
+MIT.
