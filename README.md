@@ -26,6 +26,8 @@ from declarative rules.
   - [CONTRIBUTING](#contributing)
   - [LICENSE](#license)
 
+Check out my other project [vue-data-table](https://github.com/uwla/vue-data-table)
+
 ## FEATURES
 
 - concise syntax for fast development
