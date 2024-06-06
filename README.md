@@ -59,6 +59,13 @@ The demo for `Vue2` (built with an earlier version of this plugin) can  also  be
 replicated in `Vue3` with the latest versions of this plugin. So, both demos are
 worth playing with.
 
+![Vue Form Builder Example 1 - basic form](./assets/vfb-1.png)
+![Vue Form Builder Example 1 - error messages](./assets/vfb-2.png)
+![Vue Form Builder Example 1 - error messages](./assets/vfb-3.png)
+![Vue Form Builder Example 1 - success message](./assets/vfb-4.png)
+![Vue Form Builder Example 2 - 3rd party libs](./assets/vfb-5.png)
+![Vue Form Builder Example 3 - Bootstrap](./assets/vfb-6.png)
+
 ## EXAMPLE
 
 SImple example:
