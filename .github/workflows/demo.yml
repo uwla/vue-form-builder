@@ -1,8 +1,8 @@
-name: GitHub Pages Sync
+name: Build demo app
 
 on:
   push:
-    branches: ["master"]
+    branches: ["vue3"]
 
 jobs:
   deploy:
@@ -24,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Build demo
-        run: npm run build:demo
+        run: APP_BASE=/vue-form-builder/demo npm run build:demo
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
@@ -32,4 +32,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: demo
           publish_dir: ./demo
+          destination_dir: demo
           commit_message: update demo
