@@ -1,7 +1,7 @@
 <template>
     <h1>VUE FORM BUILDER DEMO</h1>
     <p>Sample demo to showcase VueFormBuilder's functionalities.</p>
-    <vfb id="options" :fields="fieldsOptions" v-model="m" />
+    <vfb id="options" :fields="fieldsOptions" v-model="m"/>
     <TabView id="demo" class="tabview-custom">
         <TabPanel header="VueFormBuilder">
             <vfb v-bind="commonParams" :fields="fields1" />
@@ -92,6 +92,8 @@ const validation = {
     agree: (val: any) => val,
 };
 
+const fruits = [ 'apple', 'apricot', 'avocado', 'banana', 'blackberry', 'blueberry', 'cherry', 'coconut', 'cucumber', 'durian', 'dragonfruit', 'fig', 'gooseberry', 'grape', 'guava', 'jackfruit', 'plum', 'kiwifruit', 'kumquat', 'lemon', 'lime', 'mango', 'watermelon', 'mulberry', 'orange', 'papaya', 'passionfruit', 'peach', 'pear', 'persimmon', 'pineapple', 'pineberry', 'quince', 'raspberry', 'soursop', 'star fruit', 'strawberry', 'tamarind', 'yuzu' ];
+
 const fields1 = [
     "name:name|text|min=5|max=30",
     "name:email|email",
@@ -102,7 +104,14 @@ const fields1 = [
     "name:bio|textarea|label:Personal bio|rows=6",
     "name:gender|options:male,female",
     "name:photo|label:Profile picture|file",
-    "name:fruits|stacked|checkboxes|options:apple,banana,orange,avocado",
+    "name:fruits|tags|options:" + fruits.join(","),
+    // {
+    //     name: "fruits",
+    //     component: "vfb-tags",
+    //     props: {
+    //         options: fruits.map((f: string) => ({ value: f, text: f }))
+    //     }
+    // },
     "name:country|stacked|options:United States,Mexico,Canada,Other",
     "name:agree|label:Agree to the terms and conditions|checkbox",
     "name:token|hidden|label:none|text",
@@ -132,15 +141,14 @@ const fields2 = [
     "component:vfb-buttons|label:none|class=block",
 ];
 
-const fields3 : any = [
-];
+const fields3 : any = [];
 
 const emptyErrors = {}
 const emptyMsg = {}
 
 export default defineComponent({
     computed: {
-        commonParams() {
+        commonParams(): any {
             return {
                 errors: (this.m.showErrors) ? errors : emptyErrors,
                 modelValue: (this.m.useModel) ? model : emptyModel,
@@ -174,17 +182,23 @@ export default defineComponent({
     },
 });
 </script>
+
 <style>
+#options {
+    display: flex;
+    gap: 2em;
+}
+
 #options .vfb-group {
     margin-bottom: 0;
 }
 
 #demo form {
-    max-width: 500px;
+    max-width: 600px;
     border: 1px solid #bbb;
-    border-radius: 0.25em;
+    border-radius: 10px;
     padding: 1em;
-    margin: 0 auto;
+    /* margin: 0 auto; */
 }
 
 .p-chips,
