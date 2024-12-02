@@ -33,38 +33,37 @@ export class Parser {
         if (field.props.options) return 'select'
         return 'custom'
     }
-    
+
     getFieldComponent(field: Field): VueComponent {
         return field.component || this.components[field.type]
     }
-    
+
     getFieldComponentProps(field: Field): VueComponentProps {
-        let props = {... field.props }
+        let props = { ...field.props, ...field.componentProps }
         if (!props.name)
             props.name = field.name
-        if (this.attachRandomId && field.label !== 'none' && !props.hidden) 
+        if (this.attachRandomId && field.label !== 'none' && !props.hidden)
             props.id = 'VFB' + generateRandomDigits(10)
         return props
     }
-    
+
     getFieldWrapperComponent(field: Field): VueComponent {
         let defaultWrapper = this.wrapper
         if (field.props.hidden === true)
             defaultWrapper = 'div'
         return field.componentWrapper || field.wrapper || defaultWrapper
     }
-    
+
     getFieldWrapperComponentProps(field: Field): VueComponentProps {
         // if already set, return it
         if (field.propsWrapper)
             return field.propsWrapper
 
         // begin with empty props
-        const props : VueComponentProps = {}
+        const props: VueComponentProps = {}
 
         // add label information
-        if (!field.props.hidden && field.label !== 'none')
-        {
+        if (!field.props.hidden && field.label !== 'none') {
             if (field.props.id && !['radio', 'checkboxes'].includes(field.type))
                 props.labelFor = field.props.id
             if (field.label)
