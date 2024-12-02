@@ -3,28 +3,47 @@
 `VueFormBuilder` is a Vue  plugin that automatically generates  beautiful  forms
 from declarative rules.
 
-- [VUE FORM BUILDER](#vue-form-builder)
-  - [FEATURES](#features)
-  - [DEMO](#demo)
-  - [EXAMPLE](#example)
-  - [INSTALLATION](#installation)
-    - [CSS](#css)
-  - [CONFIGURATION](#configuration)
-    - [Props](#props)
-    - [Fields](#fields)
-    - [Syntax](#syntax)
-    - [Aliases](#aliases)
-    - [Integration with UI frameworks](#integration-with-ui-frameworks)
-    - [Providers](#providers)
-    - [Custom components](#custom-components)
-    - [Defaults](#defaults)
-    - [Model](#model)
-    - [Feedback](#feedback)
-    - [Validation](#validation)
-    - [Events](#events)
-  - [ROADMAP](#roadmap)
-  - [CONTRIBUTING](#contributing)
-  - [LICENSE](#license)
+<!-- vim-markdown-toc GFM -->
+
+* [FEATURES](#features)
+* [DEMO](#demo)
+* [EXAMPLE](#example)
+* [INSTALLATION](#installation)
+    * [CSS](#css)
+* [CONFIGURATION](#configuration)
+    * [Props](#props)
+    * [Fields](#fields)
+    * [Syntax](#syntax)
+        * [First type](#first-type)
+        * [Second type](#second-type)
+        * [Third type](#third-type)
+        * [Fourth type](#fourth-type)
+        * [Object notation](#object-notation)
+    * [Aliases](#aliases)
+    * [Integration with UI frameworks](#integration-with-ui-frameworks)
+    * [Providers](#providers)
+    * [Custom components](#custom-components)
+        * [Custom field component](#custom-field-component)
+        * [Component CSS ID](#component-css-id)
+        * [Custom wrapper](#custom-wrapper)
+        * [Component label](#component-label)
+    * [Defaults](#defaults)
+    * [Model](#model)
+    * [Feedback](#feedback)
+        * [Errors](#errors)
+        * [Message](#message)
+        * [Custom feedback component](#custom-feedback-component)
+    * [Validation](#validation)
+        * [Validation on input](#validation-on-input)
+        * [Validation on submit](#validation-on-submit)
+    * [Events](#events)
+        * [Submit](#submit)
+        * [Reset](#reset)
+* [ROADMAP](#roadmap)
+* [CONTRIBUTING](#contributing)
+* [LICENSE](#license)
+
+<!-- vim-markdown-toc -->
 
 Check out my other project [vue-data-table](https://github.com/uwla/vue-data-table)
 
@@ -68,7 +87,7 @@ worth playing with.
 
 ## EXAMPLE
 
-SImple example:
+Simple example:
 
 ```javascript
 const fields = [
@@ -81,7 +100,7 @@ const fields = [
     'name:fruits|label:Pick fruits|checkboxes|options:apple,banana,orange,avocado',
     'name:agree|checkbox|label:Agree to terms and conditions',
     'component:vfb-buttons|class=right|submitText=SALVAR|label:none',
-]
+];
 ```
 
 Which generates the following HTML:
@@ -90,7 +109,12 @@ Which generates the following HTML:
 <form>
     <div class="vfb-group">
         <label for="VFB5403525774">Nome</label>
-        <input class="vfb-input" type="text" name="name" id="VFB5403525774" />
+        <input
+          class="vfb-input"
+          type="text"
+          name="name"
+          id="VFB5403525774"
+        />
     </div>
     <div class="vfb-group">
         <label for="VFB6006665634">Email</label>
@@ -107,7 +131,11 @@ Which generates the following HTML:
     </div>
     <div class="vfb-group">
         <label for="VFB3862635914">Gender</label>
-        <select class="vfb-select" name="gender" id="VFB3862635914">
+        <select
+          class="vfb-select"
+          name="gender"
+          id="VFB3862635914"
+        >
             <option value="male">male</option>
             <option value="female">female</option>
         </select>
@@ -263,8 +291,8 @@ use a string notation that consists of the following rules:
 - The string is made of attributes separated by the symbol `|`.
 - There are four attribute types:
 
-1. The first attribute type has the format `key:value`.
-2. The second attribute has the format `key=value`.
+1. The first attribute type has the format `key:value` (internal to `Vfb`).
+2. The second attribute has the format `key=value` (pass props to Vue component).
 3. The third attribute type is syntax sugar for  the  first  type  and  has  the
    format `value`. For  example:  instead  of  `type:checkboxes`  you  just  use
    `checkboxes`.
@@ -358,7 +386,7 @@ Thus, the following field declarations are equivalent:
 fields = ['name', 'email', 'password', 'age', 'photo']
 
 // using string notation
-fields = [ 
+fields = [
     'name:name|text',
     'name:email|email',
     'name:password|password',
@@ -491,6 +519,7 @@ const VfbProvider : ComponentProvider = {
     radio: 'vfb-radio',
     range: 'vfb-range',
     select: 'vfb-select',
+    tags: 'vfb-tags',
     textarea: 'vfb-textarea',
     wrapper: 'vfb-group',
 }
@@ -498,7 +527,7 @@ const VfbProvider : ComponentProvider = {
 
 Valid   field   types   are:   `checkboxes`,   `checkbox`,    `feedbackInvalid`,
 `feedbackValid`,  `file`,   `form`,   `input`,   `radio`,   `range`,   `select`,
-`textarea`, and `wrapper`.
+`tags`, `textarea`, and `wrapper`.
 
 The values are the name of the `Vue` components, not the components  themselves.
 The reason behind this is to avoid overhead and performance  issue:  `Vue`  give
