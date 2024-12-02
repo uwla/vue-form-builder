@@ -4,10 +4,26 @@
     margin: 0;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    max-height: 300px;
 }
 
 .vfb-checkboxes label, .vfb-radios label {
     margin: 0 !important;
+    flex-grow: 2;
+    cursor: pointer;
+}
+
+.vfb-checkboxes li, .vfb-radios li {
+    white-space: nowrap;
+    display: flex;
+    justify-content: stretch;
+    width: 100%;
+    padding: 0 6px;
+}
+
+.vfb-checkboxes li:hover, .vfb-radios li:hover {
+    background-color: #eee;
 }
 
 .vfb-checkboxes.invalid,

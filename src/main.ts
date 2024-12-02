@@ -12,6 +12,7 @@ import VfbInput from './components/VfbInput.vue'
 import VfbRadio from './components/VfbRadio.vue'
 import VfbRange from './components/VfbRange.vue'
 import VfbFile from './components/VfbFile.vue'
+import VfbTags from './components/VfbTags.vue'
 import fieldAliases from './aliases'
 import { ProviderService } from './provider'
 
@@ -30,6 +31,7 @@ const components : { [key: string] : any } = {
     'vfb-radio': VfbRadio,
     'vfb-range': VfbRange,
     'vfb-file': VfbFile,
+    'vfb-tags': VfbTags,
 
     // vue form builder
     'vfb': VueFormBuilder,

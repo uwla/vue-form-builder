@@ -1,6 +1,8 @@
 <template>
-    <ul class="vfb-checkboxes"
-        :class="{'invalid': state === false, 'valid': state === true}">
+    <ul
+        class="vfb-checkboxes"
+        :class="{'invalid': state === false, 'valid': state === true}"
+    >
         <li v-for="(option,i) in options" :key="i">
             <input
                 type="checkbox"

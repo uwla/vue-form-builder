@@ -13,6 +13,7 @@ const VfbProvider : ComponentProvider = {
     radio: 'vfb-radio',
     range: 'vfb-range',
     select: 'vfb-select',
+    tags: 'vfb-tags',
     textarea: 'vfb-textarea',
     wrapper: 'vfb-group',
 }
