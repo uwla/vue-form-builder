@@ -23,8 +23,8 @@
             <span>0 items matching search query...</span>
         </div>
         <ul v-else
-            :class="{ 'invalid': state === false, 'valid': state === true }"
             class="vfb-checkboxes"
+            :class="{ 'invalid': state === false, 'valid': state === true }"
         >
             <li
                 v-for="(option, i) in searchResults"

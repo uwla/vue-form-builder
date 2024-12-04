@@ -35,11 +35,18 @@ export default defineComponent({
         },
     },
     props: {
-        options: Array,
-        modelValue: Array,
-        state: Boolean,
-        id: String,
-        name: String,
+        options: {
+            type: Array,
+            required: true,
+        },
+        modelValue: {
+            type: Array,
+            required: true,
+        },
+        state: {
+            type: Boolean,
+            default: null
+        },
         placeholder: {
             type: String,
             default: "search..."
@@ -48,5 +55,7 @@ export default defineComponent({
             type: String,
             default: "0 items matching the search..."
         },
+        id: String,
+        name: String,
     }
 })
