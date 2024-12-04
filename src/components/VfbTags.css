@@ -1,0 +1,20 @@
+.vfb-tag {
+    border-radius: 5px;
+    border: 1px solid #000;
+    background-color: #ddd;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 4px 4px 4px 6px;
+    gap: 4px;
+}
+
+.vfb-tag-x {
+    border: 1px solid #000;
+    padding: 0 4px;
+    border-radius: 4px;
+}
+
+.vfb-tag-x:hover {
+    background-color: #bbb;
+}

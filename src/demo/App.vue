@@ -186,11 +186,15 @@ export default defineComponent({
 <style>
 #options {
     display: flex;
-    gap: 2em;
+    gap: .25em 1.5em;
+    flex-wrap: wrap;
 }
 
 #options .vfb-group {
     margin-bottom: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row-reverse;
 }
 
 #demo form {
