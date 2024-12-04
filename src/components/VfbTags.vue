@@ -10,10 +10,11 @@
             >
         </div>
         <div class="vfb-group vfb-buttons" v-show="modelValue.length">
+            <!-- @vue-ignore -->
             <button
-                class="vfb-tag"
-                v-for="(value) in modelValue" :key="value"
+                v-for="(value,i) in modelValue" :key="i"
                 @click="removeTag(value)"
+                class="vfb-tag"
             >
                 <span> {{ value}} </span>
                 <span class="vfb-tag-x">x</span>

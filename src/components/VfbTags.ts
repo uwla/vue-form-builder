@@ -29,7 +29,7 @@ export default defineComponent({
                 newChecked.push(value)
             this.$emit('update:modelValue', newChecked)
         },
-        removeTag(tag: string) {
+        removeTag(tag: any) {
             const newChecked = (this.modelValue as string[]).filter((x: string) => x !== tag);
             this.$emit('update:modelValue', newChecked)
         },
