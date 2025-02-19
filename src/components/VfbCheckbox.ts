@@ -2,6 +2,7 @@ import { defineComponent } from "vue"
 
 export default defineComponent({
     props: ["modelValue"],
+    emits: ["update:modelValue"],
     data() {
         return { checked: this.modelValue }
     },

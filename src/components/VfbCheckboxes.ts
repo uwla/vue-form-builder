@@ -2,6 +2,7 @@ import { defineComponent } from "vue"
 
 export default defineComponent({
     props: ["modelValue", "options", "name", "state", "id"],
+    emits: ["update:modelValue"],
     methods: {
         handleInput(e: any) {
             const target = e.target

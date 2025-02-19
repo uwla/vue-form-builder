@@ -2,6 +2,7 @@ import { defineComponent } from "vue"
 
 export default defineComponent({
     props: ["modelValue", "multiple", "state"],
+    emits: ["update:modelValue"],
     methods: {
         handleInput(e: any) {
             const { files } = e.target

@@ -14,6 +14,7 @@ export default defineComponent({
         id: String,
         name: String,
     },
+    emits: ["update:modelValue"],
     data() {
         return { query: "" }
     },

@@ -28,6 +28,8 @@ export default defineComponent({
         wrapper: { type: String, required: false, default: null },
     },
 
+    emits: ["reset", "submit", "update:modelValue"],
+
     data() {
         return {
             fieldsParsed: [] as Field[],
