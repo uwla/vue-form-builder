@@ -225,7 +225,7 @@ The only required property is `fields`.
 | clearFeedbackOnInput | Boolean | `true`  | Whether to clear feedback on user input.                |
 | errors               | Object  | `{}`    | An object with errors to show below each field.         |
 | defaults             | Object  | `{}`    | An object with default values for the fields.           |
-| fields               | Array   | -       | An array describing how to render the fields.           |
+| fields               | Array   | `-`     | An array describing how to render the fields.           |
 | messages             | Object  | `{}`    | An object with feedback to show below each field.       |
 | modelValue           | Object  | `null`  | The model to be synced with the field values.           |
 | omitNull             | Boolean | `false` | Whether to omit null values in submit event's payload   |
@@ -241,13 +241,13 @@ Each field has the following attributes:
 
 | name         | type               | default       |  description                                                                     |
 | ------------ | ------------------ | ------------- |  ------------------------------------------------------------------------------- |
-| name         | `String`           | -             |  Name of the field                                                               |
-| component    | `String`, `Object` | dynamic       |  Vue Component that renders the field.                                           |
-| label        | `String`           | dynamic       |  Label to be displayed by the wrapper.                                           |
+| name         | `String`           | `-`           |  Name of the field                                                               |
+| component    | `String`, `Object` | `dynamic`     |  Vue Component that renders the field.                                           |
+| label        | `String`           | `dynamic`     |  Label to be displayed by the wrapper.                                           |
 | model        | `Boolean`          | `false`       |  Whether to pass `modelValue` as a prop to the field component                   |
-| props        | `Object`           | dynamic       |  Properties for the field component (both Vue props and HTML attributes)         |
-| propsWrapper | `Object`           | dynamic       |  Properties for the field wrapper component (both Vue props and HTML attributes) |
-| type         | `String`           | dynamic       |  Field type, used to determine which Vue Component to use (if not specified)     |
+| props        | `Object`           | `dynamic`     |  Properties for the field component (both Vue props and HTML attributes)         |
+| propsWrapper | `Object`           | `dynamic`     |  Properties for the field wrapper component (both Vue props and HTML attributes) |
+| type         | `String`           | `dynamic`     |  Field type, used to determine which Vue Component to use (if not specified)     |
 | values       | `Boolean`          | `false`       |  Whether to pass the current form values as a prop to the field component        |
 | wrapper      | `String`, `Object` | `vfb-wrapper` |  Vue Component wrapping the field.                                               |
 
