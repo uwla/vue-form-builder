@@ -1,5 +1,8 @@
 <template>
-    <span class="vfb-feedback-invalid" :class="{ 'visible': state === false }">
+    <span
+        class="vfb-feedback-invalid"
+        :class="{ visible: state === false }"
+    >
         <slot></slot>
     </span>
 </template>

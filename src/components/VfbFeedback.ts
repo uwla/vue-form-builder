@@ -6,21 +6,16 @@ export default defineComponent({
             return this.state !== null
         },
         errorMessages() {
-            if (Array.isArray(this.errors))
-                return this.errors
-            if (typeof this.errors === 'string')
-                return [this.errors]
+            if (Array.isArray(this.errors)) return this.errors
+            if (typeof this.errors === "string") return [this.errors]
             return []
-        }
+        },
     },
     props: {
-        state: {
-            default: null,
-            type: Boolean,
-        },
+        state: { default: null, type: Boolean },
         errors: [String, Array],
         message: String,
         invalidFeedbackComponent: [String, Object],
         validFeedbackComponent: [String, Object],
-    }
+    },
 })

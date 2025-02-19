@@ -1,4 +1,4 @@
-import '../../types'
+import "../../types"
 
 export default class TypeAttribute implements AttributeParser {
     isAttribute(attribute: string): boolean {
@@ -9,17 +9,17 @@ export default class TypeAttribute implements AttributeParser {
     }
     attributes() {
         return [
-            'checkbox',
-            'checkboxes',
-            'datapicker',
-            'file',
-            'input',
-            'radio',
-            'range',
-            'select',
-            'tags',
-            'textarea',
-            'timepicker',
+            "checkbox",
+            "checkboxes",
+            "datapicker",
+            "file",
+            "input",
+            "radio",
+            "range",
+            "select",
+            "tags",
+            "textarea",
+            "timepicker",
         ]
     }
 }

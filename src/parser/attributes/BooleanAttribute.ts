@@ -1,4 +1,4 @@
-import '../../types'
+import "../../types"
 
 export default class BooleanAttribute implements AttributeParser {
     isAttribute(attr: string): boolean {
@@ -11,14 +11,14 @@ export default class BooleanAttribute implements AttributeParser {
 
     attributes() {
         return [
-            'autofocus',
-            'multiple',
-            'disabled',
-            'hidden',
-            'required',
-            'readonly',
-            'stacked',
-            'switches',
+            "autofocus",
+            "multiple",
+            "disabled",
+            "hidden",
+            "required",
+            "readonly",
+            "stacked",
+            "switches",
         ]
     }
 }

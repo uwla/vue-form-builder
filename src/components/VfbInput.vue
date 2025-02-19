@@ -2,7 +2,7 @@
     <input
         v-model="val"
         class="vfb-input"
-        :class="{'invalid': state === false, 'valid': state === true}"
+        :class="{ invalid: state === false, valid: state === true }"
         :aria-invalid="state === false"
     />
 </template>

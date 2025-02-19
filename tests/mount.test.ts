@@ -1,28 +1,22 @@
-import { expect, test } from 'vitest'
-import { fields, mixedFields, objFields,  textFields,  wrapper } from './common'
+import { expect, test } from "vitest"
+import { fields, mixedFields, objFields, textFields, wrapper } from "./common"
 
-test('it mounts', () => {
+test("it mounts", () => {
     expect(wrapper.exists()).toBe(true)
 })
 
-test('it mounts with text fields', async () => {
-    await wrapper.setProps({
-        fields: textFields
-    })
+test("it mounts with text fields", async () => {
+    await wrapper.setProps({ fields: textFields })
     expect(wrapper.exists()).toBe(true)
 })
 
-test('it mounts with object fields', async () => {
-    await wrapper.setProps({
-        fields: objFields
-    })
+test("it mounts with object fields", async () => {
+    await wrapper.setProps({ fields: objFields })
     expect(wrapper.exists()).toBe(true)
 })
 
-test('it mounts with mixed fields', async () => {
-    await wrapper.setProps({
-        fields: mixedFields
-    })
+test("it mounts with mixed fields", async () => {
+    await wrapper.setProps({ fields: mixedFields })
     expect(wrapper.exists()).toBe(true)
 })
 

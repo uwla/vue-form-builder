@@ -1,6 +1,9 @@
 <template>
     <div class="vfb-group">
-        <label :for="labelFor" v-if="label">
+        <label
+            :for="labelFor"
+            v-if="label"
+        >
             {{ label }}
         </label>
         <slot></slot>

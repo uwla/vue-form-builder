@@ -1,7 +1,15 @@
-import { defineComponent } from 'vue'
-import { deepCopy, fieldHasFile, getDefaultFieldValue, isNullable, resetFormField, stopEvent, toFormData } from '../helpers'
-import { Parser } from '../parser'
-import { ProviderService } from '../provider'
+import { defineComponent } from "vue"
+import {
+    deepCopy,
+    fieldHasFile,
+    getDefaultFieldValue,
+    isNullable,
+    resetFormField,
+    stopEvent,
+    toFormData,
+} from "../helpers"
+import { Parser } from "../parser"
+import { ProviderService } from "../provider"
 
 export default defineComponent({
     computed: {
@@ -9,7 +17,7 @@ export default defineComponent({
             return ProviderService.getProvider(this.provider)
         },
         formComponent() {
-            return this.componentProvider['form']
+            return this.componentProvider["form"]
         },
     },
 
@@ -24,22 +32,22 @@ export default defineComponent({
     methods: {
         clearFieldFeedback(field: Field) {
             let { name } = field
-            if (! name) return
+            if (!name) return
             field.props.state = null
             this.feedbacks[name].state = null
         },
         displayErrors() {
-            this.fieldsParsed = this.fieldsParsed.map((field: Field)=> {
+            this.fieldsParsed = this.fieldsParsed.map((field: Field) => {
                 // nameless field have no feedback
                 let { name } = field
-                if (! name) return field
+                if (!name) return field
 
                 // clear field feedback
                 this.clearFieldFeedback(field)
 
                 // return if no errors
                 let errors = this.errors[name]
-                if (! errors) return field
+                if (!errors) return field
 
                 // update feedback
                 this.feedbacks[name].errors = errors
@@ -53,14 +61,14 @@ export default defineComponent({
             this.fieldsParsed = this.fieldsParsed.map(field => {
                 // nameless field have no feedback
                 let { name } = field
-                if (! name) return field
+                if (!name) return field
 
                 // clear feedback
                 this.clearFieldFeedback(field)
 
                 // return if no message
                 let message = this.messages[name]
-                if (! message) return field
+                if (!message) return field
 
                 // update feedback
                 this.feedbacks[name].message = message
@@ -70,7 +78,7 @@ export default defineComponent({
                 return field
             })
         },
-        getValues(): Data|FormData {
+        getValues(): Data | FormData {
             let data = {} as Data
 
             // form fields
@@ -78,27 +86,23 @@ export default defineComponent({
 
             // if omitNull is true, will emit nullable field values
             let { omitNull } = this
-            for (let field of fields)
-            {
+            for (let field of fields) {
                 let { name, value } = field
-                if (! name) continue
+                if (!name) continue
                 if (isNullable(value) && omitNull) continue
                 data[name] = value
             }
 
             // if data has file, convert it to FormData
             const hasFile = fields.some(fieldHasFile)
-            if (hasFile)
-                return toFormData(data)
+            if (hasFile) return toFormData(data)
 
             return data
         },
         handleInput(field: Field, value: any) {
             field.value = value
-            if (this.clearFeedbackOnInput)
-                this.clearFieldFeedback(field)
-            if (this.validateOnInput)
-                this.validateField(field)
+            if (this.clearFeedbackOnInput) this.clearFieldFeedback(field)
+            if (this.validateOnInput) this.validateField(field)
 
             // determine if there is a field component which needs to access the
             // values of other form fields
@@ -108,30 +112,27 @@ export default defineComponent({
             // pass them as props to the component
             if (needsValue) this.passValuesToFieldsAsProps()
 
-            // emit value 
-            if (this.modelValue !== null && field.name)
-            {
+            // emit value
+            if (this.modelValue !== null && field.name) {
                 let newValue = deepCopy(this.modelValue) as any
                 newValue[field.name] = value
-                this.$emit('update:modelValue', newValue)
+                this.$emit("update:modelValue", newValue)
             }
         },
         initializeValues() {
             let defaults = this.defaults
 
             // the default values are overwritten by the modelValue
-            if (this.modelValue != null)
-                defaults = this.modelValue
+            if (this.modelValue != null) defaults = this.modelValue
 
-            for (let field of this.fieldsParsed)
-            {
-                if (! field.name) continue
+            for (let field of this.fieldsParsed) {
+                if (!field.name) continue
                 field.value = getDefaultFieldValue(defaults, field)
             }
         },
         parseFormFields() {
             const options = {
-                attachRandomId: (this.provider === 'vfb'),
+                attachRandomId: this.provider === "vfb",
                 provider: this.provider,
                 wrapper: this.wrapper,
             }
@@ -139,8 +140,7 @@ export default defineComponent({
             this.parser = new Parser(options)
             this.fieldsParsed = this.parser.parseFields(this.fields)
             this.fieldsParsed = this.fieldsParsed.map(f => {
-                if (f.model === true)
-                    f.props.model = this.modelValue
+                if (f.model === true) f.props.model = this.modelValue
                 return f
             })
         },
@@ -148,46 +148,44 @@ export default defineComponent({
             // get the current values
             let values = {} as Data
             this.fieldsParsed.forEach(f => {
-                if (f.name)
-                    values[f.name] = f.value
+                if (f.name) values[f.name] = f.value
             })
 
             // update the fields
             this.fieldsParsed = this.fieldsParsed.map(field => {
-                if (field.values === true)
-                    field.props.values = values
+                if (field.values === true) field.props.values = values
                 return field
             })
         },
-        resetForm(e : any) {
+        resetForm(e: any) {
             // stop HTML form submission event
             stopEvent(e)
 
             // sync form with the values of the model
             this.resetValuesToDefaults()
-            const form = this.$refs['form']
+            const form = this.$refs["form"]
             this.fieldsParsed.forEach(field => resetFormField(form, field))
 
             // emit reset notice
-            this.$emit('reset')
+            this.$emit("reset")
         },
         setupFeedback() {
             const { parser } = this
-            for (let field of this.fieldsParsed)
-            {
+            for (let field of this.fieldsParsed) {
                 // nameless fields have no feedback, so skip them
                 let { name } = field
-                if (! name) continue
+                if (!name) continue
 
                 // set the properties for the feedback component,
                 // some of which will be changed upon a feedback event.
-                this.feedbacks[name] = parser.getFieldFeedbackComponentProps(field)
+                this.feedbacks[name] =
+                    parser.getFieldFeedbackComponentProps(field)
                 this.feedbacks[name].state = null
                 this.feedbacks[name].errors = this.errors[name]
                 this.feedbacks[name].message = this.messages[name]
             }
         },
-        submitForm(e : any) {
+        submitForm(e: any) {
             // stop HTML form submission event
             stopEvent(e)
 
@@ -195,36 +193,36 @@ export default defineComponent({
             let valid = true
 
             // validate the form if specified
-            if (this.validateOnSubmit)
-                valid = this.validateForm()
+            if (this.validateOnSubmit) valid = this.validateForm()
 
             // don't submit the form if invalid
-            if (! valid) return
+            if (!valid) return
 
             // emit data
-            this.$emit('submit', this.getValues())
+            this.$emit("submit", this.getValues())
         },
         resetValuesToDefaults() {
             this.setFieldValues(this.defaults)
         },
         setFieldValues(values: any) {
-            const form = this.$refs['form']
-            for (let field of this.fieldsParsed)
-            {
+            const form = this.$refs["form"]
+            for (let field of this.fieldsParsed) {
                 let { name, type } = field
 
                 // field needs direct access to the model
-                if (field.model === true)
-                    field.props.model = this.modelValue
+                if (field.model === true) field.props.model = this.modelValue
 
                 // skip it if value for the current field is not defined,
                 // or if its type is file type
-                if (name == null || values[name] === undefined || type === 'file')
+                if (
+                    name == null ||
+                    values[name] === undefined ||
+                    type === "file"
+                )
                     continue
 
                 // skip it if value is equal
-                if (field.value == values[name])
-                    continue
+                if (field.value == values[name]) continue
 
                 // update the value to match the model
                 field.value = values[name]
@@ -259,8 +257,7 @@ export default defineComponent({
             this.feedbacks[name].state = null
 
             // field is valid and we show default success message
-            if (validated === true && message)
-            {
+            if (validated === true && message) {
                 field.props.state = true
                 this.feedbacks[name].state = true
                 this.feedbacks[name].message = message
@@ -274,7 +271,7 @@ export default defineComponent({
             }
 
             // field is invalid and we show the custom error returned
-            if (typeof validated === 'string') {
+            if (typeof validated === "string") {
                 field.props.state = false
                 this.feedbacks[name].state = false
                 this.feedbacks[name].errors = validated
@@ -285,10 +282,9 @@ export default defineComponent({
         },
         validateForm() {
             let valid = true
-            this.fieldsParsed = this.fieldsParsed.map((field : any) => {
+            this.fieldsParsed = this.fieldsParsed.map((field: any) => {
                 field = this.validateField(field)
-                if (field.props.state === false)
-                    valid = false
+                if (field.props.state === false) valid = false
                 return field
             })
             return valid
@@ -296,87 +292,31 @@ export default defineComponent({
     },
 
     mounted() {
-       this.parseFormFields()
-       this.setupFeedback()
-       this.initializeValues()
+        this.parseFormFields()
+        this.setupFeedback()
+        this.initializeValues()
     },
 
     props: {
-        clearFeedbackOnInput: {
-            type: Boolean,
-            default: true,
-        },
-        defaults: {
-            type: Object,
-            required: false,
-            default: () => ({}),
-        },
-        errors: {
-            type: Object,
-            required: false,
-            default: () => ({})
-        },
-        fields: {
-            type: Array,
-            required: true
-        },
-        messages: {
-            type: Object,
-            required: false,
-            default: () => ({}),
-        },
-        modelValue: {
-            type: Object,
-            required: false,
-            default: () => null,
-        },
-        omitNull: {
-            type: Boolean,
-            default: false,
-        },
-        provider: {
-            type: String,
-            default: 'vfb'
-        },
-        validateOnSubmit: {
-            type: Boolean,
-            default: true,
-        },
-        validateOnInput: {
-            type: Boolean,
-            default: false,
-        },
-        validation: {
-            type: Object,
-            required: false,
-            default: () => ({}),
-        },
-        wrapper: {
-            type: String,
-            required: false,
-            default: null,
-        }
+        clearFeedbackOnInput: { type: Boolean, default: true },
+        defaults: { type: Object, required: false, default: () => ({}) },
+        errors: { type: Object, required: false, default: () => ({}) },
+        fields: { type: Array, required: true },
+        messages: { type: Object, required: false, default: () => ({}) },
+        modelValue: { type: Object, required: false, default: () => null },
+        omitNull: { type: Boolean, default: false },
+        provider: { type: String, default: "vfb" },
+        validateOnSubmit: { type: Boolean, default: true },
+        validateOnInput: { type: Boolean, default: false },
+        validation: { type: Object, required: false, default: () => ({}) },
+        wrapper: { type: String, required: false, default: null },
     },
 
     watch: {
-        errors: {
-            handler: 'displayErrors',
-            immediate: false,
-        },
-        fields: {
-            handler: 'parseFormFields',
-        },
-        messages: {
-            handler: 'displayMessages',
-            immediate: false,
-        },
-        modelValue: {
-            handler: 'syncValuesWithModel',
-            immediate: false,
-        },
-        provider: {
-            handler: 'parseFormFields',
-            immediate: false,
-        },
-    }
+        errors: { handler: "displayErrors", immediate: false },
+        fields: { handler: "parseFormFields" },
+        messages: { handler: "displayMessages", immediate: false },
+        modelValue: { handler: "syncValuesWithModel", immediate: false },
+        provider: { handler: "parseFormFields", immediate: false },
+    },
 })

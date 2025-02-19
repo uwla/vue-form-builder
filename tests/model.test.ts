@@ -1,19 +1,16 @@
-import { expect, test } from 'vitest'
-import { model, setCheckboxValue, simulateUserInput, wrapper } from './common'
+import { expect, test } from "vitest"
+import { model, setCheckboxValue, simulateUserInput, wrapper } from "./common"
 
-test('it syncs with the model', async () => {
+test("it syncs with the model", async () => {
     await wrapper.setProps({ modelValue: model })
 
-    for (let key in model)
-    {
+    for (let key in model) {
         let value = model[key]
 
         // radio options
-        if (key === 'country')
-        {
-            const radios : any = wrapper.findAll(`[name=${key}]`)
-            for (let i = 0; i < radios.length; i+=1)
-            {
+        if (key === "country") {
+            const radios: any = wrapper.findAll(`[name=${key}]`)
+            for (let i = 0; i < radios.length; i += 1) {
                 let radio = radios[i].element
                 expect(radio.checked).toBe(radio.value === value)
             }
@@ -21,11 +18,9 @@ test('it syncs with the model', async () => {
         }
 
         // checkboxes
-        if (key === 'fruits')
-        {
-            const checkboxes : any = wrapper.findAll(`[name=${key}]`)
-            for (let i = 0; i < checkboxes.length; i += 1)
-            {
+        if (key === "fruits") {
+            const checkboxes: any = wrapper.findAll(`[name=${key}]`)
+            for (let i = 0; i < checkboxes.length; i += 1) {
                 let checkbox = checkboxes[i]
                 let val = checkbox.element.value
                 expect(checkbox.element.checked).toBe(value.includes(val))
@@ -34,44 +29,42 @@ test('it syncs with the model', async () => {
         }
 
         // text inputs
-        if (typeof value === 'string')
-        {
-            const input : any = wrapper.find(`[name=${key}]`)
+        if (typeof value === "string") {
+            const input: any = wrapper.find(`[name=${key}]`)
             expect(input.element.value).toBe(value)
             continue
         }
 
         // checkbox
-        if (value === true || value === false)
-        {
-            const checkbox : any = wrapper.find(`[name=${key}]`)
+        if (value === true || value === false) {
+            const checkbox: any = wrapper.find(`[name=${key}]`)
             expect(checkbox.element.checked).toBe(value)
         }
     }
 })
 
-test('it submits the form correctly', async () => {
-    const values  = {
-        name: 'Mary Lindsey',
-        email: 'mary@email.test',
-        phone: '+100 12345 6789',
-        website_url: 'http://mary.me',
-        birthday: '1980-01-01',
-        bio: 'hello world!',
-        gender:  'female',
-        fruits: ['apple', 'orange'],
-        country: 'Mexico',
-        agree: false,        
-    } 
+test("it submits the form correctly", async () => {
+    const values = {
+        name: "Mary Lindsey",
+        email: "mary@email.test",
+        phone: "+100 12345 6789",
+        website_url: "http://mary.me",
+        birthday: "1980-01-01",
+        bio: "hello world!",
+        gender: "female",
+        fruits: ["apple", "orange"],
+        country: "Mexico",
+        agree: false,
+    }
 
     // set the values
     await simulateUserInput(wrapper, values)
 
     // trigger a submit event
-    await wrapper.trigger('submit')
+    await wrapper.trigger("submit")
 
     // get the submit events
-    const events : any = wrapper.emitted('submit')
+    const events: any = wrapper.emitted("submit")
     expect(events.length).toBeGreaterThan(0)
 
     // get the event object
@@ -85,13 +78,13 @@ test('it submits the form correctly', async () => {
     expect(payload).toMatchObject(values)
 })
 
-test('it resets the form to the defaults', async () => {
+test("it resets the form to the defaults", async () => {
     await wrapper.setProps({ defaults: model })
-    await wrapper.trigger('reset')
-    await wrapper.trigger('submit')
+    await wrapper.trigger("reset")
+    await wrapper.trigger("submit")
 
     // get the event object (which is the second submit event)
-    const event : any = (wrapper.emitted('submit') as any)[1]
+    const event: any = (wrapper.emitted("submit") as any)[1]
 
     // assert event has been emitted
     expect(event).toBeTruthy()
@@ -101,32 +94,31 @@ test('it resets the form to the defaults', async () => {
     expect(payload).toMatchObject(model)
 })
 
-test('it omits null values', async () => {
+test("it omits null values", async () => {
     await wrapper.setProps({ omitNull: true, validation: {} })
 
     // empty some string fields
-    await wrapper.find('[name=name]').setValue('')
-    await wrapper.find('[name=phone]').setValue('')
-    await wrapper.find('[name=bio]').setValue('')
-    await wrapper.find('[name=gender]').setValue('')
-    await wrapper.find('[name=birthday]').setValue('')
-    await wrapper.find('[name=token]').setValue('')
+    await wrapper.find("[name=name]").setValue("")
+    await wrapper.find("[name=phone]").setValue("")
+    await wrapper.find("[name=bio]").setValue("")
+    await wrapper.find("[name=gender]").setValue("")
+    await wrapper.find("[name=birthday]").setValue("")
+    await wrapper.find("[name=token]").setValue("")
 
     // empty all checkboxes
-    let checkboxes = wrapper.findAll('[name=fruits]') as any
-    for (let checkbox of checkboxes)
-        await setCheckboxValue(checkbox, false)
+    let checkboxes = wrapper.findAll("[name=fruits]") as any
+    for (let checkbox of checkboxes) await setCheckboxValue(checkbox, false)
 
     // filter keys to not include null ones
-    const keys = ['website_url', 'email', 'country', 'agree']
-    const values : any = {}
-    keys.forEach((k : string) => values[k] = model[k])
+    const keys = ["website_url", "email", "country", "agree"]
+    const values: any = {}
+    keys.forEach((k: string) => (values[k] = model[k]))
 
     // trigger submit
-    await wrapper.trigger('submit')
+    await wrapper.trigger("submit")
 
     // get the submit events
-    const events : any = wrapper.emitted('submit')
+    const events: any = wrapper.emitted("submit")
     expect(events.length).toBeGreaterThan(1)
 
     // get the event object

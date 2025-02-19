@@ -17,6 +17,7 @@
     float: left;
 }
 
-div.vfb-group > label, div.form-group > label {
+div.vfb-group > label,
+div.form-group > label {
     display: inline-block !important;
 }

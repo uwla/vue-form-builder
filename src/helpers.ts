@@ -1,8 +1,13 @@
-import './types'
+import "./types"
 
 export function toTitleCase(str: string): string {
-    return str.charAt(0).toUpperCase() +
-        str.slice(1).replace(/[-_]/gu, ' ').replace(/([a-z])([A-Z])/gu, '$1 $2')
+    return (
+        str.charAt(0).toUpperCase() +
+        str
+            .slice(1)
+            .replace(/[-_]/gu, " ")
+            .replace(/([a-z])([A-Z])/gu, "$1 $2")
+    )
 }
 
 export function capitalize(str: string): string {
@@ -10,17 +15,16 @@ export function capitalize(str: string): string {
 }
 
 export function isNumeric(str: any): boolean {
-    if (typeof str !== 'string') return false
+    if (typeof str !== "string") return false
     let val = Number(str)
     return !isNaN(val) && isFinite(val)
 }
 
-export function castValue<T>(value: T): number|boolean|T {
-    if (typeof value === 'string')
-    {
+export function castValue<T>(value: T): number | boolean | T {
+    if (typeof value === "string") {
         let str = value as string
-        if (str === 'true') return true
-        if (str === 'false') return false
+        if (str === "true") return true
+        if (str === "false") return false
         if (isNumeric(str)) return Number(str)
     }
     return value
@@ -31,8 +35,8 @@ export function isEmptyArray(value: any): boolean {
 }
 
 export function isEmptyObject(value: any): boolean {
-    return  (
-        typeof value === 'object' &&
+    return (
+        typeof value === "object" &&
         Object.values(value).every(isNullable) &&
         !isFile(value)
     )
@@ -40,7 +44,7 @@ export function isEmptyObject(value: any): boolean {
 
 export function isNullable(value: any): boolean {
     return (
-        value === '' ||
+        value === "" ||
         value === null ||
         value === undefined ||
         isEmptyArray(value) ||
@@ -61,22 +65,14 @@ export function shuffleArray<T>(array: T[]): T[] {
 
 export function getDefaultFieldValue(model: Model, field: Field): any {
     let { name, type, props, value } = field
-    if (name && model[name] !== undefined && type !== 'file')
-        return model[name]
-    if (value !== undefined)
-        return value
-    if (type === 'checkboxes' || type === 'tags')
-        return []
-    if (type === 'checkbox')
-        return false
-    if (props.options && props.multiple)
-        return []
-    if (props.options)
-        return ''
-    if (type === 'textarea')
-        return ''
-    if (['text', 'email', 'password', 'url'].includes(props.type))
-        return ''
+    if (name && model[name] !== undefined && type !== "file") return model[name]
+    if (value !== undefined) return value
+    if (type === "checkboxes" || type === "tags") return []
+    if (type === "checkbox") return false
+    if (props.options && props.multiple) return []
+    if (props.options) return ""
+    if (type === "textarea") return ""
+    if (["text", "email", "password", "url"].includes(props.type)) return ""
     return null
 }
 
@@ -84,8 +80,7 @@ export function getDefaultFieldValue(model: Model, field: Field): any {
 export function bindThis(obj: any): void {
     const prototype = Object.getPrototypeOf(obj)
     const methodNames = Object.getOwnPropertyNames(prototype)
-    for (let method of methodNames)
-        obj[method] = obj[method].bind(obj)
+    for (let method of methodNames) obj[method] = obj[method].bind(obj)
 }
 
 export function generateRandomDigits(n: number): string {
@@ -131,7 +126,7 @@ export function resetFormField(form: any, field: Field): void {
     let value = deepCopy(field.value)
 
     // toggle the checked state of multiple checkboxes
-    if (type === 'checkboxes') {
+    if (type === "checkboxes") {
         let checkboxes = form.querySelectorAll(`[name=${name}]`)
         for (let checkbox of checkboxes) {
             let checked = value.includes(checkbox.value)
@@ -141,16 +136,16 @@ export function resetFormField(form: any, field: Field): void {
     }
 
     // toggle the checked state of multiple radio inputs
-    if (type === 'radio') {
+    if (type === "radio") {
         let options = form.querySelectorAll(`[name=${name}]`)
         for (let radio of options) {
-            radio.checked = (value === radio.value)
+            radio.checked = value === radio.value
         }
         return
     }
 
     // toggle the selected state of multiple select options
-    if (type === 'select' && props.multiple) {
+    if (type === "select" && props.multiple) {
         let options = form.querySelectorAll(`[name=${name}] option`)
         for (let option of options) {
             option.selected = value.includes(option.value)
@@ -161,24 +156,22 @@ export function resetFormField(form: any, field: Field): void {
     // We have handled all multi-input fields.
     // Handle single input now.
     let input = form.querySelector(`[name=${name}]`)
-    if (!input)
-        return
+    if (!input) return
 
     // toggle the checked state if input is checkbox
     // otherwise, input must be string, so just make values equal
-    if (type === 'checkbox') {
-        input.checked = (value === true)
+    if (type === "checkbox") {
+        input.checked = value === true
     } else {
         input.value = value
     }
 }
 
 export function deepCopy<T>(obj: T): T {
-    if (typeof obj !== 'object' || obj === null)
-        return obj
+    if (typeof obj !== "object" || obj === null) return obj
 
     if (Array.isArray(obj))
-        return (obj.map(item => deepCopy(item)) as unknown) as T
+        return obj.map(item => deepCopy(item)) as unknown as T
 
     const copiedObj = {} as T
     for (const key in obj) {

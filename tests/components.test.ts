@@ -1,15 +1,19 @@
-import { expect, test } from 'vitest'
-import { deepCopy } from '../src/helpers'
-import { fields, getValues, model, simulateUserInput, veryCustomizedFields,  wrapper } from './common'
-import CustomField from './components/CustomField.vue'
-import CustomFeedback from './components/CustomFeedback.vue'
-import CustomWrapper from './components/CustomWrapper.vue'
+import { expect, test } from "vitest"
+import { deepCopy } from "../src/helpers"
+import {
+    fields,
+    getValues,
+    model,
+    simulateUserInput,
+    veryCustomizedFields,
+    wrapper,
+} from "./common"
+import CustomField from "./components/CustomField.vue"
+import CustomFeedback from "./components/CustomFeedback.vue"
+import CustomWrapper from "./components/CustomWrapper.vue"
 
-
-test('it loads customized fields', async () => {
-    await wrapper.setProps({
-        fields: veryCustomizedFields
-    })
+test("it loads customized fields", async () => {
+    await wrapper.setProps({ fields: veryCustomizedFields })
     expect(wrapper.exists()).toBe(true)
 
     const fieldComponents = wrapper.findAllComponents(CustomField)
@@ -23,13 +27,12 @@ test('it loads customized fields', async () => {
     expect(fieldWrappers).toHaveLength(n)
 })
 
-test('it set correct props of custom components', async () => {
+test("it set correct props of custom components", async () => {
     const fieldComponents = wrapper.findAllComponents(CustomField)
     const fieldWrappers = wrapper.findAllComponents(CustomWrapper)
 
     let i = 0
-    for (let fieldObj of veryCustomizedFields)
-    {
+    for (let fieldObj of veryCustomizedFields) {
         // get the components
         let fieldComponent = fieldComponents[i]
         let fieldWrapper = fieldWrappers[i]
@@ -43,7 +46,7 @@ test('it set correct props of custom components', async () => {
     }
 })
 
-test('it passes model to components', async () => {
+test("it passes model to components", async () => {
     let fields = deepCopy(veryCustomizedFields)
 
     // make the first field request the model
@@ -72,7 +75,7 @@ test('it passes model to components', async () => {
     expect(component2.props().model).toMatchObject(model)
 })
 
-test('it passes values to components', async () => {
+test("it passes values to components", async () => {
     let formFields = [...veryCustomizedFields, ...fields]
 
     // make the first field request the values
@@ -83,11 +86,11 @@ test('it passes values to components', async () => {
 
     // the input
     const input = {
-        name: 'joe doe',
-        bio: 'Hello, I\'m Joe',
+        name: "joe doe",
+        bio: "Hello, I'm Joe",
         agree: false,
-        fruits: ['avocado', 'apple'],
-        languages: ['java', 'php'],
+        fruits: ["avocado", "apple"],
+        languages: ["java", "php"],
     }
 
     // get the vue component

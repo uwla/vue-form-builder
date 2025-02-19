@@ -7,9 +7,9 @@ export default defineComponent({
                 return this.modelValue
             },
             set(value: any) {
-                this.$emit('update:modelValue', value)
-            }
-        }
+                this.$emit("update:modelValue", value)
+            },
+        },
     },
-    props: ['modelValue', 'state']
+    props: ["modelValue", "state"],
 })

@@ -1,9 +1,12 @@
 <template>
     <ul
         class="vfb-checkboxes"
-        :class="{'invalid': state === false, 'valid': state === true}"
+        :class="{ invalid: state === false, valid: state === true }"
     >
-        <li v-for="(option,i) in options" :key="i">
+        <li
+            v-for="(option, i) in options"
+            :key="i"
+        >
             <input
                 type="checkbox"
                 class="vfb-checkbox"
@@ -11,7 +14,8 @@
                 :id="`${id}_${i}`"
                 :value="option.value"
                 :checked="modelValue.includes(option.value)"
-                @change="handleInput" />
+                @change="handleInput"
+            />
             <label :for="`${id}_${i}`">
                 {{ option.text }}
             </label>

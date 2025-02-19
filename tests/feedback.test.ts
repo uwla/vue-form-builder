@@ -1,7 +1,7 @@
-import { expect, test } from 'vitest'
-import { errors, messages, wrapper } from './common'
+import { expect, test } from "vitest"
+import { errors, messages, wrapper } from "./common"
 
-test('it shows errors', async () => {
+test("it shows errors", async () => {
     await wrapper.setProps({ errors })
 
     let errorsArray = Object.values(errors)
@@ -13,12 +13,12 @@ test('it shows errors', async () => {
         expect(feedbacks[i].text()).toBe(errorsArray[i])
 })
 
-test('it hides errors', async () => {
+test("it hides errors", async () => {
     await wrapper.setProps({ errors: {} })
     expect(wrapper.findAll(`.vfb-feedback-invalid.visible`)).toHaveLength(0)
 })
 
-test('it shows messages', async () => {
+test("it shows messages", async () => {
     await wrapper.setProps({ messages })
 
     let messagesArray = Object.values(messages)
@@ -30,7 +30,7 @@ test('it shows messages', async () => {
         expect(feedbacks[i].text()).toBe(messagesArray[i])
 })
 
-test('it hides messages', async () => {
+test("it hides messages", async () => {
     await wrapper.setProps({ messages: {} })
     expect(wrapper.findAll(`.vfb-feedback-valid.visible`)).toHaveLength(0)
 })

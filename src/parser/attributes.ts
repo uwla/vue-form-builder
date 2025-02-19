@@ -4,8 +4,8 @@ import OptionsAttribute from "./attributes/OptionsAttribute"
 import PropsAttribute from "./attributes/PropsAttribute"
 import TypeAttribute from "./attributes/TypeAttribute"
 
-const attributeParsers : AttributeParser[] = [
-    new BooleanAttribute(),    
+const attributeParsers: AttributeParser[] = [
+    new BooleanAttribute(),
     new InputAttribute(),
     new OptionsAttribute(),
     new PropsAttribute(),

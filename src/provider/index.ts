@@ -1,15 +1,19 @@
-import { VfbProvider, BootstrapVueProvider, VuetifyProvider, PrimevueProvider } from "./providers"
+import {
+    VfbProvider,
+    BootstrapVueProvider,
+    VuetifyProvider,
+    PrimevueProvider,
+} from "./providers"
 
-var providers : Providers = {
-    'vfb': VfbProvider,
-    'vuetify': VuetifyProvider,
-    'primevue': PrimevueProvider,
-    'bootstrap-vue': BootstrapVueProvider,
+var providers: Providers = {
+    "vfb": VfbProvider,
+    "vuetify": VuetifyProvider,
+    "primevue": PrimevueProvider,
+    "bootstrap-vue": BootstrapVueProvider,
 }
 
 function addProvider(name: ProviderName, provider: ComponentProvider) {
-    if (! Object(providers).hasOwnProperty(name))
-        providers[name] = provider
+    if (!Object(providers).hasOwnProperty(name)) providers[name] = provider
 }
 
 function delProvider(name: ProviderName) {

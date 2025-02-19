@@ -7,25 +7,30 @@
                 :placeholder="placeholder"
                 class="vfb-input"
                 type="text"
-            >
+            />
         </div>
-        <div class="vfb-group vfb-buttons" v-show="modelValue.length">
+        <div
+            class="vfb-group vfb-buttons"
+            v-show="modelValue.length"
+        >
             <!-- @vue-ignore -->
             <button
-                v-for="(value,i) in modelValue" :key="i"
+                v-for="(value, i) in modelValue"
+                :key="i"
                 @click="removeTag(value)"
                 class="vfb-tag"
             >
-                <span> {{ value}} </span>
+                <span>{{ value }}</span>
                 <span class="vfb-tag-x">x</span>
             </button>
         </div>
         <div v-if="searchResults.length == 0">
             <span>0 items matching search query...</span>
         </div>
-        <ul v-else
+        <ul
+            v-else
             class="vfb-checkboxes"
-            :class="{ 'invalid': state === false, 'valid': state === true }"
+            :class="{ invalid: state === false, valid: state === true }"
         >
             <li
                 v-for="(option, i) in searchResults"
