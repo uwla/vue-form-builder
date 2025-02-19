@@ -1,5 +1,5 @@
-import "../../types"
 import { castValue } from "../../helpers"
+import type { Attribute, AttributeParser } from "../../types"
 
 export default class HtmlAttribute implements AttributeParser {
     isAttribute(attribute: string): boolean {

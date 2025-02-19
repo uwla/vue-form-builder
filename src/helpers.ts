@@ -1,4 +1,4 @@
-import "./types"
+import type { Data, Field, Model } from "./types"
 
 export function toTitleCase(str: string): string {
     return (

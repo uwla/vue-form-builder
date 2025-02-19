@@ -48,7 +48,7 @@ test("it gets the file", async () => {
     // it should also contain other data
     for (const key of Object.keys(model)) {
         const val = model[key]
-        let payloadVal = null
+        let payloadVal: any = null
 
         // arrays are dealt differently in form data
         if (Array.isArray(val)) payloadVal = payload.getAll(`${key}[]`)

@@ -1,3 +1,4 @@
+import type { AttributeParser } from "../types"
 import BooleanAttribute from "./attributes/BooleanAttribute"
 import InputAttribute from "./attributes/InputAttribute"
 import OptionsAttribute from "./attributes/OptionsAttribute"

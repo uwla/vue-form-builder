@@ -8,6 +8,7 @@ import {
     veryCustomizedFields,
 } from "./common"
 import { ProviderService } from "../src/provider"
+import type { Field } from "../src/types"
 
 const BootstrapVueProvider = ProviderService.getProvider("bootstrap-vue")
 
@@ -18,7 +19,7 @@ const BootstrapVueProvider = ProviderService.getProvider("bootstrap-vue")
 const parser = new Parser()
 
 // this variable will store the parsed fields
-let fields = []
+let fields: Field[] = []
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TESTS

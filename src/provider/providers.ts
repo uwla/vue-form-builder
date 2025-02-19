@@ -1,6 +1,8 @@
 // ----------------------------------------------------------------------------
 // COMPONENT PROVIDERS
 
+import { type ComponentProvider } from "../types"
+
 // Dictionary: field type => VueFormBuilder component
 const VfbProvider: ComponentProvider = {
     checkboxes: "vfb-checkboxes",

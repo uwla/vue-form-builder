@@ -1,3 +1,4 @@
+import type { ComponentProvider, ProviderName, Providers } from "../types"
 import {
     VfbProvider,
     BootstrapVueProvider,

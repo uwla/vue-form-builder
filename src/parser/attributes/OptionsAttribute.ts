@@ -1,4 +1,5 @@
 import { castValue } from "../../helpers"
+import type { Attribute, AttributeParser } from "../../types"
 
 export default class PropsAttribute implements AttributeParser {
     isAttribute(attr: string): boolean {

@@ -8,16 +8,16 @@ import {
     toTitleCase,
 } from "../helpers"
 import { ProviderService } from "../provider"
-import {
-    type Attribute,
-    type ComponentProvider,
-    type Field,
-    type FieldDescription,
-    type FieldType,
-    type FieldValue,
-    type ParserOptions,
-    type VueComponent,
-    type VueComponentProps,
+import type {
+    Attribute,
+    ComponentProvider,
+    Field,
+    FieldDescription,
+    FieldType,
+    FieldValue,
+    ParserOptions,
+    VueComponent,
+    VueComponentProps,
 } from "../types"
 
 const defaultParserOptions: ParserOptions = {

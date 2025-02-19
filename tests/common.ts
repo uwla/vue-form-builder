@@ -5,6 +5,7 @@ import CustomFeedback from "./components/CustomFeedback.vue"
 import CalendarField from "./components/CalendarField.vue"
 import { components, VueFormBuilder } from "../src/main"
 import { shuffleArray } from "../src/helpers"
+import type { FieldDescription, Model } from "../src/types"
 
 // ────────────────────────────────────────────────────────────────────────────────
 // COMMON VARIABLES USED ACROSS TEST SUITES

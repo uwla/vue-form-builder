@@ -10,6 +10,7 @@ import {
 } from "../helpers"
 import { Parser } from "../parser"
 import { ProviderService } from "../provider"
+import type { Data, Field } from "../types"
 
 export default defineComponent({
     props: {

@@ -1,4 +1,4 @@
-import "../../types"
+import type { Attribute, AttributeParser } from "../../types"
 
 export default class InputAttribute implements AttributeParser {
     isAttribute(attr: string): boolean {

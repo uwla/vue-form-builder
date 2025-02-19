@@ -1,3 +1,5 @@
+import type { FieldAlias, FieldAliases } from "./types"
+
 const aliases: FieldAliases = {
     name: "name:name|text",
     fname: "name:fname|text|label:First name",

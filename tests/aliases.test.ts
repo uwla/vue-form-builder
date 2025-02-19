@@ -1,5 +1,6 @@
 import { expect, test } from "vitest"
 import fieldAliases from "../src/aliases"
+import type { FieldAlias, FieldAliases } from "../src/types"
 
 const key = "name"
 const val: FieldAlias = "name:name|label|Full name|text"
