@@ -12,7 +12,6 @@ import { Parser } from "../parser"
 import { ProviderService } from "../provider"
 
 export default defineComponent({
-
     props: {
         clearFeedbackOnInput: { type: Boolean, default: true },
         defaults: { type: Object, required: false, default: () => ({}) },
