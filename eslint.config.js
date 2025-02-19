@@ -14,6 +14,8 @@ export default typescriptEslint.config(
             "src/dev.ts",
             "tests/components/*",
         ],
+    },
+    {
         extends: [
             eslint.configs.recommended,
             ...typescriptEslint.configs.recommended,

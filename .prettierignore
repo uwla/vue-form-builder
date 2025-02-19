@@ -3,6 +3,6 @@ dist/
 build/
 assets/
 index.html
-.github
+.github/
 *.md
 *.min.js
