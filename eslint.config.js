@@ -6,7 +6,14 @@ import typescriptEslint from "typescript-eslint"
 
 export default typescriptEslint.config(
     {
-        ignores: ["*.d.ts", "**/coverage", "**/dist", "assets/"],
+        ignores: [
+            "*.d.ts",
+            "**/coverage",
+            "**/dist",
+            "assets/",
+            "src/dev.ts",
+            "tests/components/*",
+        ],
         extends: [
             eslint.configs.recommended,
             ...typescriptEslint.configs.recommended,
@@ -21,6 +28,15 @@ export default typescriptEslint.config(
         },
         rules: {
             "@typescript-eslint/no-explicit-any": "off", // Allow the use of `any`
+            "@typescript-eslint/no-unused-vars": [
+                "error",
+                {
+                    args: "all",
+                    argsIgnorePattern: "^_",
+                    varsIgnorePattern: "^_",
+                    caughtErrorsIgnorePattern: "^_",
+                },
+            ],
             "vue/multi-word-component-names": "off", // Disable multi-word component names rule
             "vue/require-default-prop": "off", // Disable requiring default props
             "vue/no-v-html": "off", // Allow v-html usage (if needed)

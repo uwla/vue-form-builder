@@ -43,7 +43,7 @@ function delAliases(keys: string[]): void {
 }
 
 function isAlias(key: string): boolean {
-    return Object(aliases).hasOwnProperty(key)
+    return Object.prototype.hasOwnProperty.call(aliases, key)
 }
 
 function getAlias(key: string): FieldAlias {

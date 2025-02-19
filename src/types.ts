@@ -1,12 +1,12 @@
 // TYPE DEFINITIONS
 
-type VueComponent = string
-type VueComponentProps = { [key: string]: any }
+export type VueComponent = string
+export type VueComponentProps = { [key: string]: any }
 
-type FieldValue = any
-type FieldType = string
-type FieldName = string
-type Field = {
+export type FieldValue = any
+export type FieldType = string
+export type FieldName = string
+export type Field = {
     [index: string]: any
     component: VueComponent
     componentFeedback: VueComponent
@@ -22,24 +22,24 @@ type Field = {
     wrapper?: VueComponent
 }
 
-type FieldDescription = Field | string | any
-type FieldAlias = FieldDescription
-type FieldAliases = { [key: string]: FieldAlias }
+export type FieldDescription = Field | string | any
+export type FieldAlias = FieldDescription
+export type FieldAliases = { [key: string]: FieldAlias }
 
-type Attribute = { [key: string]: any }
-interface AttributeParser {
+export type Attribute = { [key: string]: any }
+export interface AttributeParser {
     isAttribute(str: string): boolean
     stringToAttribute(str: string): Attribute
 }
 
-type Data = { [key: FieldName]: FieldValue }
-type Model = { [key: FieldName]: FieldValue }
+export type Data = { [key: FieldName]: FieldValue }
+export type Model = { [key: FieldName]: FieldValue }
 
-type ComponentProvider = { [key: FieldType]: VueComponent }
-type ProviderName = string
-type Providers = { [key: ProviderName]: ComponentProvider }
+export type ComponentProvider = { [key: FieldType]: VueComponent }
+export type ProviderName = string
+export type Providers = { [key: ProviderName]: ComponentProvider }
 
-type ParserOptions = {
+export type ParserOptions = {
     attachRandomId?: boolean
     provider: ProviderName
     wrapper?: VueComponent

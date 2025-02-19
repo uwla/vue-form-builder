@@ -13,7 +13,8 @@ const providers: Providers = {
 }
 
 function addProvider(name: ProviderName, provider: ComponentProvider) {
-    if (!Object(providers).hasOwnProperty(name)) providers[name] = provider
+    if (!Object.prototype.hasOwnProperty.call(providers, name))
+        providers[name] = provider
 }
 
 function delProvider(name: ProviderName) {
@@ -25,7 +26,7 @@ function getProvider(name: ProviderName) {
 }
 
 function hasProvider(name: ProviderName) {
-    return Object(providers).hasOwnProperty(name)
+    return Object.prototype.hasOwnProperty.call(providers, name)
 }
 
 function setProvider(name: ProviderName, provider: ComponentProvider) {

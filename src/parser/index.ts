@@ -8,6 +8,17 @@ import {
     toTitleCase,
 } from "../helpers"
 import { ProviderService } from "../provider"
+import {
+    type Attribute,
+    type ComponentProvider,
+    type Field,
+    type FieldDescription,
+    type FieldType,
+    type FieldValue,
+    type ParserOptions,
+    type VueComponent,
+    type VueComponentProps,
+} from "../types"
 
 const defaultParserOptions: ParserOptions = {
     attachRandomId: true,
@@ -82,7 +93,7 @@ export class Parser {
         return field.componentFeedback || "vfb-feedback"
     }
 
-    getFieldFeedbackComponentProps(field: Field): VueComponentProps {
+    getFieldFeedbackComponentProps(_field: Field): VueComponentProps {
         return {
             validFeedbackComponent: this.components["feedbackValid"],
             invalidFeedbackComponent: this.components["feedbackInvalid"],
@@ -141,7 +152,7 @@ export class Parser {
             const attributeObject: Attribute = this.stringToAttribute(attrStr)
             for (const key in attributeObject) {
                 const attributeValue: any = attributeObject[key]
-                if (!Object(field).hasOwnProperty(key))
+                if (!Object.prototype.hasOwnProperty.call(field, key))
                     field[key] = attributeValue
                 else field[key] = { ...field[key], ...attributeValue }
             }

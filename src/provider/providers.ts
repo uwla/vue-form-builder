@@ -89,7 +89,7 @@ type CP = ComponentProvider
 function addMissingComponentsToProvider(source: CP, target: CP) {
     // Copy components from source to target if they are not present in target.
     for (const fieldType of Object.keys(source)) {
-        if (!Object(target).hasOwnProperty(fieldType)) {
+        if (!Object.prototype.hasOwnProperty.call(target, fieldType)) {
             target[fieldType] = source[fieldType]
         }
     }
