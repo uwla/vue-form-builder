@@ -7,7 +7,7 @@ export default class HtmlAttribute implements AttributeParser {
     }
 
     stringToAttribute(attr: string): Attribute {
-        let key: string = attr.split("=")[0]
+        const key: string = attr.split("=")[0]
         let value: any = attr.split("=")[1]
 
         // cast value if needed

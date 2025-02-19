@@ -14,8 +14,8 @@
             <component
                 :is="field.component"
                 v-bind="field.props"
-                :modelValue="field.value"
-                @update:modelValue="(v: any) => handleInput(field, v)"
+                :model-value="field.value"
+                @update:model-value="(v: any) => handleInput(field, v)"
             />
             <component
                 :is="field.componentFeedback"

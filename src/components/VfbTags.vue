@@ -2,23 +2,23 @@
     <div class="vfb-tags">
         <div class="vfb-group">
             <input
-                v-model="query"
                 :id="id"
+                v-model="query"
                 :placeholder="placeholder"
                 class="vfb-input"
                 type="text"
             />
         </div>
         <div
-            class="vfb-group vfb-buttons"
             v-show="modelValue.length"
+            class="vfb-group vfb-buttons"
         >
             <!-- @vue-ignore -->
             <button
                 v-for="(value, i) in modelValue"
                 :key="i"
-                @click="removeTag(value)"
                 class="vfb-tag"
+                @click="removeTag(value)"
             >
                 <span>{{ value }}</span>
                 <span class="vfb-tag-x">x</span>
@@ -37,10 +37,10 @@
                 :key="option.value"
             >
                 <input
+                    :id="`${id}_${i}`"
                     type="checkbox"
                     class="vfb-checkbox"
                     :name="name"
-                    :id="`${id}_${i}`"
                     :value="option.value"
                     :checked="modelValue.includes(option.value)"
                     @change="handleInput"

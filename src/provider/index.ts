@@ -5,7 +5,7 @@ import {
     PrimevueProvider,
 } from "./providers"
 
-var providers: Providers = {
+const providers: Providers = {
     "vfb": VfbProvider,
     "vuetify": VuetifyProvider,
     "primevue": PrimevueProvider,

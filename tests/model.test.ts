@@ -4,14 +4,14 @@ import { model, setCheckboxValue, simulateUserInput, wrapper } from "./common"
 test("it syncs with the model", async () => {
     await wrapper.setProps({ modelValue: model })
 
-    for (let key in model) {
-        let value = model[key]
+    for (const key in model) {
+        const value = model[key]
 
         // radio options
         if (key === "country") {
             const radios: any = wrapper.findAll(`[name=${key}]`)
             for (let i = 0; i < radios.length; i += 1) {
-                let radio = radios[i].element
+                const radio = radios[i].element
                 expect(radio.checked).toBe(radio.value === value)
             }
             continue
@@ -21,8 +21,8 @@ test("it syncs with the model", async () => {
         if (key === "fruits") {
             const checkboxes: any = wrapper.findAll(`[name=${key}]`)
             for (let i = 0; i < checkboxes.length; i += 1) {
-                let checkbox = checkboxes[i]
-                let val = checkbox.element.value
+                const checkbox = checkboxes[i]
+                const val = checkbox.element.value
                 expect(checkbox.element.checked).toBe(value.includes(val))
             }
             continue
@@ -106,8 +106,8 @@ test("it omits null values", async () => {
     await wrapper.find("[name=token]").setValue("")
 
     // empty all checkboxes
-    let checkboxes = wrapper.findAll("[name=fruits]") as any
-    for (let checkbox of checkboxes) await setCheckboxValue(checkbox, false)
+    const checkboxes = wrapper.findAll("[name=fruits]") as any
+    for (const checkbox of checkboxes) await setCheckboxValue(checkbox, false)
 
     // filter keys to not include null ones
     const keys = ["website_url", "email", "country", "agree"]

@@ -12,13 +12,20 @@ import { Parser } from "../parser"
 import { ProviderService } from "../provider"
 
 export default defineComponent({
-    computed: {
-        componentProvider() {
-            return ProviderService.getProvider(this.provider)
-        },
-        formComponent() {
-            return this.componentProvider["form"]
-        },
+
+    props: {
+        clearFeedbackOnInput: { type: Boolean, default: true },
+        defaults: { type: Object, required: false, default: () => ({}) },
+        errors: { type: Object, required: false, default: () => ({}) },
+        fields: { type: Array, required: true },
+        messages: { type: Object, required: false, default: () => ({}) },
+        modelValue: { type: Object, required: false, default: () => null },
+        omitNull: { type: Boolean, default: false },
+        provider: { type: String, default: "vfb" },
+        validateOnSubmit: { type: Boolean, default: true },
+        validateOnInput: { type: Boolean, default: false },
+        validation: { type: Object, required: false, default: () => ({}) },
+        wrapper: { type: String, required: false, default: null },
     },
 
     data() {
@@ -28,10 +35,32 @@ export default defineComponent({
             parser: {} as Parser,
         }
     },
+    computed: {
+        componentProvider() {
+            return ProviderService.getProvider(this.provider)
+        },
+        formComponent() {
+            return this.componentProvider["form"]
+        },
+    },
+
+    watch: {
+        errors: { handler: "displayErrors", immediate: false },
+        fields: { handler: "parseFormFields" },
+        messages: { handler: "displayMessages", immediate: false },
+        modelValue: { handler: "syncValuesWithModel", immediate: false },
+        provider: { handler: "parseFormFields", immediate: false },
+    },
+
+    mounted() {
+        this.parseFormFields()
+        this.setupFeedback()
+        this.initializeValues()
+    },
 
     methods: {
         clearFieldFeedback(field: Field) {
-            let { name } = field
+            const { name } = field
             if (!name) return
             field.props.state = null
             this.feedbacks[name].state = null
@@ -39,14 +68,14 @@ export default defineComponent({
         displayErrors() {
             this.fieldsParsed = this.fieldsParsed.map((field: Field) => {
                 // nameless field have no feedback
-                let { name } = field
+                const { name } = field
                 if (!name) return field
 
                 // clear field feedback
                 this.clearFieldFeedback(field)
 
                 // return if no errors
-                let errors = this.errors[name]
+                const errors = this.errors[name]
                 if (!errors) return field
 
                 // update feedback
@@ -60,14 +89,14 @@ export default defineComponent({
         displayMessages() {
             this.fieldsParsed = this.fieldsParsed.map(field => {
                 // nameless field have no feedback
-                let { name } = field
+                const { name } = field
                 if (!name) return field
 
                 // clear feedback
                 this.clearFieldFeedback(field)
 
                 // return if no message
-                let message = this.messages[name]
+                const message = this.messages[name]
                 if (!message) return field
 
                 // update feedback
@@ -79,15 +108,15 @@ export default defineComponent({
             })
         },
         getValues(): Data | FormData {
-            let data = {} as Data
+            const data = {} as Data
 
             // form fields
-            let fields = this.fieldsParsed as Field[]
+            const fields = this.fieldsParsed as Field[]
 
             // if omitNull is true, will emit nullable field values
-            let { omitNull } = this
-            for (let field of fields) {
-                let { name, value } = field
+            const { omitNull } = this
+            for (const field of fields) {
+                const { name, value } = field
                 if (!name) continue
                 if (isNullable(value) && omitNull) continue
                 data[name] = value
@@ -114,7 +143,7 @@ export default defineComponent({
 
             // emit value
             if (this.modelValue !== null && field.name) {
-                let newValue = deepCopy(this.modelValue) as any
+                const newValue = deepCopy(this.modelValue) as any
                 newValue[field.name] = value
                 this.$emit("update:modelValue", newValue)
             }
@@ -125,7 +154,7 @@ export default defineComponent({
             // the default values are overwritten by the modelValue
             if (this.modelValue != null) defaults = this.modelValue
 
-            for (let field of this.fieldsParsed) {
+            for (const field of this.fieldsParsed) {
                 if (!field.name) continue
                 field.value = getDefaultFieldValue(defaults, field)
             }
@@ -146,7 +175,7 @@ export default defineComponent({
         },
         passValuesToFieldsAsProps() {
             // get the current values
-            let values = {} as Data
+            const values = {} as Data
             this.fieldsParsed.forEach(f => {
                 if (f.name) values[f.name] = f.value
             })
@@ -171,9 +200,9 @@ export default defineComponent({
         },
         setupFeedback() {
             const { parser } = this
-            for (let field of this.fieldsParsed) {
+            for (const field of this.fieldsParsed) {
                 // nameless fields have no feedback, so skip them
-                let { name } = field
+                const { name } = field
                 if (!name) continue
 
                 // set the properties for the feedback component,
@@ -206,8 +235,8 @@ export default defineComponent({
         },
         setFieldValues(values: any) {
             const form = this.$refs["form"]
-            for (let field of this.fieldsParsed) {
-                let { name, type } = field
+            for (const field of this.fieldsParsed) {
+                const { name, type } = field
 
                 // field needs direct access to the model
                 if (field.model === true) field.props.model = this.modelValue
@@ -236,21 +265,21 @@ export default defineComponent({
         },
         validateField(field: Field) {
             // if nameless field, return it
-            let name = field.name
+            const name = field.name
             if (!name) return field
 
             // if no validation function, return it
-            let validationFunction = this.validation[name]
+            const validationFunction = this.validation[name]
             if (validationFunction === undefined) return field
 
             // apply validation function
-            let validated = validationFunction(field.value)
+            const validated = validationFunction(field.value)
 
             // the default error message
-            let errors = this.errors[name]
+            const errors = this.errors[name]
 
             // the default success message
-            let message = this.messages[name]
+            const message = this.messages[name]
 
             // set validation state to undefined
             field.props.state = null
@@ -289,34 +318,5 @@ export default defineComponent({
             })
             return valid
         },
-    },
-
-    mounted() {
-        this.parseFormFields()
-        this.setupFeedback()
-        this.initializeValues()
-    },
-
-    props: {
-        clearFeedbackOnInput: { type: Boolean, default: true },
-        defaults: { type: Object, required: false, default: () => ({}) },
-        errors: { type: Object, required: false, default: () => ({}) },
-        fields: { type: Array, required: true },
-        messages: { type: Object, required: false, default: () => ({}) },
-        modelValue: { type: Object, required: false, default: () => null },
-        omitNull: { type: Boolean, default: false },
-        provider: { type: String, default: "vfb" },
-        validateOnSubmit: { type: Boolean, default: true },
-        validateOnInput: { type: Boolean, default: false },
-        validation: { type: Object, required: false, default: () => ({}) },
-        wrapper: { type: String, required: false, default: null },
-    },
-
-    watch: {
-        errors: { handler: "displayErrors", immediate: false },
-        fields: { handler: "parseFormFields" },
-        messages: { handler: "displayMessages", immediate: false },
-        modelValue: { handler: "syncValuesWithModel", immediate: false },
-        provider: { handler: "parseFormFields", immediate: false },
     },
 })

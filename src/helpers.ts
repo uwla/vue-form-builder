@@ -16,13 +16,13 @@ export function capitalize(str: string): string {
 
 export function isNumeric(str: any): boolean {
     if (typeof str !== "string") return false
-    let val = Number(str)
+    const val = Number(str)
     return !isNaN(val) && isFinite(val)
 }
 
 export function castValue<T>(value: T): number | boolean | T {
     if (typeof value === "string") {
-        let str = value as string
+        const str = value as string
         if (str === "true") return true
         if (str === "false") return false
         if (isNumeric(str)) return Number(str)
@@ -56,7 +56,7 @@ export function shuffleArray<T>(array: T[]): T[] {
     array = [...array]
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1))
-        let tmp = array[i]
+        const tmp = array[i]
         array[i] = array[j]
         array[j] = tmp
     }
@@ -64,7 +64,7 @@ export function shuffleArray<T>(array: T[]): T[] {
 }
 
 export function getDefaultFieldValue(model: Model, field: Field): any {
-    let { name, type, props, value } = field
+    const { name, type, props, value } = field
     if (name && model[name] !== undefined && type !== "file") return model[name]
     if (value !== undefined) return value
     if (type === "checkboxes" || type === "tags") return []
@@ -80,7 +80,7 @@ export function getDefaultFieldValue(model: Model, field: Field): any {
 export function bindThis(obj: any): void {
     const prototype = Object.getPrototypeOf(obj)
     const methodNames = Object.getOwnPropertyNames(prototype)
-    for (let method of methodNames) obj[method] = obj[method].bind(obj)
+    for (const method of methodNames) obj[method] = obj[method].bind(obj)
 }
 
 export function generateRandomDigits(n: number): string {
@@ -92,7 +92,7 @@ export function isFile(value: any): boolean {
 }
 
 export function fieldHasFile(field: Field): boolean {
-    let { value } = field
+    const { value } = field
     if (Array.isArray(value)) {
         return value.some(isFile)
     }
@@ -100,9 +100,9 @@ export function fieldHasFile(field: Field): boolean {
 }
 
 export function toFormData(data: Data): FormData {
-    let formData = new FormData()
-    for (let key of Object.keys(data)) {
-        let val = data[key]
+    const formData = new FormData()
+    for (const key of Object.keys(data)) {
+        const val = data[key]
         if (Array.isArray(val)) {
             val.forEach(item => formData.append(`${key}[]`, item))
         } else {
@@ -121,15 +121,15 @@ export function stopEvent(event: any) {
 }
 
 export function resetFormField(form: any, field: Field): void {
-    let { name, type, props } = field
+    const { name, type, props } = field
     if (!name) return
-    let value = deepCopy(field.value)
+    const value = deepCopy(field.value)
 
     // toggle the checked state of multiple checkboxes
     if (type === "checkboxes") {
-        let checkboxes = form.querySelectorAll(`[name=${name}]`)
-        for (let checkbox of checkboxes) {
-            let checked = value.includes(checkbox.value)
+        const checkboxes = form.querySelectorAll(`[name=${name}]`)
+        for (const checkbox of checkboxes) {
+            const checked = value.includes(checkbox.value)
             checkbox.checked = checked
         }
         return
@@ -137,8 +137,8 @@ export function resetFormField(form: any, field: Field): void {
 
     // toggle the checked state of multiple radio inputs
     if (type === "radio") {
-        let options = form.querySelectorAll(`[name=${name}]`)
-        for (let radio of options) {
+        const options = form.querySelectorAll(`[name=${name}]`)
+        for (const radio of options) {
             radio.checked = value === radio.value
         }
         return
@@ -146,8 +146,8 @@ export function resetFormField(form: any, field: Field): void {
 
     // toggle the selected state of multiple select options
     if (type === "select" && props.multiple) {
-        let options = form.querySelectorAll(`[name=${name}] option`)
-        for (let option of options) {
+        const options = form.querySelectorAll(`[name=${name}] option`)
+        for (const option of options) {
             option.selected = value.includes(option.value)
         }
         return
@@ -155,7 +155,7 @@ export function resetFormField(form: any, field: Field): void {
 
     // We have handled all multi-input fields.
     // Handle single input now.
-    let input = form.querySelector(`[name=${name}]`)
+    const input = form.querySelector(`[name=${name}]`)
     if (!input) return
 
     // toggle the checked state if input is checkbox

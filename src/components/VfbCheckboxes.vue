@@ -8,10 +8,10 @@
             :key="i"
         >
             <input
+                :id="`${id}_${i}`"
                 type="checkbox"
                 class="vfb-checkbox"
                 :name="name"
-                :id="`${id}_${i}`"
                 :value="option.value"
                 :checked="modelValue.includes(option.value)"
                 @change="handleInput"

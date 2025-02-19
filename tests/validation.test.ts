@@ -20,11 +20,11 @@ test("it validates on input", async () => {
     })
     wrapper.vm.setupFeedback()
 
-    let invalidFeedbacks = () =>
+    const invalidFeedbacks = () =>
         wrapper.findAll(".vfb-feedback-invalid.visible")
-    let invalidFeedbackText = () =>
+    const invalidFeedbackText = () =>
         wrapper.find(".vfb-feedback-invalid.visible").text()
-    let validFeedbackText = (n: any) =>
+    const validFeedbackText = (n: any) =>
         wrapper.find(`[name=${n}]~.vfb-feedback .visible`).text()
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -35,7 +35,7 @@ test("it validates on input", async () => {
     expect(invalidFeedbackText()).toBe(validationErrors["name"]["short"])
 
     // long name
-    let name = "Katelynn Medhurst Michale Sporer Leatha Stiedemann"
+    const name = "Katelynn Medhurst Michale Sporer Leatha Stiedemann"
     await wrapper.find("[name=name]").setValue(name)
     expect(invalidFeedbackText()).toBe(validationErrors["name"]["long"])
 
@@ -72,14 +72,14 @@ test("it validates on input", async () => {
     // Checkboxes field
 
     // checkboxes
-    let checkboxes = wrapper.findAll("[name=fruits]") as any
+    const checkboxes = wrapper.findAll("[name=fruits]") as any
 
     // check all
-    for (let checkbox of checkboxes) await setCheckboxValue(checkbox, true)
+    for (const checkbox of checkboxes) await setCheckboxValue(checkbox, true)
     expect(invalidFeedbackText()).toBe(validationErrors["fruits"]["many"])
 
     // uncheck all
-    for (let checkbox of checkboxes) await setCheckboxValue(checkbox, false)
+    for (const checkbox of checkboxes) await setCheckboxValue(checkbox, false)
     expect(invalidFeedbackText()).toBe(validationErrors["fruits"]["few"])
 
     // now, make it valid
@@ -164,7 +164,7 @@ test("it validates on submission", async () => {
     await nameField.setValue("Le")
     await genderField.setValue("")
     await agreeField.setValue(false)
-    for (let checkbox of checkboxes as any)
+    for (const checkbox of checkboxes as any)
         await setCheckboxValue(checkbox, true)
     options.forEach(async (o: any) => await o.setValue(true))
 

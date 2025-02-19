@@ -88,7 +88,7 @@ const VuetifyProvider: ComponentProvider = {
 type CP = ComponentProvider
 function addMissingComponentsToProvider(source: CP, target: CP) {
     // Copy components from source to target if they are not present in target.
-    for (let fieldType of Object.keys(source)) {
+    for (const fieldType of Object.keys(source)) {
         if (!Object(target).hasOwnProperty(fieldType)) {
             target[fieldType] = source[fieldType]
         }

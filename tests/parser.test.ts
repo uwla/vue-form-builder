@@ -141,10 +141,10 @@ test("it parses very customized fields", () => {
 })
 
 test("it parses", () => {
-    let keys = Object.keys(fieldAliases.getAllAliases())
-    let values = Object.values(fieldAliases.getAllAliases())
-    let fieldsFromKeys = parser.parseFields(keys)
-    let fieldsFromValues = parser.parseFields(values)
+    const keys = Object.keys(fieldAliases.getAllAliases())
+    const values = Object.values(fieldAliases.getAllAliases())
+    const fieldsFromKeys = parser.parseFields(keys)
+    const fieldsFromValues = parser.parseFields(values)
 
     // need to remove the ID field, because it is unique for each field
     function removeCssId(obj: any) {
@@ -160,7 +160,7 @@ test("it parses", () => {
 
 test("it assigns ID to the fields", () => {
     fields = parser.parseFields(mixedFields)
-    for (let field of fields) {
+    for (const field of fields) {
         // skip fields without label, cause they don't an ID
         if (field.label === "none") continue
 
@@ -173,10 +173,10 @@ test("it assigns ID to the fields", () => {
 })
 
 test("it parses fields using bootstrap components", () => {
-    let parser = new Parser({ provider: "bootstrap-vue" })
+    const parser = new Parser({ provider: "bootstrap-vue" })
 
     // we need to get fields without custom components
-    let fieldsWithoutCustomComponents = mixedFields.filter(f => {
+    const fieldsWithoutCustomComponents = mixedFields.filter(f => {
         if (typeof f === "string" && f.includes("component:")) return false
         if (typeof f === "object" && f.component) return false
         return true
@@ -185,7 +185,7 @@ test("it parses fields using bootstrap components", () => {
     // parse them
     fields = parser.parseFields(fieldsWithoutCustomComponents)
 
-    for (let field of fields as Field[]) {
+    for (const field of fields as Field[]) {
         expect(field.component).toBe(BootstrapVueProvider[field.type])
 
         if (field.props.hidden)
@@ -196,10 +196,10 @@ test("it parses fields using bootstrap components", () => {
 })
 
 test("it parses fields using custom wrapper", () => {
-    let parser = new Parser({ provider: "vfb", wrapper: "CustomWrapper" })
+    const parser = new Parser({ provider: "vfb", wrapper: "CustomWrapper" })
     fields = parser.parseFields(mixedFields)
 
-    for (let field of fields) {
+    for (const field of fields) {
         if (field.props.hidden)
             // hidden fields have a div as default wrapper
             expect(field.componentWrapper).toBe("div")

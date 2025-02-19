@@ -8,12 +8,12 @@
             :key="i"
         >
             <input
+                :id="`${id}_${i}`"
+                v-model="checked"
                 class="vfb-radio"
                 type="radio"
                 :name="name"
                 :value="option.value"
-                :id="`${id}_${i}`"
-                v-model="checked"
                 @change="handleInput"
             />
             <label :for="`${id}_${i}`">

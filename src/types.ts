@@ -40,7 +40,7 @@ type ProviderName = string
 type Providers = { [key: ProviderName]: ComponentProvider }
 
 type ParserOptions = {
-    attachRandomId?: Boolean
+    attachRandomId?: boolean
     provider: ProviderName
     wrapper?: VueComponent
 }

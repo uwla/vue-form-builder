@@ -1,6 +1,7 @@
 import { defineComponent } from "vue"
 
 export default defineComponent({
+    props: ["modelValue", "options", "name", "id", "state"],
     data() {
         return { checked: this.modelValue }
     },
@@ -9,5 +10,4 @@ export default defineComponent({
             this.$emit("update:modelValue", this.checked)
         },
     },
-    props: ["modelValue", "options", "name", "id", "state"],
 })

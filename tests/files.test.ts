@@ -46,8 +46,8 @@ test("it gets the file", async () => {
     expect(payload.get("photo")).toMatchObject(file)
 
     // it should also contain other data
-    for (let key of Object.keys(model)) {
-        let val = model[key]
+    for (const key of Object.keys(model)) {
+        const val = model[key]
         let payloadVal = null
 
         // arrays are dealt differently in form data

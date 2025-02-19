@@ -105,7 +105,7 @@ test("it renders select", () => {
     expect(options).toHaveLength(2)
 
     // check options text and value
-    let val = ["male", "female"]
+    const val = ["male", "female"]
     for (let i = 0; i < 2; i += 1) {
         expect(options.at(i).text()).toBe(val[i])
         expect(options.at(i).attributes("value")).toBe(val[i])

@@ -1,8 +1,8 @@
 <template>
     <input
+        v-model="checked"
         type="checkbox"
         class="vfb-checkbox"
-        v-model="checked"
         @change="handleInput"
     />
 </template>

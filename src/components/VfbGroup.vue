@@ -1,8 +1,8 @@
 <template>
     <div class="vfb-group">
         <label
-            :for="labelFor"
             v-if="label"
+            :for="labelFor"
         >
             {{ label }}
         </label>

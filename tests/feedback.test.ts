@@ -4,8 +4,8 @@ import { errors, messages, wrapper } from "./common"
 test("it shows errors", async () => {
     await wrapper.setProps({ errors })
 
-    let errorsArray = Object.values(errors)
-    let feedbacks = wrapper.findAll(`.vfb-feedback-invalid.visible`)
+    const errorsArray = Object.values(errors)
+    const feedbacks = wrapper.findAll(`.vfb-feedback-invalid.visible`)
 
     expect(feedbacks).toHaveLength(errorsArray.length)
 
@@ -21,8 +21,8 @@ test("it hides errors", async () => {
 test("it shows messages", async () => {
     await wrapper.setProps({ messages })
 
-    let messagesArray = Object.values(messages)
-    let feedbacks = wrapper.findAll(`.vfb-feedback-valid.visible`)
+    const messagesArray = Object.values(messages)
+    const feedbacks = wrapper.findAll(`.vfb-feedback-valid.visible`)
 
     expect(feedbacks).toHaveLength(messagesArray.length)
 

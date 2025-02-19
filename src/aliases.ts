@@ -19,7 +19,7 @@ function addAlias(key: string, alias: FieldAlias): void {
 }
 
 function addAliases(newAliases: FieldAliases): void {
-    for (let key of Object.keys(newAliases)) addAlias(key, newAliases[key])
+    for (const key of Object.keys(newAliases)) addAlias(key, newAliases[key])
 }
 
 function setAlias(key: string, alias: FieldAlias): void {
@@ -27,11 +27,11 @@ function setAlias(key: string, alias: FieldAlias): void {
 }
 
 function setAliases(newAliases: FieldAliases): void {
-    for (let key of Object.keys(newAliases)) setAlias(key, newAliases[key])
+    for (const key of Object.keys(newAliases)) setAlias(key, newAliases[key])
 }
 
 function delAllAliases(): void {
-    for (let key of Object.keys(aliases)) delete aliases[key]
+    for (const key of Object.keys(aliases)) delete aliases[key]
 }
 
 function delAlias(key: string): void {

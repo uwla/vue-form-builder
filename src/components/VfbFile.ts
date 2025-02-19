@@ -1,6 +1,7 @@
 import { defineComponent } from "vue"
 
 export default defineComponent({
+    props: ["modelValue", "multiple", "state"],
     methods: {
         handleInput(e: any) {
             const { files } = e.target
@@ -8,5 +9,4 @@ export default defineComponent({
             else this.$emit("update:modelValue", files[0])
         },
     },
-    props: ["modelValue", "multiple", "state"],
 })

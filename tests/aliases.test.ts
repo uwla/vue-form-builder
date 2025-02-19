@@ -1,11 +1,11 @@
 import { expect, test } from "vitest"
 import fieldAliases from "../src/aliases"
 
-let key = "name"
-let val: FieldAlias = "name:name|label|Full name|text"
-let newVal: FieldAlias = "name:name|label:Enter your full name|text"
+const key = "name"
+const val: FieldAlias = "name:name|label|Full name|text"
+const newVal: FieldAlias = "name:name|label:Enter your full name|text"
 
-let aliases: FieldAliases = {
+const aliases: FieldAliases = {
     job: "name:job|text|label:Current job",
     agree: "name:agree|checkbox|label:Agree to terms and conditions",
     country: "name:country|options:USA,Canada,Mexico,Other",
@@ -13,7 +13,7 @@ let aliases: FieldAliases = {
         "name:languages|checkboxes|multiple|options:bash,c,c++,go,java,javascript,python",
 }
 
-let newAliases: FieldAliases = {
+const newAliases: FieldAliases = {
     country: {
         name: "country",
         component: "multiselect",
@@ -43,7 +43,7 @@ let newAliases: FieldAliases = {
 }
 
 // save current aliases, so we can revert the state changes we will perform
-let originalAliases: FieldAliases = fieldAliases.getAllAliases()
+const originalAliases: FieldAliases = fieldAliases.getAllAliases()
 
 // first, we delete all aliases, to empty the internal state
 test("it deletes all aliases", () => {

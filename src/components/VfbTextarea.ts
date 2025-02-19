@@ -1,6 +1,7 @@
 import { defineComponent } from "vue"
 
 export default defineComponent({
+    props: ["modelValue", "state"],
     computed: {
         text: {
             get() {
@@ -11,5 +12,4 @@ export default defineComponent({
             },
         },
     },
-    props: ["modelValue", "state"],
 })

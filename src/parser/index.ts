@@ -17,7 +17,7 @@ const defaultParserOptions: ParserOptions = {
 export class Parser {
     components: ComponentProvider
     wrapper: VueComponent
-    attachRandomId: Boolean
+    attachRandomId: boolean
 
     /**
      * Create a new Parser instance.
@@ -45,7 +45,7 @@ export class Parser {
     }
 
     getFieldComponentProps(field: Field): VueComponentProps {
-        let props = { ...field.props, ...field.componentProps }
+        const props = { ...field.props, ...field.componentProps }
         if (!props.name) props.name = field.name
         if (this.attachRandomId && field.label !== "none" && !props.hidden)
             props.id = "VFB" + generateRandomDigits(10)
@@ -123,24 +123,24 @@ export class Parser {
     }
 
     stringToAttribute(attr: string): Attribute {
-        for (let Attribute of Attributes)
+        for (const Attribute of Attributes)
             if (Attribute.isAttribute(attr))
                 return Attribute.stringToAttribute(attr)
         throw new Error("Could not convert string to attribute")
     }
 
     stringToField(str: string): Field {
-        let attributes = Aliases.isAlias(str) ? Aliases.getAlias(str) : str
+        const attributes = Aliases.isAlias(str) ? Aliases.getAlias(str) : str
 
         if (typeof attributes === "object") return attributes
 
-        let attrArray = attributes.split("|")
-        let field: Field = {} as Field
+        const attrArray = attributes.split("|")
+        const field: Field = {} as Field
 
         attrArray.forEach((attrStr: string) => {
-            let attributeObject: Attribute = this.stringToAttribute(attrStr)
-            for (let key in attributeObject) {
-                let attributeValue: any = attributeObject[key]
+            const attributeObject: Attribute = this.stringToAttribute(attrStr)
+            for (const key in attributeObject) {
+                const attributeValue: any = attributeObject[key]
                 if (!Object(field).hasOwnProperty(key))
                     field[key] = attributeValue
                 else field[key] = { ...field[key], ...attributeValue }

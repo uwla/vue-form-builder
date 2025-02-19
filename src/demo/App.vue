@@ -1,7 +1,7 @@
 <template>
     <h1>VUE FORM BUILDER DEMO</h1>
     <p>Sample demo to showcase VueFormBuilder's functionalities.</p>
-    <vfb id="options" :fields="fieldsOptions" v-model="m"/>
+    <vfb id="options" v-model="m" :fields="fieldsOptions"/>
     <TabView id="demo" class="tabview-custom">
         <TabPanel header="VueFormBuilder">
             <vfb v-bind="commonParams" :fields="fields1" />
@@ -147,18 +147,6 @@ const emptyErrors = {}
 const emptyMsg = {}
 
 export default defineComponent({
-    computed: {
-        commonParams(): any {
-            return {
-                errors: (this.m.showErrors) ? errors : emptyErrors,
-                modelValue: (this.m.useModel) ? model : emptyModel,
-                messages: (this.m.showMessages) ? messages : emptyMsg,
-                validateOnInput: this.m.validateOnInput,
-                validateOnSubmit: this.m.validateOnSubmit,
-                validation: validation,
-            }
-        }
-    },
     data: () => {
         return {
             fields1,
@@ -178,6 +166,18 @@ export default defineComponent({
                 showMessages: false,
                 showErrors: false,
             },
+        }
+    },
+    computed: {
+        commonParams(): any {
+            return {
+                errors: (this.m.showErrors) ? errors : emptyErrors,
+                modelValue: (this.m.useModel) ? model : emptyModel,
+                messages: (this.m.showMessages) ? messages : emptyMsg,
+                validateOnInput: this.m.validateOnInput,
+                validateOnSubmit: this.m.validateOnSubmit,
+                validation: validation,
+            }
         }
     },
 });

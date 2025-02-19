@@ -1,10 +1,11 @@
 import { defineComponent } from "vue"
 
 export default defineComponent({
+    props: ["modelValue", "options", "name", "state", "id"],
     methods: {
         handleInput(e: any) {
-            let target = e.target
-            let value = target.value
+            const target = e.target
+            const value = target.value
             let newChecked = [...this.modelValue]
             if (newChecked.includes(value))
                 newChecked = newChecked.filter(v => v !== value)
@@ -12,5 +13,4 @@ export default defineComponent({
             this.$emit("update:modelValue", newChecked)
         },
     },
-    props: ["modelValue", "options", "name", "state", "id"],
 })

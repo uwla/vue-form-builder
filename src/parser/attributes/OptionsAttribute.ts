@@ -6,7 +6,7 @@ export default class PropsAttribute implements AttributeParser {
     }
 
     stringToAttribute(attr: string): Attribute {
-        let key: string = attr.split(":")[0]
+        const key: string = attr.split(":")[0]
         let value: any = attr.replace(key + ":", "")
 
         // The options attribute has the format 'options:list', where list is a

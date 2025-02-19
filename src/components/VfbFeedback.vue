@@ -1,7 +1,7 @@
 <template>
     <div
-        class="vfb-feedback"
         v-if="showFeedback"
+        class="vfb-feedback"
     >
         <component
             :is="invalidFeedbackComponent"

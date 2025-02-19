@@ -2,6 +2,7 @@ import { defineComponent } from "vue"
 
 export default defineComponent({
     name: "VfbSelect",
+    props: ["options", "modelValue", "state"],
     computed: {
         selected: {
             get() {
@@ -12,5 +13,4 @@ export default defineComponent({
             },
         },
     },
-    props: ["options", "modelValue", "state"],
 })

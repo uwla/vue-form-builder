@@ -186,15 +186,15 @@ export async function setCheckboxValue(checkbox: any, value: boolean) {
 
 // simulate user input on the wrapper
 export async function simulateUserInput(wrapper: any, values: any) {
-    for (let key in values) {
-        let val = values[key]
+    for (const key in values) {
+        const val = values[key]
 
         // ─────────────────────────────────────────────────────────────────────
         // checkboxes
         if (key === "fruits") {
             const checkboxes = wrapper.findAll(`[name=${key}]`)
-            for (let checkbox of checkboxes) {
-                let checked = val.includes(checkbox.element.value)
+            for (const checkbox of checkboxes) {
+                const checked = val.includes(checkbox.element.value)
                 await setCheckboxValue(checkbox, checked)
             }
             continue
@@ -204,7 +204,7 @@ export async function simulateUserInput(wrapper: any, values: any) {
         // radio
         if (key === "country") {
             const radios = wrapper.findAll(`[name=${key}]`)
-            for (let radio of radios) {
+            for (const radio of radios) {
                 if (val === radio.element.value) await radio.setValue(true)
             }
             continue
@@ -228,7 +228,7 @@ export async function simulateUserInput(wrapper: any, values: any) {
 
 // Get the form values within the wrapper without submitting it
 export function getValues(wrapper: any) {
-    let values: any = {}
+    const values: any = {}
     wrapper.vm.fieldsParsed.forEach((f: any) => {
         if (f.name) values[f.name] = f.value
     })

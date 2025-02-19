@@ -2,6 +2,18 @@ import { defineComponent } from "vue"
 
 export default defineComponent({
     name: "VfbTags",
+    props: {
+        options: { type: Array, required: true },
+        modelValue: { type: Array, required: true },
+        state: { type: Boolean, default: null },
+        placeholder: { type: String, default: "search..." },
+        emptyResults: {
+            type: String,
+            default: "0 items matching the search...",
+        },
+        id: String,
+        name: String,
+    },
     data() {
         return { query: "" }
     },
@@ -18,8 +30,8 @@ export default defineComponent({
     },
     methods: {
         handleInput(e: any) {
-            let target = e.target
-            let value = target.value
+            const target = e.target
+            const value = target.value
             let newChecked = [...(this.modelValue as string[])]
             if (newChecked.includes(value))
                 newChecked = newChecked.filter(v => v !== value)
@@ -32,17 +44,5 @@ export default defineComponent({
             )
             this.$emit("update:modelValue", newChecked)
         },
-    },
-    props: {
-        options: { type: Array, required: true },
-        modelValue: { type: Array, required: true },
-        state: { type: Boolean, default: null },
-        placeholder: { type: String, default: "search..." },
-        emptyResults: {
-            type: String,
-            default: "0 items matching the search...",
-        },
-        id: String,
-        name: String,
     },
 })

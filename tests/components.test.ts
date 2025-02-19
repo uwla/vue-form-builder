@@ -32,10 +32,10 @@ test("it set correct props of custom components", async () => {
     const fieldWrappers = wrapper.findAllComponents(CustomWrapper)
 
     let i = 0
-    for (let fieldObj of veryCustomizedFields) {
+    for (const fieldObj of veryCustomizedFields) {
         // get the components
-        let fieldComponent = fieldComponents[i]
-        let fieldWrapper = fieldWrappers[i]
+        const fieldComponent = fieldComponents[i]
+        const fieldWrapper = fieldWrappers[i]
 
         // test the properties were set correctly
         expect(fieldComponent.props()).toMatchObject(fieldObj.props)
@@ -47,7 +47,7 @@ test("it set correct props of custom components", async () => {
 })
 
 test("it passes model to components", async () => {
-    let fields = deepCopy(veryCustomizedFields)
+    const fields = deepCopy(veryCustomizedFields)
 
     // make the first field request the model
     fields[0].model = true
@@ -56,8 +56,8 @@ test("it passes model to components", async () => {
     await wrapper.setProps({ fields: fields })
 
     // get the vue component
-    let component1 = wrapper.findAllComponents(CustomField)[0]
-    let component2 = wrapper.findAllComponents(CustomField)[1]
+    const component1 = wrapper.findAllComponents(CustomField)[0]
+    const component2 = wrapper.findAllComponents(CustomField)[1]
 
     // test with empty model
     await wrapper.setProps({ modelValue: {} })
@@ -76,7 +76,7 @@ test("it passes model to components", async () => {
 })
 
 test("it passes values to components", async () => {
-    let formFields = [...veryCustomizedFields, ...fields]
+    const formFields = [...veryCustomizedFields, ...fields]
 
     // make the first field request the values
     formFields[0].values = true
@@ -94,8 +94,8 @@ test("it passes values to components", async () => {
     }
 
     // get the vue component
-    let component1 = wrapper.findAllComponents(CustomField)[0]
-    let component2 = wrapper.findAllComponents(CustomField)[1]
+    const component1 = wrapper.findAllComponents(CustomField)[0]
+    const component2 = wrapper.findAllComponents(CustomField)[1]
 
     // test it does pass the values
     await simulateUserInput(wrapper, input)
