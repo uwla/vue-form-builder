@@ -1,7 +1,8 @@
 import { defineComponent } from "vue"
 
 export default defineComponent({
-    props: ["modelValue", "state"],
+    name: "VfbRange",
+    props: { modelValue: Number, state: { type: Boolean, default: undefined } },
     emits: ["update:modelValue"],
     computed: {
         val: {

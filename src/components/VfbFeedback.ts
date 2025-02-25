@@ -1,8 +1,9 @@
 import { defineComponent } from "vue"
 
 export default defineComponent({
+    name: "VfbFeedback",
     props: {
-        state: { default: null, type: Boolean },
+        state: { type: Boolean, default: undefined },
         errors: [String, Array],
         message: String,
         invalidFeedbackComponent: [String, Object],

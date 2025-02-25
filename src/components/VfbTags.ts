@@ -5,7 +5,7 @@ export default defineComponent({
     props: {
         options: { type: Array, required: true },
         modelValue: { type: Array, required: true },
-        state: { type: Boolean, default: null },
+        state: { type: Boolean, default: undefined },
         placeholder: { type: String, default: "search..." },
         emptyResults: {
             type: String,

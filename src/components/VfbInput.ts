@@ -1,7 +1,8 @@
 import { defineComponent } from "vue"
 
 export default defineComponent({
-    props: ["modelValue", "state"],
+    name: "VfbInput",
+    props: { modelValue: String, state: { type: Boolean, default: undefined } },
     emits: ["update:modelValue"],
     computed: {
         val: {

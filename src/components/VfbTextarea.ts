@@ -1,7 +1,11 @@
 import { defineComponent } from "vue"
 
 export default defineComponent({
-    props: ["modelValue", "state"],
+    name: "VfbTextarea",
+    props: {
+        modelValue: { type: String },
+        state: { type: Boolean, default: undefined },
+    },
     emits: ["update:modelValue"],
     computed: {
         text: {

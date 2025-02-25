@@ -1,7 +1,8 @@
 import { defineComponent } from "vue"
 
 export default defineComponent({
-    props: ["modelValue"],
+    name: "VfbCheckbox",
+    props: { modelValue: { type: Boolean, default: undefined } },
     emits: ["update:modelValue"],
     data() {
         return { checked: this.modelValue }

@@ -1,7 +1,12 @@
 import { defineComponent } from "vue"
 
 export default defineComponent({
-    props: ["modelValue", "multiple", "state"],
+    name: "VfbFile",
+    props: {
+        modelValue: [Object, Array, String],
+        multiple: Boolean,
+        state: { type: Boolean, default: undefined },
+    },
     emits: ["update:modelValue"],
     methods: {
         handleInput(e: any) {

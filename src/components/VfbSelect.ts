@@ -2,7 +2,11 @@ import { defineComponent } from "vue"
 
 export default defineComponent({
     name: "VfbSelect",
-    props: ["options", "modelValue", "state"],
+    props: {
+        options: Array,
+        modelValue: [Array, String, Number],
+        state: { type: Boolean, default: undefined },
+    },
     emits: ["update:modelValue"],
     computed: {
         selected: {
